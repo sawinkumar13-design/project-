@@ -19,7 +19,6 @@ Personal portfolio website for **Sawin Kumar**, B.Tech Computer Science & Engine
 - **LinkedIn**: [linkedin.com/in/sawinkumar](https://linkedin.com/in/sawinkumar)
 - **GitHub**: [github.com/sawinkumar13-design](https://github.com/sawinkumar13-design)
 - **LeetCode**: [leetcode.com/u/sawinkumar/](https://leetcode.com/u/sawinkumar/)
-- **HackerRank**: [hackerrank.com/sawinkumar](https://hackerrank.com/sawinkumar) (Gold Badges)
 
 ---
 
@@ -37,14 +36,6 @@ Personal portfolio website for **Sawin Kumar**, B.Tech Computer Science & Engine
 4. **Data Structures & Algorithms Suite**
    - Technologies: Java, Python, LeetCode, HackerRank
    - Implementations across Arrays, Strings, Two Pointers, and Recursion with optimal complexity benchmarks.
-
----
-
-## 📜 Certifications & Accreditations
-
-- **HackerRank**: GOLD Badges & Verified Certifications in Problem Solving & Python/Java tracks.
-- **Infosys Springboard**: Certifications in Java, Python, Data Structures & Algorithms, HTML5, CSS3, Agile Methodologies, and Time Management.
-
 ---
 
 ## 🌐 Live Website
