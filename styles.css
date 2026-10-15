@@ -1,113 +1,182 @@
-/* Modern Dark Tech AI Portfolio Custom Styles */
+/* ========================= */
+/* Dark Tech Portfolio — CSS  */
+/* ========================= */
 
 /* Custom Scrollbar */
-::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #000; }
+::-webkit-scrollbar-thumb { background: #222; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #444; }
+
+/* ============ AURORA BACKGROUND ============ */
+.aurora-bg {
+    background: linear-gradient(
+        135deg,
+        transparent 0%,
+        rgba(100, 100, 120, 0.08) 25%,
+        rgba(150, 150, 170, 0.05) 40%,
+        transparent 50%,
+        rgba(80, 80, 100, 0.06) 65%,
+        rgba(120, 120, 140, 0.04) 80%,
+        transparent 100%
+    );
+    background-size: 400% 400%;
+    animation: auroraShift 20s ease-in-out infinite;
 }
 
-::-webkit-scrollbar-track {
-    background: #07090e;
+@keyframes auroraShift {
+    0%, 100% { background-position: 0% 50%; }
+    25% { background-position: 100% 0%; }
+    50% { background-position: 100% 100%; }
+    75% { background-position: 0% 100%; }
 }
 
-::-webkit-scrollbar-thumb {
-    background: #1e293b;
-    border-radius: 4px;
-    border: 2px solid #07090e;
+/* ============ FLOATING PARTICLES ============ */
+.particle {
+    position: absolute;
+    bottom: -10px;
+    width: 2px;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 50%;
+    animation: floatParticle linear infinite;
+    pointer-events: none;
 }
 
-::-webkit-scrollbar-thumb:hover {
-    background: #06b6d4;
+@keyframes floatParticle {
+    0% {
+        transform: translateY(0) translateX(0);
+        opacity: 0;
+    }
+    10% { opacity: 0.3; }
+    90% { opacity: 0.1; }
+    100% {
+        transform: translateY(-100vh) translateX(30px);
+        opacity: 0;
+    }
 }
 
-/* Glassmorphism utility */
-.glass {
-    background: rgba(15, 23, 42, 0.65);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+/* ============ HERO IMAGE CURTAIN REVEAL ============ */
+.hero-image-reveal {
+    clip-path: inset(100% 0 0 0);
+    animation: curtainReveal 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
 }
 
-/* Skill Tags */
-.skill-tag {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    padding: 3px 8px;
-    border-radius: 6px;
-    background: rgba(255, 255, 255, 0.03);
-    color: #94a3b8;
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    transition: all 0.2s ease;
+@keyframes curtainReveal {
+    0% { clip-path: inset(100% 0 0 0); }
+    100% { clip-path: inset(0 0 0 0); }
 }
 
-.skill-tag:hover {
-    color: #22d3ee;
-    border-color: rgba(34, 211, 238, 0.3);
-    background: rgba(34, 211, 238, 0.05);
+/* Glow effect around hero image */
+.hero-image-glow {
+    background: linear-gradient(135deg, rgba(0, 180, 220, 0.25), rgba(200, 50, 100, 0.25));
+    animation: glowPulse 4s ease-in-out infinite alternate;
 }
 
-/* Project Tech Tags */
+@keyframes glowPulse {
+    0% { opacity: 0.3; filter: blur(20px); }
+    100% { opacity: 0.6; filter: blur(30px); }
+}
+
+/* ============ TEXT REVEAL ANIMATION ============ */
+.text-reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: textSlideIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation-delay: calc(0.6s + var(--delay, 0) * 0.15s);
+}
+
+@keyframes textSlideIn {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ============ SCROLL REVEAL ============ */
+.reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Stagger delays */
+.delay-1 { transition-delay: 0.1s; }
+.delay-2 { transition-delay: 0.2s; }
+.delay-3 { transition-delay: 0.3s; }
+.delay-4 { transition-delay: 0.4s; }
+.delay-5 { transition-delay: 0.5s; }
+.delay-6 { transition-delay: 0.6s; }
+
+/* ============ CARD HOVER ============ */
+.card-hover {
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-hover:hover {
+    transform: translateY(-4px);
+    border-color: rgba(255, 255, 255, 0.12);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+}
+
+/* ============ TAGS ============ */
 .tag {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    padding: 4px 10px;
-    border-radius: 8px;
-    background: rgba(255, 255, 255, 0.04);
-    color: #cbd5e1;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    transition: all 0.2s ease;
+    font-size: 10px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.03);
+    color: rgba(255, 255, 255, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    transition: all 0.2s;
 }
 
 .tag:hover {
-    border-color: rgba(99, 102, 241, 0.4);
-    color: #818cf8;
+    color: rgba(255, 255, 255, 0.6);
+    border-color: rgba(255, 255, 255, 0.15);
 }
 
-/* Filter Buttons */
+/* ============ FILTER BUTTONS ============ */
 .filter-btn {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 12px;
-    padding: 6px 14px;
-    border-radius: 9999px;
+    font-size: 11px;
+    padding: 5px 12px;
+    border-radius: 999px;
     background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    color: #94a3b8;
-    transition: all 0.25s ease;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    color: rgba(255, 255, 255, 0.3);
     cursor: pointer;
+    transition: all 0.25s;
 }
 
 .filter-btn:hover {
-    color: #ffffff;
-    border-color: rgba(255, 255, 255, 0.2);
-    background: rgba(255, 255, 255, 0.06);
+    color: rgba(255, 255, 255, 0.7);
+    border-color: rgba(255, 255, 255, 0.15);
 }
 
 .filter-btn.active {
-    background: linear-gradient(135deg, rgba(6, 182, 212, 0.2), rgba(99, 102, 241, 0.2));
-    border-color: #06b6d4;
-    color: #22d3ee;
-    box-shadow: 0 0 15px rgba(6, 182, 212, 0.2);
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.2);
+    color: #fff;
 }
 
-/* Interactive Playground Samples */
-.sample-prompt-btn {
-    font-family: 'JetBrains Mono', monospace;
-    padding: 3px 10px;
-    border-radius: 6px;
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    color: #94a3b8;
-    cursor: pointer;
-    transition: all 0.2s ease;
+/* ============ ACTIVE NAV ============ */
+.nav-link.active-nav {
+    color: rgba(255, 255, 255, 0.9) !important;
+    background: rgba(255, 255, 255, 0.06);
 }
 
-.sample-prompt-btn:hover {
-    color: #22d3ee;
-    border-color: rgba(34, 211, 238, 0.4);
-    background: rgba(34, 211, 238, 0.08);
-}
-
-/* Neural Network Canvas */
+/* ============ NEURAL CANVAS ============ */
 #neuralCanvas {
     position: absolute;
     top: 0;
@@ -117,49 +186,13 @@
     z-index: 1;
 }
 
-/* Token chip in playground */
-.token-chip {
+/* ============ SKILL TAG (legacy compat) ============ */
+.skill-tag {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    padding: 2px 8px;
+    font-size: 10px;
+    padding: 3px 8px;
     border-radius: 4px;
-    background: rgba(6, 182, 212, 0.1);
-    color: #22d3ee;
-    border: 1px solid rgba(6, 182, 212, 0.25);
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    animation: fadeIn 0.3s ease-in-out;
-}
-
-.token-chip-special {
-    background: rgba(168, 85, 247, 0.15);
-    color: #c084fc;
-    border-color: rgba(168, 85, 247, 0.3);
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(4px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* Subtle glow effects */
-.glow-cyan {
-    box-shadow: 0 0 25px rgba(6, 182, 212, 0.25);
-}
-
-.glow-indigo {
-    box-shadow: 0 0 25px rgba(99, 102, 241, 0.25);
-}
-
-/* Active navigation link */
-.nav-link.active-nav {
-    color: #22d3ee;
-    background: rgba(34, 211, 238, 0.08);
+    background: rgba(255, 255, 255, 0.03);
+    color: rgba(255, 255, 255, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.06);
 }

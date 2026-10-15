@@ -4,46 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sawin Kumar | Aspiring Data Scientist & Software Engineer</title>
-    <meta name="description" content="Portfolio of Sawin Kumar - B.Tech Computer Science student at GLA University, aspiring Data Scientist with expertise in Python, Java, Pandas, NumPy, Machine Learning, and Data Structures.">
-    <meta name="keywords" content="Sawin Kumar, Data Scientist, Machine Learning, GLA University, Python, Java, DSA, NumPy, Pandas, Portfolio">
-    <meta property="og:title" content="Sawin Kumar | Aspiring Data Scientist & Software Engineer">
-    <meta property="og:description" content="Explore my Data Science projects, Java applications, educational background at GLA University, and technical certifications.">
-    <meta property="og:type" content="website">
+    <meta name="description" content="Portfolio of Sawin Kumar — B.Tech CSE student at GLA University. Python, Java, Data Science, and Problem Solving.">
 
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
-            darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
-                        dark: {
-                            950: '#07090e',
-                            900: '#0b0f19',
-                            850: '#111827',
-                            800: '#1e293b',
-                            700: '#334155'
-                        },
-                        cyan: {
-                            400: '#22d3ee',
-                            500: '#06b6d4',
-                            glow: 'rgba(34, 211, 238, 0.25)'
-                        },
-                        indigo: {
-                            400: '#818cf8',
-                            500: '#6366f1',
-                            glow: 'rgba(99, 102, 241, 0.25)'
-                        },
-                        amber: {
-                            400: '#fbbf24',
-                            500: '#f59e0b'
-                        }
+                        dark: { 950: '#050505', 900: '#0a0a0a', 800: '#141414', 700: '#1a1a1a', 600: '#222222', 500: '#2a2a2a' },
                     },
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
@@ -53,1452 +26,691 @@
             }
         }
     </script>
-
-    <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
-
-    <!-- Custom CSS -->
     <link rel="stylesheet" href="styles.css">
 </head>
 
-<body class="bg-dark-950 text-slate-100 font-sans antialiased selection:bg-cyan-500/30 selection:text-cyan-300 relative overflow-x-hidden">
+<body class="bg-black text-white font-sans antialiased selection:bg-white/20 selection:text-white overflow-x-hidden">
 
-    <!-- Ambient Gradient Backdrops -->
-    <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-        <div class="absolute -top-40 -left-40 w-96 h-96 bg-cyan-500/15 rounded-full blur-[128px]"></div>
-        <div class="absolute top-1/3 -right-40 w-[30rem] h-[30rem] bg-indigo-500/15 rounded-full blur-[140px]"></div>
-        <div class="absolute -bottom-40 left-1/3 w-96 h-96 bg-amber-500/10 rounded-full blur-[128px]"></div>
-        <div class="absolute inset-0 bg-[linear-gradient(to_right,#1f293708_1px,transparent_1px),linear-gradient(to_bottom,#1f293708_1px,transparent_1px)] bg-[size:3.5rem_3.5rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]"></div>
+    <!-- ============ ANIMATED BACKGROUND ============ -->
+    <div class="fixed inset-0 z-0 pointer-events-none overflow-hidden">
+        <!-- Grid Overlay -->
+        <div class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:60px_60px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_100%)]"></div>
+        <!-- Aurora Gradient Flow -->
+        <div class="aurora-bg absolute top-0 left-0 w-full h-[70vh] opacity-40"></div>
+        <!-- Floating Particles -->
+        <div class="particle" style="left:10%;animation-delay:0s;animation-duration:18s"></div>
+        <div class="particle" style="left:20%;animation-delay:2s;animation-duration:22s"></div>
+        <div class="particle" style="left:35%;animation-delay:4s;animation-duration:20s"></div>
+        <div class="particle" style="left:50%;animation-delay:1s;animation-duration:24s"></div>
+        <div class="particle" style="left:65%;animation-delay:3s;animation-duration:19s"></div>
+        <div class="particle" style="left:80%;animation-delay:5s;animation-duration:21s"></div>
+        <div class="particle" style="left:90%;animation-delay:2.5s;animation-duration:23s"></div>
     </div>
 
-    <!-- Navigation Bar -->
-    <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 backdrop-blur-md bg-dark-950/80 border-b border-white/5" id="navbar">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-            <!-- Brand / Logo -->
-            <a href="#hero" class="flex items-center gap-3 group">
-                <div class="relative w-11 h-11 rounded-xl p-[2px] bg-gradient-to-tr from-cyan-500 to-indigo-600 transition-transform duration-300 group-hover:scale-105 shadow-lg shadow-cyan-500/20 overflow-hidden">
-                    <img src="assets/profile.png" alt="Sawin Kumar" class="w-full h-full object-cover rounded-[10px]">
+    <!-- ============ NAVIGATION ============ -->
+    <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-500 backdrop-blur-xl bg-black/60 border-b border-white/5" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <a href="#hero" class="flex items-center gap-2.5 group">
+                <div class="w-9 h-9 rounded-lg overflow-hidden border border-white/20 group-hover:border-white/50 transition-all duration-300">
+                    <img src="assets/profile.jpg" alt="SK" class="w-full h-full object-cover">
                 </div>
-                <div class="flex flex-col">
-                    <span class="font-bold text-white tracking-tight group-hover:text-cyan-400 transition-colors">Sawin Kumar</span>
-                    <span class="text-[11px] text-cyan-400 font-mono tracking-wider">GLA UNIVERSITY · B.TECH CSE</span>
+                <div>
+                    <span class="font-bold text-sm text-white/90 group-hover:text-white tracking-tight transition-colors">Sawin Kumar</span>
+                    <span class="block text-[10px] text-white/30 font-mono">B.Tech CSE · GLA</span>
                 </div>
             </a>
 
-            <!-- Desktop Nav Links -->
-            <nav class="hidden lg:flex items-center gap-1 bg-white/[0.03] border border-white/10 px-3 py-1.5 rounded-full backdrop-blur-lg">
-                <a href="#about" class="nav-link px-3.5 py-1.5 text-xs font-medium text-slate-300 hover:text-white rounded-full transition-all">About</a>
-                <a href="#education" class="nav-link px-3.5 py-1.5 text-xs font-medium text-slate-300 hover:text-white rounded-full transition-all">Education</a>
-                <a href="#skills" class="nav-link px-3.5 py-1.5 text-xs font-medium text-slate-300 hover:text-white rounded-full transition-all">Skills</a>
-                <a href="#projects" class="nav-link px-3.5 py-1.5 text-xs font-medium text-slate-300 hover:text-white rounded-full transition-all">Projects</a>
-                <a href="#certifications" class="nav-link px-3.5 py-1.5 text-xs font-medium text-slate-300 hover:text-white rounded-full transition-all">Certifications</a>
-                <a href="#playground" class="nav-link px-3.5 py-1.5 text-xs font-medium text-cyan-400 hover:text-cyan-300 rounded-full transition-all flex items-center gap-1.5">
-                    <span class="relative flex h-2 w-2">
-                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
-                        <span class="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
-                    </span>
-                    AI Sandbox
-                </a>
-                <a href="#contact" class="nav-link px-3.5 py-1.5 text-xs font-medium text-slate-300 hover:text-white rounded-full transition-all">Contact</a>
+            <nav class="hidden md:flex items-center gap-0.5 bg-white/[0.03] border border-white/[0.06] px-2 py-1 rounded-full">
+                <a href="#about" class="nav-link px-3 py-1 text-xs text-white/50 hover:text-white rounded-full transition-all">About</a>
+                <a href="#education" class="nav-link px-3 py-1 text-xs text-white/50 hover:text-white rounded-full transition-all">Education</a>
+                <a href="#skills" class="nav-link px-3 py-1 text-xs text-white/50 hover:text-white rounded-full transition-all">Skills</a>
+                <a href="#projects" class="nav-link px-3 py-1 text-xs text-white/50 hover:text-white rounded-full transition-all">Projects</a>
+                <a href="#achievements" class="nav-link px-3 py-1 text-xs text-white/50 hover:text-white rounded-full transition-all">Badge</a>
+                <a href="#contact" class="nav-link px-3 py-1 text-xs text-white/50 hover:text-white rounded-full transition-all">Contact</a>
             </nav>
 
-            <!-- Social Action Buttons -->
             <div class="hidden sm:flex items-center gap-2">
-                <a href="https://github.com/sawinkumar13-design" target="_blank" rel="noopener noreferrer" 
-                   class="p-2 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 text-slate-300 hover:text-cyan-400 transition-all hover:scale-105" title="GitHub">
+                <a href="https://github.com/sawinkumar13-design" target="_blank" class="p-2 rounded-lg bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.06] text-white/40 hover:text-white transition-all" title="GitHub">
                     <i data-lucide="github" class="w-4 h-4"></i>
                 </a>
-                <a href="https://linkedin.com/in/sawinkumar" target="_blank" rel="noopener noreferrer" 
-                   class="p-2 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 text-slate-300 hover:text-indigo-400 transition-all hover:scale-105" title="LinkedIn">
+                <a href="https://linkedin.com/in/sawinkumar" target="_blank" class="p-2 rounded-lg bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.06] text-white/40 hover:text-white transition-all" title="LinkedIn">
                     <i data-lucide="linkedin" class="w-4 h-4"></i>
                 </a>
-                <a href="https://leetcode.com/u/sawinkumar/" target="_blank" rel="noopener noreferrer" 
-                   class="p-2 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 text-slate-300 hover:text-amber-400 transition-all hover:scale-105" title="LeetCode">
+                <a href="https://leetcode.com/u/sawinkumar/" target="_blank" class="p-2 rounded-lg bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.06] text-white/40 hover:text-white transition-all" title="LeetCode">
                     <i data-lucide="code-2" class="w-4 h-4"></i>
                 </a>
-                <a href="#contact" class="relative group overflow-hidden rounded-xl p-[1px] font-medium text-xs ml-1">
-                    <span class="absolute inset-0 bg-gradient-to-r from-cyan-500 to-indigo-600 transition-all duration-300 group-hover:opacity-90"></span>
-                    <span class="relative block px-3.5 py-2 rounded-[11px] bg-dark-900 transition-colors duration-200 group-hover:bg-opacity-80 text-white flex items-center gap-1.5">
-                        <span>Get In Touch</span>
-                        <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
-                    </span>
-                </a>
+                <a href="#contact" class="ml-1 px-3.5 py-1.5 text-xs font-medium rounded-full bg-white text-black hover:bg-white/90 transition-all">Get In Touch</a>
             </div>
 
-            <!-- Mobile Hamburger Button -->
-            <button id="mobileMenuBtn" class="lg:hidden p-2 text-slate-400 hover:text-white rounded-lg hover:bg-white/5 transition-colors" aria-label="Toggle Menu">
-                <i data-lucide="menu" id="menuIcon" class="w-6 h-6"></i>
+            <button id="mobileMenuBtn" class="md:hidden p-2 text-white/40 hover:text-white rounded-lg" aria-label="Menu">
+                <i data-lucide="menu" class="w-5 h-5"></i>
             </button>
         </div>
 
-        <!-- Mobile Drawer -->
-        <div id="mobileMenu" class="hidden lg:hidden bg-dark-900/95 border-b border-white/10 px-6 py-6 space-y-3 backdrop-blur-xl">
-            <a href="#about" class="block text-slate-300 hover:text-cyan-400 text-sm font-medium py-1.5">About</a>
-            <a href="#education" class="block text-slate-300 hover:text-cyan-400 text-sm font-medium py-1.5">Education</a>
-            <a href="#skills" class="block text-slate-300 hover:text-cyan-400 text-sm font-medium py-1.5">Skills</a>
-            <a href="#projects" class="block text-slate-300 hover:text-cyan-400 text-sm font-medium py-1.5">Projects</a>
-            <a href="#certifications" class="block text-slate-300 hover:text-cyan-400 text-sm font-medium py-1.5">Certifications</a>
-            <a href="#playground" class="block text-cyan-400 hover:text-cyan-300 text-sm font-medium py-1.5 flex items-center gap-2">
-                <i data-lucide="sparkles" class="w-4 h-4"></i> AI Demo Sandbox
-            </a>
-            <a href="#contact" class="block text-slate-300 hover:text-cyan-400 text-sm font-medium py-1.5">Contact</a>
-            
-            <div class="pt-4 border-t border-white/10 flex items-center justify-between">
-                <div class="flex items-center gap-3">
-                    <a href="https://github.com/sawinkumar13-design" target="_blank" class="text-slate-400 hover:text-white"><i data-lucide="github" class="w-5 h-5"></i></a>
-                    <a href="https://linkedin.com/in/sawinkumar" target="_blank" class="text-slate-400 hover:text-indigo-400"><i data-lucide="linkedin" class="w-5 h-5"></i></a>
-                    <a href="https://leetcode.com/u/sawinkumar/" target="_blank" class="text-slate-400 hover:text-amber-400"><i data-lucide="code-2" class="w-5 h-5"></i></a>
-                </div>
-                <a href="mailto:sawinkumar13@gmail.com" class="px-3 py-1.5 bg-gradient-to-r from-cyan-500 to-indigo-600 rounded-lg text-white text-xs font-medium">Email Me</a>
+        <div id="mobileMenu" class="hidden md:hidden bg-black/95 border-b border-white/5 px-6 py-5 space-y-3 backdrop-blur-xl">
+            <a href="#about" class="block text-white/60 hover:text-white text-sm py-1.5">About</a>
+            <a href="#education" class="block text-white/60 hover:text-white text-sm py-1.5">Education</a>
+            <a href="#skills" class="block text-white/60 hover:text-white text-sm py-1.5">Skills</a>
+            <a href="#projects" class="block text-white/60 hover:text-white text-sm py-1.5">Projects</a>
+            <a href="#achievements" class="block text-white/60 hover:text-white text-sm py-1.5">Badge</a>
+            <a href="#contact" class="block text-white/60 hover:text-white text-sm py-1.5">Contact</a>
+            <div class="pt-3 border-t border-white/10 flex gap-3">
+                <a href="https://github.com/sawinkumar13-design" target="_blank" class="text-white/40 hover:text-white"><i data-lucide="github" class="w-5 h-5"></i></a>
+                <a href="https://linkedin.com/in/sawinkumar" target="_blank" class="text-white/40 hover:text-white"><i data-lucide="linkedin" class="w-5 h-5"></i></a>
+                <a href="https://leetcode.com/u/sawinkumar/" target="_blank" class="text-white/40 hover:text-white"><i data-lucide="code-2" class="w-5 h-5"></i></a>
             </div>
         </div>
     </header>
 
-    <!-- Main Container -->
+
     <main class="relative z-10">
 
-        <!-- ================= HERO SECTION ================= -->
-        <section id="hero" class="min-h-screen pt-32 pb-20 flex items-center relative overflow-hidden">
-            <!-- Neural Network Interactive Canvas -->
-            <canvas id="neuralCanvas" class="absolute inset-0 w-full h-full pointer-events-auto opacity-75 z-0"></canvas>
+        <!-- ============ HERO: PHOTO REVEAL + ABOUT ME ============ -->
+        <section id="hero" class="min-h-screen flex items-center justify-center relative overflow-hidden pt-16">
+            <canvas id="neuralCanvas" class="absolute inset-0 w-full h-full pointer-events-auto opacity-50 z-0"></canvas>
 
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10">
-                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10 py-20">
+                <div class="flex flex-col items-center text-center space-y-10">
                     
-                    <!-- Left Hero Content -->
-                    <div class="lg:col-span-7 space-y-7 text-center lg:text-left">
-                        
-                        <!-- Status Pill -->
-                        <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-cyan-950/40 border border-cyan-500/30 text-cyan-300 text-xs sm:text-sm font-medium backdrop-blur-md shadow-lg shadow-cyan-500/10">
-                            <span class="relative flex h-2.5 w-2.5">
-                                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                                <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+                    <!-- Profile Image with Curtain Reveal -->
+                    <div class="hero-image-reveal relative">
+                        <div class="hero-image-glow absolute -inset-3 rounded-2xl opacity-60 blur-xl"></div>
+                        <div class="relative w-64 h-80 sm:w-72 sm:h-[22rem] rounded-2xl overflow-hidden border-2 border-white/10 shadow-2xl shadow-black/50">
+                            <img src="assets/profile.jpg" alt="Sawin Kumar" class="w-full h-full object-cover object-top">
+                            <!-- Gradient fade at bottom -->
+                            <div class="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-black via-black/60 to-transparent"></div>
+                            <div class="absolute bottom-4 left-0 right-0 text-center">
+                                <span class="text-sm font-mono text-white/70 px-3 py-1 bg-black/60 backdrop-blur-sm rounded-full border border-white/10">
+                                    Sawin Kumar
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Animated Name & About Text -->
+                    <div class="space-y-5 max-w-2xl">
+                        <div class="text-reveal" style="--delay: 0">
+                            <span class="inline-flex items-center gap-2 px-3 py-1 text-[11px] font-mono text-white/40 border border-white/10 rounded-full bg-white/[0.03]">
+                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                                B.Tech Computer Science · GLA University, Mathura
                             </span>
-                            <span>B.Tech CSE @ GLA University · Aspiring Data Scientist</span>
                         </div>
 
-                        <!-- Headline -->
-                        <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.1] text-white">
-                            Hi, I'm <br class="hidden sm:inline" />
-                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-indigo-400 to-purple-400">
-                                Sawin Kumar
-                            </span>
+                        <h1 class="text-reveal text-5xl sm:text-7xl font-black tracking-tight leading-[1.05]" style="--delay: 1">
+                            Sawin Kumar
                         </h1>
 
-                        <!-- Bio / Career Objective -->
-                        <p class="text-base sm:text-lg text-slate-300 max-w-2xl font-normal leading-relaxed mx-auto lg:mx-0">
-                            Computer Science & Engineering student at <strong class="text-white font-medium">GLA University</strong>. Passionate about applying <span class="text-cyan-300 font-medium">Python, NumPy, Pandas, Data Visualization</span>, and <span class="text-indigo-300 font-medium">Machine Learning</span> to build data-driven solutions and solve complex algorithmic problems.
+                        <p class="text-reveal text-lg sm:text-xl text-white/40 font-light leading-relaxed" style="--delay: 2">
+                            Aspiring <span class="text-white/70 font-medium">Data Scientist</span> &amp; <span class="text-white/70 font-medium">Software Engineer</span>
                         </p>
 
-                        <!-- Contact Quick Badges -->
-                        <div class="flex flex-wrap items-center justify-center lg:justify-start gap-3 text-xs font-mono text-slate-300">
-                            <a href="mailto:sawinkumar13@gmail.com" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/[0.03] border border-white/10 hover:border-cyan-500/40 transition">
-                                <i data-lucide="mail" class="w-3.5 h-3.5 text-cyan-400"></i>
-                                <span>sawinkumar13@gmail.com</span>
+                        <p class="text-reveal text-sm sm:text-base text-white/30 leading-relaxed max-w-xl mx-auto" style="--delay: 3">
+                            Computer Science student passionate about building data-driven solutions with 
+                            <span class="text-white/50">Python, NumPy, Pandas</span>, and 
+                            <span class="text-white/50">Java</span>. Exploring Machine Learning and solving algorithmic challenges on LeetCode &amp; HackerRank.
+                        </p>
+
+                        <!-- Contact Quick Links -->
+                        <div class="text-reveal flex flex-wrap items-center justify-center gap-3 pt-2" style="--delay: 4">
+                            <a href="mailto:sawinkumar13@gmail.com" class="flex items-center gap-1.5 px-3 py-1.5 text-[11px] font-mono text-white/40 bg-white/[0.03] border border-white/[0.06] rounded-lg hover:text-white/70 hover:border-white/15 transition-all">
+                                <i data-lucide="mail" class="w-3 h-3"></i> sawinkumar13@gmail.com
                             </a>
-                            <a href="tel:+919259451815" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/[0.03] border border-white/10 hover:border-cyan-500/40 transition">
-                                <i data-lucide="phone" class="w-3.5 h-3.5 text-emerald-400"></i>
-                                <span>+91-9259451815</span>
+                            <a href="tel:+919259451815" class="flex items-center gap-1.5 px-3 py-1.5 text-[11px] font-mono text-white/40 bg-white/[0.03] border border-white/[0.06] rounded-lg hover:text-white/70 hover:border-white/15 transition-all">
+                                <i data-lucide="phone" class="w-3 h-3"></i> +91-9259451815
                             </a>
-                            <span class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/[0.03] border border-white/10 text-slate-400">
-                                <i data-lucide="map-pin" class="w-3.5 h-3.5 text-purple-400"></i>
-                                <span>Mathura & Etah, UP</span>
+                            <span class="flex items-center gap-1.5 px-3 py-1.5 text-[11px] font-mono text-white/30 bg-white/[0.02] border border-white/[0.04] rounded-lg">
+                                <i data-lucide="map-pin" class="w-3 h-3"></i> Mathura &amp; Etah, UP
                             </span>
                         </div>
 
-                        <!-- CTA Buttons -->
-                        <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2">
-                            <a href="#projects" class="px-6 py-3.5 rounded-xl bg-gradient-to-r from-cyan-500 to-indigo-600 text-white font-semibold text-sm sm:text-base hover:shadow-lg hover:shadow-cyan-500/25 transition-all duration-300 hover:scale-[1.02] flex items-center gap-2">
-                                <i data-lucide="folder-git-2" class="w-5 h-5"></i>
-                                <span>View My Projects</span>
+                        <!-- CTA -->
+                        <div class="text-reveal flex flex-wrap items-center justify-center gap-4 pt-4" style="--delay: 5">
+                            <a href="#projects" class="px-6 py-3 rounded-full bg-white text-black font-semibold text-sm hover:bg-white/90 hover:scale-[1.02] transition-all duration-300 flex items-center gap-2">
+                                <i data-lucide="folder-git-2" class="w-4 h-4"></i> View Projects
                             </a>
-                            <a href="#education" class="px-6 py-3.5 rounded-xl bg-white/[0.05] hover:bg-white/[0.09] border border-white/10 text-white font-semibold text-sm sm:text-base transition-all duration-300 hover:scale-[1.02] backdrop-blur-md flex items-center gap-2">
-                                <i data-lucide="graduation-cap" class="w-5 h-5 text-cyan-400"></i>
-                                <span>Education Background</span>
+                            <a href="#contact" class="px-6 py-3 rounded-full bg-white/[0.06] border border-white/10 text-white/70 font-medium text-sm hover:bg-white/[0.1] hover:text-white transition-all duration-300 flex items-center gap-2">
+                                <i data-lucide="send" class="w-4 h-4"></i> Contact Me
                             </a>
                         </div>
-
-                        <!-- Highlights / Quick Stats -->
-                        <div class="grid grid-cols-3 gap-4 pt-6 border-t border-white/10 max-w-xl mx-auto lg:mx-0">
-                            <div class="text-center lg:text-left">
-                                <div class="text-2xl sm:text-3xl font-bold font-mono text-cyan-400">7.9 CPI</div>
-                                <div class="text-xs text-slate-400 uppercase tracking-wider mt-0.5">GLA University</div>
-                            </div>
-                            <div class="text-center lg:text-left">
-                                <div class="text-2xl sm:text-3xl font-bold font-mono text-indigo-400">Gold</div>
-                                <div class="text-xs text-slate-400 uppercase tracking-wider mt-0.5">HackerRank Badges</div>
-                            </div>
-                            <div class="text-center lg:text-left">
-                                <div class="text-2xl sm:text-3xl font-bold font-mono text-emerald-400">Java & Python</div>
-                                <div class="text-xs text-slate-400 uppercase tracking-wider mt-0.5">Core Languages</div>
-                            </div>
-                        </div>
-
                     </div>
 
-                    <!-- Right Hero Visual Card with Photo -->
-                    <div class="lg:col-span-5 relative">
-                        <div class="relative mx-auto max-w-sm">
-                            
-                            <!-- Glowing Aura -->
-                            <div class="absolute -inset-1 bg-gradient-to-r from-cyan-500 via-indigo-500 to-purple-600 rounded-3xl blur-xl opacity-40 animate-pulse-slow"></div>
+                </div>
+            </div>
 
-                            <!-- Profile Card Container -->
-                            <div class="relative rounded-3xl bg-dark-900/90 border border-white/10 p-6 backdrop-blur-xl shadow-2xl space-y-6">
-                                
-                                <!-- Profile Avatar Container -->
-                                <div class="relative w-44 h-48 mx-auto rounded-2xl p-[3px] bg-gradient-to-b from-cyan-400 via-indigo-500 to-purple-600 shadow-xl overflow-hidden group">
-                                    <img src="assets/profile.png" alt="Sawin Kumar Profile Photo" class="w-full h-full object-cover rounded-[13px] transition-transform duration-500 group-hover:scale-105">
-                                    <div class="absolute inset-0 bg-gradient-to-t from-dark-950/80 via-transparent to-transparent opacity-60"></div>
-                                    <div class="absolute bottom-2 left-2 right-2 text-center">
-                                        <span class="text-[11px] font-mono px-2 py-0.5 rounded-full bg-dark-900/80 border border-cyan-500/40 text-cyan-300">
-                                            Sawin Kumar
-                                        </span>
-                                    </div>
-                                </div>
-
-                                <!-- Key Profile Quick Details -->
-                                <div class="text-center space-y-1">
-                                    <h3 class="text-xl font-bold text-white">Mr. Sawin Kumar</h3>
-                                    <p class="text-xs text-cyan-400 font-mono">sawin.kumar_cs25@gla.ac.in</p>
-                                    <p class="text-xs text-slate-400">GLA University · B.Tech CSE (2025–2029)</p>
-                                </div>
-
-                                <!-- Quick Social Links Grid -->
-                                <div class="grid grid-cols-4 gap-2 pt-2 border-t border-white/10">
-                                    <a href="https://github.com/sawinkumar13-design" target="_blank" class="p-2.5 rounded-xl bg-white/[0.03] hover:bg-white/[0.08] border border-white/5 hover:border-cyan-500/40 text-center transition group" title="GitHub">
-                                        <i data-lucide="github" class="w-4 h-4 mx-auto text-slate-300 group-hover:text-cyan-400"></i>
-                                        <span class="text-[9px] font-mono text-slate-500 block mt-1">GitHub</span>
-                                    </a>
-                                    <a href="https://linkedin.com/in/sawinkumar" target="_blank" class="p-2.5 rounded-xl bg-white/[0.03] hover:bg-white/[0.08] border border-white/5 hover:border-indigo-500/40 text-center transition group" title="LinkedIn">
-                                        <i data-lucide="linkedin" class="w-4 h-4 mx-auto text-slate-300 group-hover:text-indigo-400"></i>
-                                        <span class="text-[9px] font-mono text-slate-500 block mt-1">LinkedIn</span>
-                                    </a>
-                                    <a href="https://leetcode.com/u/sawinkumar/" target="_blank" class="p-2.5 rounded-xl bg-white/[0.03] hover:bg-white/[0.08] border border-white/5 hover:border-amber-500/40 text-center transition group" title="LeetCode">
-                                        <i data-lucide="code-2" class="w-4 h-4 mx-auto text-slate-300 group-hover:text-amber-400"></i>
-                                        <span class="text-[9px] font-mono text-slate-500 block mt-1">LeetCode</span>
-                                    </a>
-                                    <a href="https://hackerrank.com/sawinkumar" target="_blank" class="p-2.5 rounded-xl bg-white/[0.03] hover:bg-white/[0.08] border border-white/5 hover:border-emerald-500/40 text-center transition group" title="HackerRank">
-                                        <i data-lucide="award" class="w-4 h-4 mx-auto text-slate-300 group-hover:text-emerald-400"></i>
-                                        <span class="text-[9px] font-mono text-slate-500 block mt-1">Rank</span>
-                                    </a>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-
+            <!-- Scroll Indicator -->
+            <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/20 text-reveal" style="--delay: 6">
+                <span class="text-[10px] font-mono tracking-widest uppercase">Scroll</span>
+                <div class="w-5 h-8 rounded-full border border-white/20 flex items-start justify-center p-1">
+                    <div class="w-1 h-2 bg-white/40 rounded-full animate-bounce"></div>
                 </div>
             </div>
         </section>
 
 
-        <!-- ================= ABOUT ME SECTION ================= -->
-        <section id="about" class="py-24 relative border-t border-white/5">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- ============ ABOUT SECTION ============ -->
+        <section id="about" class="py-28 relative border-t border-white/5">
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
                 
-                <div class="text-center max-w-3xl mx-auto mb-16">
-                    <h2 class="text-xs uppercase font-mono tracking-widest text-cyan-400 font-semibold mb-3">Profile Overview</h2>
-                    <p class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">About Sawin Kumar</p>
-                    <div class="w-16 h-1 bg-gradient-to-r from-cyan-500 to-indigo-500 mx-auto mt-4 rounded-full"></div>
+                <div class="text-center mb-16 reveal">
+                    <span class="text-[11px] font-mono text-white/30 tracking-widest uppercase">Who I Am</span>
+                    <h2 class="text-3xl sm:text-4xl font-bold text-white mt-2 tracking-tight">About Me</h2>
+                    <div class="w-12 h-0.5 bg-white/20 mx-auto mt-4"></div>
                 </div>
 
-                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
                     
-                    <!-- Bio Highlights -->
-                    <div class="lg:col-span-7 space-y-6 text-slate-300 text-base sm:text-lg leading-relaxed">
-                        <p>
-                            I am a dedicated <strong class="text-white">Computer Science & Engineering student at GLA University</strong> (2025–2029 batch) with an academic record of <span class="text-cyan-300 font-medium">7.9 CPI</span>, currently based in Mathura and Etah, Uttar Pradesh.
+                    <div class="space-y-5 text-white/40 text-sm sm:text-base leading-relaxed">
+                        <p class="reveal">
+                            I am a first-year <span class="text-white/70 font-medium">Computer Science & Engineering student at GLA University</span> (2025–2029 batch) with a current <span class="text-white/70 font-medium">7.9 CPI</span>. Based in Mathura and Etah, Uttar Pradesh.
                         </p>
-                        <p>
-                            My primary ambition is to specialize as a <strong class="text-white">Data Scientist and Machine Learning Engineer</strong>. I enjoy exploring large datasets, engineering data transformations with <span class="text-cyan-300 font-medium">Pandas & NumPy</span>, creating meaningful visual insights with <span class="text-indigo-300 font-medium">Matplotlib</span>, and building algorithmic foundations in <span class="text-amber-300 font-medium">Java and Python</span>.
+                        <p class="reveal">
+                            My goal is to grow as a <span class="text-white/70 font-medium">Data Scientist</span>. I enjoy working with datasets using <span class="text-white/60">Pandas & NumPy</span>, visualizing patterns with <span class="text-white/60">Matplotlib</span>, and building clean, structured software with <span class="text-white/60">Java</span>.
                         </p>
-                        <p>
-                            I hold multiple <span class="text-emerald-300 font-medium">HackerRank Gold Badges</span> and certifications from <span class="text-indigo-300 font-medium">Infosys Springboard</span> covering Java, Python, Data Structures & Algorithms, Agile practices, and Web Technologies.
+                        <p class="reveal">
+                            I actively solve DSA problems on <span class="text-white/60">LeetCode</span> and <span class="text-white/60">HackerRank</span>, strengthening my algorithmic thinking in areas like arrays, strings, two pointers, and recursion.
                         </p>
-
-                        <!-- Highlights Pills -->
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
-                            <div class="flex items-start gap-3 p-4 rounded-xl bg-white/[0.02] border border-white/10 hover:border-cyan-500/40 transition-colors">
-                                <div class="p-2 rounded-lg bg-cyan-500/10 text-cyan-400">
-                                    <i data-lucide="bar-chart-3" class="w-5 h-5"></i>
-                                </div>
-                                <div>
-                                    <h4 class="text-white font-semibold text-sm">Data Analysis & EDA</h4>
-                                    <p class="text-xs text-slate-400 mt-0.5">Filtering, sorting, missing value imputation, statistical summaries.</p>
-                                </div>
-                            </div>
-
-                            <div class="flex items-start gap-3 p-4 rounded-xl bg-white/[0.02] border border-white/10 hover:border-indigo-500/40 transition-colors">
-                                <div class="p-2 rounded-lg bg-indigo-500/10 text-indigo-400">
-                                    <i data-lucide="code" class="w-5 h-5"></i>
-                                </div>
-                                <div>
-                                    <h4 class="text-white font-semibold text-sm">Java & OOP Architecture</h4>
-                                    <p class="text-xs text-slate-400 mt-0.5">Classes, modular methods, exception handling, menu-driven CLI apps.</p>
-                                </div>
-                            </div>
-
-                            <div class="flex items-start gap-3 p-4 rounded-xl bg-white/[0.02] border border-white/10 hover:border-amber-500/40 transition-colors">
-                                <div class="p-2 rounded-lg bg-amber-500/10 text-amber-400">
-                                    <i data-lucide="git-branch" class="w-5 h-5"></i>
-                                </div>
-                                <div>
-                                    <h4 class="text-white font-semibold text-sm">DSA Problem Solving</h4>
-                                    <p class="text-xs text-slate-400 mt-0.5">Arrays, strings, two-pointers, recursion, LeetCode & HackerRank challenges.</p>
-                                </div>
-                            </div>
-
-                            <div class="flex items-start gap-3 p-4 rounded-xl bg-white/[0.02] border border-white/10 hover:border-emerald-500/40 transition-colors">
-                                <div class="p-2 rounded-lg bg-emerald-500/10 text-emerald-400">
-                                    <i data-lucide="brain" class="w-5 h-5"></i>
-                                </div>
-                                <div>
-                                    <h4 class="text-white font-semibold text-sm">Machine Learning Pursuit</h4>
-                                    <p class="text-xs text-slate-400 mt-0.5">Predictive modeling, supervised algorithms, feature preprocessing.</p>
-                                </div>
-                            </div>
-                        </div>
-
                     </div>
 
-                    <!-- Personal Information Card -->
-                    <div class="lg:col-span-5">
-                        <div class="rounded-2xl bg-gradient-to-b from-white/[0.06] to-white/[0.01] border border-white/10 p-7 space-y-5">
-                            
-                            <h3 class="text-lg font-bold text-white flex items-center gap-2">
-                                <i data-lucide="user-check" class="w-5 h-5 text-cyan-400"></i>
-                                <span>Academic & Contact Profile</span>
-                            </h3>
-
-                            <div class="space-y-3 font-mono text-xs">
-                                <div class="flex justify-between py-1.5 border-b border-white/5">
-                                    <span class="text-slate-400">Name:</span>
-                                    <span class="text-white font-medium">Mr. Sawin Kumar</span>
-                                </div>
-                                <div class="flex justify-between py-1.5 border-b border-white/5">
-                                    <span class="text-slate-400">University:</span>
-                                    <span class="text-cyan-300 font-medium">GLA University, Mathura</span>
-                                </div>
-                                <div class="flex justify-between py-1.5 border-b border-white/5">
-                                    <span class="text-slate-400">Degree & Branch:</span>
-                                    <span class="text-white font-medium">B.Tech CSE (2025–2029)</span>
-                                </div>
-                                <div class="flex justify-between py-1.5 border-b border-white/5">
-                                    <span class="text-slate-400">Academic Score:</span>
-                                    <span class="text-emerald-400 font-semibold">7.9 CPI</span>
-                                </div>
-                                <div class="flex justify-between py-1.5 border-b border-white/5">
-                                    <span class="text-slate-400">Personal Email:</span>
-                                    <a href="mailto:sawinkumar13@gmail.com" class="text-cyan-400 hover:underline">sawinkumar13@gmail.com</a>
-                                </div>
-                                <div class="flex justify-between py-1.5 border-b border-white/5">
-                                    <span class="text-slate-400">College Email:</span>
-                                    <a href="mailto:sawin.kumar_cs25@gla.ac.in" class="text-indigo-400 hover:underline">sawin.kumar_cs25@gla.ac.in</a>
-                                </div>
-                                <div class="flex justify-between py-1.5 border-b border-white/5">
-                                    <span class="text-slate-400">Phone:</span>
-                                    <a href="tel:+919259451815" class="text-white hover:text-cyan-400">+91-9259451815</a>
-                                </div>
-                                <div class="flex justify-between py-1.5">
-                                    <span class="text-slate-400">Locations:</span>
-                                    <span class="text-slate-300 font-medium">Mathura (281001) & Etah, UP</span>
-                                </div>
-                            </div>
-
-                            <div class="pt-2">
-                                <a href="mailto:sawinkumar13@gmail.com" class="w-full py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-indigo-600 hover:opacity-90 text-white font-medium text-xs flex items-center justify-center gap-2 transition shadow-lg shadow-cyan-500/20">
-                                    <i data-lucide="mail" class="w-4 h-4"></i>
-                                    <span>Send an Email / Inquire</span>
-                                </a>
-                            </div>
-
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="card-hover p-5 rounded-xl bg-white/[0.02] border border-white/[0.06] reveal delay-1">
+                            <i data-lucide="bar-chart-3" class="w-5 h-5 text-white/30 mb-3"></i>
+                            <h4 class="text-white/80 font-semibold text-sm">Data Analysis</h4>
+                            <p class="text-[11px] text-white/30 mt-1">EDA, cleaning, filtering, summary statistics.</p>
+                        </div>
+                        <div class="card-hover p-5 rounded-xl bg-white/[0.02] border border-white/[0.06] reveal delay-2">
+                            <i data-lucide="code" class="w-5 h-5 text-white/30 mb-3"></i>
+                            <h4 class="text-white/80 font-semibold text-sm">Java & OOP</h4>
+                            <p class="text-[11px] text-white/30 mt-1">Modular classes, inheritance, encapsulation.</p>
+                        </div>
+                        <div class="card-hover p-5 rounded-xl bg-white/[0.02] border border-white/[0.06] reveal delay-3">
+                            <i data-lucide="git-branch" class="w-5 h-5 text-white/30 mb-3"></i>
+                            <h4 class="text-white/80 font-semibold text-sm">DSA Problem Solving</h4>
+                            <p class="text-[11px] text-white/30 mt-1">Arrays, strings, two-pointers, recursion.</p>
+                        </div>
+                        <div class="card-hover p-5 rounded-xl bg-white/[0.02] border border-white/[0.06] reveal delay-4">
+                            <i data-lucide="line-chart" class="w-5 h-5 text-white/30 mb-3"></i>
+                            <h4 class="text-white/80 font-semibold text-sm">Data Visualization</h4>
+                            <p class="text-[11px] text-white/30 mt-1">Matplotlib charts, trend analysis, bar/pie.</p>
                         </div>
                     </div>
 
                 </div>
-
             </div>
         </section>
 
 
-        <!-- ================= EDUCATION SECTION ================= -->
-        <section id="education" class="py-24 relative bg-dark-900/40 border-t border-white/5">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- ============ EDUCATION ============ -->
+        <section id="education" class="py-28 relative bg-white/[0.01] border-t border-white/5">
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
                 
-                <div class="text-center max-w-3xl mx-auto mb-16">
-                    <h2 class="text-xs uppercase font-mono tracking-widest text-cyan-400 font-semibold mb-3">Academic Foundation</h2>
-                    <p class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">Education Background</p>
-                    <p class="text-slate-400 mt-2 text-sm sm:text-base">Formal computer science studies and secondary schooling credentials.</p>
-                    <div class="w-16 h-1 bg-gradient-to-r from-cyan-500 to-indigo-500 mx-auto mt-4 rounded-full"></div>
+                <div class="text-center mb-16 reveal">
+                    <span class="text-[11px] font-mono text-white/30 tracking-widest uppercase">Academic Journey</span>
+                    <h2 class="text-3xl sm:text-4xl font-bold text-white mt-2 tracking-tight">Education</h2>
+                    <div class="w-12 h-0.5 bg-white/20 mx-auto mt-4"></div>
                 </div>
 
-                <div class="max-w-4xl mx-auto space-y-8 relative before:absolute before:inset-0 before:left-8 before:w-0.5 before:bg-gradient-to-b before:from-cyan-500 via-indigo-500 to-transparent">
-                    
-                    <!-- 1. B.Tech GLA University -->
-                    <div class="relative pl-16">
-                        <div class="absolute left-6 top-1.5 -translate-x-1/2 w-6 h-6 rounded-full bg-dark-950 border-2 border-cyan-400 flex items-center justify-center shadow-lg shadow-cyan-500/50">
-                            <div class="w-2.5 h-2.5 rounded-full bg-cyan-400"></div>
-                        </div>
-                        <div class="rounded-2xl bg-white/[0.02] border border-white/10 p-6 sm:p-7 hover:border-cyan-500/40 transition-colors">
-                            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
-                                <div>
-                                    <h3 class="text-xl font-bold text-white">Bachelor of Technology (B.Tech)</h3>
-                                    <p class="text-sm text-cyan-400 font-medium">Computer Science & Engineering · GLA University, Mathura</p>
-                                </div>
-                                <span class="text-xs font-mono px-3 py-1 rounded-full bg-cyan-950/70 text-cyan-300 border border-cyan-800/50 w-fit">2025 — 2029 (Pursuing)</span>
-                            </div>
-                            
-                            <div class="my-4 inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-emerald-950/60 border border-emerald-500/30 text-emerald-400 font-mono text-xs font-bold">
-                                <i data-lucide="check-circle" class="w-3.5 h-3.5"></i>
-                                <span>Academic Standing: 7.9 CPI</span>
-                            </div>
+                <div class="max-w-3xl mx-auto space-y-8 relative before:absolute before:inset-0 before:left-4 before:w-px before:bg-gradient-to-b before:from-white/20 before:to-transparent">
 
-                            <p class="text-sm text-slate-300 leading-relaxed">
-                                Immersed in comprehensive core engineering coursework: Object-Oriented Programming (Java), Data Structures & Algorithms, Python Programming, Database Management, and Mathematics for Machine Learning.
-                            </p>
+                    <!-- B.Tech -->
+                    <div class="relative pl-12 reveal">
+                        <div class="absolute left-2.5 top-2 w-3 h-3 rounded-full bg-white/80 border-2 border-black shadow-[0_0_12px_rgba(255,255,255,0.3)]"></div>
+                        <div class="card-hover rounded-xl bg-white/[0.02] border border-white/[0.06] p-6">
+                            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
+                                <h3 class="text-lg font-bold text-white/90">B.Tech in Computer Science & Engineering</h3>
+                                <span class="text-[11px] font-mono px-2.5 py-0.5 rounded-full bg-white/[0.05] text-white/40 border border-white/[0.08] w-fit">2025 — 2029</span>
+                            </div>
+                            <p class="text-sm text-white/40">GLA University, Mathura</p>
+                            <div class="mt-3 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white/[0.03] border border-white/[0.06] text-xs font-mono text-white/50">
+                                <i data-lucide="award" class="w-3 h-3"></i> 7.9 CPI (Pursuing)
+                            </div>
                         </div>
                     </div>
 
-                    <!-- 2. Intermediate CBSE -->
-                    <div class="relative pl-16">
-                        <div class="absolute left-6 top-1.5 -translate-x-1/2 w-6 h-6 rounded-full bg-dark-950 border-2 border-indigo-400 flex items-center justify-center shadow-lg shadow-indigo-500/50">
-                            <div class="w-2.5 h-2.5 rounded-full bg-indigo-400"></div>
-                        </div>
-                        <div class="rounded-2xl bg-white/[0.02] border border-white/10 p-6 sm:p-7 hover:border-indigo-500/40 transition-colors">
+                    <!-- Intermediate -->
+                    <div class="relative pl-12 reveal delay-1">
+                        <div class="absolute left-2.5 top-2 w-3 h-3 rounded-full bg-white/40 border-2 border-black"></div>
+                        <div class="card-hover rounded-xl bg-white/[0.02] border border-white/[0.06] p-6">
                             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
-                                <div>
-                                    <h3 class="text-xl font-bold text-white">Intermediate (Senior Secondary - Class XII)</h3>
-                                    <p class="text-sm text-indigo-300 font-medium">Dr. Lokman Das Public School, Etah (CBSE Board)</p>
-                                </div>
-                                <span class="text-xs font-mono px-3 py-1 rounded-full bg-indigo-950/70 text-indigo-300 border border-indigo-800/50 w-fit">2024 — 2025</span>
+                                <h3 class="text-lg font-bold text-white/90">Intermediate (Class XII · CBSE)</h3>
+                                <span class="text-[11px] font-mono px-2.5 py-0.5 rounded-full bg-white/[0.05] text-white/40 border border-white/[0.08] w-fit">2024 — 2025</span>
                             </div>
-                            
-                            <div class="my-4 inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-white/[0.03] border border-white/10 text-slate-300 font-mono text-xs">
-                                <span>Score: <strong class="text-white">66%</strong></span>
+                            <p class="text-sm text-white/40">Dr. Lokman Das Public School, Etah</p>
+                            <div class="mt-3 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white/[0.03] border border-white/[0.06] text-xs font-mono text-white/50">
+                                Score: 66%
                             </div>
-
-                            <p class="text-sm text-slate-300 leading-relaxed">
-                                Completed Senior Secondary education under Central Board of Secondary Education (CBSE) with rigorous preparation in science and mathematics.
-                            </p>
                         </div>
                     </div>
 
-                    <!-- 3. High School CBSE -->
-                    <div class="relative pl-16">
-                        <div class="absolute left-6 top-1.5 -translate-x-1/2 w-6 h-6 rounded-full bg-dark-950 border-2 border-purple-400 flex items-center justify-center shadow-lg shadow-purple-500/50">
-                            <div class="w-2.5 h-2.5 rounded-full bg-purple-400"></div>
-                        </div>
-                        <div class="rounded-2xl bg-white/[0.02] border border-white/10 p-6 sm:p-7 hover:border-purple-500/40 transition-colors">
+                    <!-- High School -->
+                    <div class="relative pl-12 reveal delay-2">
+                        <div class="absolute left-2.5 top-2 w-3 h-3 rounded-full bg-white/20 border-2 border-black"></div>
+                        <div class="card-hover rounded-xl bg-white/[0.02] border border-white/[0.06] p-6">
                             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
-                                <div>
-                                    <h3 class="text-xl font-bold text-white">High School (Secondary - Class X)</h3>
-                                    <p class="text-sm text-purple-300 font-medium">Dr. Lokman Das Public School, Etah (CBSE Board)</p>
-                                </div>
-                                <span class="text-xs font-mono px-3 py-1 rounded-full bg-purple-950/70 text-purple-300 border border-purple-800/50 w-fit">2022 — 2023</span>
+                                <h3 class="text-lg font-bold text-white/90">High School (Class X · CBSE)</h3>
+                                <span class="text-[11px] font-mono px-2.5 py-0.5 rounded-full bg-white/[0.05] text-white/40 border border-white/[0.08] w-fit">2022 — 2023</span>
                             </div>
-                            
-                            <div class="my-4 inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-white/[0.03] border border-white/10 text-slate-300 font-mono text-xs">
-                                <span>Score: <strong class="text-white">77%</strong></span>
+                            <p class="text-sm text-white/40">Dr. Lokman Das Public School, Etah</p>
+                            <div class="mt-3 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white/[0.03] border border-white/[0.06] text-xs font-mono text-white/50">
+                                Score: 77%
                             </div>
-
-                            <p class="text-sm text-slate-300 leading-relaxed">
-                                Successfully graduated secondary school with foundational excellence in sciences and mathematics.
-                            </p>
                         </div>
                     </div>
 
                 </div>
-
             </div>
         </section>
 
 
-        <!-- ================= SKILLS MATRIX SECTION ================= -->
-        <section id="skills" class="py-24 relative border-t border-white/5">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- ============ SKILLS ============ -->
+        <section id="skills" class="py-28 relative border-t border-white/5">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
                 
-                <div class="text-center max-w-3xl mx-auto mb-16">
-                    <h2 class="text-xs uppercase font-mono tracking-widest text-cyan-400 font-semibold mb-3">Technical Capability</h2>
-                    <p class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">Skills & Tech Stack</p>
-                    <p class="text-slate-400 mt-2 text-sm sm:text-base">Languages, libraries, problem-solving competencies, and developer environments.</p>
-                    <div class="w-16 h-1 bg-gradient-to-r from-cyan-500 to-indigo-500 mx-auto mt-4 rounded-full"></div>
+                <div class="text-center mb-16 reveal">
+                    <span class="text-[11px] font-mono text-white/30 tracking-widest uppercase">Technical Stack</span>
+                    <h2 class="text-3xl sm:text-4xl font-bold text-white mt-2 tracking-tight">Skills</h2>
+                    <div class="w-12 h-0.5 bg-white/20 mx-auto mt-4"></div>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
 
-                    <!-- Category 1: Programming Languages -->
-                    <div class="rounded-2xl bg-white/[0.02] border border-white/10 p-6 hover:border-cyan-500/40 transition-all duration-300 hover:shadow-xl hover:shadow-cyan-500/5 group">
-                        <div class="flex items-center gap-3 mb-6">
-                            <div class="p-3 rounded-xl bg-cyan-500/10 text-cyan-400 group-hover:scale-110 transition-transform">
-                                <i data-lucide="code" class="w-6 h-6"></i>
-                            </div>
-                            <div>
-                                <h3 class="text-lg font-bold text-white">Programming Languages</h3>
-                                <p class="text-xs text-slate-400">Core software languages</p>
-                            </div>
+                    <!-- Programming Languages -->
+                    <div class="card-hover rounded-xl bg-white/[0.015] border border-white/[0.06] p-6 reveal">
+                        <div class="flex items-center gap-3 mb-5">
+                            <div class="p-2.5 rounded-lg bg-white/[0.04] text-white/40"><i data-lucide="code" class="w-5 h-5"></i></div>
+                            <h3 class="font-bold text-white/80">Languages</h3>
                         </div>
-                        <div class="space-y-4">
+                        <div class="space-y-3.5">
                             <div>
-                                <div class="flex justify-between text-xs font-mono mb-1">
-                                    <span class="text-slate-300">Python 3.x</span>
-                                    <span class="text-cyan-400">90%</span>
-                                </div>
-                                <div class="h-1.5 w-full bg-dark-950 rounded-full overflow-hidden">
-                                    <div class="h-full bg-cyan-400 rounded-full" style="width: 90%"></div>
-                                </div>
+                                <div class="flex justify-between text-xs font-mono mb-1"><span class="text-white/40">Python</span><span class="text-white/30">90%</span></div>
+                                <div class="h-1 w-full bg-white/[0.04] rounded-full overflow-hidden"><div class="h-full bg-white/30 rounded-full" style="width:90%"></div></div>
                             </div>
                             <div>
-                                <div class="flex justify-between text-xs font-mono mb-1">
-                                    <span class="text-slate-300">Java (Core & OOP)</span>
-                                    <span class="text-cyan-400">85%</span>
-                                </div>
-                                <div class="h-1.5 w-full bg-dark-950 rounded-full overflow-hidden">
-                                    <div class="h-full bg-cyan-400 rounded-full" style="width: 85%"></div>
-                                </div>
+                                <div class="flex justify-between text-xs font-mono mb-1"><span class="text-white/40">Java (Core & OOP)</span><span class="text-white/30">85%</span></div>
+                                <div class="h-1 w-full bg-white/[0.04] rounded-full overflow-hidden"><div class="h-full bg-white/30 rounded-full" style="width:85%"></div></div>
                             </div>
                             <div>
-                                <div class="flex justify-between text-xs font-mono mb-1">
-                                    <span class="text-slate-300">HTML5 & CSS3</span>
-                                    <span class="text-cyan-400">80%</span>
-                                </div>
-                                <div class="h-1.5 w-full bg-dark-950 rounded-full overflow-hidden">
-                                    <div class="h-full bg-cyan-400 rounded-full" style="width: 80%"></div>
-                                </div>
+                                <div class="flex justify-between text-xs font-mono mb-1"><span class="text-white/40">HTML5 & CSS3</span><span class="text-white/30">80%</span></div>
+                                <div class="h-1 w-full bg-white/[0.04] rounded-full overflow-hidden"><div class="h-full bg-white/30 rounded-full" style="width:80%"></div></div>
                             </div>
-                        </div>
-                        <div class="flex flex-wrap gap-1.5 mt-6 pt-4 border-t border-white/5">
-                            <span class="skill-tag">Python</span>
-                            <span class="skill-tag">Java</span>
-                            <span class="skill-tag">HTML</span>
-                            <span class="skill-tag">CSS</span>
                         </div>
                     </div>
 
-                    <!-- Category 2: Python Libraries & Data Science -->
-                    <div class="rounded-2xl bg-white/[0.02] border border-white/10 p-6 hover:border-indigo-500/40 transition-all duration-300 hover:shadow-xl hover:shadow-indigo-500/5 group">
-                        <div class="flex items-center gap-3 mb-6">
-                            <div class="p-3 rounded-xl bg-indigo-500/10 text-indigo-400 group-hover:scale-110 transition-transform">
-                                <i data-lucide="bar-chart-2" class="w-6 h-6"></i>
-                            </div>
-                            <div>
-                                <h3 class="text-lg font-bold text-white">Data Science & Python Libraries</h3>
-                                <p class="text-xs text-slate-400">Data manipulation & charts</p>
-                            </div>
+                    <!-- Python Libraries -->
+                    <div class="card-hover rounded-xl bg-white/[0.015] border border-white/[0.06] p-6 reveal delay-1">
+                        <div class="flex items-center gap-3 mb-5">
+                            <div class="p-2.5 rounded-lg bg-white/[0.04] text-white/40"><i data-lucide="bar-chart-2" class="w-5 h-5"></i></div>
+                            <h3 class="font-bold text-white/80">Data Science Libraries</h3>
                         </div>
-                        <div class="space-y-4">
+                        <div class="space-y-3.5">
                             <div>
-                                <div class="flex justify-between text-xs font-mono mb-1">
-                                    <span class="text-slate-300">Pandas (DataFrames & Cleaning)</span>
-                                    <span class="text-indigo-400">88%</span>
-                                </div>
-                                <div class="h-1.5 w-full bg-dark-950 rounded-full overflow-hidden">
-                                    <div class="h-full bg-indigo-400 rounded-full" style="width: 88%"></div>
-                                </div>
+                                <div class="flex justify-between text-xs font-mono mb-1"><span class="text-white/40">Pandas</span><span class="text-white/30">88%</span></div>
+                                <div class="h-1 w-full bg-white/[0.04] rounded-full overflow-hidden"><div class="h-full bg-white/30 rounded-full" style="width:88%"></div></div>
                             </div>
                             <div>
-                                <div class="flex justify-between text-xs font-mono mb-1">
-                                    <span class="text-slate-300">NumPy (Multi-dim Arrays)</span>
-                                    <span class="text-indigo-400">85%</span>
-                                </div>
-                                <div class="h-1.5 w-full bg-dark-950 rounded-full overflow-hidden">
-                                    <div class="h-full bg-indigo-400 rounded-full" style="width: 85%"></div>
-                                </div>
+                                <div class="flex justify-between text-xs font-mono mb-1"><span class="text-white/40">NumPy</span><span class="text-white/30">85%</span></div>
+                                <div class="h-1 w-full bg-white/[0.04] rounded-full overflow-hidden"><div class="h-full bg-white/30 rounded-full" style="width:85%"></div></div>
                             </div>
                             <div>
-                                <div class="flex justify-between text-xs font-mono mb-1">
-                                    <span class="text-slate-300">Matplotlib (Plotting & Viz)</span>
-                                    <span class="text-indigo-400">82%</span>
-                                </div>
-                                <div class="h-1.5 w-full bg-dark-950 rounded-full overflow-hidden">
-                                    <div class="h-full bg-indigo-400 rounded-full" style="width: 82%"></div>
-                                </div>
+                                <div class="flex justify-between text-xs font-mono mb-1"><span class="text-white/40">Matplotlib</span><span class="text-white/30">82%</span></div>
+                                <div class="h-1 w-full bg-white/[0.04] rounded-full overflow-hidden"><div class="h-full bg-white/30 rounded-full" style="width:82%"></div></div>
                             </div>
-                        </div>
-                        <div class="flex flex-wrap gap-1.5 mt-6 pt-4 border-t border-white/5">
-                            <span class="skill-tag">Pandas</span>
-                            <span class="skill-tag">NumPy</span>
-                            <span class="skill-tag">Matplotlib</span>
-                            <span class="skill-tag">EDA</span>
                         </div>
                     </div>
 
-                    <!-- Category 3: Java & DSA -->
-                    <div class="rounded-2xl bg-white/[0.02] border border-white/10 p-6 hover:border-amber-500/40 transition-all duration-300 hover:shadow-xl hover:shadow-amber-500/5 group">
-                        <div class="flex items-center gap-3 mb-6">
-                            <div class="p-3 rounded-xl bg-amber-500/10 text-amber-400 group-hover:scale-110 transition-transform">
-                                <i data-lucide="binary" class="w-6 h-6"></i>
-                            </div>
-                            <div>
-                                <h3 class="text-lg font-bold text-white">Java & Data Structures</h3>
-                                <p class="text-xs text-slate-400">Algorithmic problem solving</p>
-                            </div>
+                    <!-- DSA -->
+                    <div class="card-hover rounded-xl bg-white/[0.015] border border-white/[0.06] p-6 reveal delay-2">
+                        <div class="flex items-center gap-3 mb-5">
+                            <div class="p-2.5 rounded-lg bg-white/[0.04] text-white/40"><i data-lucide="binary" class="w-5 h-5"></i></div>
+                            <h3 class="font-bold text-white/80">Java & DSA</h3>
                         </div>
-                        <div class="space-y-4">
+                        <div class="space-y-3.5">
                             <div>
-                                <div class="flex justify-between text-xs font-mono mb-1">
-                                    <span class="text-slate-300">Arrays & Strings</span>
-                                    <span class="text-amber-400">90%</span>
-                                </div>
-                                <div class="h-1.5 w-full bg-dark-950 rounded-full overflow-hidden">
-                                    <div class="h-full bg-amber-400 rounded-full" style="width: 90%"></div>
-                                </div>
+                                <div class="flex justify-between text-xs font-mono mb-1"><span class="text-white/40">Arrays & Strings</span><span class="text-white/30">90%</span></div>
+                                <div class="h-1 w-full bg-white/[0.04] rounded-full overflow-hidden"><div class="h-full bg-white/30 rounded-full" style="width:90%"></div></div>
                             </div>
                             <div>
-                                <div class="flex justify-between text-xs font-mono mb-1">
-                                    <span class="text-slate-300">Two Pointers Technique</span>
-                                    <span class="text-amber-400">85%</span>
-                                </div>
-                                <div class="h-1.5 w-full bg-dark-950 rounded-full overflow-hidden">
-                                    <div class="h-full bg-amber-400 rounded-full" style="width: 85%"></div>
-                                </div>
+                                <div class="flex justify-between text-xs font-mono mb-1"><span class="text-white/40">Two Pointers</span><span class="text-white/30">85%</span></div>
+                                <div class="h-1 w-full bg-white/[0.04] rounded-full overflow-hidden"><div class="h-full bg-white/30 rounded-full" style="width:85%"></div></div>
                             </div>
                             <div>
-                                <div class="flex justify-between text-xs font-mono mb-1">
-                                    <span class="text-slate-300">Basic Recursion</span>
-                                    <span class="text-amber-400">80%</span>
-                                </div>
-                                <div class="h-1.5 w-full bg-dark-950 rounded-full overflow-hidden">
-                                    <div class="h-full bg-amber-400 rounded-full" style="width: 80%"></div>
-                                </div>
+                                <div class="flex justify-between text-xs font-mono mb-1"><span class="text-white/40">Recursion</span><span class="text-white/30">80%</span></div>
+                                <div class="h-1 w-full bg-white/[0.04] rounded-full overflow-hidden"><div class="h-full bg-white/30 rounded-full" style="width:80%"></div></div>
                             </div>
-                        </div>
-                        <div class="flex flex-wrap gap-1.5 mt-6 pt-4 border-t border-white/5">
-                            <span class="skill-tag">Two Pointers</span>
-                            <span class="skill-tag">Recursion</span>
-                            <span class="skill-tag">Problem Solving</span>
                         </div>
                     </div>
 
-                    <!-- Category 4: Core Computer Science -->
-                    <div class="rounded-2xl bg-white/[0.02] border border-white/10 p-6 hover:border-purple-500/40 transition-all duration-300 hover:shadow-xl hover:shadow-purple-500/5 group">
-                        <div class="flex items-center gap-3 mb-6">
-                            <div class="p-3 rounded-xl bg-purple-500/10 text-purple-400 group-hover:scale-110 transition-transform">
-                                <i data-lucide="layers" class="w-6 h-6"></i>
-                            </div>
-                            <div>
-                                <h3 class="text-lg font-bold text-white">Core Computer Science</h3>
-                                <p class="text-xs text-slate-400">Theoretical and architectural</p>
-                            </div>
+                    <!-- Core CS -->
+                    <div class="card-hover rounded-xl bg-white/[0.015] border border-white/[0.06] p-6 reveal delay-3">
+                        <div class="flex items-center gap-3 mb-5">
+                            <div class="p-2.5 rounded-lg bg-white/[0.04] text-white/40"><i data-lucide="layers" class="w-5 h-5"></i></div>
+                            <h3 class="font-bold text-white/80">Core CS Concepts</h3>
                         </div>
-                        <div class="space-y-4">
+                        <div class="space-y-3.5">
                             <div>
-                                <div class="flex justify-between text-xs font-mono mb-1">
-                                    <span class="text-slate-300">OOP Fundamentals (Inheritance, Polymorphism)</span>
-                                    <span class="text-purple-400">90%</span>
-                                </div>
-                                <div class="h-1.5 w-full bg-dark-950 rounded-full overflow-hidden">
-                                    <div class="h-full bg-purple-400 rounded-full" style="width: 90%"></div>
-                                </div>
+                                <div class="flex justify-between text-xs font-mono mb-1"><span class="text-white/40">OOP Fundamentals</span><span class="text-white/30">90%</span></div>
+                                <div class="h-1 w-full bg-white/[0.04] rounded-full overflow-hidden"><div class="h-full bg-white/30 rounded-full" style="width:90%"></div></div>
                             </div>
                             <div>
-                                <div class="flex justify-between text-xs font-mono mb-1">
-                                    <span class="text-slate-300">Data Structures & Algorithms</span>
-                                    <span class="text-purple-400">85%</span>
-                                </div>
-                                <div class="h-1.5 w-full bg-dark-950 rounded-full overflow-hidden">
-                                    <div class="h-full bg-purple-400 rounded-full" style="width: 85%"></div>
-                                </div>
+                                <div class="flex justify-between text-xs font-mono mb-1"><span class="text-white/40">Data Structures</span><span class="text-white/30">85%</span></div>
+                                <div class="h-1 w-full bg-white/[0.04] rounded-full overflow-hidden"><div class="h-full bg-white/30 rounded-full" style="width:85%"></div></div>
                             </div>
-                            <div>
-                                <div class="flex justify-between text-xs font-mono mb-1">
-                                    <span class="text-slate-300">Machine Learning Fundamentals</span>
-                                    <span class="text-purple-400">80%</span>
-                                </div>
-                                <div class="h-1.5 w-full bg-dark-950 rounded-full overflow-hidden">
-                                    <div class="h-full bg-purple-400 rounded-full" style="width: 80%"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="flex flex-wrap gap-1.5 mt-6 pt-4 border-t border-white/5">
-                            <span class="skill-tag">OOPs</span>
-                            <span class="skill-tag">DSA</span>
-                            <span class="skill-tag">Machine Learning</span>
                         </div>
                     </div>
 
-                    <!-- Category 5: Developer Tools & IDEs -->
-                    <div class="rounded-2xl bg-white/[0.02] border border-white/10 p-6 hover:border-emerald-500/40 transition-all duration-300 hover:shadow-xl hover:shadow-emerald-500/5 group">
-                        <div class="flex items-center gap-3 mb-6">
-                            <div class="p-3 rounded-xl bg-emerald-500/10 text-emerald-400 group-hover:scale-110 transition-transform">
-                                <i data-lucide="terminal" class="w-6 h-6"></i>
-                            </div>
-                            <div>
-                                <h3 class="text-lg font-bold text-white">Developer Tools & IDEs</h3>
-                                <p class="text-xs text-slate-400">Workflows and development</p>
-                            </div>
+                    <!-- Developer Tools -->
+                    <div class="card-hover rounded-xl bg-white/[0.015] border border-white/[0.06] p-6 reveal delay-4">
+                        <div class="flex items-center gap-3 mb-5">
+                            <div class="p-2.5 rounded-lg bg-white/[0.04] text-white/40"><i data-lucide="terminal" class="w-5 h-5"></i></div>
+                            <h3 class="font-bold text-white/80">Developer Tools</h3>
                         </div>
-                        <div class="space-y-4">
+                        <div class="space-y-3.5">
                             <div>
-                                <div class="flex justify-between text-xs font-mono mb-1">
-                                    <span class="text-slate-300">Git & GitHub</span>
-                                    <span class="text-emerald-400">88%</span>
-                                </div>
-                                <div class="h-1.5 w-full bg-dark-950 rounded-full overflow-hidden">
-                                    <div class="h-full bg-emerald-400 rounded-full" style="width: 88%"></div>
-                                </div>
+                                <div class="flex justify-between text-xs font-mono mb-1"><span class="text-white/40">Git & GitHub</span><span class="text-white/30">88%</span></div>
+                                <div class="h-1 w-full bg-white/[0.04] rounded-full overflow-hidden"><div class="h-full bg-white/30 rounded-full" style="width:88%"></div></div>
                             </div>
                             <div>
-                                <div class="flex justify-between text-xs font-mono mb-1">
-                                    <span class="text-slate-300">VS Code & Extensions</span>
-                                    <span class="text-emerald-400">92%</span>
-                                </div>
-                                <div class="h-1.5 w-full bg-dark-950 rounded-full overflow-hidden">
-                                    <div class="h-full bg-emerald-400 rounded-full" style="width: 92%"></div>
-                                </div>
+                                <div class="flex justify-between text-xs font-mono mb-1"><span class="text-white/40">VS Code</span><span class="text-white/30">92%</span></div>
+                                <div class="h-1 w-full bg-white/[0.04] rounded-full overflow-hidden"><div class="h-full bg-white/30 rounded-full" style="width:92%"></div></div>
                             </div>
                             <div>
-                                <div class="flex justify-between text-xs font-mono mb-1">
-                                    <span class="text-slate-300">IntelliJ IDEA & Jupyter Notebook</span>
-                                    <span class="text-emerald-400">85%</span>
-                                </div>
-                                <div class="h-1.5 w-full bg-dark-950 rounded-full overflow-hidden">
-                                    <div class="h-full bg-emerald-400 rounded-full" style="width: 85%"></div>
-                                </div>
+                                <div class="flex justify-between text-xs font-mono mb-1"><span class="text-white/40">Jupyter Notebook</span><span class="text-white/30">85%</span></div>
+                                <div class="h-1 w-full bg-white/[0.04] rounded-full overflow-hidden"><div class="h-full bg-white/30 rounded-full" style="width:85%"></div></div>
                             </div>
-                        </div>
-                        <div class="flex flex-wrap gap-1.5 mt-6 pt-4 border-t border-white/5">
-                            <span class="skill-tag">Git</span>
-                            <span class="skill-tag">GitHub</span>
-                            <span class="skill-tag">VS Code</span>
-                            <span class="skill-tag">IntelliJ</span>
                         </div>
                     </div>
 
-                    <!-- Category 6: Agile & Soft Skills -->
-                    <div class="rounded-2xl bg-white/[0.02] border border-white/10 p-6 hover:border-rose-500/40 transition-all duration-300 hover:shadow-xl hover:shadow-rose-500/5 group">
-                        <div class="flex items-center gap-3 mb-6">
-                            <div class="p-3 rounded-xl bg-rose-500/10 text-rose-400 group-hover:scale-110 transition-transform">
-                                <i data-lucide="check-square" class="w-6 h-6"></i>
-                            </div>
-                            <div>
-                                <h3 class="text-lg font-bold text-white">Methodologies & Practices</h3>
-                                <p class="text-xs text-slate-400">Professional certifications</p>
-                            </div>
+                    <!-- Soft Skills -->
+                    <div class="card-hover rounded-xl bg-white/[0.015] border border-white/[0.06] p-6 reveal delay-5">
+                        <div class="flex items-center gap-3 mb-5">
+                            <div class="p-2.5 rounded-lg bg-white/[0.04] text-white/40"><i data-lucide="check-square" class="w-5 h-5"></i></div>
+                            <h3 class="font-bold text-white/80">Soft Skills</h3>
                         </div>
-                        <div class="space-y-4">
+                        <div class="space-y-3.5">
                             <div>
-                                <div class="flex justify-between text-xs font-mono mb-1">
-                                    <span class="text-slate-300">Agile Methodology (Infosys Certified)</span>
-                                    <span class="text-rose-400">90%</span>
-                                </div>
-                                <div class="h-1.5 w-full bg-dark-950 rounded-full overflow-hidden">
-                                    <div class="h-full bg-rose-400 rounded-full" style="width: 90%"></div>
-                                </div>
+                                <div class="flex justify-between text-xs font-mono mb-1"><span class="text-white/40">Time Management</span><span class="text-white/30">90%</span></div>
+                                <div class="h-1 w-full bg-white/[0.04] rounded-full overflow-hidden"><div class="h-full bg-white/30 rounded-full" style="width:90%"></div></div>
                             </div>
                             <div>
-                                <div class="flex justify-between text-xs font-mono mb-1">
-                                    <span class="text-slate-300">Time Management & Execution</span>
-                                    <span class="text-rose-400">90%</span>
-                                </div>
-                                <div class="h-1.5 w-full bg-dark-950 rounded-full overflow-hidden">
-                                    <div class="h-full bg-rose-400 rounded-full" style="width: 90%"></div>
-                                </div>
+                                <div class="flex justify-between text-xs font-mono mb-1"><span class="text-white/40">Analytical Thinking</span><span class="text-white/30">88%</span></div>
+                                <div class="h-1 w-full bg-white/[0.04] rounded-full overflow-hidden"><div class="h-full bg-white/30 rounded-full" style="width:88%"></div></div>
                             </div>
-                            <div>
-                                <div class="flex justify-between text-xs font-mono mb-1">
-                                    <span class="text-slate-300">Analytical & Critical Thinking</span>
-                                    <span class="text-rose-400">88%</span>
-                                </div>
-                                <div class="h-1.5 w-full bg-dark-950 rounded-full overflow-hidden">
-                                    <div class="h-full bg-rose-400 rounded-full" style="width: 88%"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="flex flex-wrap gap-1.5 mt-6 pt-4 border-t border-white/5">
-                            <span class="skill-tag">Agile</span>
-                            <span class="skill-tag">Time Management</span>
-                            <span class="skill-tag">Problem Solving</span>
                         </div>
                     </div>
 
                 </div>
-
             </div>
         </section>
 
 
-        <!-- ================= PROJECTS SECTION ================= -->
-        <section id="projects" class="py-24 relative bg-dark-900/40 border-t border-white/5">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- ============ PROJECTS ============ -->
+        <section id="projects" class="py-28 relative bg-white/[0.01] border-t border-white/5">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
                 
-                <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 reveal">
                     <div>
-                        <h2 class="text-xs uppercase font-mono tracking-widest text-cyan-400 font-semibold mb-3">Portfolio Work</h2>
-                        <p class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">Featured Projects</p>
-                        <p class="text-slate-400 mt-2 text-sm sm:text-base">Real-world applications built with Python data libraries, Java OOP, and algorithms.</p>
+                        <span class="text-[11px] font-mono text-white/30 tracking-widest uppercase">What I've Built</span>
+                        <h2 class="text-3xl sm:text-4xl font-bold text-white mt-2 tracking-tight">Projects</h2>
                     </div>
-
-                    <!-- Category Filter Buttons -->
-                    <div class="flex flex-wrap gap-2 mt-6 md:mt-0" id="projectFilter">
-                        <button class="filter-btn active" data-filter="all">All Projects</button>
+                    <div class="flex gap-2 mt-4 md:mt-0" id="projectFilter">
+                        <button class="filter-btn active" data-filter="all">All</button>
                         <button class="filter-btn" data-filter="python">Python & Data</button>
                         <button class="filter-btn" data-filter="java">Java & OOP</button>
                     </div>
                 </div>
 
-                <!-- Projects Grid -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8" id="projectsContainer">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="projectsContainer">
 
-                    <!-- PROJECT 1: Employee Data Analysis (From Resume) -->
-                    <article class="project-card group rounded-2xl bg-dark-900/80 border border-white/10 hover:border-cyan-500/50 p-6 sm:p-8 flex flex-col justify-between transition-all duration-300 hover:shadow-2xl hover:shadow-cyan-500/10" data-category="python">
+                    <!-- Project 1 -->
+                    <article class="project-card card-hover rounded-xl bg-white/[0.015] border border-white/[0.06] p-6 sm:p-7 flex flex-col justify-between reveal" data-category="python">
                         <div>
-                            <!-- Header Badges -->
-                            <div class="flex items-center justify-between gap-2 mb-4">
-                                <span class="px-3 py-1 rounded-full text-xs font-mono font-medium bg-cyan-950/70 text-cyan-300 border border-cyan-500/30 flex items-center gap-1.5">
-                                    <i data-lucide="bar-chart-2" class="w-3.5 h-3.5"></i> Practice Project · Data Science
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="text-[11px] font-mono text-white/30 px-2.5 py-0.5 bg-white/[0.03] border border-white/[0.06] rounded-full flex items-center gap-1.5">
+                                    <i data-lucide="bar-chart-2" class="w-3 h-3"></i> Python · Data Science
                                 </span>
-                                <span class="text-xs font-mono text-slate-400">Python · Pandas · Matplotlib</span>
                             </div>
-
-                            <h3 class="text-2xl font-bold text-white group-hover:text-cyan-400 transition-colors">
-                                Employee Data Analysis — Python
-                            </h3>
-
-                            <p class="text-slate-300 text-sm mt-3 leading-relaxed">
-                                An exploratory data analysis (EDA) pipeline that ingests and processes employee records. Cleans dirty records, imputes missing values, applies advanced filtering and grouping, and generates visualization charts to reveal actionable workforce patterns and compensation distributions.
+                            <h3 class="text-xl font-bold text-white/90 mb-3">Employee Data Analysis</h3>
+                            <p class="text-sm text-white/30 leading-relaxed mb-4">
+                                Exploratory data analysis pipeline — ingests employee records, cleans dirty data, imputes missing values, applies advanced filtering and grouping, and generates visual charts revealing workforce patterns.
                             </p>
-
-                            <!-- Key Highlights / Bullets from Resume -->
-                            <div class="my-5 p-4 rounded-xl bg-dark-950/60 border border-white/5 space-y-2 text-xs text-slate-300">
-                                <div class="flex items-start gap-2">
-                                    <i data-lucide="check" class="w-4 h-4 text-cyan-400 flex-shrink-0 mt-0.5"></i>
-                                    <span>Used employee dataset to explore, clean, and summarize structural metrics.</span>
+                            <div class="space-y-2 mb-5">
+                                <div class="flex items-start gap-2 text-xs text-white/30">
+                                    <i data-lucide="check" class="w-3.5 h-3.5 text-white/20 mt-0.5 flex-shrink-0"></i>
+                                    <span>Data filtering, sorting, null handling, grouping, and summary statistics.</span>
                                 </div>
-                                <div class="flex items-start gap-2">
-                                    <i data-lucide="check" class="w-4 h-4 text-cyan-400 flex-shrink-0 mt-0.5"></i>
-                                    <span>Practiced data filtering, sorting, null value handling, grouping, and calculating summary statistics.</span>
-                                </div>
-                                <div class="flex items-start gap-2">
-                                    <i data-lucide="check" class="w-4 h-4 text-cyan-400 flex-shrink-0 mt-0.5"></i>
-                                    <span>Created visual charts using Matplotlib to effectively communicate organizational patterns.</span>
+                                <div class="flex items-start gap-2 text-xs text-white/30">
+                                    <i data-lucide="check" class="w-3.5 h-3.5 text-white/20 mt-0.5 flex-shrink-0"></i>
+                                    <span>Visual charts with Matplotlib to communicate organizational patterns.</span>
                                 </div>
                             </div>
-
-                            <!-- Tech Stack Badges -->
-                            <div class="flex flex-wrap gap-1.5 mb-6">
-                                <span class="tag">Python</span>
-                                <span class="tag">Pandas</span>
-                                <span class="tag">NumPy</span>
-                                <span class="tag">Matplotlib</span>
-                                <span class="tag">Jupyter</span>
+                            <div class="flex flex-wrap gap-1.5">
+                                <span class="tag">Python</span><span class="tag">Pandas</span><span class="tag">NumPy</span><span class="tag">Matplotlib</span>
                             </div>
                         </div>
-
-                        <!-- Card Action Links -->
-                        <div class="pt-4 border-t border-white/10 flex items-center justify-between">
-                            <a href="https://github.com/sawinkumar13-design/project-" target="_blank" class="flex items-center gap-2 text-xs font-mono font-medium text-slate-300 hover:text-white transition-colors">
-                                <i data-lucide="github" class="w-4 h-4"></i>
-                                <span>View on GitHub</span>
-                            </a>
-                            <span class="text-xs font-mono text-cyan-400 flex items-center gap-1">
-                                <i data-lucide="check-circle-2" class="w-3.5 h-3.5"></i> Verified Project
-                            </span>
-                        </div>
-                    </article>
-
-                    <!-- PROJECT 2: Banking System Java Application (From Resume) -->
-                    <article class="project-card group rounded-2xl bg-dark-900/80 border border-white/10 hover:border-indigo-500/50 p-6 sm:p-8 flex flex-col justify-between transition-all duration-300 hover:shadow-2xl hover:shadow-indigo-500/10" data-category="java">
-                        <div>
-                            <!-- Header Badges -->
-                            <div class="flex items-center justify-between gap-2 mb-4">
-                                <span class="px-3 py-1 rounded-full text-xs font-mono font-medium bg-indigo-950/70 text-indigo-300 border border-indigo-500/30 flex items-center gap-1.5">
-                                    <i data-lucide="coffee" class="w-3.5 h-3.5"></i> Academic Project · Java OOP
-                                </span>
-                                <span class="text-xs font-mono text-slate-400">Java · OOP · Scanner</span>
-                            </div>
-
-                            <h3 class="text-2xl font-bold text-white group-hover:text-indigo-400 transition-colors">
-                                Banking System — Java Console Application
-                            </h3>
-
-                            <p class="text-slate-300 text-sm mt-3 leading-relaxed">
-                                A robust, menu-driven banking software simulation engineered in Java. Models real-life financial operations with object-oriented encapsulation, structured balance checking, deposit/withdrawal validation, and clear error handling for user inputs.
-                            </p>
-
-                            <!-- Key Highlights / Bullets from Resume -->
-                            <div class="my-5 p-4 rounded-xl bg-dark-950/60 border border-white/5 space-y-2 text-xs text-slate-300">
-                                <div class="flex items-start gap-2">
-                                    <i data-lucide="check" class="w-4 h-4 text-indigo-400 flex-shrink-0 mt-0.5"></i>
-                                    <span>Built an intuitive menu-driven console application to model fundamental account operations.</span>
-                                </div>
-                                <div class="flex items-start gap-2">
-                                    <i data-lucide="check" class="w-4 h-4 text-indigo-400 flex-shrink-0 mt-0.5"></i>
-                                    <span>Implemented deposit, withdrawal, balance verification, and account details using Java classes and methods.</span>
-                                </div>
-                                <div class="flex items-start gap-2">
-                                    <i data-lucide="check" class="w-4 h-4 text-indigo-400 flex-shrink-0 mt-0.5"></i>
-                                    <span>Practiced OOP fundamentals, conditional control flow, loops, and robust input handling with Scanner.</span>
-                                </div>
-                            </div>
-
-                            <!-- Tech Stack Badges -->
-                            <div class="flex flex-wrap gap-1.5 mb-6">
-                                <span class="tag">Java</span>
-                                <span class="tag">OOP Principles</span>
-                                <span class="tag">Java Scanner</span>
-                                <span class="tag">IntelliJ IDEA</span>
-                            </div>
-                        </div>
-
-                        <!-- Card Action Links -->
-                        <div class="pt-4 border-t border-white/10 flex items-center justify-between">
-                            <a href="https://github.com/sawinkumar13-design/project-" target="_blank" class="flex items-center gap-2 text-xs font-mono font-medium text-slate-300 hover:text-white transition-colors">
-                                <i data-lucide="github" class="w-4 h-4"></i>
-                                <span>View on GitHub</span>
-                            </a>
-                            <span class="text-xs font-mono text-indigo-400 flex items-center gap-1">
-                                <i data-lucide="check-circle-2" class="w-3.5 h-3.5"></i> Verified Project
-                            </span>
-                        </div>
-                    </article>
-
-                    <!-- PROJECT 3: Machine Learning Predictive Pipeline -->
-                    <article class="project-card group rounded-2xl bg-dark-900/80 border border-white/10 hover:border-purple-500/50 p-6 sm:p-8 flex flex-col justify-between transition-all duration-300 hover:shadow-2xl hover:shadow-purple-500/10" data-category="python">
-                        <div>
-                            <!-- Header Badges -->
-                            <div class="flex items-center justify-between gap-2 mb-4">
-                                <span class="px-3 py-1 rounded-full text-xs font-mono font-medium bg-purple-950/70 text-purple-300 border border-purple-500/30 flex items-center gap-1.5">
-                                    <i data-lucide="brain" class="w-3.5 h-3.5"></i> Machine Learning
-                                </span>
-                                <span class="text-xs font-mono text-slate-400">Scikit-Learn · NumPy</span>
-                            </div>
-
-                            <h3 class="text-2xl font-bold text-white group-hover:text-purple-400 transition-colors">
-                                Machine Learning Predictive Pipeline & Model Evaluation
-                            </h3>
-
-                            <p class="text-slate-300 text-sm mt-3 leading-relaxed">
-                                End-to-end predictive modeling workflow implementing classification and regression models. Features automated feature scaling, train-test splits, cross-validation, confusion matrix visualization, and evaluation metrics (Precision, Recall, F1-Score).
-                            </p>
-
-                            <div class="my-5 p-4 rounded-xl bg-dark-950/60 border border-white/5 space-y-2 text-xs text-slate-300">
-                                <div class="flex items-start gap-2">
-                                    <i data-lucide="check" class="w-4 h-4 text-purple-400 flex-shrink-0 mt-0.5"></i>
-                                    <span>Built automated data preprocessing pipelines using NumPy and Pandas.</span>
-                                </div>
-                                <div class="flex items-start gap-2">
-                                    <i data-lucide="check" class="w-4 h-4 text-purple-400 flex-shrink-0 mt-0.5"></i>
-                                    <span>Trained supervised machine learning algorithms with metric benchmark comparisons.</span>
-                                </div>
-                            </div>
-
-                            <!-- Tech Stack Badges -->
-                            <div class="flex flex-wrap gap-1.5 mb-6">
-                                <span class="tag">Python</span>
-                                <span class="tag">Machine Learning</span>
-                                <span class="tag">Pandas</span>
-                                <span class="tag">NumPy</span>
-                            </div>
-                        </div>
-
-                        <!-- Card Action Links -->
-                        <div class="pt-4 border-t border-white/10 flex items-center justify-between">
-                            <a href="https://github.com/sawinkumar13-design/project-" target="_blank" class="flex items-center gap-2 text-xs font-mono font-medium text-slate-300 hover:text-white transition-colors">
-                                <i data-lucide="github" class="w-4 h-4"></i>
-                                <span>Source Code</span>
-                            </a>
-                            <a href="#playground" class="inline-flex items-center gap-1.5 text-xs font-mono font-semibold text-purple-400 hover:text-purple-300 transition-colors">
-                                <span>Try Demo Sandbox</span>
-                                <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
+                        <div class="pt-5 mt-5 border-t border-white/5 flex items-center justify-between">
+                            <a href="https://github.com/sawinkumar13-design/project-" target="_blank" class="flex items-center gap-1.5 text-xs font-mono text-white/30 hover:text-white/60 transition-colors">
+                                <i data-lucide="github" class="w-3.5 h-3.5"></i> Source Code
                             </a>
                         </div>
                     </article>
 
-                    <!-- PROJECT 4: Java & Python DSA Suite -->
-                    <article class="project-card group rounded-2xl bg-dark-900/80 border border-white/10 hover:border-amber-500/50 p-6 sm:p-8 flex flex-col justify-between transition-all duration-300 hover:shadow-2xl hover:shadow-amber-500/10" data-category="java">
+                    <!-- Project 2 -->
+                    <article class="project-card card-hover rounded-xl bg-white/[0.015] border border-white/[0.06] p-6 sm:p-7 flex flex-col justify-between reveal delay-1" data-category="java">
                         <div>
-                            <!-- Header Badges -->
-                            <div class="flex items-center justify-between gap-2 mb-4">
-                                <span class="px-3 py-1 rounded-full text-xs font-mono font-medium bg-amber-950/70 text-amber-300 border border-amber-500/30 flex items-center gap-1.5">
-                                    <i data-lucide="code-2" class="w-3.5 h-3.5"></i> Problem Solving
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="text-[11px] font-mono text-white/30 px-2.5 py-0.5 bg-white/[0.03] border border-white/[0.06] rounded-full flex items-center gap-1.5">
+                                    <i data-lucide="coffee" class="w-3 h-3"></i> Java · OOP
                                 </span>
-                                <span class="text-xs font-mono text-slate-400">LeetCode · HackerRank</span>
                             </div>
-
-                            <h3 class="text-2xl font-bold text-white group-hover:text-amber-400 transition-colors">
-                                Data Structures & Problem Solving Suite
-                            </h3>
-
-                            <p class="text-slate-300 text-sm mt-3 leading-relaxed">
-                                Repository of algorithmic implementations solving classic problems across Arrays, Strings, Two Pointers, and Recursion. Focused on optimal time/space complexity, modular design, and clean code documentation.
+                            <h3 class="text-xl font-bold text-white/90 mb-3">Banking System — Java Console App</h3>
+                            <p class="text-sm text-white/30 leading-relaxed mb-4">
+                                Menu-driven banking simulation with deposit, withdrawal, balance inquiry, and account validation. Structured with modular Java classes, encapsulation, and robust input error handling.
                             </p>
-
-                            <div class="my-5 p-4 rounded-xl bg-dark-950/60 border border-white/5 space-y-2 text-xs text-slate-300">
-                                <div class="flex items-start gap-2">
-                                    <i data-lucide="check" class="w-4 h-4 text-amber-400 flex-shrink-0 mt-0.5"></i>
-                                    <span>Gold Badges earned on HackerRank across problem solving tracks.</span>
+                            <div class="space-y-2 mb-5">
+                                <div class="flex items-start gap-2 text-xs text-white/30">
+                                    <i data-lucide="check" class="w-3.5 h-3.5 text-white/20 mt-0.5 flex-shrink-0"></i>
+                                    <span>Deposit, withdrawal, balance verification using Java classes and methods.</span>
                                 </div>
-                                <div class="flex items-start gap-2">
-                                    <i data-lucide="check" class="w-4 h-4 text-amber-400 flex-shrink-0 mt-0.5"></i>
-                                    <span>Active LeetCode practice focusing on Array manipulation and Two-Pointer patterns.</span>
+                                <div class="flex items-start gap-2 text-xs text-white/30">
+                                    <i data-lucide="check" class="w-3.5 h-3.5 text-white/20 mt-0.5 flex-shrink-0"></i>
+                                    <span>Practiced OOP fundamentals, conditional logic, loops, and Scanner input.</span>
                                 </div>
                             </div>
-
-                            <!-- Tech Stack Badges -->
-                            <div class="flex flex-wrap gap-1.5 mb-6">
-                                <span class="tag">Java</span>
-                                <span class="tag">DSA</span>
-                                <span class="tag">Two Pointers</span>
-                                <span class="tag">Recursion</span>
+                            <div class="flex flex-wrap gap-1.5">
+                                <span class="tag">Java</span><span class="tag">OOP</span><span class="tag">Scanner</span><span class="tag">IntelliJ</span>
                             </div>
                         </div>
-
-                        <!-- Card Action Links -->
-                        <div class="pt-4 border-t border-white/10 flex items-center justify-between">
-                            <a href="https://leetcode.com/u/sawinkumar/" target="_blank" class="flex items-center gap-2 text-xs font-mono font-medium text-amber-400 hover:text-amber-300 transition-colors">
-                                <i data-lucide="code-2" class="w-4 h-4"></i>
-                                <span>LeetCode Profile</span>
+                        <div class="pt-5 mt-5 border-t border-white/5 flex items-center justify-between">
+                            <a href="https://github.com/sawinkumar13-design/project-" target="_blank" class="flex items-center gap-1.5 text-xs font-mono text-white/30 hover:text-white/60 transition-colors">
+                                <i data-lucide="github" class="w-3.5 h-3.5"></i> Source Code
                             </a>
-                            <a href="https://hackerrank.com/sawinkumar" target="_blank" class="flex items-center gap-2 text-xs font-mono font-medium text-slate-300 hover:text-white transition-colors">
-                                <i data-lucide="award" class="w-4 h-4"></i>
-                                <span>HackerRank</span>
+                        </div>
+                    </article>
+
+                    <!-- Project 3: DSA Suite -->
+                    <article class="project-card card-hover rounded-xl bg-white/[0.015] border border-white/[0.06] p-6 sm:p-7 flex flex-col justify-between reveal delay-2 md:col-span-2" data-category="java">
+                        <div>
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="text-[11px] font-mono text-white/30 px-2.5 py-0.5 bg-white/[0.03] border border-white/[0.06] rounded-full flex items-center gap-1.5">
+                                    <i data-lucide="code-2" class="w-3 h-3"></i> Problem Solving · LeetCode & HackerRank
+                                </span>
+                            </div>
+                            <h3 class="text-xl font-bold text-white/90 mb-3">DSA Problem Solving Suite</h3>
+                            <p class="text-sm text-white/30 leading-relaxed mb-4">
+                                Repository of algorithmic implementations solving classic problems across Arrays, Strings, Two Pointers, and Recursion. Active practice on LeetCode and HackerRank with focus on optimal time/space complexity.
+                            </p>
+                            <div class="flex flex-wrap gap-1.5">
+                                <span class="tag">Java</span><span class="tag">DSA</span><span class="tag">Two Pointers</span><span class="tag">Recursion</span><span class="tag">LeetCode</span>
+                            </div>
+                        </div>
+                        <div class="pt-5 mt-5 border-t border-white/5 flex items-center gap-6">
+                            <a href="https://leetcode.com/u/sawinkumar/" target="_blank" class="flex items-center gap-1.5 text-xs font-mono text-white/40 hover:text-white/70 transition-colors">
+                                <i data-lucide="code-2" class="w-3.5 h-3.5"></i> LeetCode Profile
+                            </a>
+                            <a href="https://hackerrank.com/sawinkumar" target="_blank" class="flex items-center gap-1.5 text-xs font-mono text-white/40 hover:text-white/70 transition-colors">
+                                <i data-lucide="award" class="w-3.5 h-3.5"></i> HackerRank
                             </a>
                         </div>
                     </article>
 
                 </div>
-
             </div>
         </section>
 
 
-        <!-- ================= CERTIFICATIONS SECTION ================= -->
-        <section id="certifications" class="py-24 relative border-t border-white/5">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- ============ LEETCODE 50 DAYS BADGE ============ -->
+        <section id="achievements" class="py-28 relative border-t border-white/5">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
                 
-                <div class="text-center max-w-3xl mx-auto mb-16">
-                    <h2 class="text-xs uppercase font-mono tracking-widest text-cyan-400 font-semibold mb-3">Verified Accreditations</h2>
-                    <p class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">Certifications & Badges</p>
-                    <p class="text-slate-400 mt-2 text-sm sm:text-base">Official certifications from HackerRank and Infosys Springboard.</p>
-                    <div class="w-16 h-1 bg-gradient-to-r from-cyan-500 to-indigo-500 mx-auto mt-4 rounded-full"></div>
+                <div class="text-center mb-16 reveal">
+                    <span class="text-[11px] font-mono text-white/30 tracking-widest uppercase">Achievement</span>
+                    <h2 class="text-3xl sm:text-4xl font-bold text-white mt-2 tracking-tight">LeetCode Badge</h2>
+                    <div class="w-12 h-0.5 bg-white/20 mx-auto mt-4"></div>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                <div class="card-hover max-w-lg mx-auto rounded-2xl bg-white/[0.02] border border-white/[0.06] p-8 sm:p-10 text-center reveal">
                     
-                    <!-- HackerRank Card -->
-                    <div class="rounded-2xl bg-dark-900/90 border border-white/10 hover:border-amber-500/50 p-6 sm:p-8 space-y-5 transition-all duration-300 hover:shadow-2xl hover:shadow-amber-500/10">
-                        <div class="flex items-center justify-between">
-                            <div class="flex items-center gap-3">
-                                <div class="p-3 rounded-xl bg-amber-500/10 text-amber-400">
-                                    <i data-lucide="award" class="w-7 h-7"></i>
-                                </div>
-                                <div>
-                                    <h3 class="text-xl font-bold text-white">HackerRank Certifications</h3>
-                                    <p class="text-xs text-amber-400 font-mono">GOLD Badges in Problem Solving</p>
-                                </div>
-                            </div>
-                            <span class="text-xs font-mono px-2.5 py-1 rounded bg-amber-950/60 text-amber-400 border border-amber-800/40">Verified</span>
-                        </div>
-
-                        <p class="text-sm text-slate-300 leading-relaxed">
-                            Earned **GOLD Badges** for demonstrable proficiency in algorithmic problem solving, language fundamentals, and data structures logic.
-                        </p>
-
-                        <div class="p-4 rounded-xl bg-dark-950/60 border border-white/5 space-y-2 text-xs font-mono text-slate-300">
-                            <div class="flex items-center justify-between">
-                                <span class="flex items-center gap-2">
-                                    <i data-lucide="check" class="w-3.5 h-3.5 text-amber-400"></i>
-                                    <span>Problem Solving Track</span>
-                                </span>
-                                <span class="text-amber-400 font-bold">Gold Badge</span>
-                            </div>
-                            <div class="flex items-center justify-between">
-                                <span class="flex items-center gap-2">
-                                    <i data-lucide="check" class="w-3.5 h-3.5 text-amber-400"></i>
-                                    <span>Python & Java Evaluation</span>
-                                </span>
-                                <span class="text-cyan-400 font-bold">Passed</span>
-                            </div>
-                        </div>
-
-                        <div class="pt-2">
-                            <a href="https://hackerrank.com/sawinkumar" target="_blank" class="w-full py-2.5 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 text-white font-medium text-xs flex items-center justify-center gap-2 transition">
-                                <i data-lucide="external-link" class="w-3.5 h-3.5 text-amber-400"></i>
-                                <span>Verify HackerRank Profile</span>
-                            </a>
+                    <!-- Badge Visual -->
+                    <div class="relative w-32 h-32 mx-auto mb-6">
+                        <div class="absolute inset-0 rounded-full bg-gradient-to-br from-amber-500/20 to-orange-500/20 blur-xl animate-pulse"></div>
+                        <div class="relative w-full h-full rounded-full bg-gradient-to-br from-amber-500/10 to-orange-600/10 border-2 border-amber-500/30 flex flex-col items-center justify-center shadow-lg shadow-amber-500/10">
+                            <span class="text-3xl font-black text-amber-400/80 font-mono">50</span>
+                            <span class="text-[10px] font-mono text-amber-400/60 uppercase tracking-wider">Days</span>
                         </div>
                     </div>
 
-                    <!-- Infosys Springboard Card -->
-                    <div class="rounded-2xl bg-dark-900/90 border border-white/10 hover:border-indigo-500/50 p-6 sm:p-8 space-y-5 transition-all duration-300 hover:shadow-2xl hover:shadow-indigo-500/10">
-                        <div class="flex items-center justify-between">
-                            <div class="flex items-center gap-3">
-                                <div class="p-3 rounded-xl bg-indigo-500/10 text-indigo-400">
-                                    <i data-lucide="shield-check" class="w-7 h-7"></i>
-                                </div>
-                                <div>
-                                    <h3 class="text-xl font-bold text-white">Infosys Springboard</h3>
-                                    <p class="text-xs text-indigo-400 font-mono">Industry Skill Accreditations</p>
-                                </div>
-                            </div>
-                            <span class="text-xs font-mono px-2.5 py-1 rounded bg-indigo-950/60 text-indigo-400 border border-indigo-800/40">Completed</span>
-                        </div>
+                    <h3 class="text-xl font-bold text-white/90 mb-2">50 Days Badge</h3>
+                    <p class="text-sm text-white/40 leading-relaxed mb-6">
+                        Earned the <span class="text-white/60 font-medium">50 Days Badge</span> on LeetCode for consistent daily problem solving over 50 consecutive days. Demonstrates discipline, persistence, and commitment to algorithmic improvement.
+                    </p>
 
-                        <p class="text-sm text-slate-300 leading-relaxed">
-                            Completed professional industry courses and evaluations recognized by Infosys Springboard:
-                        </p>
-
-                        <div class="grid grid-cols-2 gap-2 text-xs font-mono text-slate-300">
-                            <span class="p-2 rounded-lg bg-dark-950/60 border border-white/5 flex items-center gap-1.5">
-                                <i data-lucide="check" class="w-3.5 h-3.5 text-indigo-400"></i> Java OOP
-                            </span>
-                            <span class="p-2 rounded-lg bg-dark-950/60 border border-white/5 flex items-center gap-1.5">
-                                <i data-lucide="check" class="w-3.5 h-3.5 text-indigo-400"></i> Python Basics
-                            </span>
-                            <span class="p-2 rounded-lg bg-dark-950/60 border border-white/5 flex items-center gap-1.5">
-                                <i data-lucide="check" class="w-3.5 h-3.5 text-indigo-400"></i> Data Structures
-                            </span>
-                            <span class="p-2 rounded-lg bg-dark-950/60 border border-white/5 flex items-center gap-1.5">
-                                <i data-lucide="check" class="w-3.5 h-3.5 text-indigo-400"></i> HTML5 & CSS3
-                            </span>
-                            <span class="p-2 rounded-lg bg-dark-950/60 border border-white/5 flex items-center gap-1.5">
-                                <i data-lucide="check" class="w-3.5 h-3.5 text-indigo-400"></i> Agile Practices
-                            </span>
-                            <span class="p-2 rounded-lg bg-dark-950/60 border border-white/5 flex items-center gap-1.5">
-                                <i data-lucide="check" class="w-3.5 h-3.5 text-indigo-400"></i> Time Management
-                            </span>
-                        </div>
-
-                        <div class="pt-2">
-                            <div class="w-full py-2.5 rounded-xl bg-white/[0.04] border border-white/5 text-slate-400 font-mono text-xs flex items-center justify-center gap-2">
-                                <i data-lucide="award" class="w-3.5 h-3.5 text-indigo-400"></i>
-                                <span>Infosys Springboard Verified Credentials</span>
-                            </div>
-                        </div>
+                    <div class="flex items-center justify-center gap-4">
+                        <a href="https://leetcode.com/u/sawinkumar/" target="_blank" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/[0.05] border border-white/10 text-white/60 text-xs font-mono hover:text-white hover:border-white/20 transition-all">
+                            <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+                            <span>View LeetCode Profile</span>
+                        </a>
                     </div>
-
                 </div>
-
             </div>
         </section>
 
 
-        <!-- ================= LIVE INTERACTIVE AI PLAYGROUND ================= -->
-        <section id="playground" class="py-24 relative bg-dark-900/60 border-t border-white/5">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- ============ CONTACT ============ -->
+        <section id="contact" class="py-28 relative bg-white/[0.01] border-t border-white/5">
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
                 
-                <div class="text-center max-w-3xl mx-auto mb-16">
-                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-950/70 border border-cyan-500/40 text-cyan-300 text-xs font-mono mb-3">
-                        <i data-lucide="sparkles" class="w-3.5 h-3.5 text-cyan-400"></i>
-                        <span>Client-Side Machine Learning Simulation</span>
-                    </div>
-                    <p class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">Interactive AI Demo Sandbox</p>
-                    <p class="text-slate-400 mt-2 text-sm sm:text-base">Test live token decomposition, sentiment classification, and vector embeddings in your browser.</p>
-                    <div class="w-16 h-1 bg-gradient-to-r from-cyan-500 to-indigo-500 mx-auto mt-4 rounded-full"></div>
+                <div class="text-center mb-16 reveal">
+                    <span class="text-[11px] font-mono text-white/30 tracking-widest uppercase">Say Hello</span>
+                    <h2 class="text-3xl sm:text-4xl font-bold text-white mt-2 tracking-tight">Get In Touch</h2>
+                    <p class="text-white/30 text-sm mt-3 max-w-lg mx-auto">Open for internships, software development opportunities, and academic collaborations.</p>
+                    <div class="w-12 h-0.5 bg-white/20 mx-auto mt-4"></div>
                 </div>
 
-                <div class="max-w-4xl mx-auto rounded-2xl bg-dark-950 border border-white/10 p-6 sm:p-8 backdrop-blur-xl shadow-2xl relative overflow-hidden">
-                    <div class="absolute top-0 right-0 p-4 opacity-10">
-                        <i data-lucide="terminal" class="w-36 h-36 text-cyan-400"></i>
-                    </div>
-
-                    <!-- Sandbox Header Tabs -->
-                    <div class="flex items-center justify-between pb-6 border-b border-white/10">
-                        <div class="flex items-center gap-3">
-                            <div class="p-2 rounded-lg bg-cyan-500/10 text-cyan-400">
-                                <i data-lucide="sliders" class="w-5 h-5"></i>
-                            </div>
-                            <div>
-                                <h3 class="text-base font-bold text-white">Semantic Sentiment & Subword Token Analyzer</h3>
-                                <p class="text-xs text-slate-400 font-mono">BPE Tokenizer + NLP Sentiment Classification Simulation</p>
-                            </div>
-                        </div>
-                        <span class="text-xs font-mono px-2.5 py-1 rounded-full bg-emerald-950/60 text-emerald-400 border border-emerald-500/30">
-                            Active
-                        </span>
-                    </div>
-
-                    <!-- Input Area -->
-                    <div class="mt-6 space-y-4">
-                        <label class="block text-xs font-mono text-slate-300">
-                            Enter any dataset query or sentence to evaluate:
-                        </label>
-                        <div class="relative">
-                            <textarea id="aiInputText" rows="3" class="w-full rounded-xl bg-dark-900 border border-white/10 px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition font-sans" placeholder="Our employee dataset analysis with Pandas and Matplotlib revealed clear department patterns and high retention."></textarea>
-                        </div>
-
-                        <!-- Sample Quick Buttons -->
-                        <div class="flex flex-wrap items-center gap-2 text-xs">
-                            <span class="text-slate-400 font-mono">Quick Samples:</span>
-                            <button class="sample-prompt-btn" data-text="Our employee dataset analysis with Pandas and Matplotlib revealed clear department patterns and high retention.">Data Insights</button>
-                            <button class="sample-prompt-btn" data-text="The Java banking application threw an unexpected NullPointerException during balance deduction loop.">Debug Error</button>
-                            <button class="sample-prompt-btn" data-text="Successfully completed DSA problem solving with optimal Two-Pointer technique on HackerRank.">Gold Badge Win</button>
-                        </div>
-
-                        <!-- Analyze Button -->
-                        <div class="pt-2 flex justify-end">
-                            <button id="runAiDemoBtn" class="px-6 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-white font-medium text-xs sm:text-sm flex items-center gap-2 shadow-lg shadow-cyan-500/20 transition-all hover:scale-[1.02]">
-                                <i data-lucide="play" class="w-4 h-4 fill-white"></i>
-                                <span>Execute Transformer Analysis</span>
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Live Results Visualizer -->
-                    <div id="aiOutputArea" class="mt-8 pt-6 border-t border-white/10 space-y-6">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 max-w-4xl mx-auto">
+                    
+                    <!-- Contact Links -->
+                    <div class="lg:col-span-5 space-y-3 reveal">
                         
-                        <!-- Token Breakdown -->
-                        <div>
-                            <div class="flex justify-between items-center mb-3">
-                                <span class="text-xs font-mono text-slate-300 flex items-center gap-1.5">
-                                    <i data-lucide="hash" class="w-3.5 h-3.5 text-cyan-400"></i>
-                                    Subword Token Decomposition (BPE)
-                                </span>
-                                <span id="tokenCountLabel" class="text-xs font-mono text-cyan-400">14 Tokens</span>
+                        <div class="card-hover flex items-center justify-between p-4 rounded-xl bg-white/[0.02] border border-white/[0.06]">
+                            <div class="flex items-center gap-3">
+                                <i data-lucide="mail" class="w-4 h-4 text-white/30"></i>
+                                <div>
+                                    <div class="text-[10px] text-white/20 font-mono">Email</div>
+                                    <a href="mailto:sawinkumar13@gmail.com" class="text-xs text-white/50 hover:text-white transition-colors" id="emailDisplay">sawinkumar13@gmail.com</a>
+                                </div>
                             </div>
-                            <div id="tokensList" class="flex flex-wrap gap-2 p-3 bg-dark-900 rounded-xl border border-white/5 min-h-[50px] items-center">
-                                <!-- Generated Dynamically -->
-                            </div>
+                            <button id="copyEmailBtn" class="text-[10px] font-mono text-white/30 hover:text-white/60 px-2 py-0.5 rounded bg-white/[0.03] border border-white/[0.06]">Copy</button>
                         </div>
 
-                        <!-- Sentiment & Confidence Output -->
-                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                            
-                            <!-- Positive Score -->
-                            <div class="p-4 rounded-xl bg-dark-900 border border-white/5">
-                                <div class="flex justify-between text-xs text-slate-400 font-mono mb-2">
-                                    <span>Positive Alignment</span>
-                                    <span id="posScore" class="text-emerald-400 font-bold">92%</span>
-                                </div>
-                                <div class="h-2 w-full bg-dark-950 rounded-full overflow-hidden">
-                                    <div id="posBar" class="h-full bg-emerald-500 rounded-full transition-all duration-700" style="width: 92%"></div>
-                                </div>
+                        <a href="tel:+919259451815" class="card-hover flex items-center gap-3 p-4 rounded-xl bg-white/[0.02] border border-white/[0.06] group">
+                            <i data-lucide="phone" class="w-4 h-4 text-white/30"></i>
+                            <div>
+                                <div class="text-[10px] text-white/20 font-mono">Phone</div>
+                                <span class="text-xs text-white/50 group-hover:text-white transition-colors">+91-9259451815</span>
                             </div>
+                        </a>
 
-                            <!-- Neutral Score -->
-                            <div class="p-4 rounded-xl bg-dark-900 border border-white/5">
-                                <div class="flex justify-between text-xs text-slate-400 font-mono mb-2">
-                                    <span>Neutral / Technical</span>
-                                    <span id="neuScore" class="text-cyan-400 font-bold">6%</span>
-                                </div>
-                                <div class="h-2 w-full bg-dark-950 rounded-full overflow-hidden">
-                                    <div id="neuBar" class="h-full bg-cyan-500 rounded-full transition-all duration-700" style="width: 6%"></div>
-                                </div>
+                        <a href="https://linkedin.com/in/sawinkumar" target="_blank" class="card-hover flex items-center gap-3 p-4 rounded-xl bg-white/[0.02] border border-white/[0.06] group">
+                            <i data-lucide="linkedin" class="w-4 h-4 text-white/30"></i>
+                            <div>
+                                <div class="text-[10px] text-white/20 font-mono">LinkedIn</div>
+                                <span class="text-xs text-white/50 group-hover:text-white transition-colors">linkedin.com/in/sawinkumar</span>
                             </div>
+                        </a>
 
-                            <!-- Negative Score -->
-                            <div class="p-4 rounded-xl bg-dark-900 border border-white/5">
-                                <div class="flex justify-between text-xs text-slate-400 font-mono mb-2">
-                                    <span>Negative / Critique</span>
-                                    <span id="negScore" class="text-rose-400 font-bold">2%</span>
-                                </div>
-                                <div class="h-2 w-full bg-dark-950 rounded-full overflow-hidden">
-                                    <div id="negBar" class="h-full bg-rose-500 rounded-full transition-all duration-700" style="width: 2%"></div>
-                                </div>
+                        <a href="https://github.com/sawinkumar13-design" target="_blank" class="card-hover flex items-center gap-3 p-4 rounded-xl bg-white/[0.02] border border-white/[0.06] group">
+                            <i data-lucide="github" class="w-4 h-4 text-white/30"></i>
+                            <div>
+                                <div class="text-[10px] text-white/20 font-mono">GitHub</div>
+                                <span class="text-xs text-white/50 group-hover:text-white transition-colors">github.com/sawinkumar13-design</span>
                             </div>
+                        </a>
 
-                        </div>
-
-                        <!-- High-Dimensional Vector Embedding Sample (First 8 dims) -->
-                        <div>
-                            <div class="flex justify-between items-center mb-2">
-                                <span class="text-xs font-mono text-slate-400">Embedding Vector Sample (d_model=768, float32 slice):</span>
-                                <span class="text-[11px] font-mono text-slate-500">Normalized L2</span>
-                            </div>
-                            <div id="embeddingSlice" class="p-3 bg-dark-900 rounded-xl border border-white/5 font-mono text-xs text-slate-300 flex flex-wrap gap-2 overflow-x-auto">
-                                <!-- Generated Dynamically -->
+                        <div class="flex items-center gap-3 p-4 rounded-xl bg-white/[0.02] border border-white/[0.06]">
+                            <i data-lucide="map-pin" class="w-4 h-4 text-white/30"></i>
+                            <div>
+                                <div class="text-[10px] text-white/20 font-mono">Location</div>
+                                <span class="text-xs text-white/40">Mathura (281001) & Etah, Uttar Pradesh</span>
                             </div>
                         </div>
 
                     </div>
 
-                </div>
-
-            </div>
-        </section>
-
-
-        <!-- ================= CONTACT SECTION ================= -->
-        <section id="contact" class="py-24 relative bg-dark-900/40 border-t border-white/5">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                
-                <div class="text-center max-w-3xl mx-auto mb-16">
-                    <h2 class="text-xs uppercase font-mono tracking-widest text-cyan-400 font-semibold mb-3">Get in Touch</h2>
-                    <p class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">Connect With Sawin Kumar</p>
-                    <p class="text-slate-400 mt-2 text-sm sm:text-base">Feel free to reach out for software development opportunities, data science internships, or academic collaboration.</p>
-                    <div class="w-16 h-1 bg-gradient-to-r from-cyan-500 to-indigo-500 mx-auto mt-4 rounded-full"></div>
-                </div>
-
-                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 max-w-5xl mx-auto">
-                    
-                    <!-- Left Contact Info -->
-                    <div class="lg:col-span-5 space-y-6">
-                        <div class="p-6 rounded-2xl bg-white/[0.02] border border-white/10 space-y-6">
-                            
-                            <h3 class="text-xl font-bold text-white">Contact & Profiles</h3>
-                            <p class="text-sm text-slate-400 leading-relaxed">
-                                I actively check my emails and professional messages. All my social and coding links are available below:
-                            </p>
-
-                            <div class="space-y-3.5">
-                                <!-- Email 1 -->
-                                <div class="flex items-center justify-between p-3 rounded-xl bg-white/[0.02] border border-white/5 hover:border-cyan-500/30 transition-colors">
-                                    <div class="flex items-center gap-3">
-                                        <i data-lucide="mail" class="w-5 h-5 text-cyan-400"></i>
-                                        <div>
-                                            <div class="text-[10px] text-slate-500 font-mono">Personal Email</div>
-                                            <a href="mailto:sawinkumar13@gmail.com" class="text-xs font-medium text-slate-200 hover:text-cyan-400" id="emailDisplay">sawinkumar13@gmail.com</a>
-                                        </div>
-                                    </div>
-                                    <button id="copyEmailBtn" class="text-xs font-mono text-cyan-400 hover:text-cyan-300 px-2 py-1 rounded bg-cyan-950/60 border border-cyan-800/40" title="Copy email">
-                                        Copy
-                                    </button>
-                                </div>
-
-                                <!-- Email 2 (University) -->
-                                <div class="flex items-center gap-3 p-3 rounded-xl bg-white/[0.02] border border-white/5 hover:border-indigo-500/30 transition-colors">
-                                    <i data-lucide="graduation-cap" class="w-5 h-5 text-indigo-400"></i>
-                                    <div>
-                                        <div class="text-[10px] text-slate-500 font-mono">GLA University Email</div>
-                                        <a href="mailto:sawin.kumar_cs25@gla.ac.in" class="text-xs font-medium text-slate-200 hover:text-indigo-400">sawin.kumar_cs25@gla.ac.in</a>
-                                    </div>
-                                </div>
-
-                                <!-- Phone -->
-                                <div class="flex items-center gap-3 p-3 rounded-xl bg-white/[0.02] border border-white/5 hover:border-emerald-500/30 transition-colors">
-                                    <i data-lucide="phone" class="w-5 h-5 text-emerald-400"></i>
-                                    <div>
-                                        <div class="text-[10px] text-slate-500 font-mono">Phone / WhatsApp</div>
-                                        <a href="tel:+919259451815" class="text-xs font-medium text-slate-200 hover:text-emerald-400">+91-9259451815</a>
-                                    </div>
-                                </div>
-
-                                <!-- LinkedIn -->
-                                <a href="https://linkedin.com/in/sawinkumar" target="_blank" class="flex items-center gap-3 text-slate-300 hover:text-indigo-400 transition-colors p-3 rounded-xl bg-white/[0.02] border border-white/5 hover:border-indigo-500/30">
-                                    <i data-lucide="linkedin" class="w-5 h-5 text-indigo-400"></i>
-                                    <div>
-                                        <div class="text-[10px] text-slate-500 font-mono">LinkedIn</div>
-                                        <div class="text-xs font-medium">linkedin.com/in/sawinkumar</div>
-                                    </div>
-                                </a>
-
-                                <!-- GitHub -->
-                                <a href="https://github.com/sawinkumar13-design" target="_blank" class="flex items-center gap-3 text-slate-300 hover:text-cyan-400 transition-colors p-3 rounded-xl bg-white/[0.02] border border-white/5 hover:border-cyan-500/30">
-                                    <i data-lucide="github" class="w-5 h-5 text-cyan-400"></i>
-                                    <div>
-                                        <div class="text-[10px] text-slate-500 font-mono">GitHub</div>
-                                        <div class="text-xs font-medium">github.com/sawinkumar13-design</div>
-                                    </div>
-                                </a>
-
-                                <!-- LeetCode & HackerRank -->
-                                <div class="grid grid-cols-2 gap-2">
-                                    <a href="https://leetcode.com/u/sawinkumar/" target="_blank" class="flex items-center gap-2 p-2.5 rounded-xl bg-white/[0.02] border border-white/5 hover:border-amber-500/40 text-xs text-slate-300 hover:text-amber-400 transition">
-                                        <i data-lucide="code-2" class="w-4 h-4 text-amber-400"></i>
-                                        <span>LeetCode</span>
-                                    </a>
-                                    <a href="https://hackerrank.com/sawinkumar" target="_blank" class="flex items-center gap-2 p-2.5 rounded-xl bg-white/[0.02] border border-white/5 hover:border-emerald-500/40 text-xs text-slate-300 hover:text-emerald-400 transition">
-                                        <i data-lucide="award" class="w-4 h-4 text-emerald-400"></i>
-                                        <span>HackerRank</span>
-                                    </a>
-                                </div>
-
-                                <!-- Location -->
-                                <div class="flex items-center gap-3 p-3 rounded-xl bg-white/[0.02] border border-white/5">
-                                    <i data-lucide="map-pin" class="w-5 h-5 text-purple-400"></i>
-                                    <div>
-                                        <div class="text-[10px] text-slate-500 font-mono">Address</div>
-                                        <div class="text-xs font-medium text-slate-300">Mathura (281001) & Etah, Uttar Pradesh</div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <!-- Right Interactive Contact Form -->
-                    <div class="lg:col-span-7">
-                        <form id="contactForm" class="p-6 sm:p-8 rounded-2xl bg-white/[0.02] border border-white/10 space-y-5">
-                            
-                            <h3 class="text-lg font-bold text-white flex items-center gap-2">
-                                <i data-lucide="send" class="w-5 h-5 text-cyan-400"></i>
-                                <span>Send Direct Message</span>
-                            </h3>
-
+                    <!-- Contact Form -->
+                    <div class="lg:col-span-7 reveal delay-1">
+                        <form id="contactForm" class="p-6 sm:p-8 rounded-xl bg-white/[0.015] border border-white/[0.06] space-y-4">
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <div>
-                                    <label class="block text-xs font-mono text-slate-300 mb-2">Your Name *</label>
-                                    <input type="text" id="senderName" required placeholder="John Doe" class="w-full rounded-xl bg-dark-950 border border-white/10 px-4 py-3 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-cyan-400 transition">
+                                    <label class="block text-[11px] font-mono text-white/25 mb-1.5">Name *</label>
+                                    <input type="text" id="senderName" required placeholder="John Doe" class="w-full rounded-lg bg-white/[0.03] border border-white/[0.06] px-3.5 py-2.5 text-xs text-white placeholder-white/15 focus:outline-none focus:border-white/20 transition">
                                 </div>
                                 <div>
-                                    <label class="block text-xs font-mono text-slate-300 mb-2">Your Email *</label>
-                                    <input type="email" id="senderEmail" required placeholder="john@example.com" class="w-full rounded-xl bg-dark-950 border border-white/10 px-4 py-3 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-cyan-400 transition">
+                                    <label class="block text-[11px] font-mono text-white/25 mb-1.5">Email *</label>
+                                    <input type="email" id="senderEmail" required placeholder="john@example.com" class="w-full rounded-lg bg-white/[0.03] border border-white/[0.06] px-3.5 py-2.5 text-xs text-white placeholder-white/15 focus:outline-none focus:border-white/20 transition">
                                 </div>
                             </div>
-
                             <div>
-                                <label class="block text-xs font-mono text-slate-300 mb-2">Subject</label>
-                                <input type="text" id="senderSubject" placeholder="Software Engineering / Data Science Opportunity" class="w-full rounded-xl bg-dark-950 border border-white/10 px-4 py-3 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-cyan-400 transition">
+                                <label class="block text-[11px] font-mono text-white/25 mb-1.5">Subject</label>
+                                <input type="text" id="senderSubject" placeholder="Internship / Collaboration" class="w-full rounded-lg bg-white/[0.03] border border-white/[0.06] px-3.5 py-2.5 text-xs text-white placeholder-white/15 focus:outline-none focus:border-white/20 transition">
                             </div>
-
                             <div>
-                                <label class="block text-xs font-mono text-slate-300 mb-2">Message *</label>
-                                <textarea id="senderMessage" rows="4" required placeholder="Hi Sawin, I saw your portfolio and would like to discuss..." class="w-full rounded-xl bg-dark-950 border border-white/10 px-4 py-3 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-cyan-400 transition"></textarea>
+                                <label class="block text-[11px] font-mono text-white/25 mb-1.5">Message *</label>
+                                <textarea id="senderMessage" rows="4" required placeholder="Hi Sawin..." class="w-full rounded-lg bg-white/[0.03] border border-white/[0.06] px-3.5 py-2.5 text-xs text-white placeholder-white/15 focus:outline-none focus:border-white/20 transition"></textarea>
                             </div>
-
-                            <button type="submit" id="submitFormBtn" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-cyan-500 via-indigo-500 to-purple-600 hover:opacity-95 text-white font-semibold text-sm flex items-center justify-center gap-2 shadow-lg shadow-cyan-500/20 transition-all hover:scale-[1.01]">
-                                <i data-lucide="send" class="w-4 h-4"></i>
-                                <span>Send to sawinkumar13@gmail.com</span>
+                            <button type="submit" class="w-full py-3 rounded-lg bg-white text-black font-semibold text-xs hover:bg-white/90 transition-all flex items-center justify-center gap-2">
+                                <i data-lucide="send" class="w-3.5 h-3.5"></i> Send Message
                             </button>
-
-                            <p class="text-center text-[11px] text-slate-500 font-mono">
-                                Submitting opens your email client directly pre-addressed to Sawin Kumar.
-                            </p>
                         </form>
                     </div>
 
                 </div>
-
             </div>
         </section>
 
     </main>
 
+
     <!-- Footer -->
-    <footer class="py-12 border-t border-white/10 bg-dark-950 text-slate-400 relative z-10">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-6">
-            
+    <footer class="py-10 border-t border-white/5 bg-black relative z-10">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <span class="text-xs text-white/20 font-mono">&copy; 2026 Sawin Kumar &middot; GLA University (B.Tech CSE)</span>
             <div class="flex items-center gap-3">
-                <div class="w-8 h-8 rounded-lg overflow-hidden border border-cyan-500/40">
-                    <img src="assets/profile.png" alt="Sawin Kumar" class="w-full h-full object-cover">
-                </div>
-                <span class="text-sm text-slate-300">© 2026 Sawin Kumar · GLA University (B.Tech CSE)</span>
+                <a href="https://github.com/sawinkumar13-design" target="_blank" class="p-1.5 rounded text-white/15 hover:text-white/50 transition-colors"><i data-lucide="github" class="w-4 h-4"></i></a>
+                <a href="https://linkedin.com/in/sawinkumar" target="_blank" class="p-1.5 rounded text-white/15 hover:text-white/50 transition-colors"><i data-lucide="linkedin" class="w-4 h-4"></i></a>
+                <a href="https://leetcode.com/u/sawinkumar/" target="_blank" class="p-1.5 rounded text-white/15 hover:text-white/50 transition-colors"><i data-lucide="code-2" class="w-4 h-4"></i></a>
+                <a href="mailto:sawinkumar13@gmail.com" class="p-1.5 rounded text-white/15 hover:text-white/50 transition-colors"><i data-lucide="mail" class="w-4 h-4"></i></a>
+                <a href="#hero" class="p-1.5 rounded text-white/15 hover:text-white/50 transition-colors"><i data-lucide="arrow-up" class="w-4 h-4"></i></a>
             </div>
-
-            <!-- Social Links in Footer -->
-            <div class="flex items-center gap-4">
-                <a href="https://github.com/sawinkumar13-design" target="_blank" class="p-2 rounded-lg bg-white/[0.03] hover:bg-white/[0.08] text-slate-400 hover:text-cyan-400 transition-colors" title="GitHub">
-                    <i data-lucide="github" class="w-4 h-4"></i>
-                </a>
-                <a href="https://linkedin.com/in/sawinkumar" target="_blank" class="p-2 rounded-lg bg-white/[0.03] hover:bg-white/[0.08] text-slate-400 hover:text-indigo-400 transition-colors" title="LinkedIn">
-                    <i data-lucide="linkedin" class="w-4 h-4"></i>
-                </a>
-                <a href="https://leetcode.com/u/sawinkumar/" target="_blank" class="p-2 rounded-lg bg-white/[0.03] hover:bg-white/[0.08] text-slate-400 hover:text-amber-400 transition-colors" title="LeetCode">
-                    <i data-lucide="code-2" class="w-4 h-4"></i>
-                </a>
-                <a href="mailto:sawinkumar13@gmail.com" class="p-2 rounded-lg bg-white/[0.03] hover:bg-white/[0.08] text-slate-400 hover:text-emerald-400 transition-colors" title="Email">
-                    <i data-lucide="mail" class="w-4 h-4"></i>
-                </a>
-                <a href="#hero" class="p-2 rounded-lg bg-white/[0.03] hover:bg-white/[0.08] text-slate-400 hover:text-white transition-colors" title="Back to top">
-                    <i data-lucide="arrow-up" class="w-4 h-4"></i>
-                </a>
-            </div>
-
         </div>
     </footer>
 
-    <!-- Toast Notification Element -->
-    <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 px-4 py-3 rounded-xl bg-dark-900 border border-cyan-500/40 text-white text-xs font-mono flex items-center gap-2 shadow-2xl shadow-cyan-500/20 pointer-events-none">
-        <i data-lucide="check" class="w-4 h-4 text-cyan-400"></i>
-        <span id="toastMessage">Notification message</span>
+    <!-- Toast -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 px-4 py-3 rounded-xl bg-dark-800 border border-white/10 text-white text-xs font-mono flex items-center gap-2 shadow-2xl pointer-events-none">
+        <i data-lucide="check" class="w-4 h-4 text-white/50"></i>
+        <span id="toastMessage">Done</span>
     </div>
 
-    <!-- Scripts -->
     <script src="main.js"></script>
-    <script>
-        // Initialize Lucide icons on DOM ready
-        lucide.createIcons();
-    </script>
+    <script>lucide.createIcons();</script>
 </body>
 </html>
