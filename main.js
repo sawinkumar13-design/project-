@@ -1,6 +1,6 @@
 /**
  * Sawin Kumar Portfolio — Interactive Scripts
- * Neural Canvas, Scroll Reveals, Project Filters, Contact Form
+ * Neural Canvas (Cool Purple/Cyan particles), Scroll Reveals, Project Filters, Contact Form
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -18,17 +18,16 @@ document.addEventListener('DOMContentLoaded', () => {
                     revealObserver.unobserve(entry.target);
                 }
             });
-        }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+        }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
 
         revealElements.forEach(el => revealObserver.observe(el));
     } else {
-        // Fallback: show all
         revealElements.forEach(el => el.classList.add('active'));
     }
 
 
     // ==========================================
-    // 2. NEURAL NETWORK PARTICLES CANVAS
+    // 2. NEURAL NETWORK PARTICLES (PURPLE & CYAN)
     // ==========================================
     const canvas = document.getElementById('neuralCanvas');
     if (canvas) {
@@ -53,11 +52,21 @@ document.addEventListener('DOMContentLoaded', () => {
             constructor() {
                 this.x = Math.random() * width;
                 this.y = Math.random() * height;
-                this.vx = (Math.random() - 0.5) * 0.5;
-                this.vy = (Math.random() - 0.5) * 0.5;
-                this.radius = Math.random() * 1.5 + 0.8;
-                this.baseAlpha = Math.random() * 0.3 + 0.1;
+                this.vx = (Math.random() - 0.5) * 0.45;
+                this.vy = (Math.random() - 0.5) * 0.45;
+                this.radius = Math.random() * 1.6 + 0.9;
+                this.baseAlpha = Math.random() * 0.35 + 0.15;
                 this.alpha = this.baseAlpha;
+                
+                // Cool purple & cyan particle color palette
+                const rand = Math.random();
+                if (rand < 0.4) {
+                    this.rgb = '168, 85, 247'; // Violet/Purple
+                } else if (rand < 0.75) {
+                    this.rgb = '34, 211, 238'; // Cyan
+                } else {
+                    this.rgb = '244, 63, 94';  // Soft Pink/Magenta
+                }
             }
 
             update() {
@@ -72,9 +81,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     const dist = Math.sqrt(dx * dx + dy * dy);
                     if (dist < mouse.radius) {
                         const force = (mouse.radius - dist) / mouse.radius;
-                        this.x -= (dx / dist) * force * 1.5;
-                        this.y -= (dy / dist) * force * 1.5;
-                        this.alpha = Math.min(0.6, this.baseAlpha + 0.3);
+                        this.x -= (dx / dist) * force * 1.6;
+                        this.y -= (dy / dist) * force * 1.6;
+                        this.alpha = Math.min(0.8, this.baseAlpha + 0.35);
                     } else {
                         this.alpha = this.baseAlpha;
                     }
@@ -84,8 +93,11 @@ document.addEventListener('DOMContentLoaded', () => {
             draw() {
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                ctx.fillStyle = `rgba(255, 255, 255, ${this.alpha})`;
+                ctx.fillStyle = `rgba(${this.rgb}, ${this.alpha})`;
+                ctx.shadowColor = `rgba(${this.rgb}, 0.5)`;
+                ctx.shadowBlur = 6;
                 ctx.fill();
+                ctx.shadowBlur = 0;
             }
         }
 
@@ -101,34 +113,37 @@ document.addEventListener('DOMContentLoaded', () => {
                 const y = this.p1.y + (this.p2.y - this.p1.y) * this.progress;
                 ctx.beginPath();
                 ctx.arc(x, y, 2, 0, Math.PI * 2);
-                ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
+                ctx.fillStyle = '#c084fc';
+                ctx.shadowColor = '#c084fc';
+                ctx.shadowBlur = 8;
                 ctx.fill();
+                ctx.shadowBlur = 0;
             }
         }
 
         function initParticles() {
             particles = [];
             pulses = [];
-            const count = Math.min(Math.floor((width * height) / 15000), 60);
+            const count = Math.min(Math.floor((width * height) / 14000), 65);
             for (let i = 0; i < count; i++) particles.push(new Particle());
         }
 
         function connectParticles() {
-            const maxDist = 130;
+            const maxDist = 135;
             for (let i = 0; i < particles.length; i++) {
                 for (let j = i + 1; j < particles.length; j++) {
                     const dx = particles[i].x - particles[j].x;
                     const dy = particles[i].y - particles[j].y;
                     const dist = Math.sqrt(dx * dx + dy * dy);
                     if (dist < maxDist) {
-                        const alpha = (1 - dist / maxDist) * 0.12;
+                        const alpha = (1 - dist / maxDist) * 0.16;
                         ctx.beginPath();
                         ctx.moveTo(particles[i].x, particles[i].y);
                         ctx.lineTo(particles[j].x, particles[j].y);
-                        ctx.strokeStyle = `rgba(255, 255, 255, ${alpha})`;
-                        ctx.lineWidth = 0.5;
+                        ctx.strokeStyle = `rgba(168, 85, 247, ${alpha})`;
+                        ctx.lineWidth = 0.6;
                         ctx.stroke();
-                        if (Math.random() < 0.0002 && pulses.length < 6) {
+                        if (Math.random() < 0.0003 && pulses.length < 6) {
                             pulses.push(new Pulse(particles[i], particles[j]));
                         }
                     }
@@ -193,7 +208,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // ==========================================
-    // 4. TOAST & CLIPBOARD
+    // 4. TOAST NOTIFICATION & CLIPBOARD
     // ==========================================
     const toast = document.getElementById('toast');
     const toastMessage = document.getElementById('toastMessage');
@@ -243,7 +258,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // ==========================================
-    // 6. MOBILE MENU
+    // 6. MOBILE MENU TOGGLE
     // ==========================================
     const mobileMenuBtn = document.getElementById('mobileMenuBtn');
     const mobileMenu = document.getElementById('mobileMenu');
@@ -267,14 +282,16 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('scroll', () => {
         if (!navbar) return;
         if (window.scrollY > 40) {
-            navbar.style.borderBottomColor = 'rgba(255,255,255,0.08)';
+            navbar.style.borderBottomColor = 'rgba(168, 85, 247, 0.2)';
+            navbar.style.backgroundColor = 'rgba(0, 0, 0, 0.85)';
         } else {
-            navbar.style.borderBottomColor = 'rgba(255,255,255,0.03)';
+            navbar.style.borderBottomColor = 'rgba(255, 255, 255, 0.06)';
+            navbar.style.backgroundColor = 'rgba(0, 0, 0, 0.6)';
         }
 
         let currentId = '';
         sections.forEach(sec => {
-            const top = sec.offsetTop - 100;
+            const top = sec.offsetTop - 110;
             if (window.scrollY >= top && window.scrollY < top + sec.offsetHeight) {
                 currentId = sec.getAttribute('id');
             }
