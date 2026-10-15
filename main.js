@@ -451,7 +451,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const message = document.getElementById('senderMessage')?.value || '';
 
             // Construct mailto link
-            const mailtoLink = `mailto:sawinkumar13@example.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`From: ${name} (${email})\n\nMessage:\n${message}`)}`;
+            const mailtoLink = `mailto:sawinkumar13@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`From: ${name} (${email})\n\nMessage:\n${message}`)}`;
             window.location.href = mailtoLink;
 
             showToast('Opening default mail client...');
