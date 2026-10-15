@@ -1,0 +1,1396 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sawin Kumar | AI & Machine Learning Engineer</title>
+    <meta name="description" content="Portfolio of Sawin Kumar - AI & Machine Learning Engineer specializing in Large Language Models, Generative AI, Computer Vision, and MLOps.">
+    <meta name="keywords" content="Sawin Kumar, AI Engineer, Machine Learning, Data Science, Deep Learning, LLM, PyTorch, Generative AI, Portfolio">
+    <meta property="og:title" content="Sawin Kumar | AI & Machine Learning Engineer">
+    <meta property="og:description" content="Explore production-grade AI models, LLM architectures, research case studies, and interactive demos.">
+    <meta property="og:type" content="website">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        dark: {
+                            950: '#07090e',
+                            900: '#0b0f19',
+                            850: '#111827',
+                            800: '#1e293b',
+                            700: '#334155'
+                        },
+                        cyan: {
+                            400: '#22d3ee',
+                            500: '#06b6d4',
+                            glow: 'rgba(34, 211, 238, 0.25)'
+                        },
+                        indigo: {
+                            500: '#6366f1',
+                            glow: 'rgba(99, 102, 241, 0.25)'
+                        },
+                        purple: {
+                            500: '#a855f7',
+                            glow: 'rgba(168, 85, 247, 0.25)'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace']
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'glow': 'glow 3s ease-in-out infinite alternate',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        glow: {
+                            '0%': { opacity: '0.4', filter: 'blur(20px)' },
+                            '100%': { opacity: '0.8', filter: 'blur(30px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="bg-dark-950 text-slate-100 font-sans antialiased selection:bg-cyan-500/30 selection:text-cyan-300 relative overflow-x-hidden">
+
+    <!-- Ambient Gradient Backdrops -->
+    <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+        <div class="absolute -top-40 -left-40 w-96 h-96 bg-cyan-500/15 rounded-full blur-[128px]"></div>
+        <div class="absolute top-1/3 -right-40 w-[30rem] h-[30rem] bg-indigo-500/15 rounded-full blur-[140px]"></div>
+        <div class="absolute -bottom-40 left-1/3 w-96 h-96 bg-purple-500/10 rounded-full blur-[128px]"></div>
+        <div class="absolute inset-0 bg-[linear-gradient(to_right,#1f293708_1px,transparent_1px),linear-gradient(to_bottom,#1f293708_1px,transparent_1px)] bg-[size:3.5rem_3.5rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]"></div>
+    </div>
+
+    <!-- Navigation Bar -->
+    <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 backdrop-blur-md bg-dark-950/75 border-b border-white/5" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Brand / Logo -->
+            <a href="#hero" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 to-indigo-600 p-[1.5px] transition-transform duration-300 group-hover:scale-105 shadow-lg shadow-cyan-500/20">
+                    <div class="w-full h-full bg-dark-900 rounded-[10px] flex items-center justify-center">
+                        <span class="font-mono font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-indigo-400 text-lg">SK</span>
+                    </div>
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-bold text-white tracking-tight group-hover:text-cyan-400 transition-colors">Sawin Kumar</span>
+                    <span class="text-xs text-slate-400 font-mono tracking-wider">AI / ML ENGINEER</span>
+                </div>
+            </a>
+
+            <!-- Desktop Nav Links -->
+            <nav class="hidden md:flex items-center gap-1 bg-white/[0.03] border border-white/10 px-3 py-1.5 rounded-full backdrop-blur-lg">
+                <a href="#about" class="nav-link px-4 py-1.5 text-sm font-medium text-slate-300 hover:text-white rounded-full transition-all">About</a>
+                <a href="#skills" class="nav-link px-4 py-1.5 text-sm font-medium text-slate-300 hover:text-white rounded-full transition-all">Skills</a>
+                <a href="#projects" class="nav-link px-4 py-1.5 text-sm font-medium text-slate-300 hover:text-white rounded-full transition-all">Projects</a>
+                <a href="#playground" class="nav-link px-4 py-1.5 text-sm font-medium text-cyan-400 hover:text-cyan-300 rounded-full transition-all flex items-center gap-1.5">
+                    <span class="relative flex h-2 w-2">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
+                    </span>
+                    AI Playground
+                </a>
+                <a href="#experience" class="nav-link px-4 py-1.5 text-sm font-medium text-slate-300 hover:text-white rounded-full transition-all">Experience</a>
+                <a href="#contact" class="nav-link px-4 py-1.5 text-sm font-medium text-slate-300 hover:text-white rounded-full transition-all">Contact</a>
+            </nav>
+
+            <!-- Action Buttons -->
+            <div class="hidden sm:flex items-center gap-3">
+                <a href="https://github.com/sawinkumar13-design" target="_blank" rel="noopener noreferrer" 
+                   class="p-2.5 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 text-slate-300 hover:text-white transition-all duration-200 hover:scale-105"
+                   title="GitHub Profile">
+                    <i data-lucide="github" class="w-5 h-5"></i>
+                </a>
+                <a href="#contact" class="relative group overflow-hidden rounded-xl p-[1px] font-medium text-sm">
+                    <span class="absolute inset-0 bg-gradient-to-r from-cyan-500 via-indigo-500 to-purple-500 transition-all duration-300 group-hover:opacity-90"></span>
+                    <span class="relative block px-4 py-2 rounded-[11px] bg-dark-900 transition-colors duration-200 group-hover:bg-opacity-80">
+                        <span class="flex items-center gap-2 text-white">
+                            <span>Get in Touch</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4 transition-transform group-hover:translate-x-1"></i>
+                        </span>
+                    </span>
+                </a>
+            </div>
+
+            <!-- Mobile Hamburger Button -->
+            <button id="mobileMenuBtn" class="md:hidden p-2 text-slate-400 hover:text-white rounded-lg hover:bg-white/5 transition-colors" aria-label="Toggle Menu">
+                <i data-lucide="menu" id="menuIcon" class="w-6 h-6"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Drawer -->
+        <div id="mobileMenu" class="hidden md:hidden bg-dark-900/95 border-b border-white/10 px-6 py-6 space-y-4 backdrop-blur-xl">
+            <a href="#about" class="block text-slate-300 hover:text-cyan-400 text-base font-medium py-2">About</a>
+            <a href="#skills" class="block text-slate-300 hover:text-cyan-400 text-base font-medium py-2">Skills</a>
+            <a href="#projects" class="block text-slate-300 hover:text-cyan-400 text-base font-medium py-2">Projects</a>
+            <a href="#playground" class="block text-cyan-400 hover:text-cyan-300 text-base font-medium py-2 flex items-center gap-2">
+                <i data-lucide="sparkles" class="w-4 h-4 text-cyan-400"></i> Interactive AI Playground
+            </a>
+            <a href="#experience" class="block text-slate-300 hover:text-cyan-400 text-base font-medium py-2">Experience</a>
+            <a href="#contact" class="block text-slate-300 hover:text-cyan-400 text-base font-medium py-2">Contact</a>
+            <div class="pt-4 border-t border-white/10 flex items-center justify-between">
+                <a href="https://github.com/sawinkumar13-design" target="_blank" class="flex items-center gap-2 text-slate-400 hover:text-white">
+                    <i data-lucide="github" class="w-5 h-5"></i>
+                    <span>sawinkumar13-design</span>
+                </a>
+                <a href="#contact" class="px-4 py-2 bg-gradient-to-r from-cyan-500 to-indigo-600 rounded-lg text-white text-sm font-medium">Let's Talk</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="relative z-10">
+
+        <!-- ================= HERO SECTION ================= -->
+        <section id="hero" class="min-h-screen pt-32 pb-20 flex items-center relative overflow-hidden">
+            <!-- Neural Network Interactive Canvas -->
+            <canvas id="neuralCanvas" class="absolute inset-0 w-full h-full pointer-events-auto opacity-75 z-0"></canvas>
+
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                    
+                    <!-- Left Hero Content -->
+                    <div class="lg:col-span-7 space-y-8 text-center lg:text-left">
+                        
+                        <!-- Status Pill -->
+                        <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-cyan-950/40 border border-cyan-500/30 text-cyan-300 text-xs sm:text-sm font-medium backdrop-blur-md shadow-lg shadow-cyan-500/10">
+                            <span class="relative flex h-2.5 w-2.5">
+                                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                                <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+                            </span>
+                            <span>Open for AI / ML Engineer Roles & Research</span>
+                        </div>
+
+                        <!-- Headline -->
+                        <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.1] text-white">
+                            Engineering <br class="hidden sm:inline" />
+                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-indigo-400 to-purple-400">
+                                Intelligent Systems
+                            </span> <br />
+                            at Scale.
+                        </h1>
+
+                        <!-- Bio Lead -->
+                        <p class="text-lg sm:text-xl text-slate-300 max-w-2xl font-normal leading-relaxed mx-auto lg:mx-0">
+                            Hi, I'm <strong class="text-white font-semibold">Sawin Kumar</strong>. I architect and train cutting-edge 
+                            <span class="text-cyan-300 font-medium">Large Language Models</span>, 
+                            <span class="text-indigo-300 font-medium">Computer Vision</span> architectures, and production-grade 
+                            <span class="text-purple-300 font-medium">MLOps pipelines</span> that turn high-dimensional data into business advantage.
+                        </p>
+
+                        <!-- CTA Buttons -->
+                        <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2">
+                            <a href="#projects" class="px-6 py-3.5 rounded-xl bg-gradient-to-r from-cyan-500 to-indigo-600 text-white font-semibold text-sm sm:text-base hover:shadow-lg hover:shadow-cyan-500/25 transition-all duration-300 hover:scale-[1.02] flex items-center gap-2">
+                                <i data-lucide="layers" class="w-5 h-5"></i>
+                                <span>Explore Featured Work</span>
+                            </a>
+                            <a href="#playground" class="px-6 py-3.5 rounded-xl bg-white/[0.05] hover:bg-white/[0.09] border border-white/10 text-white font-semibold text-sm sm:text-base transition-all duration-300 hover:scale-[1.02] backdrop-blur-md flex items-center gap-2">
+                                <i data-lucide="terminal" class="w-5 h-5 text-cyan-400"></i>
+                                <span>Test AI Demo</span>
+                            </a>
+                            <a href="https://github.com/sawinkumar13-design" target="_blank" class="px-4 py-3.5 rounded-xl bg-white/[0.05] hover:bg-white/[0.09] border border-white/10 text-slate-300 hover:text-white transition-all duration-300" title="GitHub">
+                                <i data-lucide="github" class="w-5 h-5"></i>
+                            </a>
+                        </div>
+
+                        <!-- Highlights / Quick Stats -->
+                        <div class="grid grid-cols-3 gap-4 pt-6 border-t border-white/10 max-w-xl mx-auto lg:mx-0">
+                            <div class="text-center lg:text-left">
+                                <div class="text-2xl sm:text-3xl font-bold font-mono text-cyan-400 counter" data-target="99.2">0%</div>
+                                <div class="text-xs text-slate-400 uppercase tracking-wider mt-0.5">Model Accuracy</div>
+                            </div>
+                            <div class="text-center lg:text-left">
+                                <div class="text-2xl sm:text-3xl font-bold font-mono text-indigo-400 counter" data-target="15">0+</div>
+                                <div class="text-xs text-slate-400 uppercase tracking-wider mt-0.5">Deep Learning Models</div>
+                            </div>
+                            <div class="text-center lg:text-left">
+                                <div class="text-2xl sm:text-3xl font-bold font-mono text-purple-400 counter" data-target="4">0x</div>
+                                <div class="text-xs text-slate-400 uppercase tracking-wider mt-0.5">Inference Acceleration</div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Right Hero Visual Card -->
+                    <div class="lg:col-span-5 relative">
+                        <div class="relative mx-auto max-w-md">
+                            
+                            <!-- Glowing Aura -->
+                            <div class="absolute -inset-1 bg-gradient-to-r from-cyan-500 via-indigo-500 to-purple-600 rounded-2xl blur-xl opacity-30 group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
+
+                            <!-- Neural Card Container -->
+                            <div class="relative rounded-2xl bg-dark-900/90 border border-white/10 p-6 backdrop-blur-xl shadow-2xl">
+                                
+                                <!-- Card Header -->
+                                <div class="flex items-center justify-between pb-4 border-b border-white/10">
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-3 h-3 rounded-full bg-rose-500/80"></div>
+                                        <div class="w-3 h-3 rounded-full bg-amber-500/80"></div>
+                                        <div class="w-3 h-3 rounded-full bg-emerald-500/80"></div>
+                                        <span class="text-xs text-slate-400 font-mono ml-2">model_inference.py</span>
+                                    </div>
+                                    <span class="text-xs font-mono px-2 py-0.5 rounded bg-cyan-950/60 text-cyan-400 border border-cyan-800/40">PyTorch v2.3</span>
+                                </div>
+
+                                <!-- Code Snippet Interactive Display -->
+                                <div class="py-4 font-mono text-xs text-slate-300 leading-relaxed space-y-1">
+                                    <p><span class="text-purple-400">import</span> torch</p>
+                                    <p><span class="text-purple-400">from</span> transformers <span class="text-purple-400">import</span> AutoModelForCausalLM</p>
+                                    <p class="pt-2"><span class="text-slate-500"># Initializing optimized pipeline</span></p>
+                                    <p>device = <span class="text-emerald-400">"cuda"</span> <span class="text-purple-400">if</span> torch.cuda.is_available() <span class="text-purple-400">else</span> <span class="text-emerald-400">"cpu"</span></p>
+                                    <p>model = AutoModelForCausalLM.from_pretrained(</p>
+                                    <p class="pl-4 text-cyan-300">"sawin/omni-reasoner-7b",</p>
+                                    <p class="pl-4 text-slate-300">torch_dtype=torch.float16,</p>
+                                    <p class="pl-4 text-slate-300">device_map=<span class="text-emerald-400">"auto"</span></p>
+                                    <p>)</p>
+                                    <p class="pt-2 text-slate-500"># Benchmark Execution Result:</p>
+                                    <div class="p-3 bg-dark-950/80 rounded-lg border border-white/5 text-[11px] font-mono text-emerald-400 space-y-1 mt-2">
+                                        <div class="flex justify-between">
+                                            <span>Tokens / Sec:</span>
+                                            <span class="text-white font-bold">142.8 tok/s</span>
+                                        </div>
+                                        <div class="flex justify-between">
+                                            <span>Latency (TTFT):</span>
+                                            <span class="text-white font-bold">18.2 ms</span>
+                                        </div>
+                                        <div class="flex justify-between">
+                                            <span>VRAM Allocation:</span>
+                                            <span class="text-white font-bold">5.4 GB / 24 GB</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Real-time Training Loss Mini Visualizer -->
+                                <div class="pt-3 border-t border-white/10">
+                                    <div class="flex justify-between items-center text-xs text-slate-400 mb-2">
+                                        <span>Training Convergence (Epoch 25/25)</span>
+                                        <span class="text-cyan-400 font-mono">Loss: 0.084</span>
+                                    </div>
+                                    <div class="h-2 w-full bg-dark-950 rounded-full overflow-hidden p-0.5 border border-white/5">
+                                        <div class="h-full bg-gradient-to-r from-cyan-500 to-indigo-500 rounded-full w-[94%] animate-pulse"></div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= ABOUT ME SECTION ================= -->
+        <section id="about" class="py-24 relative border-t border-white/5">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <h2 class="text-xs uppercase font-mono tracking-widest text-cyan-400 font-semibold mb-3">Architecting The Future</h2>
+                    <p class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">About Sawin Kumar</p>
+                    <div class="w-16 h-1 bg-gradient-to-r from-cyan-500 to-indigo-500 mx-auto mt-4 rounded-full"></div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                    
+                    <!-- Bio Highlights -->
+                    <div class="lg:col-span-7 space-y-6 text-slate-300 text-base sm:text-lg leading-relaxed">
+                        <p>
+                            I am a passionate <strong class="text-white">AI / Machine Learning Engineer</strong> focused on bridging the gap between cutting-edge scientific AI research and highly scalable, reliable production software.
+                        </p>
+                        <p>
+                            My core expertise spans designing high-throughput <span class="text-cyan-300 font-medium">Retrieval-Augmented Generation (RAG)</span> architectures, fine-tuning open-weights models (Llama 3, Mistral, Gemma) using Parameter-Efficient Fine-Tuning (<span class="text-indigo-300 font-medium">PEFT / LoRA</span>), and deploying vision-language models for real-world automated inference.
+                        </p>
+                        <p>
+                            Whether optimizing tensor memory footprint for edge devices, engineering self-improving autonomous agents, or orchestrating continuous ML pipelines with MLflow and Docker, I prioritize <span class="text-white font-medium">measurable accuracy, low latency, and robust code quality</span>.
+                        </p>
+
+                        <!-- Highlights Pills -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
+                            <div class="flex items-start gap-3 p-4 rounded-xl bg-white/[0.02] border border-white/10 hover:border-cyan-500/40 transition-colors">
+                                <div class="p-2 rounded-lg bg-cyan-500/10 text-cyan-400">
+                                    <i data-lucide="cpu" class="w-5 h-5"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-white font-semibold text-sm">Model Optimization</h4>
+                                    <p class="text-xs text-slate-400 mt-0.5">Quantization (AWQ/GPTQ), TensorRT-LLM, pruning & ONNX runtime.</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start gap-3 p-4 rounded-xl bg-white/[0.02] border border-white/10 hover:border-indigo-500/40 transition-colors">
+                                <div class="p-2 rounded-lg bg-indigo-500/10 text-indigo-400">
+                                    <i data-lucide="database" class="w-5 h-5"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-white font-semibold text-sm">RAG & Vector Search</h4>
+                                    <p class="text-xs text-slate-400 mt-0.5">Pinecone, Qdrant, ChromaDB, dense/sparse rerankers, hybrid indexing.</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start gap-3 p-4 rounded-xl bg-white/[0.02] border border-white/10 hover:border-purple-500/40 transition-colors">
+                                <div class="p-2 rounded-lg bg-purple-500/10 text-purple-400">
+                                    <i data-lucide="bot" class="w-5 h-5"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-white font-semibold text-sm">Agentic Workflows</h4>
+                                    <p class="text-xs text-slate-400 mt-0.5">Tool calling, multi-agent debate, ReAct loops, LangGraph, and crew orchestration.</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start gap-3 p-4 rounded-xl bg-white/[0.02] border border-white/10 hover:border-emerald-500/40 transition-colors">
+                                <div class="p-2 rounded-lg bg-emerald-500/10 text-emerald-400">
+                                    <i data-lucide="workflow" class="w-5 h-5"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-white font-semibold text-sm">MLOps & Serving</h4>
+                                    <p class="text-xs text-slate-400 mt-0.5">FastAPI, vLLM, Docker, Kubernetes, CI/CD automated retraining & drift alerts.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Personal Infographic Card -->
+                    <div class="lg:col-span-5">
+                        <div class="rounded-2xl bg-gradient-to-b from-white/[0.06] to-white/[0.01] border border-white/10 p-8 space-y-6">
+                            
+                            <div class="flex items-center gap-4">
+                                <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-cyan-500 via-indigo-600 to-purple-600 p-0.5 flex-shrink-0 shadow-xl shadow-cyan-500/20">
+                                    <div class="w-full h-full bg-dark-900 rounded-[14px] flex items-center justify-center font-mono font-extrabold text-2xl text-cyan-400">
+                                        SK
+                                    </div>
+                                </div>
+                                <div>
+                                    <h3 class="text-xl font-bold text-white">Sawin Kumar</h3>
+                                    <p class="text-sm text-cyan-400 font-mono">sawinkumar13-design</p>
+                                    <p class="text-xs text-slate-400 flex items-center gap-1 mt-1">
+                                        <i data-lucide="map-pin" class="w-3.5 h-3.5"></i>
+                                        <span>India · Available Globally / Remote</span>
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="space-y-3 pt-2 border-t border-white/10 font-mono text-xs">
+                                <div class="flex justify-between py-1.5 border-b border-white/5">
+                                    <span class="text-slate-400">Primary Focus:</span>
+                                    <span class="text-white font-medium">GenAI, LLMs & MLOps</span>
+                                </div>
+                                <div class="flex justify-between py-1.5 border-b border-white/5">
+                                    <span class="text-slate-400">Primary Language:</span>
+                                    <span class="text-white font-medium">Python, SQL, TypeScript</span>
+                                </div>
+                                <div class="flex justify-between py-1.5 border-b border-white/5">
+                                    <span class="text-slate-400">Frameworks:</span>
+                                    <span class="text-white font-medium">PyTorch, Hugging Face, JAX</span>
+                                </div>
+                                <div class="flex justify-between py-1.5 border-b border-white/5">
+                                    <span class="text-slate-400">Compute / Cloud:</span>
+                                    <span class="text-white font-medium">NVIDIA CUDA, AWS, GCP</span>
+                                </div>
+                                <div class="flex justify-between py-1.5">
+                                    <span class="text-slate-400">Status:</span>
+                                    <span class="text-emerald-400 font-medium">Ready for New Opportunities</span>
+                                </div>
+                            </div>
+
+                            <a href="#contact" class="w-full py-3 rounded-xl bg-white/[0.05] hover:bg-white/[0.1] border border-white/10 text-white font-medium text-sm flex items-center justify-center gap-2 transition-all">
+                                <i data-lucide="mail" class="w-4 h-4 text-cyan-400"></i>
+                                <span>Direct Collaboration Inquiry</span>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- ================= SKILLS MATRIX SECTION ================= -->
+        <section id="skills" class="py-24 relative bg-dark-900/40 border-t border-white/5">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <h2 class="text-xs uppercase font-mono tracking-widest text-cyan-400 font-semibold mb-3">Technical Capability</h2>
+                    <p class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">AI & Engineering Stack</p>
+                    <p class="text-slate-400 mt-3 text-sm sm:text-base">Comprehensive toolkit leveraged to build and scale production intelligence systems.</p>
+                    <div class="w-16 h-1 bg-gradient-to-r from-cyan-500 to-indigo-500 mx-auto mt-4 rounded-full"></div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                    <!-- Category 1: Deep Learning & Modeling -->
+                    <div class="rounded-2xl bg-white/[0.02] border border-white/10 p-6 hover:border-cyan-500/40 transition-all duration-300 hover:shadow-xl hover:shadow-cyan-500/5 group">
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="p-3 rounded-xl bg-cyan-500/10 text-cyan-400 group-hover:scale-110 transition-transform">
+                                <i data-lucide="brain" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-bold text-white">Deep Learning & Modeling</h3>
+                                <p class="text-xs text-slate-400">Core neural network frameworks</p>
+                            </div>
+                        </div>
+                        <div class="space-y-4">
+                            <div>
+                                <div class="flex justify-between text-xs font-mono mb-1">
+                                    <span class="text-slate-300">PyTorch & TorchScript</span>
+                                    <span class="text-cyan-400">95%</span>
+                                </div>
+                                <div class="h-1.5 w-full bg-dark-950 rounded-full overflow-hidden">
+                                    <div class="h-full bg-cyan-400 rounded-full" style="width: 95%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-xs font-mono mb-1">
+                                    <span class="text-slate-300">Hugging Face (Transformers, Diffusers)</span>
+                                    <span class="text-cyan-400">92%</span>
+                                </div>
+                                <div class="h-1.5 w-full bg-dark-950 rounded-full overflow-hidden">
+                                    <div class="h-full bg-cyan-400 rounded-full" style="width: 92%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-xs font-mono mb-1">
+                                    <span class="text-slate-300">TensorFlow / Keras</span>
+                                    <span class="text-cyan-400">85%</span>
+                                </div>
+                                <div class="h-1.5 w-full bg-dark-950 rounded-full overflow-hidden">
+                                    <div class="h-full bg-cyan-400 rounded-full" style="width: 85%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-xs font-mono mb-1">
+                                    <span class="text-slate-300">Scikit-Learn & XGBoost</span>
+                                    <span class="text-cyan-400">90%</span>
+                                </div>
+                                <div class="h-1.5 w-full bg-dark-950 rounded-full overflow-hidden">
+                                    <div class="h-full bg-cyan-400 rounded-full" style="width: 90%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex flex-wrap gap-1.5 mt-6 pt-4 border-t border-white/5">
+                            <span class="skill-tag">CUDA</span>
+                            <span class="skill-tag">ONNX</span>
+                            <span class="skill-tag">LoRA/QLoRA</span>
+                            <span class="skill-tag">FlashAttention</span>
+                        </div>
+                    </div>
+
+                    <!-- Category 2: Generative AI & LLMs -->
+                    <div class="rounded-2xl bg-white/[0.02] border border-white/10 p-6 hover:border-indigo-500/40 transition-all duration-300 hover:shadow-xl hover:shadow-indigo-500/5 group">
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="p-3 rounded-xl bg-indigo-500/10 text-indigo-400 group-hover:scale-110 transition-transform">
+                                <i data-lucide="sparkles" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-bold text-white">Generative AI & LLMs</h3>
+                                <p class="text-xs text-slate-400">Foundation models & agent systems</p>
+                            </div>
+                        </div>
+                        <div class="space-y-4">
+                            <div>
+                                <div class="flex justify-between text-xs font-mono mb-1">
+                                    <span class="text-slate-300">RAG Architectures (Hybrid Retrieval)</span>
+                                    <span class="text-indigo-400">94%</span>
+                                </div>
+                                <div class="h-1.5 w-full bg-dark-950 rounded-full overflow-hidden">
+                                    <div class="h-full bg-indigo-400 rounded-full" style="width: 94%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-xs font-mono mb-1">
+                                    <span class="text-slate-300">LangChain & LangGraph</span>
+                                    <span class="text-indigo-400">90%</span>
+                                </div>
+                                <div class="h-1.5 w-full bg-dark-950 rounded-full overflow-hidden">
+                                    <div class="h-full bg-indigo-400 rounded-full" style="width: 90%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-xs font-mono mb-1">
+                                    <span class="text-slate-300">LlamaIndex & Semantic Caching</span>
+                                    <span class="text-indigo-400">88%</span>
+                                </div>
+                                <div class="h-1.5 w-full bg-dark-950 rounded-full overflow-hidden">
+                                    <div class="h-full bg-indigo-400 rounded-full" style="width: 88%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-xs font-mono mb-1">
+                                    <span class="text-slate-300">vLLM & TensorRT Inference</span>
+                                    <span class="text-indigo-400">86%</span>
+                                </div>
+                                <div class="h-1.5 w-full bg-dark-950 rounded-full overflow-hidden">
+                                    <div class="h-full bg-indigo-400 rounded-full" style="width: 86%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex flex-wrap gap-1.5 mt-6 pt-4 border-t border-white/5">
+                            <span class="skill-tag">Prompt Engineering</span>
+                            <span class="skill-tag">Tool Calling</span>
+                            <span class="skill-tag">Guardrails</span>
+                            <span class="skill-tag">Fine-Tuning</span>
+                        </div>
+                    </div>
+
+                    <!-- Category 3: Computer Vision & NLP -->
+                    <div class="rounded-2xl bg-white/[0.02] border border-white/10 p-6 hover:border-purple-500/40 transition-all duration-300 hover:shadow-xl hover:shadow-purple-500/5 group">
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="p-3 rounded-xl bg-purple-500/10 text-purple-400 group-hover:scale-110 transition-transform">
+                                <i data-lucide="eye" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-bold text-white">Vision & NLP Modalities</h3>
+                                <p class="text-xs text-slate-400">Perception, segmentation, semantics</p>
+                            </div>
+                        </div>
+                        <div class="space-y-4">
+                            <div>
+                                <div class="flex justify-between text-xs font-mono mb-1">
+                                    <span class="text-slate-300">YOLOv8 / Detection & Segmentation</span>
+                                    <span class="text-purple-400">92%</span>
+                                </div>
+                                <div class="h-1.5 w-full bg-dark-950 rounded-full overflow-hidden">
+                                    <div class="h-full bg-purple-400 rounded-full" style="width: 92%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-xs font-mono mb-1">
+                                    <span class="text-slate-300">OpenCV & Image Augmentations</span>
+                                    <span class="text-purple-400">90%</span>
+                                </div>
+                                <div class="h-1.5 w-full bg-dark-950 rounded-full overflow-hidden">
+                                    <div class="h-full bg-purple-400 rounded-full" style="width: 90%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-xs font-mono mb-1">
+                                    <span class="text-slate-300">Transformers (BERT, RoBERTa, CLIP)</span>
+                                    <span class="text-purple-400">89%</span>
+                                </div>
+                                <div class="h-1.5 w-full bg-dark-950 rounded-full overflow-hidden">
+                                    <div class="h-full bg-purple-400 rounded-full" style="width: 89%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-xs font-mono mb-1">
+                                    <span class="text-slate-300">Spacy & NLTK Tokenization</span>
+                                    <span class="text-purple-400">85%</span>
+                                </div>
+                                <div class="h-1.5 w-full bg-dark-950 rounded-full overflow-hidden">
+                                    <div class="h-full bg-purple-400 rounded-full" style="width: 85%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex flex-wrap gap-1.5 mt-6 pt-4 border-t border-white/5">
+                            <span class="skill-tag">CLIP</span>
+                            <span class="skill-tag">Segment Anything (SAM)</span>
+                            <span class="skill-tag">OCR</span>
+                            <span class="skill-tag">ViT</span>
+                        </div>
+                    </div>
+
+                    <!-- Category 4: Vector Databases & Data Engines -->
+                    <div class="rounded-2xl bg-white/[0.02] border border-white/10 p-6 hover:border-emerald-500/40 transition-all duration-300 hover:shadow-xl hover:shadow-emerald-500/5 group">
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="p-3 rounded-xl bg-emerald-500/10 text-emerald-400 group-hover:scale-110 transition-transform">
+                                <i data-lucide="database" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-bold text-white">Vector Stores & Big Data</h3>
+                                <p class="text-xs text-slate-400">High-dimensional embeddings</p>
+                            </div>
+                        </div>
+                        <div class="space-y-4">
+                            <div>
+                                <div class="flex justify-between text-xs font-mono mb-1">
+                                    <span class="text-slate-300">Pinecone & Qdrant</span>
+                                    <span class="text-emerald-400">92%</span>
+                                </div>
+                                <div class="h-1.5 w-full bg-dark-950 rounded-full overflow-hidden">
+                                    <div class="h-full bg-emerald-400 rounded-full" style="width: 92%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-xs font-mono mb-1">
+                                    <span class="text-slate-300">ChromaDB & FAISS (HNSW)</span>
+                                    <span class="text-emerald-400">90%</span>
+                                </div>
+                                <div class="h-1.5 w-full bg-dark-950 rounded-full overflow-hidden">
+                                    <div class="h-full bg-emerald-400 rounded-full" style="width: 90%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-xs font-mono mb-1">
+                                    <span class="text-slate-300">Pandas, NumPy, Polars</span>
+                                    <span class="text-emerald-400">95%</span>
+                                </div>
+                                <div class="h-1.5 w-full bg-dark-950 rounded-full overflow-hidden">
+                                    <div class="h-full bg-emerald-400 rounded-full" style="width: 95%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-xs font-mono mb-1">
+                                    <span class="text-slate-300">PostgreSQL (pgvector)</span>
+                                    <span class="text-emerald-400">88%</span>
+                                </div>
+                                <div class="h-1.5 w-full bg-dark-950 rounded-full overflow-hidden">
+                                    <div class="h-full bg-emerald-400 rounded-full" style="width: 88%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex flex-wrap gap-1.5 mt-6 pt-4 border-t border-white/5">
+                            <span class="skill-tag">HNSW Index</span>
+                            <span class="skill-tag">BM25 Hybrid</span>
+                            <span class="skill-tag">DuckDB</span>
+                            <span class="skill-tag">ETL</span>
+                        </div>
+                    </div>
+
+                    <!-- Category 5: MLOps, Deployments & Cloud -->
+                    <div class="rounded-2xl bg-white/[0.02] border border-white/10 p-6 hover:border-amber-500/40 transition-all duration-300 hover:shadow-xl hover:shadow-amber-500/5 group">
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="p-3 rounded-xl bg-amber-500/10 text-amber-400 group-hover:scale-110 transition-transform">
+                                <i data-lucide="server" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-bold text-white">MLOps & Production</h3>
+                                <p class="text-xs text-slate-400">Serving, monitoring, CI/CD</p>
+                            </div>
+                        </div>
+                        <div class="space-y-4">
+                            <div>
+                                <div class="flex justify-between text-xs font-mono mb-1">
+                                    <span class="text-slate-300">Docker & Containerization</span>
+                                    <span class="text-amber-400">90%</span>
+                                </div>
+                                <div class="h-1.5 w-full bg-dark-950 rounded-full overflow-hidden">
+                                    <div class="h-full bg-amber-400 rounded-full" style="width: 90%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-xs font-mono mb-1">
+                                    <span class="text-slate-300">FastAPI & Async Microservices</span>
+                                    <span class="text-amber-400">94%</span>
+                                </div>
+                                <div class="h-1.5 w-full bg-dark-950 rounded-full overflow-hidden">
+                                    <div class="h-full bg-amber-400 rounded-full" style="width: 94%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-xs font-mono mb-1">
+                                    <span class="text-slate-300">MLflow & Weights & Biases (W&B)</span>
+                                    <span class="text-amber-400">86%</span>
+                                </div>
+                                <div class="h-1.5 w-full bg-dark-950 rounded-full overflow-hidden">
+                                    <div class="h-full bg-amber-400 rounded-full" style="width: 86%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-xs font-mono mb-1">
+                                    <span class="text-slate-300">AWS (SageMaker, S3, EC2 GPU)</span>
+                                    <span class="text-amber-400">84%</span>
+                                </div>
+                                <div class="h-1.5 w-full bg-dark-950 rounded-full overflow-hidden">
+                                    <div class="h-full bg-amber-400 rounded-full" style="width: 84%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex flex-wrap gap-1.5 mt-6 pt-4 border-t border-white/5">
+                            <span class="skill-tag">Kubernetes</span>
+                            <span class="skill-tag">Model Drift</span>
+                            <span class="skill-tag">Ray</span>
+                            <span class="skill-tag">Triton Server</span>
+                        </div>
+                    </div>
+
+                    <!-- Category 6: Software Engineering & Tools -->
+                    <div class="rounded-2xl bg-white/[0.02] border border-white/10 p-6 hover:border-rose-500/40 transition-all duration-300 hover:shadow-xl hover:shadow-rose-500/5 group">
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="p-3 rounded-xl bg-rose-500/10 text-rose-400 group-hover:scale-110 transition-transform">
+                                <i data-lucide="code" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-bold text-white">Software & Dev Ecosystem</h3>
+                                <p class="text-xs text-slate-400">Reliable development foundations</p>
+                            </div>
+                        </div>
+                        <div class="space-y-4">
+                            <div>
+                                <div class="flex justify-between text-xs font-mono mb-1">
+                                    <span class="text-slate-300">Python 3.x (Async, Type Hinting)</span>
+                                    <span class="text-rose-400">96%</span>
+                                </div>
+                                <div class="h-1.5 w-full bg-dark-950 rounded-full overflow-hidden">
+                                    <div class="h-full bg-rose-400 rounded-full" style="width: 96%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-xs font-mono mb-1">
+                                    <span class="text-slate-300">Git & Collaborative CI/CD</span>
+                                    <span class="text-rose-400">92%</span>
+                                </div>
+                                <div class="h-1.5 w-full bg-dark-950 rounded-full overflow-hidden">
+                                    <div class="h-full bg-rose-400 rounded-full" style="width: 92%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-xs font-mono mb-1">
+                                    <span class="text-slate-300">Linux / Bash & Shell Automation</span>
+                                    <span class="text-rose-400">88%</span>
+                                </div>
+                                <div class="h-1.5 w-full bg-dark-950 rounded-full overflow-hidden">
+                                    <div class="h-full bg-rose-400 rounded-full" style="width: 88%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-xs font-mono mb-1">
+                                    <span class="text-slate-300">API Design & Web Integration</span>
+                                    <span class="text-rose-400">87%</span>
+                                </div>
+                                <div class="h-1.5 w-full bg-dark-950 rounded-full overflow-hidden">
+                                    <div class="h-full bg-rose-400 rounded-full" style="width: 87%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex flex-wrap gap-1.5 mt-6 pt-4 border-t border-white/5">
+                            <span class="skill-tag">Pytest</span>
+                            <span class="skill-tag">Pydantic</span>
+                            <span class="skill-tag">JupyterLab</span>
+                            <span class="skill-tag">Postman</span>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- ================= FEATURED PROJECTS SECTION ================= -->
+        <section id="projects" class="py-24 relative border-t border-white/5">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+                    <div>
+                        <h2 class="text-xs uppercase font-mono tracking-widest text-cyan-400 font-semibold mb-3">Portfolio Showcase</h2>
+                        <p class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">Featured AI & ML Projects</p>
+                        <p class="text-slate-400 mt-2 text-sm sm:text-base">End-to-end architectures, benchmarks, and production deployments.</p>
+                    </div>
+
+                    <!-- Category Filter Buttons -->
+                    <div class="flex flex-wrap gap-2 mt-6 md:mt-0" id="projectFilter">
+                        <button class="filter-btn active" data-filter="all">All Projects</button>
+                        <button class="filter-btn" data-filter="genai">GenAI & LLMs</button>
+                        <button class="filter-btn" data-filter="vision">Computer Vision</button>
+                        <button class="filter-btn" data-filter="mlops">MLOps & TimeSeries</button>
+                    </div>
+                </div>
+
+                <!-- Projects Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8" id="projectsContainer">
+
+                    <!-- PROJECT 1: OmniRAG Enterprise Knowledge Engine -->
+                    <article class="project-card group rounded-2xl bg-dark-900/80 border border-white/10 hover:border-cyan-500/50 p-6 sm:p-8 flex flex-col justify-between transition-all duration-300 hover:shadow-2xl hover:shadow-cyan-500/10" data-category="genai">
+                        <div>
+                            <!-- Header Badges -->
+                            <div class="flex items-center justify-between gap-2 mb-4">
+                                <span class="px-3 py-1 rounded-full text-xs font-mono font-medium bg-cyan-950/70 text-cyan-300 border border-cyan-500/30 flex items-center gap-1.5">
+                                    <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> GenAI / RAG
+                                </span>
+                                <span class="text-xs font-mono text-slate-400">99.1% Retrieval Precision</span>
+                            </div>
+
+                            <h3 class="text-2xl font-bold text-white group-hover:text-cyan-400 transition-colors">
+                                OmniRAG: Enterprise Multi-Modal Knowledge Engine
+                            </h3>
+
+                            <p class="text-slate-300 text-sm mt-3 leading-relaxed">
+                                Production-ready Retrieval-Augmented Generation system handling 500k+ enterprise documents. Implements dense-sparse hybrid search (BGE-M3 + BM25), cross-encoder re-ranking, and automated query decomposition with low hallucination rate.
+                            </p>
+
+                            <!-- Key Metrics Highlight -->
+                            <div class="grid grid-cols-3 gap-2 my-5 p-3 rounded-xl bg-dark-950/60 border border-white/5 text-center font-mono text-xs">
+                                <div>
+                                    <div class="text-cyan-400 font-bold text-base">< 85ms</div>
+                                    <div class="text-[10px] text-slate-400 uppercase mt-0.5">Search P95</div>
+                                </div>
+                                <div>
+                                    <div class="text-indigo-400 font-bold text-base">500k+</div>
+                                    <div class="text-[10px] text-slate-400 uppercase mt-0.5">Docs Indexed</div>
+                                </div>
+                                <div>
+                                    <div class="text-emerald-400 font-bold text-base">0.42%</div>
+                                    <div class="text-[10px] text-slate-400 uppercase mt-0.5">Hallucination</div>
+                                </div>
+                            </div>
+
+                            <!-- Tech Stack Badges -->
+                            <div class="flex flex-wrap gap-1.5 mb-6">
+                                <span class="tag">LangChain</span>
+                                <span class="tag">Qdrant Vector DB</span>
+                                <span class="tag">Llama 3 8B</span>
+                                <span class="tag">FastAPI</span>
+                                <span class="tag">Docker</span>
+                            </div>
+                        </div>
+
+                        <!-- Card Action Links -->
+                        <div class="pt-4 border-t border-white/10 flex items-center justify-between">
+                            <a href="https://github.com/sawinkumar13-design/project-" target="_blank" class="flex items-center gap-2 text-xs font-mono font-medium text-slate-300 hover:text-white transition-colors">
+                                <i data-lucide="github" class="w-4 h-4"></i>
+                                <span>Source Code</span>
+                            </a>
+                            <a href="#playground" class="inline-flex items-center gap-1.5 text-xs font-mono font-semibold text-cyan-400 hover:text-cyan-300 transition-colors">
+                                <span>Try Interactive Sandbox</span>
+                                <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
+                            </a>
+                        </div>
+                    </article>
+
+                    <!-- PROJECT 2: NeuroVision Industrial Defect Detector -->
+                    <article class="project-card group rounded-2xl bg-dark-900/80 border border-white/10 hover:border-purple-500/50 p-6 sm:p-8 flex flex-col justify-between transition-all duration-300 hover:shadow-2xl hover:shadow-purple-500/10" data-category="vision">
+                        <div>
+                            <!-- Header Badges -->
+                            <div class="flex items-center justify-between gap-2 mb-4">
+                                <span class="px-3 py-1 rounded-full text-xs font-mono font-medium bg-purple-950/70 text-purple-300 border border-purple-500/30 flex items-center gap-1.5">
+                                    <i data-lucide="eye" class="w-3.5 h-3.5"></i> Computer Vision
+                                </span>
+                                <span class="text-xs font-mono text-slate-400">98.7% mAP@0.5</span>
+                            </div>
+
+                            <h3 class="text-2xl font-bold text-white group-hover:text-purple-400 transition-colors">
+                                NeuroVision: Real-Time Edge Surface Defect Classifier
+                            </h3>
+
+                            <p class="text-slate-300 text-sm mt-3 leading-relaxed">
+                                High-speed visual inspection system for semiconductor and manufacturing lines. Fine-tuned custom YOLOv8 backbone converted to TensorRT with FP16 quantization, achieving 110 FPS on NVIDIA Jetson edge hardware.
+                            </p>
+
+                            <!-- Key Metrics Highlight -->
+                            <div class="grid grid-cols-3 gap-2 my-5 p-3 rounded-xl bg-dark-950/60 border border-white/5 text-center font-mono text-xs">
+                                <div>
+                                    <div class="text-purple-400 font-bold text-base">110 FPS</div>
+                                    <div class="text-[10px] text-slate-400 uppercase mt-0.5">Edge Speed</div>
+                                </div>
+                                <div>
+                                    <div class="text-cyan-400 font-bold text-base">0.987</div>
+                                    <div class="text-[10px] text-slate-400 uppercase mt-0.5">mAP Score</div>
+                                </div>
+                                <div>
+                                    <div class="text-emerald-400 font-bold text-base">4.2x</div>
+                                    <div class="text-[10px] text-slate-400 uppercase mt-0.5">Compression</div>
+                                </div>
+                            </div>
+
+                            <!-- Tech Stack Badges -->
+                            <div class="flex flex-wrap gap-1.5 mb-6">
+                                <span class="tag">PyTorch</span>
+                                <span class="tag">YOLOv8</span>
+                                <span class="tag">OpenCV</span>
+                                <span class="tag">TensorRT</span>
+                                <span class="tag">CUDA</span>
+                            </div>
+                        </div>
+
+                        <!-- Card Action Links -->
+                        <div class="pt-4 border-t border-white/10 flex items-center justify-between">
+                            <a href="https://github.com/sawinkumar13-design/project-" target="_blank" class="flex items-center gap-2 text-xs font-mono font-medium text-slate-300 hover:text-white transition-colors">
+                                <i data-lucide="github" class="w-4 h-4"></i>
+                                <span>Source Code</span>
+                            </a>
+                            <span class="text-xs font-mono text-purple-400 flex items-center gap-1">
+                                <i data-lucide="check-circle" class="w-3.5 h-3.5"></i> Production Deployed
+                            </span>
+                        </div>
+                    </article>
+
+                    <!-- PROJECT 3: AgenticFlow Autonomous Multi-Agent Reasoning -->
+                    <article class="project-card group rounded-2xl bg-dark-900/80 border border-white/10 hover:border-indigo-500/50 p-6 sm:p-8 flex flex-col justify-between transition-all duration-300 hover:shadow-2xl hover:shadow-indigo-500/10" data-category="genai">
+                        <div>
+                            <!-- Header Badges -->
+                            <div class="flex items-center justify-between gap-2 mb-4">
+                                <span class="px-3 py-1 rounded-full text-xs font-mono font-medium bg-indigo-950/70 text-indigo-300 border border-indigo-500/30 flex items-center gap-1.5">
+                                    <i data-lucide="bot" class="w-3.5 h-3.5"></i> Agentic AI
+                                </span>
+                                <span class="text-xs font-mono text-slate-400">Multi-Agent ReAct</span>
+                            </div>
+
+                            <h3 class="text-2xl font-bold text-white group-hover:text-indigo-400 transition-colors">
+                                AgenticFlow: Autonomous Multi-Agent Code & Research Orchestrator
+                            </h3>
+
+                            <p class="text-slate-300 text-sm mt-3 leading-relaxed">
+                                Cooperative multi-agent architecture where autonomous specialist agents (Researcher, Critic, Code Architect, Tester) collaborate to solve complex reasoning goals with self-correction, memory persistence, and dynamic tool invocation.
+                            </p>
+
+                            <!-- Key Metrics Highlight -->
+                            <div class="grid grid-cols-3 gap-2 my-5 p-3 rounded-xl bg-dark-950/60 border border-white/5 text-center font-mono text-xs">
+                                <div>
+                                    <div class="text-indigo-400 font-bold text-base">4 Agents</div>
+                                    <div class="text-[10px] text-slate-400 uppercase mt-0.5">Specialized</div>
+                                </div>
+                                <div>
+                                    <div class="text-cyan-400 font-bold text-base">89.4%</div>
+                                    <div class="text-[10px] text-slate-400 uppercase mt-0.5">Task Success</div>
+                                </div>
+                                <div>
+                                    <div class="text-emerald-400 font-bold text-base">Self-Healing</div>
+                                    <div class="text-[10px] text-slate-400 uppercase mt-0.5">Syntax Linting</div>
+                                </div>
+                            </div>
+
+                            <!-- Tech Stack Badges -->
+                            <div class="flex flex-wrap gap-1.5 mb-6">
+                                <span class="tag">LangGraph</span>
+                                <span class="tag">Python</span>
+                                <span class="tag">Redis Memory</span>
+                                <span class="tag">Mistral 7B</span>
+                                <span class="tag">AsyncIO</span>
+                            </div>
+                        </div>
+
+                        <!-- Card Action Links -->
+                        <div class="pt-4 border-t border-white/10 flex items-center justify-between">
+                            <a href="https://github.com/sawinkumar13-design/project-" target="_blank" class="flex items-center gap-2 text-xs font-mono font-medium text-slate-300 hover:text-white transition-colors">
+                                <i data-lucide="github" class="w-4 h-4"></i>
+                                <span>Source Code</span>
+                            </a>
+                            <span class="text-xs font-mono text-indigo-400 flex items-center gap-1">
+                                <i data-lucide="zap" class="w-3.5 h-3.5"></i> Benchmarked
+                            </span>
+                        </div>
+                    </article>
+
+                    <!-- PROJECT 4: PulsePredict High-Frequency Financial Time Series -->
+                    <article class="project-card group rounded-2xl bg-dark-900/80 border border-white/10 hover:border-emerald-500/50 p-6 sm:p-8 flex flex-col justify-between transition-all duration-300 hover:shadow-2xl hover:shadow-emerald-500/10" data-category="mlops">
+                        <div>
+                            <!-- Header Badges -->
+                            <div class="flex items-center justify-between gap-2 mb-4">
+                                <span class="px-3 py-1 rounded-full text-xs font-mono font-medium bg-emerald-950/70 text-emerald-300 border border-emerald-500/30 flex items-center gap-1.5">
+                                    <i data-lucide="trending-up" class="w-3.5 h-3.5"></i> Time Series & MLOps
+                                </span>
+                                <span class="text-xs font-mono text-slate-400">Sharpe Ratio 2.4</span>
+                            </div>
+
+                            <h3 class="text-2xl font-bold text-white group-hover:text-emerald-400 transition-colors">
+                                PulsePredict: Automated High-Frequency Forecasting Pipeline
+                            </h3>
+
+                            <p class="text-slate-300 text-sm mt-3 leading-relaxed">
+                                End-to-end automated time-series forecasting platform utilizing Temporal Fusion Transformers (TFT) and Bi-LSTM ensembles. Includes automated feature drift detection, rolling retraining triggers, and Prometheus/Grafana dashboards.
+                            </p>
+
+                            <!-- Key Metrics Highlight -->
+                            <div class="grid grid-cols-3 gap-2 my-5 p-3 rounded-xl bg-dark-950/60 border border-white/5 text-center font-mono text-xs">
+                                <div>
+                                    <div class="text-emerald-400 font-bold text-base">0.031</div>
+                                    <div class="text-[10px] text-slate-400 uppercase mt-0.5">RMSE Score</div>
+                                </div>
+                                <div>
+                                    <div class="text-cyan-400 font-bold text-base">Daily</div>
+                                    <div class="text-[10px] text-slate-400 uppercase mt-0.5">Auto-Retrain</div>
+                                </div>
+                                <div>
+                                    <div class="text-amber-400 font-bold text-base">Evidently AI</div>
+                                    <div class="text-[10px] text-slate-400 uppercase mt-0.5">Drift Alerts</div>
+                                </div>
+                            </div>
+
+                            <!-- Tech Stack Badges -->
+                            <div class="flex flex-wrap gap-1.5 mb-6">
+                                <span class="tag">PyTorch Forecasting</span>
+                                <span class="tag">MLflow</span>
+                                <span class="tag">Polars</span>
+                                <span class="tag">FastAPI</span>
+                                <span class="tag">Docker</span>
+                            </div>
+                        </div>
+
+                        <!-- Card Action Links -->
+                        <div class="pt-4 border-t border-white/10 flex items-center justify-between">
+                            <a href="https://github.com/sawinkumar13-design/project-" target="_blank" class="flex items-center gap-2 text-xs font-mono font-medium text-slate-300 hover:text-white transition-colors">
+                                <i data-lucide="github" class="w-4 h-4"></i>
+                                <span>Source Code</span>
+                            </a>
+                            <span class="text-xs font-mono text-emerald-400 flex items-center gap-1">
+                                <i data-lucide="activity" class="w-3.5 h-3.5"></i> Automated Retraining
+                            </span>
+                        </div>
+                    </article>
+
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- ================= LIVE INTERACTIVE AI PLAYGROUND ================= -->
+        <section id="playground" class="py-24 relative bg-dark-900/60 border-t border-white/5">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-950/70 border border-cyan-500/40 text-cyan-300 text-xs font-mono mb-3">
+                        <i data-lucide="sparkles" class="w-3.5 h-3.5 text-cyan-400"></i>
+                        <span>Client-Side Neural Simulation</span>
+                    </div>
+                    <p class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">Interactive AI Demo Sandbox</p>
+                    <p class="text-slate-400 mt-2 text-sm sm:text-base">Test live token embeddings, semantic sentiment analysis, and attention activations right in your browser.</p>
+                    <div class="w-16 h-1 bg-gradient-to-r from-cyan-500 to-indigo-500 mx-auto mt-4 rounded-full"></div>
+                </div>
+
+                <div class="max-w-4xl mx-auto rounded-2xl bg-dark-950 border border-white/10 p-6 sm:p-8 backdrop-blur-xl shadow-2xl relative overflow-hidden">
+                    <div class="absolute top-0 right-0 p-4 opacity-10">
+                        <i data-lucide="terminal" class="w-36 h-36 text-cyan-400"></i>
+                    </div>
+
+                    <!-- Sandbox Header Tabs -->
+                    <div class="flex items-center justify-between pb-6 border-b border-white/10">
+                        <div class="flex items-center gap-3">
+                            <div class="p-2 rounded-lg bg-cyan-500/10 text-cyan-400">
+                                <i data-lucide="sliders" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-base font-bold text-white">Semantic Sentiment & Token Analyzer</h3>
+                                <p class="text-xs text-slate-400 font-mono">Simulating BPE Tokenization + Transformer Sentiment Head</p>
+                            </div>
+                        </div>
+                        <span class="text-xs font-mono px-2.5 py-1 rounded-full bg-emerald-950/60 text-emerald-400 border border-emerald-500/30">
+                            Active
+                        </span>
+                    </div>
+
+                    <!-- Input Area -->
+                    <div class="mt-6 space-y-4">
+                        <label class="block text-xs font-mono text-slate-300">
+                            Enter any prompt or sentence to analyze:
+                        </label>
+                        <div class="relative">
+                            <textarea id="aiInputText" rows="3" class="w-full rounded-xl bg-dark-900 border border-white/10 px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition font-sans" placeholder="e.g., The revolutionary transformer architecture enables unprecedented multi-modal reasoning at low inference latency."></textarea>
+                        </div>
+
+                        <!-- Sample Quick Buttons -->
+                        <div class="flex flex-wrap items-center gap-2 text-xs">
+                            <span class="text-slate-400 font-mono">Quick Samples:</span>
+                            <button class="sample-prompt-btn" data-text="Deep learning and generative models have dramatically transformed modern software engineering.">Tech Vision</button>
+                            <button class="sample-prompt-btn" data-text="The system encountered an unhandled tensor shape mismatch error during the distributed training epoch.">Error Trace</button>
+                            <button class="sample-prompt-btn" data-text="Our new fine-tuned model achieved 98.4% accuracy with four times faster inference speed.">Benchmark Win</button>
+                        </div>
+
+                        <!-- Analyze Button -->
+                        <div class="pt-2 flex justify-end">
+                            <button id="runAiDemoBtn" class="px-6 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-white font-medium text-xs sm:text-sm flex items-center gap-2 shadow-lg shadow-cyan-500/20 transition-all hover:scale-[1.02]">
+                                <i data-lucide="play" class="w-4 h-4 fill-white"></i>
+                                <span>Execute Transformer Analysis</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Live Results Visualizer -->
+                    <div id="aiOutputArea" class="mt-8 pt-6 border-t border-white/10 space-y-6">
+                        
+                        <!-- Token Breakdown -->
+                        <div>
+                            <div class="flex justify-between items-center mb-3">
+                                <span class="text-xs font-mono text-slate-300 flex items-center gap-1.5">
+                                    <i data-lucide="hash" class="w-3.5 h-3.5 text-cyan-400"></i>
+                                    Subword Token Decomposition (BPE)
+                                </span>
+                                <span id="tokenCountLabel" class="text-xs font-mono text-cyan-400">14 Tokens</span>
+                            </div>
+                            <div id="tokensList" class="flex flex-wrap gap-2 p-3 bg-dark-900 rounded-xl border border-white/5 min-h-[50px] items-center">
+                                <!-- Generated Dynamically -->
+                            </div>
+                        </div>
+
+                        <!-- Sentiment & Confidence Output -->
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                            
+                            <!-- Positive Score -->
+                            <div class="p-4 rounded-xl bg-dark-900 border border-white/5">
+                                <div class="flex justify-between text-xs text-slate-400 font-mono mb-2">
+                                    <span>Positive Alignment</span>
+                                    <span id="posScore" class="text-emerald-400 font-bold">92%</span>
+                                </div>
+                                <div class="h-2 w-full bg-dark-950 rounded-full overflow-hidden">
+                                    <div id="posBar" class="h-full bg-emerald-500 rounded-full transition-all duration-700" style="width: 92%"></div>
+                                </div>
+                            </div>
+
+                            <!-- Neutral Score -->
+                            <div class="p-4 rounded-xl bg-dark-900 border border-white/5">
+                                <div class="flex justify-between text-xs text-slate-400 font-mono mb-2">
+                                    <span>Neutral / Technical</span>
+                                    <span id="neuScore" class="text-cyan-400 font-bold">6%</span>
+                                </div>
+                                <div class="h-2 w-full bg-dark-950 rounded-full overflow-hidden">
+                                    <div id="neuBar" class="h-full bg-cyan-500 rounded-full transition-all duration-700" style="width: 6%"></div>
+                                </div>
+                            </div>
+
+                            <!-- Negative Score -->
+                            <div class="p-4 rounded-xl bg-dark-900 border border-white/5">
+                                <div class="flex justify-between text-xs text-slate-400 font-mono mb-2">
+                                    <span>Negative / Critique</span>
+                                    <span id="negScore" class="text-rose-400 font-bold">2%</span>
+                                </div>
+                                <div class="h-2 w-full bg-dark-950 rounded-full overflow-hidden">
+                                    <div id="negBar" class="h-full bg-rose-500 rounded-full transition-all duration-700" style="width: 2%"></div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- High-Dimensional Vector Embedding Sample (First 8 dims) -->
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-xs font-mono text-slate-400">Embedding Vector Sample (d_model=768, float32 slice):</span>
+                                <span class="text-[11px] font-mono text-slate-500">Normalized L2</span>
+                            </div>
+                            <div id="embeddingSlice" class="p-3 bg-dark-900 rounded-xl border border-white/5 font-mono text-xs text-slate-300 flex flex-wrap gap-2 overflow-x-auto">
+                                <!-- Generated Dynamically -->
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- ================= EXPERIENCE & TIMELINE SECTION ================= -->
+        <section id="experience" class="py-24 relative border-t border-white/5">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <h2 class="text-xs uppercase font-mono tracking-widest text-cyan-400 font-semibold mb-3">Professional Trajectory</h2>
+                    <p class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">Experience & Milestones</p>
+                    <div class="w-16 h-1 bg-gradient-to-r from-cyan-500 to-indigo-500 mx-auto mt-4 rounded-full"></div>
+                </div>
+
+                <div class="max-w-3xl mx-auto space-y-8 relative before:absolute before:inset-0 before:left-8 before:w-0.5 before:bg-gradient-to-b before:from-cyan-500 before:via-indigo-500 before:to-transparent">
+                    
+                    <!-- Milestone 1 -->
+                    <div class="relative pl-16">
+                        <div class="absolute left-6 top-1.5 -translate-x-1/2 w-5 h-5 rounded-full bg-dark-950 border-2 border-cyan-400 flex items-center justify-center">
+                            <div class="w-2 h-2 rounded-full bg-cyan-400"></div>
+                        </div>
+                        <div class="rounded-2xl bg-white/[0.02] border border-white/10 p-6 hover:border-cyan-500/40 transition-colors">
+                            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-2">
+                                <h3 class="text-lg font-bold text-white">AI / Machine Learning Engineer</h3>
+                                <span class="text-xs font-mono px-2.5 py-1 rounded bg-cyan-950/60 text-cyan-400 border border-cyan-800/40 w-fit">2024 — Present</span>
+                            </div>
+                            <p class="text-sm text-cyan-300 font-medium mb-3">Applied AI & GenAI Systems</p>
+                            <ul class="text-sm text-slate-300 space-y-2 list-disc list-inside">
+                                <li>Architected production RAG pipelines utilizing Qdrant vector database with dense-sparse rerankers, reducing hallucination rates to under 1%.</li>
+                                <li>Fine-tuned open-source LLMs (Llama 3 & Mistral) using QLoRA for custom enterprise domain knowledge extraction.</li>
+                                <li>Built automated CI/CD retraining workflows using Docker, FastAPI, and GitHub Actions.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Milestone 2 -->
+                    <div class="relative pl-16">
+                        <div class="absolute left-6 top-1.5 -translate-x-1/2 w-5 h-5 rounded-full bg-dark-950 border-2 border-indigo-400 flex items-center justify-center">
+                            <div class="w-2 h-2 rounded-full bg-indigo-400"></div>
+                        </div>
+                        <div class="rounded-2xl bg-white/[0.02] border border-white/10 p-6 hover:border-indigo-500/40 transition-colors">
+                            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-2">
+                                <h3 class="text-lg font-bold text-white">Computer Vision & Deep Learning Specialist</h3>
+                                <span class="text-xs font-mono px-2.5 py-1 rounded bg-indigo-950/60 text-indigo-400 border border-indigo-800/40 w-fit">2023 — 2024</span>
+                            </div>
+                            <p class="text-sm text-indigo-300 font-medium mb-3">Edge AI & Object Detection</p>
+                            <ul class="text-sm text-slate-300 space-y-2 list-disc list-inside">
+                                <li>Designed and trained custom YOLOv8 defect detection models deployed to NVIDIA Jetson edge systems at 110+ FPS.</li>
+                                <li>Implemented TensorRT INT8/FP16 quantization pipeline, reducing model memory footprint by 4.2x without loss of mAP.</li>
+                                <li>Authored automated data augmentation pipelines using Albumentations and OpenCV to combat class imbalance.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Milestone 3 -->
+                    <div class="relative pl-16">
+                        <div class="absolute left-6 top-1.5 -translate-x-1/2 w-5 h-5 rounded-full bg-dark-950 border-2 border-purple-400 flex items-center justify-center">
+                            <div class="w-2 h-2 rounded-full bg-purple-400"></div>
+                        </div>
+                        <div class="rounded-2xl bg-white/[0.02] border border-white/10 p-6 hover:border-purple-500/40 transition-colors">
+                            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-2">
+                                <h3 class="text-lg font-bold text-white">B.Tech in Computer Science / Artificial Intelligence</h3>
+                                <span class="text-xs font-mono px-2.5 py-1 rounded bg-purple-950/60 text-purple-400 border border-purple-800/40 w-fit">Academic Degree</span>
+                            </div>
+                            <p class="text-sm text-purple-300 font-medium mb-3">Core Foundations: Linear Algebra, Probability, Algorithms & Deep Learning</p>
+                            <p class="text-sm text-slate-300 leading-relaxed">
+                                Deep dive into mathematical foundations of Machine Learning: Optimization theory, Stochastic Gradient Descent, Matrix Factorization, and Graph Neural Networks.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- ================= CONTACT SECTION ================= -->
+        <section id="contact" class="py-24 relative bg-dark-900/40 border-t border-white/5">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <h2 class="text-xs uppercase font-mono tracking-widest text-cyan-400 font-semibold mb-3">Initiate Connection</h2>
+                    <p class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">Let's Build Something Intelligent</p>
+                    <p class="text-slate-400 mt-2 text-sm sm:text-base">Whether you have an open AI position, a consulting project, or want to discuss machine learning architectures, reach out!</p>
+                    <div class="w-16 h-1 bg-gradient-to-r from-cyan-500 to-indigo-500 mx-auto mt-4 rounded-full"></div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 max-w-5xl mx-auto">
+                    
+                    <!-- Left Contact Info -->
+                    <div class="lg:col-span-5 space-y-6">
+                        <div class="p-6 rounded-2xl bg-white/[0.02] border border-white/10 space-y-6">
+                            
+                            <h3 class="text-xl font-bold text-white">Contact Information</h3>
+                            <p class="text-sm text-slate-400 leading-relaxed">
+                                I am currently open to full-time roles, research collaborations, and high-impact AI contracts.
+                            </p>
+
+                            <div class="space-y-4">
+                                <a href="https://github.com/sawinkumar13-design" target="_blank" class="flex items-center gap-3 text-slate-300 hover:text-cyan-400 transition-colors p-3 rounded-xl bg-white/[0.02] border border-white/5 hover:border-cyan-500/30">
+                                    <i data-lucide="github" class="w-5 h-5 text-cyan-400"></i>
+                                    <div>
+                                        <div class="text-xs text-slate-500 font-mono">GitHub</div>
+                                        <div class="text-sm font-medium">sawinkumar13-design</div>
+                                    </div>
+                                </a>
+
+                                <div class="flex items-center justify-between p-3 rounded-xl bg-white/[0.02] border border-white/5 hover:border-cyan-500/30 transition-colors">
+                                    <div class="flex items-center gap-3">
+                                        <i data-lucide="mail" class="w-5 h-5 text-indigo-400"></i>
+                                        <div>
+                                            <div class="text-xs text-slate-500 font-mono">Email</div>
+                                            <div class="text-sm font-medium text-slate-200" id="emailDisplay">sawinkumar13@example.com</div>
+                                        </div>
+                                    </div>
+                                    <button id="copyEmailBtn" class="text-xs font-mono text-cyan-400 hover:text-cyan-300 px-2 py-1 rounded bg-cyan-950/60 border border-cyan-800/40" title="Copy to clipboard">
+                                        Copy
+                                    </button>
+                                </div>
+
+                                <div class="flex items-center gap-3 p-3 rounded-xl bg-white/[0.02] border border-white/5">
+                                    <i data-lucide="map-pin" class="w-5 h-5 text-purple-400"></i>
+                                    <div>
+                                        <div class="text-xs text-slate-500 font-mono">Location</div>
+                                        <div class="text-sm font-medium text-slate-200">India · Remote Friendly</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Right Interactive Contact Form -->
+                    <div class="lg:col-span-7">
+                        <form id="contactForm" class="p-6 sm:p-8 rounded-2xl bg-white/[0.02] border border-white/10 space-y-5">
+                            
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs font-mono text-slate-300 mb-2">Your Name *</label>
+                                    <input type="text" id="senderName" required placeholder="Dr. John Doe" class="w-full rounded-xl bg-dark-950 border border-white/10 px-4 py-3 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-cyan-400 transition">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-mono text-slate-300 mb-2">Your Email *</label>
+                                    <input type="email" id="senderEmail" required placeholder="john@company.com" class="w-full rounded-xl bg-dark-950 border border-white/10 px-4 py-3 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-cyan-400 transition">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-mono text-slate-300 mb-2">Subject</label>
+                                <input type="text" id="senderSubject" placeholder="AI Engineering Opportunity / Project Discussion" class="w-full rounded-xl bg-dark-950 border border-white/10 px-4 py-3 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-cyan-400 transition">
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-mono text-slate-300 mb-2">Message *</label>
+                                <textarea id="senderMessage" rows="4" required placeholder="Tell me about your team, project, or what you'd like to collaborate on..." class="w-full rounded-xl bg-dark-950 border border-white/10 px-4 py-3 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-cyan-400 transition"></textarea>
+                            </div>
+
+                            <button type="submit" id="submitFormBtn" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-cyan-500 via-indigo-500 to-purple-600 hover:opacity-95 text-white font-semibold text-sm flex items-center justify-center gap-2 shadow-lg shadow-cyan-500/20 transition-all hover:scale-[1.01]">
+                                <i data-lucide="send" class="w-4 h-4"></i>
+                                <span>Send Direct Message</span>
+                            </button>
+
+                            <p class="text-center text-[11px] text-slate-500 font-mono">
+                                Messages are dispatched securely. You can also contact me directly on GitHub.
+                            </p>
+                        </form>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="py-12 border-t border-white/10 bg-dark-950 text-slate-400 relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-6">
+            
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-cyan-500 to-indigo-600 p-[1px]">
+                    <div class="w-full h-full bg-dark-900 rounded-[7px] flex items-center justify-center font-mono font-bold text-xs text-cyan-400">
+                        SK
+                    </div>
+                </div>
+                <span class="text-sm text-slate-300">© 2026 Sawin Kumar. Crafted for High Performance.</span>
+            </div>
+
+            <!-- Social Links in Footer -->
+            <div class="flex items-center gap-4">
+                <a href="https://github.com/sawinkumar13-design" target="_blank" class="p-2 rounded-lg bg-white/[0.03] hover:bg-white/[0.08] text-slate-400 hover:text-white transition-colors" title="GitHub">
+                    <i data-lucide="github" class="w-4 h-4"></i>
+                </a>
+                <a href="#hero" class="p-2 rounded-lg bg-white/[0.03] hover:bg-white/[0.08] text-slate-400 hover:text-white transition-colors" title="Back to top">
+                    <i data-lucide="arrow-up" class="w-4 h-4"></i>
+                </a>
+            </div>
+
+        </div>
+    </footer>
+
+    <!-- Toast Notification Element -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 px-4 py-3 rounded-xl bg-dark-900 border border-cyan-500/40 text-white text-xs font-mono flex items-center gap-2 shadow-2xl shadow-cyan-500/20 pointer-events-none">
+        <i data-lucide="check" class="w-4 h-4 text-cyan-400"></i>
+        <span id="toastMessage">Notification message</span>
+    </div>
+
+    <!-- Scripts -->
+    <script src="main.js"></script>
+    <script>
+        // Initialize Lucide icons on DOM ready
+        lucide.createIcons();
+    </script>
+</body>
+</html>
