@@ -2,8 +2,6 @@
 
 Personal portfolio website for **Sawin Kumar**, B.Tech Computer Science & Engineering student at **GLA University, Mathura** and aspiring **Data Scientist & Software Engineer**.
 
-![Status](https://img.shields.io/badge/Deployment-GitHub_Pages_Ready-success?style=for-the-badge)
-![Tech Stack](https://img.shields.io/badge/Stack-Tailwind_CSS_|_Lucide_|_Canvas-06b6d4?style=for-the-badge)
 ![Academic Standing](https://img.shields.io/badge/GLA_University-7.9_CPI-indigo?style=for-the-badge)
 
 ---
