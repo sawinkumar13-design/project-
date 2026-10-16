@@ -18,9 +18,8 @@
             theme: {
                 extend: {
                     colors: {
-                        dark: { 950: '#030305', 900: '#07070a', 850: '#0d0d12', 800: '#14141c', 700: '#1c1c28' },
-                        purple: { 400: '#c084fc', 500: '#a855f7', 600: '#9333ea', 700: '#7e22ce' },
-                        cyan: { 400: '#22d3ee', 500: '#06b6d4' }
+                        obsidian: { 950: '#030306', 900: '#06060a', 850: '#0a0a10', 800: '#12121c', 700: '#1a1a28' },
+                        cosmic: { cyan: '#00F2FE', violet: '#6B00FF', emerald: '#00FF87', purple: '#a855f7' }
                     },
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
@@ -31,118 +30,100 @@
         }
     </script>
     <script src="https://unpkg.com/lucide@latest"></script>
-    <link rel="stylesheet" href="styles.css?v=4">
+    <link rel="stylesheet" href="styles.css?v=5">
 </head>
 
-<body class="bg-black text-white font-sans antialiased selection:bg-purple-500/30 selection:text-purple-200 overflow-x-hidden">
+<body class="selection:bg-cyan-500/30 selection:text-cyan-200 overflow-x-hidden font-sans">
 
     <!-- ======================================================== -->
-    <!-- COOL PURPLE & CYAN ANIMATED BACKGROUND (BLACK BASE)     -->
+    <!-- INTERACTIVE GALAXY & SCROLL-REACTIVE STARFIELD           -->
     <!-- ======================================================== -->
-    <div class="fixed inset-0 z-0 pointer-events-none overflow-hidden">
-        <!-- Pure Black Base -->
-        <div class="absolute inset-0 bg-black"></div>
+    <!-- Starfield Canvas (Reacts to scroll speed and depth) -->
+    <canvas id="galaxyCanvas"></canvas>
 
-        <!-- Animated Aurora Mesh Gradient -->
-        <div class="aurora-mesh absolute -top-20 -left-20 w-[140vw] h-[140vh] opacity-70"></div>
-
-        <!-- Subtle Tech Grid Overlay -->
-        <div class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:50px_50px] [mask-image:radial-gradient(ellipse_80%_60%_at_50%_10%,#000_60%,transparent_100%)]"></div>
-
-        <!-- Section-Specific Ambient Cool Orbs ("Slide Colors") -->
-        <div class="ambient-orb ambient-orb-purple w-[34rem] h-[34rem] -top-20 -left-20"></div>
-        <div class="ambient-orb ambient-orb-cyan w-[30rem] h-[30rem] top-[30vh] -right-20"></div>
-        <div class="ambient-orb ambient-orb-purple w-[32rem] h-[32rem] top-[80vh] left-[15%]"></div>
-        <div class="ambient-orb ambient-orb-magenta w-[28rem] h-[28rem] top-[140vh] -left-10"></div>
-        <div class="ambient-orb ambient-orb-cyan w-[36rem] h-[36rem] top-[200vh] -right-10"></div>
-        <div class="ambient-orb ambient-orb-purple w-[32rem] h-[32rem] top-[260vh] left-[20%]"></div>
-
-        <!-- Floating Aurora Stardust Particles -->
-        <div class="particle" style="left:8%;animation-delay:0s;animation-duration:17s"></div>
-        <div class="particle" style="left:18%;animation-delay:2.5s;animation-duration:21s"></div>
-        <div class="particle" style="left:32%;animation-delay:4s;animation-duration:19s"></div>
-        <div class="particle" style="left:48%;animation-delay:1s;animation-duration:24s"></div>
-        <div class="particle" style="left:62%;animation-delay:3.5s;animation-duration:18s"></div>
-        <div class="particle" style="left:76%;animation-delay:5s;animation-duration:22s"></div>
-        <div class="particle" style="left:88%;animation-delay:2s;animation-duration:20s"></div>
-        <div class="particle" style="left:94%;animation-delay:6s;animation-duration:23s"></div>
+    <!-- Ambient Cosmic Nebula Glow Backdrop (Shifts color smoothly on scroll) -->
+    <div class="nebula-backdrop">
+        <div class="nebula-layer"></div>
     </div>
 
+    <!-- Fine Geometric Cosmic Grid -->
+    <div class="cosmic-grid"></div>
+
     <!-- ======================================================== -->
-    <!-- NAVIGATION BAR WITH BRANDED TOOL ICONS                   -->
+    <!-- NAVIGATION BAR (GLOSSY GLASS WITH BRANDED TOOL ICONS)    -->
     <!-- ======================================================== -->
-    <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-500 backdrop-blur-2xl bg-black/60 border-b border-white/[0.06]" id="navbar">
+    <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-500 backdrop-blur-2xl bg-[#06060a]/75 border-b border-white/[0.08]" id="navbar">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
             
             <!-- Brand / Logo -->
             <a href="#hero" class="flex items-center gap-3 group">
-                <div class="relative w-9 h-9 rounded-xl p-[1.5px] bg-gradient-to-tr from-cyan-400 via-purple-500 to-pink-500 transition-transform duration-300 group-hover:scale-105 shadow-md shadow-purple-500/20">
-                    <img src="assets/profile.jpg?v=4" alt="Sawin Kumar" class="w-full h-full object-cover rounded-[10px]">
+                <div class="relative w-9 h-9 rounded-xl p-[1.5px] bg-gradient-to-tr from-[#00F2FE] via-[#6B00FF] to-[#00FF87] transition-transform duration-300 group-hover:scale-105 shadow-md shadow-[#00F2FE]/20">
+                    <img src="assets/profile.jpg?v=5" alt="Sawin Kumar" class="w-full h-full object-cover rounded-[10px]">
                 </div>
                 <div>
-                    <span class="font-bold text-sm text-white/90 group-hover:text-purple-300 tracking-tight transition-colors">Sawin Kumar</span>
-                    <span class="block text-[10px] text-purple-400/70 font-mono">B.TECH CSE · GLA</span>
+                    <span class="font-bold text-sm text-white group-hover:text-[#00F2FE] tracking-tight transition-colors">Sawin Kumar</span>
+                    <span class="block text-[10px] text-slate-400 font-mono">B.TECH CSE · GLA UNIVERSITY</span>
                 </div>
             </a>
 
-            <!-- Desktop Nav Links -->
-            <nav class="hidden md:flex items-center gap-1 bg-white/[0.03] border border-white/[0.08] px-2.5 py-1 rounded-full backdrop-blur-xl">
-                <a href="#about" class="nav-link px-3 py-1 text-xs text-white/60 hover:text-white rounded-full transition-all">About</a>
-                <a href="#education" class="nav-link px-3 py-1 text-xs text-white/60 hover:text-white rounded-full transition-all">Education</a>
-                <a href="#skills" class="nav-link px-3 py-1 text-xs text-white/60 hover:text-white rounded-full transition-all">Skills</a>
-                <a href="#projects" class="nav-link px-3 py-1 text-xs text-white/60 hover:text-white rounded-full transition-all">Projects</a>
-                <a href="#achievements" class="nav-link px-3 py-1 text-xs text-amber-400/80 hover:text-amber-300 rounded-full transition-all flex items-center gap-1.5">
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex items-center gap-1 bg-white/[0.035] border border-white/[0.09] px-2.5 py-1 rounded-full backdrop-blur-xl shadow-inner">
+                <a href="#about" class="nav-link px-3.5 py-1 text-xs text-slate-300 hover:text-white rounded-full transition-all">About</a>
+                <a href="#education" class="nav-link px-3.5 py-1 text-xs text-slate-300 hover:text-white rounded-full transition-all">Education</a>
+                <a href="#skills" class="nav-link px-3.5 py-1 text-xs text-slate-300 hover:text-white rounded-full transition-all">Skills</a>
+                <a href="#projects" class="nav-link px-3.5 py-1 text-xs text-slate-300 hover:text-white rounded-full transition-all">Projects</a>
+                <a href="#achievements" class="nav-link px-3.5 py-1 text-xs text-amber-400 hover:text-amber-300 rounded-full transition-all flex items-center gap-1.5 font-medium">
                     <svg class="w-3.5 h-3.5 text-amber-400" viewBox="0 0 24 24" fill="currentColor">
                         <path d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104 5.35 5.35 0 0 0-.125.513 5.527 5.527 0 0 0 .062 2.362 5.83 5.83 0 0 0 .349 1.017 5.938 5.938 0 0 0 1.271 1.818l4.277 4.193.039.038c2.248 2.165 5.852 2.133 8.063-.074l2.396-2.392c.54-.54.54-1.414.003-1.955a1.378 1.378 0 0 0-1.951-.003l-2.396 2.392a3.021 3.021 0 0 1-4.205.038l-.02-.019-4.276-4.193c-.652-.64-.972-1.469-.948-2.263a2.68 2.68 0 0 1 .066-.523 2.545 2.545 0 0 1 .619-1.164L9.13 8.114c1.058-1.134 3.204-1.27 4.43-.278l3.501 2.831c.593.48 1.461.387 1.94-.207a1.384 1.384 0 0 0-.207-1.943l-3.5-2.831c-.8-.647-1.766-1.045-2.774-1.202l2.015-2.158A1.384 1.384 0 0 0 13.483 0zm-2.866 12.815a1.38 1.38 0 0 0-1.38 1.382 1.38 1.38 0 0 0 1.38 1.382H20.79a1.38 1.38 0 0 0 1.38-1.382 1.38 1.38 0 0 0-1.38-1.382z"/>
                     </svg>
                     <span>LeetCode</span>
                 </a>
-                <a href="#contact" class="nav-link px-3 py-1 text-xs text-white/60 hover:text-white rounded-full transition-all">Contact</a>
+                <a href="#contact" class="nav-link px-3.5 py-1 text-xs text-slate-300 hover:text-white rounded-full transition-all">Contact</a>
             </nav>
 
-            <!-- Social Links with Official Tool SVGs -->
+            <!-- Social Action Icons -->
             <div class="hidden sm:flex items-center gap-2">
                 <!-- LeetCode -->
                 <a href="https://leetcode.com/u/sawinkumar/" target="_blank" rel="noopener noreferrer" 
-                   class="p-2 rounded-xl bg-white/[0.04] hover:bg-amber-500/10 border border-white/[0.08] hover:border-amber-500/40 text-amber-400/80 hover:text-amber-400 transition-all hover:scale-105" title="LeetCode Profile">
+                   class="glass-pill p-2 rounded-xl text-amber-400 hover:text-amber-300 transition-all hover:scale-105" title="LeetCode Profile">
                     <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
                         <path d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104 5.35 5.35 0 0 0-.125.513 5.527 5.527 0 0 0 .062 2.362 5.83 5.83 0 0 0 .349 1.017 5.938 5.938 0 0 0 1.271 1.818l4.277 4.193.039.038c2.248 2.165 5.852 2.133 8.063-.074l2.396-2.392c.54-.54.54-1.414.003-1.955a1.378 1.378 0 0 0-1.951-.003l-2.396 2.392a3.021 3.021 0 0 1-4.205.038l-.02-.019-4.276-4.193c-.652-.64-.972-1.469-.948-2.263a2.68 2.68 0 0 1 .066-.523 2.545 2.545 0 0 1 .619-1.164L9.13 8.114c1.058-1.134 3.204-1.27 4.43-.278l3.501 2.831c.593.48 1.461.387 1.94-.207a1.384 1.384 0 0 0-.207-1.943l-3.5-2.831c-.8-.647-1.766-1.045-2.774-1.202l2.015-2.158A1.384 1.384 0 0 0 13.483 0zm-2.866 12.815a1.38 1.38 0 0 0-1.38 1.382 1.38 1.38 0 0 0 1.38 1.382H20.79a1.38 1.38 0 0 0 1.38-1.382 1.38 1.38 0 0 0-1.38-1.382z"/>
                     </svg>
                 </a>
                 <!-- LinkedIn -->
                 <a href="https://linkedin.com/in/sawinkumar" target="_blank" rel="noopener noreferrer" 
-                   class="p-2 rounded-xl bg-white/[0.04] hover:bg-blue-500/10 border border-white/[0.08] hover:border-blue-500/40 text-blue-400/80 hover:text-blue-400 transition-all hover:scale-105" title="LinkedIn Profile">
+                   class="glass-pill p-2 rounded-xl text-blue-400 hover:text-blue-300 transition-all hover:scale-105" title="LinkedIn Profile">
                     <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
                         <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 8.76a1.65 1.65 0 1 0 0-3.3 1.65 1.65 0 0 0 0 3.3m1.4 9.74v-8.37H5.06v8.37h2.8z"/>
                     </svg>
                 </a>
                 <!-- GitHub -->
                 <a href="https://github.com/sawinkumar13-design" target="_blank" rel="noopener noreferrer" 
-                   class="p-2 rounded-xl bg-white/[0.04] hover:bg-purple-500/10 border border-white/[0.08] hover:border-purple-500/40 text-white/70 hover:text-white transition-all hover:scale-105" title="GitHub Profile">
+                   class="glass-pill p-2 rounded-xl text-slate-300 hover:text-white transition-all hover:scale-105" title="GitHub Profile">
                     <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
                         <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
                     </svg>
                 </a>
-                <!-- CTA -->
-                <a href="#contact" class="ml-1 px-4 py-1.5 text-xs font-semibold rounded-full bg-gradient-to-r from-purple-500 to-indigo-600 text-white hover:opacity-90 transition-all shadow-md shadow-purple-500/20">
+                <!-- CTA Button -->
+                <a href="#contact" class="cosmic-btn-primary ml-1.5 px-4 py-1.5 text-xs font-semibold rounded-full">
                     Get In Touch
                 </a>
             </div>
 
             <!-- Mobile Hamburger -->
-            <button id="mobileMenuBtn" class="md:hidden p-2 text-white/50 hover:text-white rounded-lg" aria-label="Menu">
+            <button id="mobileMenuBtn" class="md:hidden p-2 text-slate-400 hover:text-white rounded-lg" aria-label="Menu">
                 <i data-lucide="menu" class="w-5 h-5"></i>
             </button>
         </div>
 
         <!-- Mobile Drawer -->
-        <div id="mobileMenu" class="hidden md:hidden bg-black/95 border-b border-white/10 px-6 py-5 space-y-3 backdrop-blur-2xl">
-            <a href="#about" class="block text-white/70 hover:text-purple-300 text-sm py-1.5">About</a>
-            <a href="#education" class="block text-white/70 hover:text-purple-300 text-sm py-1.5">Education</a>
-            <a href="#skills" class="block text-white/70 hover:text-purple-300 text-sm py-1.5">Skills</a>
-            <a href="#projects" class="block text-white/70 hover:text-purple-300 text-sm py-1.5">Projects</a>
-            <a href="#achievements" class="block text-amber-400 hover:text-amber-300 text-sm py-1.5">LeetCode 50 Days Badge</a>
-            <a href="#contact" class="block text-white/70 hover:text-purple-300 text-sm py-1.5">Contact</a>
+        <div id="mobileMenu" class="hidden md:hidden bg-[#06060a]/95 border-b border-white/10 px-6 py-5 space-y-3 backdrop-blur-2xl">
+            <a href="#about" class="block text-slate-300 hover:text-cyan-300 text-sm py-1.5">About</a>
+            <a href="#education" class="block text-slate-300 hover:text-cyan-300 text-sm py-1.5">Education</a>
+            <a href="#skills" class="block text-slate-300 hover:text-cyan-300 text-sm py-1.5">Skills</a>
+            <a href="#projects" class="block text-slate-300 hover:text-cyan-300 text-sm py-1.5">Projects</a>
+            <a href="#achievements" class="block text-amber-400 hover:text-amber-300 text-sm py-1.5 font-medium">LeetCode 50 Days Badge</a>
+            <a href="#contact" class="block text-slate-300 hover:text-cyan-300 text-sm py-1.5">Contact</a>
             
             <div class="pt-3 border-t border-white/10 flex items-center justify-between">
                 <div class="flex items-center gap-3">
@@ -158,51 +139,50 @@
     <main class="relative z-10">
 
         <!-- ======================================================== -->
-        <!-- HERO SECTION: SILK PHOTO REVEAL + AURORA BLOOM + GLASS  -->
+        <!-- HERO SECTION: SIGNATURE SHOWPIECE PHOTO + LIVE AURORA    -->
         <!-- ======================================================== -->
         <section id="hero" class="min-h-screen flex items-center justify-center relative overflow-hidden pt-20 pb-16">
-            <!-- Neural Network Canvas with subtle cool light points -->
-            <canvas id="neuralCanvas" class="absolute inset-0 w-full h-full pointer-events-auto opacity-45 z-0"></canvas>
-
             <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10">
-                <div class="flex flex-col items-center text-center space-y-9">
+                <div class="flex flex-col items-center text-center space-y-10">
                     
                     <!-- ============================================== -->
-                    <!-- PHOTO CONTAINER: SILK CURTAIN REVEAL + AURORA  -->
+                    <!-- SIGNATURE PHOTO SHOWPIECE & LIVE MOVING AURORA -->
                     <!-- ============================================== -->
-                    <div class="relative group">
-                        <!-- Multi-Color Aurora Glow Bloom (Cyan, Purple, Magenta) -->
-                        <div class="aurora-photo-bloom"></div>
+                    <div class="photo-showpiece-wrap reveal-photo">
+                        
+                        <!-- Live Multi-Layered Moving Aurora Waves (Behind & Trailing Left) -->
+                        <div class="aurora-trail-left" aria-hidden="true">
+                            <div class="aurora-wave-layer aurora-wave-1"></div>
+                            <div class="aurora-wave-layer aurora-wave-2"></div>
+                            <div class="aurora-wave-layer aurora-wave-3"></div>
+                        </div>
 
-                        <!-- Smoothly Revealed Photo Box -->
-                        <div class="hero-image-reveal relative z-10">
-                            <div class="aurora-border-box">
-                                <div class="relative w-64 h-80 sm:w-72 sm:h-[22rem] rounded-[22px] overflow-hidden bg-dark-900 shadow-2xl">
-                                    <img src="assets/profile.jpg?v=4" alt="Sawin Kumar" class="w-full h-full object-cover object-top filter contrast-[1.05] brightness-[1.02]">
-                                    
-                                    <!-- Cinematic Bottom Fade -->
-                                    <div class="absolute bottom-0 left-0 right-0 h-28 bg-gradient-to-t from-black via-black/70 to-transparent"></div>
-                                    
-                                    <!-- Profile Pill Inside Photo -->
-                                    <div class="absolute bottom-4 left-0 right-0 text-center">
-                                        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/70 border border-white/15 text-xs font-mono text-purple-300 backdrop-blur-md shadow-lg">
-                                            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                                            <span>Mr. Sawin Kumar</span>
-                                        </span>
-                                    </div>
+                        <!-- Sleek Rectangular Photo Card with Specular 3D Borders -->
+                        <div class="photo-rectangular-card">
+                            <div class="photo-inner-wrap">
+                                <div class="photo-specular-sheen"></div>
+                                <img src="assets/profile.jpg?v=5" alt="Sawin Kumar" class="photo-img">
+                                <div class="photo-bottom-fade"></div>
+                                
+                                <div class="photo-name-tag">
+                                    <span class="photo-pill">
+                                        <span class="live-dot"></span>
+                                        <span>Mr. Sawin Kumar</span>
+                                    </span>
                                 </div>
                             </div>
                         </div>
+
                     </div>
 
                     <!-- ============================================== -->
-                    <!-- FROSTED GLASS EFFECT CONTAINER BEHIND TEXT     -->
+                    <!-- HIGH-END FROSTED GLOSSY GLASS BEHIND TEXT      -->
                     <!-- ============================================== -->
-                    <div class="glass-container p-6 sm:p-9 max-w-2xl w-full text-center space-y-5">
+                    <div class="hero-glass-box p-7 sm:p-10 max-w-2xl w-full text-center space-y-5">
                         
                         <!-- Status Pill -->
                         <div class="text-reveal" style="--delay: 0">
-                            <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-950/40 border border-purple-500/30 text-purple-300 text-xs font-mono backdrop-blur-md">
+                            <span class="glass-pill inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono text-cyan-300">
                                 <span class="relative flex h-2 w-2">
                                     <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                                     <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
@@ -213,44 +193,44 @@
 
                         <!-- Name Headline -->
                         <div class="text-reveal" style="--delay: 1">
-                            <h1 class="text-4xl sm:text-6xl font-black tracking-tight leading-[1.08] text-white">
+                            <h1 class="text-4xl sm:text-6xl font-black tracking-tight leading-[1.08] text-white text-cosmic-glow">
                                 Sawin Kumar
                             </h1>
                         </div>
 
-                        <!-- Roles / Subtitle -->
+                        <!-- Subtitle / Identity -->
                         <div class="text-reveal" style="--delay: 2">
-                            <p class="text-base sm:text-lg font-medium text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-purple-300 to-pink-300">
+                            <p class="text-base sm:text-lg font-medium text-aurora-gradient">
                                 Aspiring Data Scientist &amp; Software Engineer
                             </p>
                         </div>
 
-                        <!-- Bio Lead -->
+                        <!-- Bio Lead (Muted Metallic Silver) -->
                         <div class="text-reveal" style="--delay: 3">
-                            <p class="text-xs sm:text-sm text-white/60 leading-relaxed max-w-xl mx-auto">
-                                Computer Science student at <strong class="text-white font-semibold">GLA University</strong> passionate about developing data-driven solutions using <span class="text-purple-300 font-medium">Python, NumPy, Pandas</span>, and <span class="text-cyan-300 font-medium">Java</span>. Active problem solver on LeetCode with the <span class="text-amber-400 font-medium">50 Days Badge</span>.
+                            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed max-w-xl mx-auto">
+                                Computer Science student at <strong class="text-white font-semibold">GLA University</strong> passionate about developing data-driven architectures using <span class="text-cyan-300 font-medium">Python, NumPy, Pandas</span>, and <span class="text-purple-300 font-medium">Java</span>. Active problem solver on LeetCode with the <span class="text-amber-400 font-medium">50 Days Badge</span>.
                             </p>
                         </div>
 
                         <!-- Contact Quick Pills (Frosted Glass) -->
                         <div class="text-reveal flex flex-wrap items-center justify-center gap-2.5 pt-2" style="--delay: 4">
-                            <a href="mailto:sawinkumar13@gmail.com" class="glass-pill flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono text-white/70 hover:text-white">
-                                <i data-lucide="mail" class="w-3.5 h-3.5 text-purple-400"></i>
+                            <a href="mailto:sawinkumar13@gmail.com" class="glass-pill flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono text-slate-200 hover:text-white">
+                                <i data-lucide="mail" class="w-3.5 h-3.5 text-cyan-400"></i>
                                 <span>sawinkumar13@gmail.com</span>
                             </a>
-                            <a href="tel:+919259451815" class="glass-pill flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono text-white/70 hover:text-white">
+                            <a href="tel:+919259451815" class="glass-pill flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono text-slate-200 hover:text-white">
                                 <i data-lucide="phone" class="w-3.5 h-3.5 text-emerald-400"></i>
                                 <span>+91-9259451815</span>
                             </a>
-                            <span class="glass-pill flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono text-white/50">
-                                <i data-lucide="map-pin" class="w-3.5 h-3.5 text-cyan-400"></i>
+                            <span class="glass-pill flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono text-slate-400">
+                                <i data-lucide="map-pin" class="w-3.5 h-3.5 text-purple-400"></i>
                                 <span>Mathura &amp; Etah, UP</span>
                             </span>
                         </div>
 
-                        <!-- CTA Action Buttons -->
+                        <!-- Action Buttons -->
                         <div class="text-reveal flex flex-wrap items-center justify-center gap-3.5 pt-3" style="--delay: 5">
-                            <a href="#projects" class="px-6 py-3 rounded-full bg-gradient-to-r from-purple-500 via-indigo-500 to-cyan-500 hover:opacity-95 text-white font-semibold text-xs sm:text-sm shadow-lg shadow-purple-500/25 transition-all hover:scale-[1.02] flex items-center gap-2">
+                            <a href="#projects" class="cosmic-btn-primary px-6 py-3 rounded-full font-semibold text-xs sm:text-sm flex items-center gap-2">
                                 <i data-lucide="folder-git-2" class="w-4 h-4"></i>
                                 <span>Explore My Work</span>
                             </a>
@@ -268,81 +248,79 @@
             </div>
 
             <!-- Scroll Indicator -->
-            <div class="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 text-white/30 text-reveal" style="--delay: 6">
+            <div class="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 text-slate-400 text-reveal" style="--delay: 6">
                 <span class="text-[9px] font-mono tracking-widest uppercase">Scroll Down</span>
-                <div class="w-4 h-7 rounded-full border border-purple-500/30 flex items-start justify-center p-1">
-                    <div class="w-1 h-2 bg-purple-400 rounded-full animate-bounce"></div>
+                <div class="w-4 h-7 rounded-full border border-cyan-500/30 flex items-start justify-center p-1">
+                    <div class="w-1 h-2 bg-[#00F2FE] rounded-full animate-bounce"></div>
                 </div>
             </div>
         </section>
 
 
         <!-- ======================================================== -->
-        <!-- ABOUT SECTION WITH COOL INDIGO & PURPLE SLIDE ACCENTS   -->
+        <!-- ABOUT SECTION WITH GLOSSY SPECULAR GLASS CONTAINERS      -->
         <!-- ======================================================== -->
         <section id="about" class="py-28 relative border-t border-white/[0.06]">
-            <!-- Ambient slide glow -->
-            <div class="absolute top-1/2 left-0 w-80 h-80 bg-purple-600/10 rounded-full blur-[100px] pointer-events-none"></div>
-
             <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 
                 <div class="text-center mb-16 reveal">
-                    <span class="text-[11px] font-mono text-purple-400 tracking-widest uppercase font-semibold">Background & Objective</span>
+                    <span class="text-[11px] font-mono text-[#00F2FE] tracking-widest uppercase font-semibold">Background &amp; Profile</span>
                     <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-2 tracking-tight">About Me</h2>
-                    <div class="w-16 h-1 bg-gradient-to-r from-purple-500 to-cyan-500 mx-auto mt-4 rounded-full"></div>
+                    <div class="w-16 h-1 bg-gradient-to-r from-[#00F2FE] via-[#6B00FF] to-[#00FF87] mx-auto mt-4 rounded-full"></div>
                 </div>
 
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
                     
-                    <div class="lg:col-span-7 space-y-5 text-white/70 text-sm sm:text-base leading-relaxed">
-                        <p class="reveal">
-                            I am a first-year <strong class="text-white font-semibold">Computer Science &amp; Engineering student at GLA University, Mathura</strong> (2025–2029 batch), maintaining an academic standing of <span class="text-purple-300 font-semibold font-mono">7.9 CPI</span>. I reside between Mathura and Etah, Uttar Pradesh.
+                    <!-- Biography in Glossy Container -->
+                    <div class="lg:col-span-7 glossy-card p-7 sm:p-8 space-y-5 text-slate-300 text-sm sm:text-base leading-relaxed reveal">
+                        <p>
+                            I am a first-year <strong class="text-white font-semibold">Computer Science &amp; Engineering student at GLA University, Mathura</strong> (2025–2029 batch), maintaining a strong academic standing of <span class="text-cyan-300 font-semibold font-mono">7.9 CPI</span>. I reside between Mathura and Etah, Uttar Pradesh.
                         </p>
-                        <p class="reveal delay-1">
-                            Driven by curiosity for data patterns, my objective is to grow into an impactful <span class="text-white font-medium">Data Scientist</span>. I enjoy wrangling datasets using <span class="text-purple-300">Pandas &amp; NumPy</span>, uncovering patterns with <span class="text-cyan-300">Matplotlib</span>, and building modular applications in <span class="text-white font-medium">Java</span>.
+                        <p>
+                            Driven by curiosity for data patterns, my objective is to grow into an impactful <span class="text-white font-medium">Data Scientist</span>. I enjoy wrangling datasets using <span class="text-cyan-300 font-medium">Pandas &amp; NumPy</span>, uncovering patterns with <span class="text-purple-300 font-medium">Matplotlib</span>, and building modular applications in <span class="text-white font-medium">Java</span>.
                         </p>
-                        <p class="reveal delay-2">
+                        <p>
                             To build unbreakable programming foundations, I solve algorithmic challenges consistently on <span class="text-amber-400 font-medium">LeetCode</span> (achieving the 50 Days Badge) and HackerRank, focusing on two-pointer techniques, recursion, and optimal time-space complexity.
                         </p>
 
                         <!-- Key Competencies Pills with Icons -->
-                        <div class="reveal delay-3 pt-3 flex flex-wrap gap-2">
-                            <span class="tool-chip"><i data-lucide="database" class="w-3.5 h-3.5 text-purple-400"></i> Data Wrangling</span>
-                            <span class="tool-chip"><i data-lucide="bar-chart-3" class="w-3.5 h-3.5 text-cyan-400"></i> Visual Analytics</span>
-                            <span class="tool-chip"><i data-lucide="code-2" class="w-3.5 h-3.5 text-indigo-400"></i> OOP Architecture</span>
-                            <span class="tool-chip"><i data-lucide="binary" class="w-3.5 h-3.5 text-amber-400"></i> DSA Problem Solving</span>
+                        <div class="pt-3 flex flex-wrap gap-2 border-t border-white/[0.08]">
+                            <span class="tool-chip"><i data-lucide="database" class="w-3.5 h-3.5 text-cyan-400"></i> Data Wrangling</span>
+                            <span class="tool-chip"><i data-lucide="bar-chart-3" class="w-3.5 h-3.5 text-purple-400"></i> Visual Analytics</span>
+                            <span class="tool-chip"><i data-lucide="code-2" class="w-3.5 h-3.5 text-blue-400"></i> OOP Architecture</span>
+                            <span class="tool-chip"><i data-lucide="binary" class="w-3.5 h-3.5 text-emerald-400"></i> DSA Problem Solving</span>
                         </div>
                     </div>
 
-                    <!-- Interactive Glass Highlights Cards -->
+                    <!-- Highlight Cards with Specular Gloss -->
                     <div class="lg:col-span-5 grid grid-cols-2 gap-3.5">
-                        <div class="card-hover p-4 rounded-2xl reveal delay-1">
-                            <div class="w-8 h-8 rounded-lg bg-purple-500/10 flex items-center justify-center text-purple-400 mb-2.5">
+                        <div class="glossy-card p-4 rounded-2xl reveal delay-1">
+                            <div class="w-8 h-8 rounded-lg bg-cyan-500/10 flex items-center justify-center text-cyan-400 mb-2.5">
                                 <i data-lucide="bar-chart-2" class="w-4 h-4"></i>
                             </div>
                             <h4 class="text-white font-semibold text-xs">Data Analysis</h4>
-                            <p class="text-[11px] text-white/45 mt-1">Filtering, grouping, missing value imputation.</p>
+                            <p class="text-[11px] text-slate-400 mt-1">Filtering, grouping, missing value imputation.</p>
                         </div>
-                        <div class="card-hover p-4 rounded-2xl reveal delay-2">
-                            <div class="w-8 h-8 rounded-lg bg-cyan-500/10 flex items-center justify-center text-cyan-400 mb-2.5">
+                        <div class="glossy-card p-4 rounded-2xl reveal delay-2">
+                            <div class="w-8 h-8 rounded-lg bg-purple-500/10 flex items-center justify-center text-purple-400 mb-2.5">
                                 <i data-lucide="coffee" class="w-4 h-4"></i>
                             </div>
                             <h4 class="text-white font-semibold text-xs">Java &amp; OOP</h4>
-                            <p class="text-[11px] text-white/45 mt-1">Encapsulation, inheritance, modular methods.</p>
+                            <p class="text-[11px] text-slate-400 mt-1">Encapsulation, inheritance, modular methods.</p>
                         </div>
-                        <div class="card-hover p-4 rounded-2xl reveal delay-3">
+                        <div class="glossy-card p-4 rounded-2xl reveal delay-3">
                             <div class="w-8 h-8 rounded-lg bg-amber-500/10 flex items-center justify-center text-amber-400 mb-2.5">
                                 <i data-lucide="git-commit" class="w-4 h-4"></i>
                             </div>
                             <h4 class="text-white font-semibold text-xs">LeetCode Daily</h4>
-                            <p class="text-[11px] text-white/45 mt-1">50 Days badge, array &amp; two-pointer mastery.</p>
+                            <p class="text-[11px] text-slate-400 mt-1">50 Days badge, array &amp; two-pointer mastery.</p>
                         </div>
-                        <div class="card-hover p-4 rounded-2xl reveal delay-4">
-                            <div class="w-8 h-8 rounded-lg bg-indigo-500/10 flex items-center justify-center text-indigo-400 mb-2.5">
+                        <div class="glossy-card p-4 rounded-2xl reveal delay-4">
+                            <div class="w-8 h-8 rounded-lg bg-emerald-500/10 flex items-center justify-center text-emerald-400 mb-2.5">
                                 <i data-lucide="line-chart" class="w-4 h-4"></i>
                             </div>
                             <h4 class="text-white font-semibold text-xs">Data Visualization</h4>
-                            <p class="text-[11px] text-white/45 mt-1">Matplotlib plots, histograms, distributions.</p>
+                            <p class="text-[11px] text-slate-400 mt-1">Matplotlib plots, histograms, distributions.</p>
                         </div>
                     </div>
 
@@ -353,38 +331,35 @@
 
 
         <!-- ======================================================== -->
-        <!-- EDUCATION SECTION WITH CHRONOLOGICAL MILESTONES          -->
+        <!-- EDUCATION SECTION                                        -->
         <!-- ======================================================== -->
         <section id="education" class="py-28 relative border-t border-white/[0.06]">
-            <!-- Slide Accent Glow -->
-            <div class="absolute top-1/3 right-0 w-80 h-80 bg-indigo-600/10 rounded-full blur-[100px] pointer-events-none"></div>
-
             <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 
                 <div class="text-center mb-16 reveal">
-                    <span class="text-[11px] font-mono text-cyan-400 tracking-widest uppercase font-semibold">Academic Foundation</span>
+                    <span class="text-[11px] font-mono text-[#00F2FE] tracking-widest uppercase font-semibold">Academic Foundation</span>
                     <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-2 tracking-tight">Education</h2>
-                    <div class="w-16 h-1 bg-gradient-to-r from-cyan-500 to-purple-500 mx-auto mt-4 rounded-full"></div>
+                    <div class="w-16 h-1 bg-gradient-to-r from-[#00F2FE] to-[#6B00FF] mx-auto mt-4 rounded-full"></div>
                 </div>
 
-                <div class="max-w-3xl mx-auto space-y-7 relative before:absolute before:inset-0 before:left-5 before:w-[2px] before:bg-gradient-to-b before:from-cyan-400 before:via-purple-500 before:to-transparent">
+                <div class="max-w-3xl mx-auto space-y-7 relative before:absolute before:inset-0 before:left-5 before:w-[2px] before:bg-gradient-to-b before:from-[#00F2FE] before:via-[#6B00FF] before:to-transparent">
 
                     <!-- B.Tech GLA University -->
                     <div class="relative pl-14 reveal">
-                        <div class="absolute left-3.5 top-3 w-3.5 h-3.5 rounded-full bg-cyan-400 border-2 border-black shadow-[0_0_12px_rgba(34,211,238,0.8)]"></div>
-                        <div class="card-hover rounded-2xl p-6 sm:p-7">
+                        <div class="absolute left-3.5 top-3 w-3.5 h-3.5 rounded-full bg-[#00F2FE] border-2 border-[#06060a] shadow-[0_0_14px_rgba(0,242,254,0.9)]"></div>
+                        <div class="glossy-card p-6 sm:p-7">
                             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
                                 <div>
                                     <h3 class="text-lg font-bold text-white">Bachelor of Technology (B.Tech)</h3>
-                                    <p class="text-xs text-purple-300 font-mono">Computer Science &amp; Engineering · GLA University, Mathura</p>
+                                    <p class="text-xs text-cyan-300 font-mono">Computer Science &amp; Engineering · GLA University, Mathura</p>
                                 </div>
-                                <span class="text-xs font-mono px-3 py-1 rounded-full bg-purple-950/60 text-purple-300 border border-purple-800/40 w-fit">2025 — 2029 (Pursuing)</span>
+                                <span class="text-xs font-mono px-3 py-1 rounded-full bg-cyan-950/60 text-cyan-300 border border-cyan-800/40 w-fit">2025 — 2029 (Pursuing)</span>
                             </div>
                             <div class="my-3 inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-emerald-950/50 border border-emerald-500/30 text-emerald-400 text-xs font-mono font-bold">
                                 <i data-lucide="award" class="w-3.5 h-3.5"></i>
                                 <span>Academic Record: 7.9 CPI</span>
                             </div>
-                            <p class="text-xs sm:text-sm text-white/60 leading-relaxed">
+                            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
                                 Studies in Core Computer Science: Object-Oriented Programming (Java), Data Structures &amp; Algorithms, Python Programming, Database Management Systems, and Discrete Mathematics.
                             </p>
                         </div>
@@ -392,19 +367,19 @@
 
                     <!-- Intermediate CBSE -->
                     <div class="relative pl-14 reveal delay-1">
-                        <div class="absolute left-3.5 top-3 w-3.5 h-3.5 rounded-full bg-purple-400 border-2 border-black shadow-[0_0_10px_rgba(168,85,247,0.7)]"></div>
-                        <div class="card-hover rounded-2xl p-6 sm:p-7">
+                        <div class="absolute left-3.5 top-3 w-3.5 h-3.5 rounded-full bg-[#6B00FF] border-2 border-[#06060a] shadow-[0_0_12px_rgba(107,0,255,0.8)]"></div>
+                        <div class="glossy-card p-6 sm:p-7">
                             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
                                 <div>
                                     <h3 class="text-lg font-bold text-white">Intermediate (Senior Secondary - Class XII)</h3>
-                                    <p class="text-xs text-white/50 font-mono">Dr. Lokman Das Public School, Etah (CBSE Board)</p>
+                                    <p class="text-xs text-slate-400 font-mono">Dr. Lokman Das Public School, Etah (CBSE Board)</p>
                                 </div>
-                                <span class="text-xs font-mono px-3 py-1 rounded-full bg-white/[0.04] text-white/50 border border-white/[0.08] w-fit">2024 — 2025</span>
+                                <span class="text-xs font-mono px-3 py-1 rounded-full bg-white/[0.04] text-slate-400 border border-white/[0.08] w-fit">2024 — 2025</span>
                             </div>
-                            <div class="my-3 inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/[0.03] border border-white/[0.08] text-white/70 text-xs font-mono">
+                            <div class="my-3 inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/[0.03] border border-white/[0.08] text-slate-300 text-xs font-mono">
                                 <span>Score: <strong class="text-white font-bold">66%</strong></span>
                             </div>
-                            <p class="text-xs sm:text-sm text-white/60 leading-relaxed">
+                            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
                                 Completed Senior Secondary schooling under CBSE curriculum with focus on Physics, Chemistry, and Mathematics.
                             </p>
                         </div>
@@ -412,19 +387,19 @@
 
                     <!-- High School CBSE -->
                     <div class="relative pl-14 reveal delay-2">
-                        <div class="absolute left-3.5 top-3 w-3.5 h-3.5 rounded-full bg-indigo-400 border-2 border-black shadow-[0_0_8px_rgba(99,102,241,0.6)]"></div>
-                        <div class="card-hover rounded-2xl p-6 sm:p-7">
+                        <div class="absolute left-3.5 top-3 w-3.5 h-3.5 rounded-full bg-[#2AF598] border-2 border-[#06060a] shadow-[0_0_10px_rgba(42,245,152,0.7)]"></div>
+                        <div class="glossy-card p-6 sm:p-7">
                             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
                                 <div>
                                     <h3 class="text-lg font-bold text-white">High School (Secondary - Class X)</h3>
-                                    <p class="text-xs text-white/50 font-mono">Dr. Lokman Das Public School, Etah (CBSE Board)</p>
+                                    <p class="text-xs text-slate-400 font-mono">Dr. Lokman Das Public School, Etah (CBSE Board)</p>
                                 </div>
-                                <span class="text-xs font-mono px-3 py-1 rounded-full bg-white/[0.04] text-white/50 border border-white/[0.08] w-fit">2022 — 2023</span>
+                                <span class="text-xs font-mono px-3 py-1 rounded-full bg-white/[0.04] text-slate-400 border border-white/[0.08] w-fit">2022 — 2023</span>
                             </div>
-                            <div class="my-3 inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/[0.03] border border-white/[0.08] text-white/70 text-xs font-mono">
+                            <div class="my-3 inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/[0.03] border border-white/[0.08] text-slate-300 text-xs font-mono">
                                 <span>Score: <strong class="text-white font-bold">77%</strong></span>
                             </div>
-                            <p class="text-xs sm:text-sm text-white/60 leading-relaxed">
+                            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
                                 Completed Secondary education with strong marks across science, mathematics, and computer applications.
                             </p>
                         </div>
@@ -437,70 +412,67 @@
 
 
         <!-- ======================================================== -->
-        <!-- SKILLS MATRIX WITH ACCURATE TOOL & LANGUAGE ICONS       -->
+        <!-- SKILLS MATRIX WITH HIGH-END GLOSS & BRANDED ICONS        -->
         <!-- ======================================================== -->
         <section id="skills" class="py-28 relative border-t border-white/[0.06]">
-            <!-- Slide Accent Glow -->
-            <div class="absolute top-1/2 left-1/3 w-96 h-96 bg-purple-700/10 rounded-full blur-[120px] pointer-events-none"></div>
-
             <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 
                 <div class="text-center mb-16 reveal">
-                    <span class="text-[11px] font-mono text-purple-400 tracking-widest uppercase font-semibold">Technical Stack &amp; Tools</span>
+                    <span class="text-[11px] font-mono text-[#00F2FE] tracking-widest uppercase font-semibold">Technical Stack &amp; Tools</span>
                     <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-2 tracking-tight">Skills &amp; Technologies</h2>
-                    <p class="text-white/50 text-xs sm:text-sm mt-2 max-w-lg mx-auto">Languages, data libraries, problem-solving topics, and developer environments.</p>
-                    <div class="w-16 h-1 bg-gradient-to-r from-purple-500 to-indigo-500 mx-auto mt-4 rounded-full"></div>
+                    <p class="text-slate-400 text-xs sm:text-sm mt-2 max-w-lg mx-auto">Languages, data libraries, problem-solving topics, and developer environments.</p>
+                    <div class="w-16 h-1 bg-gradient-to-r from-[#00F2FE] via-[#6B00FF] to-[#00FF87] mx-auto mt-4 rounded-full"></div>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
 
                     <!-- Programming Languages -->
-                    <div class="card-hover rounded-2xl p-6 reveal">
+                    <div class="glossy-card p-6 reveal">
                         <div class="flex items-center gap-3 mb-5">
-                            <div class="p-2.5 rounded-xl bg-purple-500/10 text-purple-400">
+                            <div class="p-2.5 rounded-xl bg-cyan-500/10 text-cyan-400">
                                 <i data-lucide="code" class="w-5 h-5"></i>
                             </div>
                             <div>
                                 <h3 class="font-bold text-white text-sm">Programming Languages</h3>
-                                <p class="text-[10px] text-white/40 font-mono">Core Languages</p>
+                                <p class="text-[10px] text-slate-400 font-mono">Core Languages</p>
                             </div>
                         </div>
                         <div class="space-y-4">
                             <div>
                                 <div class="flex justify-between items-center text-xs font-mono mb-1.5">
-                                    <span class="text-white/80 flex items-center gap-2">
+                                    <span class="text-slate-200 flex items-center gap-2">
                                         <!-- Python SVG -->
-                                        <svg class="w-4 h-4 text-cyan-400" viewBox="0 0 24 24" fill="currentColor"><path d="M11.914 0C5.82 0 6.2 2.656 6.2 2.656l.006 2.752h5.803v.826H3.854S0 5.79 0 11.9c0 6.108 3.364 5.898 3.364 5.898h2.008v-2.824s-.108-3.363 3.308-3.363h5.688s3.195.053 3.195-3.093V2.656S18.006 0 11.914 0zm-3.36 1.74a1.01 1.01 0 1 1 0 2.02 1.01 1.01 0 0 1 0-2.02zM12.086 24c6.094 0 5.714-2.656 5.714-2.656l-.006-2.752H11.99v-.826h8.156S24 18.21 24 12.1c0-6.108-3.364-5.898-3.364-5.898h-2.008v2.824s.108 3.363-3.308 3.363H9.63s-3.195-.053-3.195 3.093v5.869S5.994 24 12.086 24zm3.36-1.74a1.01 1.01 0 1 1 0-2.02 1.01 1.01 0 0 1 0 2.02z"/></svg>
+                                        <svg class="w-4 h-4 text-[#00F2FE]" viewBox="0 0 24 24" fill="currentColor"><path d="M11.914 0C5.82 0 6.2 2.656 6.2 2.656l.006 2.752h5.803v.826H3.854S0 5.79 0 11.9c0 6.108 3.364 5.898 3.364 5.898h2.008v-2.824s-.108-3.363 3.308-3.363h5.688s3.195.053 3.195-3.093V2.656S18.006 0 11.914 0zm-3.36 1.74a1.01 1.01 0 1 1 0 2.02 1.01 1.01 0 0 1 0-2.02zM12.086 24c6.094 0 5.714-2.656 5.714-2.656l-.006-2.752H11.99v-.826h8.156S24 18.21 24 12.1c0-6.108-3.364-5.898-3.364-5.898h-2.008v2.824s.108 3.363-3.308 3.363H9.63s-3.195-.053-3.195 3.093v5.869S5.994 24 12.086 24zm3.36-1.74a1.01 1.01 0 1 1 0-2.02 1.01 1.01 0 0 1 0 2.02z"/></svg>
                                         <span>Python 3.x</span>
                                     </span>
                                     <span class="text-cyan-400 font-bold">90%</span>
                                 </div>
-                                <div class="h-1.5 w-full bg-dark-900 rounded-full overflow-hidden p-0.5">
-                                    <div class="h-full bg-gradient-to-r from-cyan-400 to-purple-500 rounded-full" style="width:90%"></div>
+                                <div class="h-1.5 w-full bg-obsidian-950 rounded-full overflow-hidden p-0.5">
+                                    <div class="h-full bg-gradient-to-r from-[#00F2FE] to-[#6B00FF] rounded-full" style="width:90%"></div>
                                 </div>
                             </div>
                             <div>
                                 <div class="flex justify-between items-center text-xs font-mono mb-1.5">
-                                    <span class="text-white/80 flex items-center gap-2">
+                                    <span class="text-slate-200 flex items-center gap-2">
                                         <!-- Java SVG -->
                                         <svg class="w-4 h-4 text-purple-400" viewBox="0 0 24 24" fill="currentColor"><path d="M8.851 18.56s-.917.534.667.733c2.308.291 4.502.261 6.758-.206.001 0 .611.368 1.488.665-6.52 2.296-12.87-.714-8.913-1.192zm-1.066-2.923s-1.077.72.584.977c2.784.433 5.928.468 9.387-.193 0 0 .428.397 1.082.607-7.886 2.072-15.011-.692-11.053-1.391zm8.286-6.666c.866 1.002.046 1.93-.932 2.805-2.007 1.794-4.218 2.68-6.113 3.655-1.075.553-2.007.037-1.157-.751 1.579-1.464 3.447-2.64 5.045-3.957 1.258-1.036 2.457-1.572 3.157-1.752zm-1.89-5.127c-.896 1.052-.164 2.12.756 3.045.989.994 2.227 1.905 2.107 3.332-.204 2.42-3.192 3.528-5.116 4.673-1.282.763-2.451.272-1.428-.707 1.705-1.632 3.824-2.825 5.006-4.908.761-1.341.314-2.44-.925-3.529-1.393-1.225-1.921-1.674-.4-1.906zm4.722 13.914c-1.368.106-2.793.136-4.249.083-2.738-.1-5.125-.662-5.125-.662s-.404.382-.016.634c3.082 2.004 11.238 1.411 12.812-.045.001 0-.742-.317-3.422-.01zm2.493-2.383c-1.168.69-3.238.995-5.32 1.04-3.279.071-6.75-.461-6.75-.461s-.322.378.118.618c3.978 2.17 13.568 1.344 14.887-.492 0 0-.825-.494-2.935-.705z"/></svg>
-                                        <span>Java (OOP)</span>
+                                        <span>Java (Core &amp; OOP)</span>
                                     </span>
                                     <span class="text-purple-400 font-bold">85%</span>
                                 </div>
-                                <div class="h-1.5 w-full bg-dark-900 rounded-full overflow-hidden p-0.5">
+                                <div class="h-1.5 w-full bg-obsidian-950 rounded-full overflow-hidden p-0.5">
                                     <div class="h-full bg-gradient-to-r from-purple-500 to-indigo-500 rounded-full" style="width:85%"></div>
                                 </div>
                             </div>
                             <div>
                                 <div class="flex justify-between items-center text-xs font-mono mb-1.5">
-                                    <span class="text-white/80 flex items-center gap-2">
+                                    <span class="text-slate-200 flex items-center gap-2">
                                         <i data-lucide="file-code" class="w-4 h-4 text-orange-400"></i>
                                         <span>HTML5 &amp; CSS3</span>
                                     </span>
                                     <span class="text-orange-400 font-bold">80%</span>
                                 </div>
-                                <div class="h-1.5 w-full bg-dark-900 rounded-full overflow-hidden p-0.5">
+                                <div class="h-1.5 w-full bg-obsidian-950 rounded-full overflow-hidden p-0.5">
                                     <div class="h-full bg-orange-400 rounded-full" style="width:80%"></div>
                                 </div>
                             </div>
@@ -508,50 +480,50 @@
                     </div>
 
                     <!-- Python Data Science Libraries -->
-                    <div class="card-hover rounded-2xl p-6 reveal delay-1">
+                    <div class="glossy-card p-6 reveal delay-1">
                         <div class="flex items-center gap-3 mb-5">
-                            <div class="p-2.5 rounded-xl bg-cyan-500/10 text-cyan-400">
+                            <div class="p-2.5 rounded-xl bg-purple-500/10 text-purple-400">
                                 <i data-lucide="database" class="w-5 h-5"></i>
                             </div>
                             <div>
                                 <h3 class="font-bold text-white text-sm">Data Science Libraries</h3>
-                                <p class="text-[10px] text-white/40 font-mono">Python Ecosystem</p>
+                                <p class="text-[10px] text-slate-400 font-mono">Python Ecosystem</p>
                             </div>
                         </div>
                         <div class="space-y-4">
                             <div>
                                 <div class="flex justify-between items-center text-xs font-mono mb-1.5">
-                                    <span class="text-white/80 flex items-center gap-2">
-                                        <i data-lucide="table" class="w-4 h-4 text-indigo-400"></i>
+                                    <span class="text-slate-200 flex items-center gap-2">
+                                        <i data-lucide="table" class="w-4 h-4 text-cyan-400"></i>
                                         <span>Pandas (DataFrames)</span>
                                     </span>
-                                    <span class="text-indigo-400 font-bold">88%</span>
+                                    <span class="text-cyan-400 font-bold">88%</span>
                                 </div>
-                                <div class="h-1.5 w-full bg-dark-900 rounded-full overflow-hidden p-0.5">
-                                    <div class="h-full bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full" style="width:88%"></div>
+                                <div class="h-1.5 w-full bg-obsidian-950 rounded-full overflow-hidden p-0.5">
+                                    <div class="h-full bg-gradient-to-r from-[#00F2FE] to-purple-500 rounded-full" style="width:88%"></div>
                                 </div>
                             </div>
                             <div>
                                 <div class="flex justify-between items-center text-xs font-mono mb-1.5">
-                                    <span class="text-white/80 flex items-center gap-2">
-                                        <i data-lucide="grid" class="w-4 h-4 text-cyan-400"></i>
+                                    <span class="text-slate-200 flex items-center gap-2">
+                                        <i data-lucide="grid" class="w-4 h-4 text-blue-400"></i>
                                         <span>NumPy (Arrays)</span>
                                     </span>
-                                    <span class="text-cyan-400 font-bold">85%</span>
+                                    <span class="text-blue-400 font-bold">85%</span>
                                 </div>
-                                <div class="h-1.5 w-full bg-dark-900 rounded-full overflow-hidden p-0.5">
-                                    <div class="h-full bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full" style="width:85%"></div>
+                                <div class="h-1.5 w-full bg-obsidian-950 rounded-full overflow-hidden p-0.5">
+                                    <div class="h-full bg-gradient-to-r from-blue-400 to-[#00FF87] rounded-full" style="width:85%"></div>
                                 </div>
                             </div>
                             <div>
                                 <div class="flex justify-between items-center text-xs font-mono mb-1.5">
-                                    <span class="text-white/80 flex items-center gap-2">
+                                    <span class="text-slate-200 flex items-center gap-2">
                                         <i data-lucide="pie-chart" class="w-4 h-4 text-pink-400"></i>
                                         <span>Matplotlib (Plotting)</span>
                                     </span>
                                     <span class="text-pink-400 font-bold">82%</span>
                                 </div>
-                                <div class="h-1.5 w-full bg-dark-900 rounded-full overflow-hidden p-0.5">
+                                <div class="h-1.5 w-full bg-obsidian-950 rounded-full overflow-hidden p-0.5">
                                     <div class="h-full bg-gradient-to-r from-pink-500 to-purple-500 rounded-full" style="width:82%"></div>
                                 </div>
                             </div>
@@ -559,7 +531,7 @@
                     </div>
 
                     <!-- Java & DSA Problem Solving -->
-                    <div class="card-hover rounded-2xl p-6 reveal delay-2">
+                    <div class="glossy-card p-6 reveal delay-2">
                         <div class="flex items-center gap-3 mb-5">
                             <div class="p-2.5 rounded-xl bg-amber-500/10 text-amber-400">
                                 <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
@@ -568,34 +540,34 @@
                             </div>
                             <div>
                                 <h3 class="font-bold text-white text-sm">Java &amp; DSA</h3>
-                                <p class="text-[10px] text-white/40 font-mono">Algorithms &amp; Logic</p>
+                                <p class="text-[10px] text-slate-400 font-mono">Algorithms &amp; Logic</p>
                             </div>
                         </div>
                         <div class="space-y-4">
                             <div>
                                 <div class="flex justify-between items-center text-xs font-mono mb-1.5">
-                                    <span class="text-white/80">Arrays &amp; Strings</span>
+                                    <span class="text-slate-200">Arrays &amp; Strings</span>
                                     <span class="text-amber-400 font-bold">90%</span>
                                 </div>
-                                <div class="h-1.5 w-full bg-dark-900 rounded-full overflow-hidden p-0.5">
+                                <div class="h-1.5 w-full bg-obsidian-950 rounded-full overflow-hidden p-0.5">
                                     <div class="h-full bg-amber-400 rounded-full" style="width:90%"></div>
                                 </div>
                             </div>
                             <div>
                                 <div class="flex justify-between items-center text-xs font-mono mb-1.5">
-                                    <span class="text-white/80">Two Pointers Technique</span>
+                                    <span class="text-slate-200">Two Pointers Technique</span>
                                     <span class="text-amber-400 font-bold">85%</span>
                                 </div>
-                                <div class="h-1.5 w-full bg-dark-900 rounded-full overflow-hidden p-0.5">
+                                <div class="h-1.5 w-full bg-obsidian-950 rounded-full overflow-hidden p-0.5">
                                     <div class="h-full bg-amber-400 rounded-full" style="width:85%"></div>
                                 </div>
                             </div>
                             <div>
                                 <div class="flex justify-between items-center text-xs font-mono mb-1.5">
-                                    <span class="text-white/80">Recursion &amp; Search</span>
+                                    <span class="text-slate-200">Recursion &amp; Search</span>
                                     <span class="text-amber-400 font-bold">80%</span>
                                 </div>
-                                <div class="h-1.5 w-full bg-dark-900 rounded-full overflow-hidden p-0.5">
+                                <div class="h-1.5 w-full bg-obsidian-950 rounded-full overflow-hidden p-0.5">
                                     <div class="h-full bg-amber-400 rounded-full" style="width:80%"></div>
                                 </div>
                             </div>
@@ -603,83 +575,83 @@
                     </div>
 
                     <!-- Core Computer Science -->
-                    <div class="card-hover rounded-2xl p-6 reveal delay-3">
+                    <div class="glossy-card p-6 reveal delay-3">
                         <div class="flex items-center gap-3 mb-5">
-                            <div class="p-2.5 rounded-xl bg-pink-500/10 text-pink-400">
+                            <div class="p-2.5 rounded-xl bg-indigo-500/10 text-indigo-400">
                                 <i data-lucide="layers" class="w-5 h-5"></i>
                             </div>
                             <div>
                                 <h3 class="font-bold text-white text-sm">Core Computer Science</h3>
-                                <p class="text-[10px] text-white/40 font-mono">Engineering Theory</p>
+                                <p class="text-[10px] text-slate-400 font-mono">Foundational Concepts</p>
                             </div>
                         </div>
                         <div class="space-y-4">
                             <div>
                                 <div class="flex justify-between items-center text-xs font-mono mb-1.5">
-                                    <span class="text-white/80">OOP Fundamentals</span>
-                                    <span class="text-pink-400 font-bold">90%</span>
+                                    <span class="text-slate-200">OOP Fundamentals</span>
+                                    <span class="text-indigo-400 font-bold">90%</span>
                                 </div>
-                                <div class="h-1.5 w-full bg-dark-900 rounded-full overflow-hidden p-0.5">
-                                    <div class="h-full bg-pink-400 rounded-full" style="width:90%"></div>
+                                <div class="h-1.5 w-full bg-obsidian-950 rounded-full overflow-hidden p-0.5">
+                                    <div class="h-full bg-indigo-400 rounded-full" style="width:90%"></div>
                                 </div>
                             </div>
                             <div>
                                 <div class="flex justify-between items-center text-xs font-mono mb-1.5">
-                                    <span class="text-white/80">Data Structures Concepts</span>
-                                    <span class="text-pink-400 font-bold">85%</span>
+                                    <span class="text-slate-200">Data Structures Concepts</span>
+                                    <span class="text-indigo-400 font-bold">85%</span>
                                 </div>
-                                <div class="h-1.5 w-full bg-dark-900 rounded-full overflow-hidden p-0.5">
-                                    <div class="h-full bg-pink-400 rounded-full" style="width:85%"></div>
+                                <div class="h-1.5 w-full bg-obsidian-950 rounded-full overflow-hidden p-0.5">
+                                    <div class="h-full bg-indigo-400 rounded-full" style="width:85%"></div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <!-- Developer Tools & IDEs with SVGs -->
-                    <div class="card-hover rounded-2xl p-6 reveal delay-4">
+                    <div class="glossy-card p-6 reveal delay-4">
                         <div class="flex items-center gap-3 mb-5">
                             <div class="p-2.5 rounded-xl bg-emerald-500/10 text-emerald-400">
                                 <i data-lucide="terminal" class="w-5 h-5"></i>
                             </div>
                             <div>
                                 <h3 class="font-bold text-white text-sm">Developer Tools</h3>
-                                <p class="text-[10px] text-white/40 font-mono">Environments &amp; VCS</p>
+                                <p class="text-[10px] text-slate-400 font-mono">Environments &amp; VCS</p>
                             </div>
                         </div>
                         <div class="space-y-4">
                             <div>
                                 <div class="flex justify-between items-center text-xs font-mono mb-1.5">
-                                    <span class="text-white/80 flex items-center gap-2">
+                                    <span class="text-slate-200 flex items-center gap-2">
                                         <i data-lucide="git-branch" class="w-4 h-4 text-emerald-400"></i>
                                         <span>Git &amp; GitHub</span>
                                     </span>
                                     <span class="text-emerald-400 font-bold">88%</span>
                                 </div>
-                                <div class="h-1.5 w-full bg-dark-900 rounded-full overflow-hidden p-0.5">
+                                <div class="h-1.5 w-full bg-obsidian-950 rounded-full overflow-hidden p-0.5">
                                     <div class="h-full bg-emerald-400 rounded-full" style="width:88%"></div>
                                 </div>
                             </div>
                             <div>
                                 <div class="flex justify-between items-center text-xs font-mono mb-1.5">
-                                    <span class="text-white/80 flex items-center gap-2">
+                                    <span class="text-slate-200 flex items-center gap-2">
                                         <i data-lucide="terminal" class="w-4 h-4 text-blue-400"></i>
                                         <span>VS Code &amp; IntelliJ IDEA</span>
                                     </span>
                                     <span class="text-blue-400 font-bold">92%</span>
                                 </div>
-                                <div class="h-1.5 w-full bg-dark-900 rounded-full overflow-hidden p-0.5">
+                                <div class="h-1.5 w-full bg-obsidian-950 rounded-full overflow-hidden p-0.5">
                                     <div class="h-full bg-blue-400 rounded-full" style="width:92%"></div>
                                 </div>
                             </div>
                             <div>
                                 <div class="flex justify-between items-center text-xs font-mono mb-1.5">
-                                    <span class="text-white/80 flex items-center gap-2">
+                                    <span class="text-slate-200 flex items-center gap-2">
                                         <i data-lucide="book-open" class="w-4 h-4 text-amber-400"></i>
                                         <span>Jupyter Notebook</span>
                                     </span>
                                     <span class="text-amber-400 font-bold">85%</span>
                                 </div>
-                                <div class="h-1.5 w-full bg-dark-900 rounded-full overflow-hidden p-0.5">
+                                <div class="h-1.5 w-full bg-obsidian-950 rounded-full overflow-hidden p-0.5">
                                     <div class="h-full bg-amber-400 rounded-full" style="width:85%"></div>
                                 </div>
                             </div>
@@ -687,33 +659,33 @@
                     </div>
 
                     <!-- Professional Methodologies -->
-                    <div class="card-hover rounded-2xl p-6 reveal delay-5">
+                    <div class="glossy-card p-6 reveal delay-5">
                         <div class="flex items-center gap-3 mb-5">
-                            <div class="p-2.5 rounded-xl bg-indigo-500/10 text-indigo-400">
+                            <div class="p-2.5 rounded-xl bg-pink-500/10 text-pink-400">
                                 <i data-lucide="check-square" class="w-5 h-5"></i>
                             </div>
                             <div>
                                 <h3 class="font-bold text-white text-sm">Methodologies</h3>
-                                <p class="text-[10px] text-white/40 font-mono">Professional Skills</p>
+                                <p class="text-[10px] text-slate-400 font-mono">Professional Skills</p>
                             </div>
                         </div>
                         <div class="space-y-4">
                             <div>
                                 <div class="flex justify-between items-center text-xs font-mono mb-1.5">
-                                    <span class="text-white/80">Time Management</span>
-                                    <span class="text-indigo-400 font-bold">90%</span>
+                                    <span class="text-slate-200">Time Management</span>
+                                    <span class="text-pink-400 font-bold">90%</span>
                                 </div>
-                                <div class="h-1.5 w-full bg-dark-900 rounded-full overflow-hidden p-0.5">
-                                    <div class="h-full bg-indigo-400 rounded-full" style="width:90%"></div>
+                                <div class="h-1.5 w-full bg-obsidian-950 rounded-full overflow-hidden p-0.5">
+                                    <div class="h-full bg-pink-400 rounded-full" style="width:90%"></div>
                                 </div>
                             </div>
                             <div>
                                 <div class="flex justify-between items-center text-xs font-mono mb-1.5">
-                                    <span class="text-white/80">Analytical Thinking</span>
-                                    <span class="text-indigo-400 font-bold">88%</span>
+                                    <span class="text-slate-200">Analytical Thinking</span>
+                                    <span class="text-pink-400 font-bold">88%</span>
                                 </div>
-                                <div class="h-1.5 w-full bg-dark-900 rounded-full overflow-hidden p-0.5">
-                                    <div class="h-full bg-indigo-400 rounded-full" style="width:88%"></div>
+                                <div class="h-1.5 w-full bg-obsidian-950 rounded-full overflow-hidden p-0.5">
+                                    <div class="h-full bg-pink-400 rounded-full" style="width:88%"></div>
                                 </div>
                             </div>
                         </div>
@@ -726,19 +698,16 @@
 
 
         <!-- ======================================================== -->
-        <!-- PROJECTS SECTION                                         -->
+        <!-- PROJECTS SECTION (GLOSSY GLASS CARDS WITH HOVER SWEEPS)  -->
         <!-- ======================================================== -->
         <section id="projects" class="py-28 relative border-t border-white/[0.06]">
-            <!-- Slide Accent Glow -->
-            <div class="absolute top-1/4 right-10 w-96 h-96 bg-cyan-600/10 rounded-full blur-[130px] pointer-events-none"></div>
-
             <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 
                 <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 reveal">
                     <div>
-                        <span class="text-[11px] font-mono text-purple-400 tracking-widest uppercase font-semibold">Featured Work</span>
+                        <span class="text-[11px] font-mono text-[#00F2FE] tracking-widest uppercase font-semibold">Featured Work</span>
                         <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-2 tracking-tight">Projects</h2>
-                        <p class="text-white/50 text-xs sm:text-sm mt-1">Real academic and practice applications.</p>
+                        <p class="text-slate-400 text-xs sm:text-sm mt-1">Real academic and data analysis applications.</p>
                     </div>
 
                     <!-- Category Filter Buttons -->
@@ -752,22 +721,22 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="projectsContainer">
 
                     <!-- Project 1: Employee Data Analysis -->
-                    <article class="project-card card-hover rounded-2xl p-6 sm:p-7 flex flex-col justify-between reveal" data-category="python">
+                    <article class="project-card glossy-card p-6 sm:p-7 flex flex-col justify-between reveal" data-category="python">
                         <div>
                             <div class="flex items-center justify-between mb-4">
                                 <span class="text-[11px] font-mono text-cyan-300 px-3 py-1 bg-cyan-950/60 border border-cyan-800/40 rounded-full flex items-center gap-1.5">
                                     <i data-lucide="bar-chart-2" class="w-3.5 h-3.5"></i> Python · Data Science
                                 </span>
-                                <span class="text-[11px] font-mono text-white/40">Practice Project</span>
+                                <span class="text-[11px] font-mono text-slate-400">Practice Project</span>
                             </div>
 
                             <h3 class="text-xl font-bold text-white mb-3">Employee Data Analysis</h3>
                             
-                            <p class="text-xs sm:text-sm text-white/60 leading-relaxed mb-4">
+                            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed mb-4">
                                 Exploratory data analysis pipeline built with Python, Pandas, and Matplotlib. Ingests employee records, cleans missing values, conducts multi-column filtering and grouping, and outputs visual charts communicating workforce insights.
                             </p>
 
-                            <div class="space-y-2 mb-5 p-3.5 rounded-xl bg-black/40 border border-white/[0.05] text-xs text-white/70">
+                            <div class="space-y-2 mb-5 p-3.5 rounded-xl bg-black/40 border border-white/[0.05] text-xs text-slate-300">
                                 <div class="flex items-start gap-2">
                                     <i data-lucide="check" class="w-3.5 h-3.5 text-cyan-400 mt-0.5 flex-shrink-0"></i>
                                     <span>Used employee dataset to explore, clean, and summarize structural metrics.</span>
@@ -785,13 +754,13 @@
                             <div class="flex flex-wrap gap-1.5">
                                 <span class="tag"><i data-lucide="code" class="w-3 h-3 text-cyan-400"></i> Python</span>
                                 <span class="tag"><i data-lucide="table" class="w-3 h-3 text-purple-400"></i> Pandas</span>
-                                <span class="tag"><i data-lucide="grid" class="w-3 h-3 text-indigo-400"></i> NumPy</span>
+                                <span class="tag"><i data-lucide="grid" class="w-3 h-3 text-blue-400"></i> NumPy</span>
                                 <span class="tag"><i data-lucide="pie-chart" class="w-3 h-3 text-pink-400"></i> Matplotlib</span>
                             </div>
                         </div>
 
-                        <div class="pt-5 mt-5 border-t border-white/[0.06] flex items-center justify-between">
-                            <a href="https://github.com/sawinkumar13-design/project-" target="_blank" class="flex items-center gap-1.5 text-xs font-mono text-purple-300 hover:text-white transition-colors">
+                        <div class="pt-5 mt-5 border-t border-white/[0.08] flex items-center justify-between">
+                            <a href="https://github.com/sawinkumar13-design/project-" target="_blank" class="flex items-center gap-1.5 text-xs font-mono text-cyan-300 hover:text-white transition-colors">
                                 <i data-lucide="github" class="w-4 h-4"></i>
                                 <span>Source Code</span>
                             </a>
@@ -802,22 +771,22 @@
                     </article>
 
                     <!-- Project 2: Banking System Java App -->
-                    <article class="project-card card-hover rounded-2xl p-6 sm:p-7 flex flex-col justify-between reveal delay-1" data-category="java">
+                    <article class="project-card glossy-card p-6 sm:p-7 flex flex-col justify-between reveal delay-1" data-category="java">
                         <div>
                             <div class="flex items-center justify-between mb-4">
                                 <span class="text-[11px] font-mono text-purple-300 px-3 py-1 bg-purple-950/60 border border-purple-800/40 rounded-full flex items-center gap-1.5">
                                     <i data-lucide="coffee" class="w-3.5 h-3.5"></i> Java · OOP
                                 </span>
-                                <span class="text-[11px] font-mono text-white/40">Academic Project</span>
+                                <span class="text-[11px] font-mono text-slate-400">Academic Project</span>
                             </div>
 
                             <h3 class="text-xl font-bold text-white mb-3">Banking System — Java Console App</h3>
                             
-                            <p class="text-xs sm:text-sm text-white/60 leading-relaxed mb-4">
+                            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed mb-4">
                                 Menu-driven financial application modeling real-world banking operations. Built with modular Java classes, object-oriented encapsulation, input validation with Scanner, and complete deposit, withdrawal, and balance checking operations.
                             </p>
 
-                            <div class="space-y-2 mb-5 p-3.5 rounded-xl bg-black/40 border border-white/[0.05] text-xs text-white/70">
+                            <div class="space-y-2 mb-5 p-3.5 rounded-xl bg-black/40 border border-white/[0.05] text-xs text-slate-300">
                                 <div class="flex items-start gap-2">
                                     <i data-lucide="check" class="w-3.5 h-3.5 text-purple-400 mt-0.5 flex-shrink-0"></i>
                                     <span>Built an intuitive console menu to model essential account actions.</span>
@@ -840,7 +809,7 @@
                             </div>
                         </div>
 
-                        <div class="pt-5 mt-5 border-t border-white/[0.06] flex items-center justify-between">
+                        <div class="pt-5 mt-5 border-t border-white/[0.08] flex items-center justify-between">
                             <a href="https://github.com/sawinkumar13-design/project-" target="_blank" class="flex items-center gap-1.5 text-xs font-mono text-purple-300 hover:text-white transition-colors">
                                 <i data-lucide="github" class="w-4 h-4"></i>
                                 <span>Source Code</span>
@@ -852,7 +821,7 @@
                     </article>
 
                     <!-- Project 3: DSA Problem Solving Suite -->
-                    <article class="project-card card-hover rounded-2xl p-6 sm:p-7 flex flex-col justify-between reveal delay-2 md:col-span-2" data-category="java">
+                    <article class="project-card glossy-card p-6 sm:p-7 flex flex-col justify-between reveal delay-2 md:col-span-2" data-category="java">
                         <div>
                             <div class="flex items-center justify-between mb-4">
                                 <span class="text-[11px] font-mono text-amber-300 px-3 py-1 bg-amber-950/60 border border-amber-800/40 rounded-full flex items-center gap-1.5">
@@ -866,7 +835,7 @@
 
                             <h3 class="text-xl font-bold text-white mb-3">Data Structures &amp; Problem Solving Suite</h3>
                             
-                            <p class="text-xs sm:text-sm text-white/60 leading-relaxed mb-4">
+                            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed mb-4">
                                 Comprehensive repository of algorithmic implementations in Java and Python. Focuses on Arrays, Strings, Two-Pointer technique, and basic Recursion, with careful time and space complexity evaluations.
                             </p>
 
@@ -879,14 +848,14 @@
                             </div>
                         </div>
 
-                        <div class="pt-5 mt-5 border-t border-white/[0.06] flex items-center gap-6">
+                        <div class="pt-5 mt-5 border-t border-white/[0.08] flex items-center gap-6">
                             <a href="https://leetcode.com/u/sawinkumar/" target="_blank" class="flex items-center gap-2 text-xs font-mono font-medium text-amber-400 hover:text-amber-300 transition-colors">
                                 <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
                                     <path d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104 5.35 5.35 0 0 0-.125.513 5.527 5.527 0 0 0 .062 2.362 5.83 5.83 0 0 0 .349 1.017 5.938 5.938 0 0 0 1.271 1.818l4.277 4.193.039.038c2.248 2.165 5.852 2.133 8.063-.074l2.396-2.392c.54-.54.54-1.414.003-1.955a1.378 1.378 0 0 0-1.951-.003l-2.396 2.392a3.021 3.021 0 0 1-4.205.038l-.02-.019-4.276-4.193c-.652-.64-.972-1.469-.948-2.263a2.68 2.68 0 0 1 .066-.523 2.545 2.545 0 0 1 .619-1.164L9.13 8.114c1.058-1.134 3.204-1.27 4.43-.278l3.501 2.831c.593.48 1.461.387 1.94-.207a1.384 1.384 0 0 0-.207-1.943l-3.5-2.831c-.8-.647-1.766-1.045-2.774-1.202l2.015-2.158A1.384 1.384 0 0 0 13.483 0zm-2.866 12.815a1.38 1.38 0 0 0-1.38 1.382 1.38 1.38 0 0 0 1.38 1.382H20.79a1.38 1.38 0 0 0 1.38-1.382 1.38 1.38 0 0 0-1.38-1.382z"/>
                                 </svg>
                                 <span>LeetCode Profile</span>
                             </a>
-                            <a href="https://github.com/sawinkumar13-design/project-" target="_blank" class="flex items-center gap-1.5 text-xs font-mono text-white/50 hover:text-white transition-colors">
+                            <a href="https://github.com/sawinkumar13-design/project-" target="_blank" class="flex items-center gap-1.5 text-xs font-mono text-slate-400 hover:text-white transition-colors">
                                 <i data-lucide="github" class="w-4 h-4"></i>
                                 <span>GitHub Repository</span>
                             </a>
@@ -903,27 +872,20 @@
         <!-- LEETCODE 50 DAYS BADGE SECTION (EXCLUSIVE BADGE)        -->
         <!-- ======================================================== -->
         <section id="achievements" class="py-28 relative border-t border-white/[0.06]">
-            <!-- Radiant Amber & Purple Celestial Aura -->
-            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[34rem] h-[34rem] bg-gradient-to-r from-amber-500/15 via-purple-600/15 to-orange-500/10 rounded-full blur-[140px] pointer-events-none"></div>
-
             <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 
                 <div class="text-center mb-14 reveal">
                     <span class="text-[11px] font-mono text-amber-400 tracking-widest uppercase font-semibold">Special Achievement</span>
                     <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-2 tracking-tight">LeetCode 50 Days Badge</h2>
-                    <div class="w-16 h-1 bg-gradient-to-r from-amber-500 via-orange-500 to-purple-500 mx-auto mt-4 rounded-full"></div>
+                    <div class="w-16 h-1 bg-gradient-to-r from-amber-500 via-orange-500 to-[#6B00FF] mx-auto mt-4 rounded-full"></div>
                 </div>
 
-                <div class="glass-container max-w-lg mx-auto p-8 sm:p-10 text-center relative overflow-hidden reveal">
+                <div class="glossy-card max-w-lg mx-auto p-8 sm:p-10 text-center relative overflow-hidden reveal">
                     
-                    <!-- Decorative Radial Halo -->
-                    <div class="absolute -top-16 -right-16 w-32 h-32 bg-amber-500/20 rounded-full blur-2xl pointer-events-none"></div>
-                    <div class="absolute -bottom-16 -left-16 w-32 h-32 bg-purple-500/20 rounded-full blur-2xl pointer-events-none"></div>
-
                     <!-- Badge Visual Circle -->
                     <div class="relative w-36 h-36 mx-auto mb-6">
-                        <div class="absolute -inset-2 rounded-full bg-gradient-to-tr from-amber-500 via-orange-500 to-purple-600 blur-lg opacity-60 animate-pulse"></div>
-                        <div class="relative w-full h-full rounded-full bg-gradient-to-b from-dark-900 to-black border-2 border-amber-500/50 flex flex-col items-center justify-center shadow-2xl">
+                        <div class="absolute -inset-2 rounded-full bg-gradient-to-tr from-amber-500 via-orange-500 to-[#6B00FF] blur-xl opacity-60 animate-pulse"></div>
+                        <div class="relative w-full h-full rounded-full bg-gradient-to-b from-obsidian-950 to-black border-2 border-amber-500/50 flex flex-col items-center justify-center shadow-2xl">
                             <!-- LeetCode Official Icon -->
                             <svg class="w-8 h-8 text-amber-400 mb-1" viewBox="0 0 24 24" fill="currentColor">
                                 <path d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104 5.35 5.35 0 0 0-.125.513 5.527 5.527 0 0 0 .062 2.362 5.83 5.83 0 0 0 .349 1.017 5.938 5.938 0 0 0 1.271 1.818l4.277 4.193.039.038c2.248 2.165 5.852 2.133 8.063-.074l2.396-2.392c.54-.54.54-1.414.003-1.955a1.378 1.378 0 0 0-1.951-.003l-2.396 2.392a3.021 3.021 0 0 1-4.205.038l-.02-.019-4.276-4.193c-.652-.64-.972-1.469-.948-2.263a2.68 2.68 0 0 1 .066-.523 2.545 2.545 0 0 1 .619-1.164L9.13 8.114c1.058-1.134 3.204-1.27 4.43-.278l3.501 2.831c.593.48 1.461.387 1.94-.207a1.384 1.384 0 0 0-.207-1.943l-3.5-2.831c-.8-.647-1.766-1.045-2.774-1.202l2.015-2.158A1.384 1.384 0 0 0 13.483 0zm-2.866 12.815a1.38 1.38 0 0 0-1.38 1.382 1.38 1.38 0 0 0 1.38 1.382H20.79a1.38 1.38 0 0 0 1.38-1.382 1.38 1.38 0 0 0-1.38-1.382z"/>
@@ -935,13 +897,13 @@
 
                     <h3 class="text-2xl font-bold text-white mb-2">50 Days Consistency Badge</h3>
                     
-                    <p class="text-xs sm:text-sm text-white/60 leading-relaxed mb-6 max-w-sm mx-auto">
+                    <p class="text-xs sm:text-sm text-slate-300 leading-relaxed mb-6 max-w-sm mx-auto">
                         Awarded by <strong class="text-white">LeetCode</strong> for consecutive daily problem-solving discipline. Reflects strong algorithmic perseverance, syntax mastery, and problem breakdown techniques.
                     </p>
 
                     <div class="flex items-center justify-center">
                         <a href="https://leetcode.com/u/sawinkumar/" target="_blank" rel="noopener noreferrer" 
-                           class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 text-black font-bold text-xs uppercase tracking-wider hover:opacity-95 transition-all shadow-lg shadow-amber-500/25 hover:scale-[1.02]">
+                           class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 text-black font-bold text-xs uppercase tracking-wider hover:opacity-95 transition-all shadow-lg shadow-amber-500/30 hover:scale-[1.02]">
                             <svg class="w-4 h-4 fill-black" viewBox="0 0 24 24">
                                 <path d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104 5.35 5.35 0 0 0-.125.513 5.527 5.527 0 0 0 .062 2.362 5.83 5.83 0 0 0 .349 1.017 5.938 5.938 0 0 0 1.271 1.818l4.277 4.193.039.038c2.248 2.165 5.852 2.133 8.063-.074l2.396-2.392c.54-.54.54-1.414.003-1.955a1.378 1.378 0 0 0-1.951-.003l-2.396 2.392a3.021 3.021 0 0 1-4.205.038l-.02-.019-4.276-4.193c-.652-.64-.972-1.469-.948-2.263a2.68 2.68 0 0 1 .066-.523 2.545 2.545 0 0 1 .619-1.164L9.13 8.114c1.058-1.134 3.204-1.27 4.43-.278l3.501 2.831c.593.48 1.461.387 1.94-.207a1.384 1.384 0 0 0-.207-1.943l-3.5-2.831c-.8-.647-1.766-1.045-2.774-1.202l2.015-2.158A1.384 1.384 0 0 0 13.483 0zm-2.866 12.815a1.38 1.38 0 0 0-1.38 1.382 1.38 1.38 0 0 0 1.38 1.382H20.79a1.38 1.38 0 0 0 1.38-1.382 1.38 1.38 0 0 0-1.38-1.382z"/>
                             </svg>
@@ -959,16 +921,13 @@
         <!-- CONTACT SECTION                                          -->
         <!-- ======================================================== -->
         <section id="contact" class="py-28 relative border-t border-white/[0.06]">
-            <!-- Slide Accent Glow -->
-            <div class="absolute bottom-10 left-1/4 w-80 h-80 bg-purple-600/15 rounded-full blur-[120px] pointer-events-none"></div>
-
             <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 
                 <div class="text-center mb-16 reveal">
-                    <span class="text-[11px] font-mono text-purple-400 tracking-widest uppercase font-semibold">Initiate Collaboration</span>
+                    <span class="text-[11px] font-mono text-[#00F2FE] tracking-widest uppercase font-semibold">Initiate Collaboration</span>
                     <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-2 tracking-tight">Get In Touch</h2>
-                    <p class="text-white/50 text-xs sm:text-sm mt-2 max-w-md mx-auto">Open for internships, projects, and technical discussions.</p>
-                    <div class="w-16 h-1 bg-gradient-to-r from-purple-500 to-cyan-500 mx-auto mt-4 rounded-full"></div>
+                    <p class="text-slate-400 text-xs sm:text-sm mt-2 max-w-md mx-auto">Open for internships, projects, and technical discussions.</p>
+                    <div class="w-16 h-1 bg-gradient-to-r from-[#00F2FE] to-[#6B00FF] mx-auto mt-4 rounded-full"></div>
                 </div>
 
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 max-w-4xl mx-auto items-start">
@@ -977,98 +936,98 @@
                     <div class="lg:col-span-5 space-y-3 reveal">
                         
                         <!-- Personal Email -->
-                        <div class="card-hover flex items-center justify-between p-3.5 rounded-2xl">
+                        <div class="glossy-card flex items-center justify-between p-3.5 rounded-2xl">
                             <div class="flex items-center gap-3">
-                                <div class="w-8 h-8 rounded-lg bg-purple-500/10 flex items-center justify-center text-purple-400">
+                                <div class="w-8 h-8 rounded-lg bg-cyan-500/10 flex items-center justify-center text-cyan-400">
                                     <i data-lucide="mail" class="w-4 h-4"></i>
                                 </div>
                                 <div>
-                                    <div class="text-[9px] text-white/40 font-mono">Personal Email</div>
-                                    <a href="mailto:sawinkumar13@gmail.com" class="text-xs text-white/80 hover:text-purple-300 transition-colors font-medium" id="emailDisplay">sawinkumar13@gmail.com</a>
+                                    <div class="text-[9px] text-slate-400 font-mono">Personal Email</div>
+                                    <a href="mailto:sawinkumar13@gmail.com" class="text-xs text-slate-200 hover:text-cyan-300 transition-colors font-medium" id="emailDisplay">sawinkumar13@gmail.com</a>
                                 </div>
                             </div>
-                            <button id="copyEmailBtn" class="text-[10px] font-mono text-purple-400 hover:text-white px-2 py-1 rounded-lg bg-purple-950/60 border border-purple-800/40">Copy</button>
+                            <button id="copyEmailBtn" class="text-[10px] font-mono text-cyan-400 hover:text-white px-2 py-1 rounded-lg bg-cyan-950/60 border border-cyan-800/40">Copy</button>
                         </div>
 
                         <!-- University Email -->
-                        <div class="card-hover flex items-center gap-3 p-3.5 rounded-2xl">
-                            <div class="w-8 h-8 rounded-lg bg-cyan-500/10 flex items-center justify-center text-cyan-400">
+                        <div class="glossy-card flex items-center gap-3 p-3.5 rounded-2xl">
+                            <div class="w-8 h-8 rounded-lg bg-purple-500/10 flex items-center justify-center text-purple-400">
                                 <i data-lucide="graduation-cap" class="w-4 h-4"></i>
                             </div>
                             <div>
-                                <div class="text-[9px] text-white/40 font-mono">College Email</div>
-                                <a href="mailto:sawin.kumar_cs25@gla.ac.in" class="text-xs text-white/80 hover:text-cyan-300 transition-colors font-medium">sawin.kumar_cs25@gla.ac.in</a>
+                                <div class="text-[9px] text-slate-400 font-mono">College Email</div>
+                                <a href="mailto:sawin.kumar_cs25@gla.ac.in" class="text-xs text-slate-200 hover:text-purple-300 transition-colors font-medium">sawin.kumar_cs25@gla.ac.in</a>
                             </div>
                         </div>
 
                         <!-- Phone -->
-                        <a href="tel:+919259451815" class="card-hover flex items-center gap-3 p-3.5 rounded-2xl group">
+                        <a href="tel:+919259451815" class="glossy-card flex items-center gap-3 p-3.5 rounded-2xl group">
                             <div class="w-8 h-8 rounded-lg bg-emerald-500/10 flex items-center justify-center text-emerald-400">
                                 <i data-lucide="phone" class="w-4 h-4"></i>
                             </div>
                             <div>
-                                <div class="text-[9px] text-white/40 font-mono">Phone / WhatsApp</div>
-                                <span class="text-xs text-white/80 group-hover:text-emerald-300 transition-colors font-medium">+91-9259451815</span>
+                                <div class="text-[9px] text-slate-400 font-mono">Phone / WhatsApp</div>
+                                <span class="text-xs text-slate-200 group-hover:text-emerald-300 transition-colors font-medium">+91-9259451815</span>
                             </div>
                         </a>
 
                         <!-- LinkedIn -->
-                        <a href="https://linkedin.com/in/sawinkumar" target="_blank" rel="noopener noreferrer" class="card-hover flex items-center gap-3 p-3.5 rounded-2xl group">
+                        <a href="https://linkedin.com/in/sawinkumar" target="_blank" rel="noopener noreferrer" class="glossy-card flex items-center gap-3 p-3.5 rounded-2xl group">
                             <div class="w-8 h-8 rounded-lg bg-blue-500/10 flex items-center justify-center text-blue-400">
                                 <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 8.76a1.65 1.65 0 1 0 0-3.3 1.65 1.65 0 0 0 0 3.3m1.4 9.74v-8.37H5.06v8.37h2.8z"/></svg>
                             </div>
                             <div>
-                                <div class="text-[9px] text-white/40 font-mono">LinkedIn</div>
-                                <span class="text-xs text-white/80 group-hover:text-blue-300 transition-colors font-medium">linkedin.com/in/sawinkumar</span>
+                                <div class="text-[9px] text-slate-400 font-mono">LinkedIn</div>
+                                <span class="text-xs text-slate-200 group-hover:text-blue-300 transition-colors font-medium">linkedin.com/in/sawinkumar</span>
                             </div>
                         </a>
 
                         <!-- GitHub -->
-                        <a href="https://github.com/sawinkumar13-design" target="_blank" rel="noopener noreferrer" class="card-hover flex items-center gap-3 p-3.5 rounded-2xl group">
+                        <a href="https://github.com/sawinkumar13-design" target="_blank" rel="noopener noreferrer" class="glossy-card flex items-center gap-3 p-3.5 rounded-2xl group">
                             <div class="w-8 h-8 rounded-lg bg-white/[0.05] flex items-center justify-center text-white">
                                 <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
                             </div>
                             <div>
-                                <div class="text-[9px] text-white/40 font-mono">GitHub</div>
-                                <span class="text-xs text-white/80 group-hover:text-white transition-colors font-medium">github.com/sawinkumar13-design</span>
+                                <div class="text-[9px] text-slate-400 font-mono">GitHub</div>
+                                <span class="text-xs text-slate-200 group-hover:text-white transition-colors font-medium">github.com/sawinkumar13-design</span>
                             </div>
                         </a>
 
                         <!-- Location -->
-                        <div class="card-hover flex items-center gap-3 p-3.5 rounded-2xl">
+                        <div class="glossy-card flex items-center gap-3 p-3.5 rounded-2xl">
                             <div class="w-8 h-8 rounded-lg bg-pink-500/10 flex items-center justify-center text-pink-400">
                                 <i data-lucide="map-pin" class="w-4 h-4"></i>
                             </div>
                             <div>
-                                <div class="text-[9px] text-white/40 font-mono">Location</div>
-                                <span class="text-xs text-white/70">Mathura (281001) &amp; Etah, Uttar Pradesh</span>
+                                <div class="text-[9px] text-slate-400 font-mono">Location</div>
+                                <span class="text-xs text-slate-300">Mathura (281001) &amp; Etah, Uttar Pradesh</span>
                             </div>
                         </div>
 
                     </div>
 
-                    <!-- Direct Message Form -->
+                    <!-- Direct Message Form with Specular Gloss -->
                     <div class="lg:col-span-7 reveal delay-1">
-                        <form id="contactForm" class="card-hover p-6 sm:p-7 rounded-2xl space-y-4">
+                        <form id="contactForm" class="glossy-card p-6 sm:p-7 rounded-2xl space-y-4">
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                                 <div>
-                                    <label class="block text-[11px] font-mono text-purple-300/80 mb-1">Your Name *</label>
-                                    <input type="text" id="senderName" required placeholder="John Doe" class="w-full rounded-xl bg-black/60 border border-white/10 px-3.5 py-2.5 text-xs text-white placeholder-white/20 focus:outline-none focus:border-purple-400 transition">
+                                    <label class="block text-[11px] font-mono text-cyan-300/80 mb-1">Your Name *</label>
+                                    <input type="text" id="senderName" required placeholder="John Doe" class="w-full rounded-xl bg-black/60 border border-white/10 px-3.5 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400 transition">
                                 </div>
                                 <div>
-                                    <label class="block text-[11px] font-mono text-purple-300/80 mb-1">Your Email *</label>
-                                    <input type="email" id="senderEmail" required placeholder="john@example.com" class="w-full rounded-xl bg-black/60 border border-white/10 px-3.5 py-2.5 text-xs text-white placeholder-white/20 focus:outline-none focus:border-purple-400 transition">
+                                    <label class="block text-[11px] font-mono text-cyan-300/80 mb-1">Your Email *</label>
+                                    <input type="email" id="senderEmail" required placeholder="john@example.com" class="w-full rounded-xl bg-black/60 border border-white/10 px-3.5 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400 transition">
                                 </div>
                             </div>
                             <div>
-                                <label class="block text-[11px] font-mono text-purple-300/80 mb-1">Subject</label>
-                                <input type="text" id="senderSubject" placeholder="Software Engineering / Data Science Opportunity" class="w-full rounded-xl bg-black/60 border border-white/10 px-3.5 py-2.5 text-xs text-white placeholder-white/20 focus:outline-none focus:border-purple-400 transition">
+                                <label class="block text-[11px] font-mono text-cyan-300/80 mb-1">Subject</label>
+                                <input type="text" id="senderSubject" placeholder="Software Engineering / Data Science Opportunity" class="w-full rounded-xl bg-black/60 border border-white/10 px-3.5 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400 transition">
                             </div>
                             <div>
-                                <label class="block text-[11px] font-mono text-purple-300/80 mb-1">Message *</label>
-                                <textarea id="senderMessage" rows="4" required placeholder="Hi Sawin, I saw your portfolio and would like to connect regarding..." class="w-full rounded-xl bg-black/60 border border-white/10 px-3.5 py-2.5 text-xs text-white placeholder-white/20 focus:outline-none focus:border-purple-400 transition"></textarea>
+                                <label class="block text-[11px] font-mono text-cyan-300/80 mb-1">Message *</label>
+                                <textarea id="senderMessage" rows="4" required placeholder="Hi Sawin, I saw your portfolio and would like to connect regarding..." class="w-full rounded-xl bg-black/60 border border-white/10 px-3.5 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400 transition"></textarea>
                             </div>
-                            <button type="submit" class="w-full py-3 rounded-xl bg-gradient-to-r from-purple-500 via-indigo-500 to-cyan-500 text-white font-semibold text-xs hover:opacity-95 transition-all shadow-md shadow-purple-500/20 flex items-center justify-center gap-2">
+                            <button type="submit" class="cosmic-btn-primary w-full py-3 rounded-xl font-semibold text-xs flex items-center justify-center gap-2">
                                 <i data-lucide="send" class="w-3.5 h-3.5"></i>
                                 <span>Send to sawinkumar13@gmail.com</span>
                             </button>
@@ -1085,28 +1044,28 @@
     <!-- ======================================================== -->
     <!-- FOOTER                                                   -->
     <!-- ======================================================== -->
-    <footer class="py-10 border-t border-white/[0.06] bg-black relative z-10">
+    <footer class="py-10 border-t border-white/[0.06] bg-[#06060a]/90 relative z-10">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <span class="text-xs text-white/40 font-mono">
+            <span class="text-xs text-slate-400 font-mono">
                 &copy; 2026 Sawin Kumar &middot; GLA University (B.Tech CSE)
             </span>
             <div class="flex items-center gap-3">
-                <a href="https://leetcode.com/u/sawinkumar/" target="_blank" class="p-1.5 rounded text-amber-400/60 hover:text-amber-400 transition-colors" title="LeetCode"><svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104 5.35 5.35 0 0 0-.125.513 5.527 5.527 0 0 0 .062 2.362 5.83 5.83 0 0 0 .349 1.017 5.938 5.938 0 0 0 1.271 1.818l4.277 4.193.039.038c2.248 2.165 5.852 2.133 8.063-.074l2.396-2.392c.54-.54.54-1.414.003-1.955a1.378 1.378 0 0 0-1.951-.003l-2.396 2.392a3.021 3.021 0 0 1-4.205.038l-.02-.019-4.276-4.193c-.652-.64-.972-1.469-.948-2.263a2.68 2.68 0 0 1 .066-.523 2.545 2.545 0 0 1 .619-1.164L9.13 8.114c1.058-1.134 3.204-1.27 4.43-.278l3.501 2.831c.593.48 1.461.387 1.94-.207a1.384 1.384 0 0 0-.207-1.943l-3.5-2.831c-.8-.647-1.766-1.045-2.774-1.202l2.015-2.158A1.384 1.384 0 0 0 13.483 0zm-2.866 12.815a1.38 1.38 0 0 0-1.38 1.382 1.38 1.38 0 0 0 1.38 1.382H20.79a1.38 1.38 0 0 0 1.38-1.382 1.38 1.38 0 0 0-1.38-1.382z"/></svg></a>
-                <a href="https://linkedin.com/in/sawinkumar" target="_blank" class="p-1.5 rounded text-blue-400/60 hover:text-blue-400 transition-colors" title="LinkedIn"><svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 8.76a1.65 1.65 0 1 0 0-3.3 1.65 1.65 0 0 0 0 3.3m1.4 9.74v-8.37H5.06v8.37h2.8z"/></svg></a>
-                <a href="https://github.com/sawinkumar13-design" target="_blank" class="p-1.5 rounded text-white/40 hover:text-white transition-colors" title="GitHub"><svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg></a>
-                <a href="#hero" class="p-1.5 rounded text-purple-400 hover:text-white transition-colors" title="Back to top"><i data-lucide="arrow-up" class="w-4 h-4"></i></a>
+                <a href="https://leetcode.com/u/sawinkumar/" target="_blank" class="p-1.5 rounded text-amber-400/80 hover:text-amber-300 transition-colors" title="LeetCode"><svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104 5.35 5.35 0 0 0-.125.513 5.527 5.527 0 0 0 .062 2.362 5.83 5.83 0 0 0 .349 1.017 5.938 5.938 0 0 0 1.271 1.818l4.277 4.193.039.038c2.248 2.165 5.852 2.133 8.063-.074l2.396-2.392c.54-.54.54-1.414.003-1.955a1.378 1.378 0 0 0-1.951-.003l-2.396 2.392a3.021 3.021 0 0 1-4.205.038l-.02-.019-4.276-4.193c-.652-.64-.972-1.469-.948-2.263a2.68 2.68 0 0 1 .066-.523 2.545 2.545 0 0 1 .619-1.164L9.13 8.114c1.058-1.134 3.204-1.27 4.43-.278l3.501 2.831c.593.48 1.461.387 1.94-.207a1.384 1.384 0 0 0-.207-1.943l-3.5-2.831c-.8-.647-1.766-1.045-2.774-1.202l2.015-2.158A1.384 1.384 0 0 0 13.483 0zm-2.866 12.815a1.38 1.38 0 0 0-1.38 1.382 1.38 1.38 0 0 0 1.38 1.382H20.79a1.38 1.38 0 0 0 1.38-1.382 1.38 1.38 0 0 0-1.38-1.382z"/></svg></a>
+                <a href="https://linkedin.com/in/sawinkumar" target="_blank" class="p-1.5 rounded text-blue-400/80 hover:text-blue-300 transition-colors" title="LinkedIn"><svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 8.76a1.65 1.65 0 1 0 0-3.3 1.65 1.65 0 0 0 0 3.3m1.4 9.74v-8.37H5.06v8.37h2.8z"/></svg></a>
+                <a href="https://github.com/sawinkumar13-design" target="_blank" class="p-1.5 rounded text-slate-300 hover:text-white transition-colors" title="GitHub"><svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg></a>
+                <a href="#hero" class="p-1.5 rounded text-cyan-400 hover:text-white transition-colors" title="Back to top"><i data-lucide="arrow-up" class="w-4 h-4"></i></a>
             </div>
         </div>
     </footer>
 
-    <!-- Toast -->
-    <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 px-4 py-3 rounded-xl bg-dark-900 border border-purple-500/40 text-white text-xs font-mono flex items-center gap-2 shadow-2xl pointer-events-none">
-        <i data-lucide="check" class="w-4 h-4 text-purple-400"></i>
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 px-4 py-3 rounded-xl bg-obsidian-900 border border-cyan-500/40 text-white text-xs font-mono flex items-center gap-2 shadow-2xl pointer-events-none">
+        <i data-lucide="check" class="w-4 h-4 text-cyan-400"></i>
         <span id="toastMessage">Done</span>
     </div>
 
-    <!-- Scripts with Cache-Buster -->
-    <script src="main.js?v=4"></script>
+    <!-- Scripts with Cache-Buster v=5 -->
+    <script src="main.js?v=5"></script>
     <script>lucide.createIcons();</script>
 </body>
 </html>
