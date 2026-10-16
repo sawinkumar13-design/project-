@@ -776,17 +776,19 @@ section[id] {
 }
 
 /* ========================================================================== */
-/* 8. 3D FLOATING CORNER PROPS (SKILLS SECTION WIX-STUDIO ANIMATION)          */
+/* 8. 3D FLOATING CORNER PROPS (ALL SLIDES EXCEPT FIRST TWO)                  */
 /* ========================================================================== */
-.skills-stage-wrap {
+.skills-stage-wrap,
+.section-stage-wrap {
     position: relative;
     width: 100%;
 }
 
-.skill-prop {
+.skill-prop,
+.section-prop {
     position: absolute;
-    width: 92px;
-    height: 92px;
+    width: 90px;
+    height: 90px;
     pointer-events: none;
     z-index: 20;
     opacity: 0;
@@ -797,28 +799,32 @@ section[id] {
 }
 
 /* Initial Off-Axis Positions (Hidden with spring-back trajectory) */
-.skill-prop-tl {
+.skill-prop-tl,
+.prop-tl {
     top: -2.75rem;
     left: -2.75rem;
     transform: translate3d(-45px, -45px, 0) scale(0.25) rotate(-25deg);
     transition-delay: 0.1s;
 }
 
-.skill-prop-tr {
+.skill-prop-tr,
+.prop-tr {
     top: -2.25rem;
     right: -2.75rem;
     transform: translate3d(45px, -45px, 0) scale(0.25) rotate(25deg);
     transition-delay: 0.2s;
 }
 
-.skill-prop-bl {
+.skill-prop-bl,
+.prop-bl {
     bottom: -2.75rem;
     left: -2.75rem;
     transform: translate3d(-45px, 45px, 0) scale(0.25) rotate(20deg);
     transition-delay: 0.3s;
 }
 
-.skill-prop-br {
+.skill-prop-br,
+.prop-br {
     bottom: -2.25rem;
     right: -2.75rem;
     transform: translate3d(45px, 45px, 0) scale(0.25) rotate(-20deg);
@@ -826,13 +832,15 @@ section[id] {
 }
 
 /* Active State (Pop-In Bouncy 3D Entrance) */
-.skill-prop.active {
+.skill-prop.active,
+.section-prop.active {
     opacity: 1;
     transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
 }
 
 /* Parallax & 3D Mouse Tilt Wrapper (Decoupled Layer 2) */
-.skill-prop-parallax {
+.skill-prop-parallax,
+.prop-parallax {
     width: 100%;
     height: 100%;
     transform-style: preserve-3d;
@@ -841,7 +849,8 @@ section[id] {
 }
 
 /* Inner Levitation Container (Perpetual Zero-Gravity Bobbing Layer 3) */
-.skill-prop-inner {
+.skill-prop-inner,
+.prop-inner {
     width: 100%;
     height: 100%;
     display: flex;
@@ -852,7 +861,8 @@ section[id] {
     transition: filter 0.3s ease;
 }
 
-.skill-prop-svg {
+.skill-prop-svg,
+.prop-svg {
     width: 100%;
     height: 100%;
     display: block;
@@ -899,24 +909,24 @@ section[id] {
 
 /* Tablet & Mobile Scale adjustments */
 @media (max-width: 1280px) {
-    .skill-prop-tl { top: -2rem; left: -1rem; }
-    .skill-prop-tr { top: -1.5rem; right: -1rem; }
-    .skill-prop-bl { bottom: -2rem; left: -1rem; }
-    .skill-prop-br { bottom: -1.5rem; right: -1rem; }
+    .skill-prop-tl, .prop-tl { top: -2rem; left: -1rem; }
+    .skill-prop-tr, .prop-tr { top: -1.5rem; right: -1rem; }
+    .skill-prop-bl, .prop-bl { bottom: -2rem; left: -1rem; }
+    .skill-prop-br, .prop-br { bottom: -1.5rem; right: -1rem; }
 }
 
 @media (max-width: 1024px) {
-    .skill-prop { width: 72px; height: 72px; }
-    .skill-prop-tl { top: -1.5rem; left: 0.25rem; }
-    .skill-prop-tr { top: -1rem; right: 0.25rem; }
-    .skill-prop-bl { bottom: -1.5rem; left: 0.25rem; }
-    .skill-prop-br { bottom: -1rem; right: 0.25rem; }
+    .skill-prop, .section-prop { width: 70px; height: 70px; }
+    .skill-prop-tl, .prop-tl { top: -1.5rem; left: 0.25rem; }
+    .skill-prop-tr, .prop-tr { top: -1rem; right: 0.25rem; }
+    .skill-prop-bl, .prop-bl { bottom: -1.5rem; left: 0.25rem; }
+    .skill-prop-br, .prop-br { bottom: -1rem; right: 0.25rem; }
 }
 
 @media (max-width: 640px) {
-    .skill-prop { width: 54px; height: 54px; opacity: 0.85; }
-    .skill-prop-tl { top: -1rem; left: 0.25rem; }
-    .skill-prop-tr { top: -0.5rem; right: 0.25rem; }
-    .skill-prop-bl { bottom: -1rem; left: 0.25rem; }
-    .skill-prop-br { bottom: -0.5rem; right: 0.25rem; }
+    .skill-prop, .section-prop { width: 50px; height: 50px; opacity: 0.85; }
+    .skill-prop-tl, .prop-tl { top: -1rem; left: 0.25rem; }
+    .skill-prop-tr, .prop-tr { top: -0.5rem; right: 0.25rem; }
+    .skill-prop-bl, .prop-bl { bottom: -1rem; left: 0.25rem; }
+    .skill-prop-br, .prop-br { bottom: -0.5rem; right: 0.25rem; }
 }

@@ -21,6 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let mouseX = window.innerWidth / 2;
     let mouseY = window.innerHeight / 2;
     let isMouseOnScreen = false;
+    let spawnStardust = null;
 
     window.addEventListener('mousemove', (e) => {
         targetMouseX = e.clientX;
@@ -29,6 +30,9 @@ document.addEventListener('DOMContentLoaded', () => {
             isMouseOnScreen = true;
             const glow = document.getElementById('cursorGlow');
             if (glow) glow.style.opacity = '1';
+        }
+        if (!isTouchDevice && Math.random() > 0.45 && typeof spawnStardust === 'function') {
+            spawnStardust(e.clientX, e.clientY);
         }
     }, { passive: true });
 
@@ -197,6 +201,95 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
+        // =====================================================================
+        // SHOOTING STARS & STARDUST ENGINE (COOL DYNAMIC COSMIC BACKGROUND)
+        // =====================================================================
+        class ShootingStar {
+            constructor() {
+                this.reset();
+            }
+
+            reset() {
+                this.active = false;
+                this.length = Math.random() * 85 + 75;
+                this.speed = Math.random() * 12 + 15;
+                this.size = Math.random() * 1.5 + 1.2;
+                this.angle = (Math.PI / 180) * (Math.random() * 20 + 25);
+                this.dx = Math.cos(this.angle) * this.speed;
+                this.dy = Math.sin(this.angle) * this.speed;
+                this.x = Math.random() * (width * 0.85);
+                this.y = Math.random() * (height * 0.45) - 40;
+                this.opacity = 1;
+                this.trailColor = Math.random() > 0.4 ? '#00F2FE' : '#c084fc';
+                this.life = 0;
+                this.maxLife = Math.random() * 32 + 24;
+            }
+
+            spawn() {
+                this.reset();
+                this.active = true;
+            }
+
+            update() {
+                if (!this.active) return;
+                this.x += this.dx;
+                this.y += this.dy;
+                this.life++;
+                this.opacity = Math.max(0, 1 - (this.life / this.maxLife));
+                if (this.life >= this.maxLife || this.x > width + 100 || this.y > height + 100) {
+                    this.active = false;
+                }
+            }
+
+            draw() {
+                if (!this.active || this.opacity <= 0) return;
+                ctx.save();
+                ctx.globalAlpha = this.opacity;
+                const tailX = this.x - Math.cos(this.angle) * this.length;
+                const tailY = this.y - Math.sin(this.angle) * this.length;
+                const grad = ctx.createLinearGradient(this.x, this.y, tailX, tailY);
+                grad.addColorStop(0, '#ffffff');
+                grad.addColorStop(0.25, this.trailColor);
+                grad.addColorStop(1, 'transparent');
+
+                ctx.strokeStyle = grad;
+                ctx.lineWidth = this.size;
+                ctx.lineCap = 'round';
+                ctx.shadowColor = this.trailColor;
+                ctx.shadowBlur = 12;
+                ctx.beginPath();
+                ctx.moveTo(this.x, this.y);
+                ctx.lineTo(tailX, tailY);
+                ctx.stroke();
+
+                // Glowing starhead
+                ctx.fillStyle = '#ffffff';
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size * 1.35, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+            }
+        }
+
+        const shootingStars = [new ShootingStar(), new ShootingStar(), new ShootingStar()];
+        let meteorCooldown = 0;
+
+        // Interactive Pointer Stardust Particles
+        const stardust = [];
+        const MAX_STARDUST = 45;
+        spawnStardust = function(px, py) {
+            if (stardust.length > MAX_STARDUST) stardust.shift();
+            stardust.push({
+                x: px + (Math.random() - 0.5) * 14,
+                y: py + (Math.random() - 0.5) * 14,
+                size: Math.random() * 2 + 1,
+                alpha: 0.9,
+                color: Math.random() > 0.5 ? '#00F2FE' : '#c084fc',
+                vx: (Math.random() - 0.5) * 0.8,
+                vy: (Math.random() - 0.5) * 0.8 - 0.3
+            });
+        };
+
         function initStars() {
             stars = [];
             for (let i = 0; i < STAR_COUNT; i++) {
@@ -266,7 +359,7 @@ document.addEventListener('DOMContentLoaded', () => {
             nebulaBackdrop.style.setProperty('--nebula-color-4', t < 0.5 ? pA.c4 : pB.c4);
         }
 
-        // Animation Loop (60 FPS with lerped physics & mouse parallax)
+        // Animation Loop (60 FPS with lerped physics, shooting stars & mouse parallax)
         function animate() {
             ctx.clearRect(0, 0, width, height);
 
@@ -312,92 +405,145 @@ document.addEventListener('DOMContentLoaded', () => {
             const isWarping = streakLength > 2.0;
             const isClustering = clusterStrength > 0.1;
 
+            // 1. Draw Starfield
             for (let i = 0; i < stars.length; i++) {
                 stars[i].update(currentSpeed, isWarping, isClustering, mouseX, mouseY);
                 stars[i].draw(streakLength, isClustering);
             }
 
+            // 2. Spawn, Update & Draw Shooting Stars (Cool Background Feature)
+            meteorCooldown++;
+            const spawnInterval = scrollVelocity > 1.8 ? 40 : 85;
+            if (meteorCooldown > spawnInterval) {
+                const inactiveStar = shootingStars.find(s => !s.active);
+                if (inactiveStar) {
+                    inactiveStar.spawn();
+                    meteorCooldown = 0;
+                }
+            }
+
+            for (let i = 0; i < shootingStars.length; i++) {
+                shootingStars[i].update();
+                shootingStars[i].draw();
+            }
+
+            // 3. Update & Draw Interactive Cursor Stardust
+            for (let i = stardust.length - 1; i >= 0; i--) {
+                const p = stardust[i];
+                p.x += p.vx;
+                p.y += p.vy;
+                p.alpha -= 0.016;
+                if (p.alpha <= 0) {
+                    stardust.splice(i, 1);
+                    continue;
+                }
+                ctx.save();
+                ctx.globalAlpha = p.alpha;
+                ctx.fillStyle = p.color;
+                ctx.shadowColor = p.color;
+                ctx.shadowBlur = 8;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+            }
+
             drawConstellations(clusterStrength);
             updateNebulaColors(scrollProgress);
-            updateSkillsProps();
+            updateAllSectionProps();
 
             requestAnimationFrame(animate);
         }
 
         // =========================================================================
-        // SKILLS 3D FLOATING CORNER PROPS ENGINE (POP-IN, PARALLAX & TILT)
+        // 3D FLOATING CORNER PROPS ENGINE (FOR ALL SLIDES EXCEPT FIRST TWO)
         // =========================================================================
-        const skillsSection = document.getElementById('skills');
-        const skillProps = document.querySelectorAll('.skill-prop');
-        let skillsNormX = 0;
-        let skillsNormY = 0;
-        let targetSkillsNormX = 0;
-        let targetSkillsNormY = 0;
+        const propSectionIds = ['education', 'skills', 'projects', 'achievements', 'contact'];
+        const sectionPropsMap = [];
 
-        if (skillsSection && skillProps.length > 0) {
+        propSectionIds.forEach(id => {
+            const sectionEl = document.getElementById(id);
+            if (!sectionEl) return;
+            const props = sectionEl.querySelectorAll('.skill-prop, .section-prop');
+            if (props.length === 0) return;
+
+            const state = {
+                section: sectionEl,
+                props: props,
+                targetNormX: 0,
+                targetNormY: 0,
+                normX: 0,
+                normY: 0
+            };
+
             // Pop-In Trigger via IntersectionObserver with bouncy entrance
             if ('IntersectionObserver' in window) {
-                const skillsObserver = new IntersectionObserver((entries) => {
+                const observer = new IntersectionObserver((entries) => {
                     entries.forEach(entry => {
                         if (entry.isIntersecting) {
-                            skillProps.forEach(prop => prop.classList.add('active'));
-                            skillsObserver.unobserve(entry.target);
+                            props.forEach(prop => prop.classList.add('active'));
+                            observer.unobserve(entry.target);
                         }
                     });
-                }, { threshold: 0.12 });
-                skillsObserver.observe(skillsSection);
+                }, { threshold: 0.08 });
+                observer.observe(sectionEl);
             } else {
-                skillProps.forEach(prop => prop.classList.add('active'));
+                props.forEach(prop => prop.classList.add('active'));
             }
 
-            // Mouse-Move listener over Skills Section for 3D tilt
+            // Mouse-Move listener over Section for 3D tilt
             if (!isTouchDevice) {
-                skillsSection.addEventListener('mousemove', (e) => {
-                    const rect = skillsSection.getBoundingClientRect();
+                sectionEl.addEventListener('mousemove', (e) => {
+                    const rect = sectionEl.getBoundingClientRect();
                     const centerX = rect.left + rect.width / 2;
                     const centerY = rect.top + rect.height / 2;
-                    targetSkillsNormX = (e.clientX - centerX) / (rect.width / 2);
-                    targetSkillsNormY = (e.clientY - centerY) / (rect.height / 2);
+                    state.targetNormX = (e.clientX - centerX) / (rect.width / 2);
+                    state.targetNormY = (e.clientY - centerY) / (rect.height / 2);
                 }, { passive: true });
 
-                skillsSection.addEventListener('mouseleave', () => {
-                    targetSkillsNormX = 0;
-                    targetSkillsNormY = 0;
+                sectionEl.addEventListener('mouseleave', () => {
+                    state.targetNormX = 0;
+                    state.targetNormY = 0;
                 });
             }
-        }
 
-        function updateSkillsProps() {
-            if (!skillsSection || skillProps.length === 0) return;
-            const rect = skillsSection.getBoundingClientRect();
-            const inView = rect.top < window.innerHeight + 120 && rect.bottom > -120;
-            if (!inView) return;
+            sectionPropsMap.push(state);
+        });
 
-            // Smooth lerp mouse coordinates
-            skillsNormX += (targetSkillsNormX - skillsNormX) * 0.08;
-            skillsNormY += (targetSkillsNormY - skillsNormY) * 0.08;
+        function updateAllSectionProps() {
+            if (sectionPropsMap.length === 0) return;
 
-            // Compute vertical scroll parallax factor relative to viewport center
-            const centerOffset = (rect.top + rect.height / 2 - window.innerHeight / 2) / (window.innerHeight / 2);
+            sectionPropsMap.forEach(item => {
+                const rect = item.section.getBoundingClientRect();
+                const inView = rect.top < window.innerHeight + 120 && rect.bottom > -120;
+                if (!inView) return;
 
-            skillProps.forEach(prop => {
-                if (!prop.classList.contains('active')) return;
-                const parallaxLayer = prop.querySelector('.skill-prop-parallax');
-                if (!parallaxLayer) return;
+                // Smooth lerp mouse coordinates
+                item.normX += (item.targetNormX - item.normX) * 0.08;
+                item.normY += (item.targetNormY - item.normY) * 0.08;
 
-                const speed = parseFloat(parallaxLayer.getAttribute('data-speed') || '0.25');
-                const depth = parseFloat(parallaxLayer.getAttribute('data-depth') || '1.0');
+                // Compute vertical scroll parallax factor relative to viewport center
+                const centerOffset = (rect.top + rect.height / 2 - window.innerHeight / 2) / (window.innerHeight / 2);
 
-                // Parallax shifts vertically opposite to scroll
-                const scrollYOffset = centerOffset * -45 * speed;
+                item.props.forEach(prop => {
+                    if (!prop.classList.contains('active')) return;
+                    const parallaxLayer = prop.querySelector('.skill-prop-parallax, .prop-parallax');
+                    if (!parallaxLayer) return;
 
-                // Pointer shifts and 3D tilts opposite to cursor
-                const mouseXOffset = skillsNormX * -26 * depth;
-                const mouseYOffset = skillsNormY * -20 * depth;
-                const rotX = skillsNormY * 14 * depth;
-                const rotY = skillsNormX * -14 * depth;
+                    const speed = parseFloat(parallaxLayer.getAttribute('data-speed') || '0.25');
+                    const depth = parseFloat(parallaxLayer.getAttribute('data-depth') || '1.0');
 
-                parallaxLayer.style.transform = `translate3d(${mouseXOffset.toFixed(1)}px, ${(scrollYOffset + mouseYOffset).toFixed(1)}px, 0) perspective(700px) rotateX(${rotX.toFixed(1)}deg) rotateY(${rotY.toFixed(1)}deg)`;
+                    // Parallax shifts vertically opposite to scroll
+                    const scrollYOffset = centerOffset * -42 * speed;
+
+                    // Pointer shifts and 3D tilts opposite to cursor
+                    const mouseXOffset = item.normX * -24 * depth;
+                    const mouseYOffset = item.normY * -18 * depth;
+                    const rotX = item.normY * 12 * depth;
+                    const rotY = item.normX * -12 * depth;
+
+                    parallaxLayer.style.transform = `translate3d(${mouseXOffset.toFixed(1)}px, ${(scrollYOffset + mouseYOffset).toFixed(1)}px, 0) perspective(700px) rotateX(${rotX.toFixed(1)}deg) rotateY(${rotY.toFixed(1)}deg)`;
+                });
             });
         }
 
