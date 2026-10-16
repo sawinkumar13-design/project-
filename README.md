@@ -29,8 +29,7 @@ Personal portfolio website for **Sawin Kumar**, B.Tech Computer Science & Engine
    - Technologies: Java, Object-Oriented Programming (OOP), Scanner
    - Menu-driven financial application modeling deposit, withdrawal, balance inquiry, and account validation with modular class architecture.
 3. **Machine Learning Predictive Modeling Pipeline**
-   - Technologies: Python, Scikit-Learn, NumPy, Pandas
-   - Automated data preprocessing, feature scaling, model training, cross-validation, and confusion matrix evaluation.
+   - Technologies: Python, NumPy, Pandas
 4. **Data Structures & Algorithms Suite**
    - Technologies: Java, Python, LeetCode, HackerRank
    - Implementations across Arrays, Strings, Two Pointers, and Recursion with optimal complexity benchmarks.
