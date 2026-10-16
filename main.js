@@ -319,8 +319,86 @@ document.addEventListener('DOMContentLoaded', () => {
 
             drawConstellations(clusterStrength);
             updateNebulaColors(scrollProgress);
+            updateSkillsProps();
 
             requestAnimationFrame(animate);
+        }
+
+        // =========================================================================
+        // SKILLS 3D FLOATING CORNER PROPS ENGINE (POP-IN, PARALLAX & TILT)
+        // =========================================================================
+        const skillsSection = document.getElementById('skills');
+        const skillProps = document.querySelectorAll('.skill-prop');
+        let skillsNormX = 0;
+        let skillsNormY = 0;
+        let targetSkillsNormX = 0;
+        let targetSkillsNormY = 0;
+
+        if (skillsSection && skillProps.length > 0) {
+            // Pop-In Trigger via IntersectionObserver with bouncy entrance
+            if ('IntersectionObserver' in window) {
+                const skillsObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            skillProps.forEach(prop => prop.classList.add('active'));
+                            skillsObserver.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.12 });
+                skillsObserver.observe(skillsSection);
+            } else {
+                skillProps.forEach(prop => prop.classList.add('active'));
+            }
+
+            // Mouse-Move listener over Skills Section for 3D tilt
+            if (!isTouchDevice) {
+                skillsSection.addEventListener('mousemove', (e) => {
+                    const rect = skillsSection.getBoundingClientRect();
+                    const centerX = rect.left + rect.width / 2;
+                    const centerY = rect.top + rect.height / 2;
+                    targetSkillsNormX = (e.clientX - centerX) / (rect.width / 2);
+                    targetSkillsNormY = (e.clientY - centerY) / (rect.height / 2);
+                }, { passive: true });
+
+                skillsSection.addEventListener('mouseleave', () => {
+                    targetSkillsNormX = 0;
+                    targetSkillsNormY = 0;
+                });
+            }
+        }
+
+        function updateSkillsProps() {
+            if (!skillsSection || skillProps.length === 0) return;
+            const rect = skillsSection.getBoundingClientRect();
+            const inView = rect.top < window.innerHeight + 120 && rect.bottom > -120;
+            if (!inView) return;
+
+            // Smooth lerp mouse coordinates
+            skillsNormX += (targetSkillsNormX - skillsNormX) * 0.08;
+            skillsNormY += (targetSkillsNormY - skillsNormY) * 0.08;
+
+            // Compute vertical scroll parallax factor relative to viewport center
+            const centerOffset = (rect.top + rect.height / 2 - window.innerHeight / 2) / (window.innerHeight / 2);
+
+            skillProps.forEach(prop => {
+                if (!prop.classList.contains('active')) return;
+                const parallaxLayer = prop.querySelector('.skill-prop-parallax');
+                if (!parallaxLayer) return;
+
+                const speed = parseFloat(parallaxLayer.getAttribute('data-speed') || '0.25');
+                const depth = parseFloat(parallaxLayer.getAttribute('data-depth') || '1.0');
+
+                // Parallax shifts vertically opposite to scroll
+                const scrollYOffset = centerOffset * -45 * speed;
+
+                // Pointer shifts and 3D tilts opposite to cursor
+                const mouseXOffset = skillsNormX * -26 * depth;
+                const mouseYOffset = skillsNormY * -20 * depth;
+                const rotX = skillsNormY * 14 * depth;
+                const rotY = skillsNormX * -14 * depth;
+
+                parallaxLayer.style.transform = `translate3d(${mouseXOffset.toFixed(1)}px, ${(scrollYOffset + mouseYOffset).toFixed(1)}px, 0) perspective(700px) rotateX(${rotX.toFixed(1)}deg) rotateY(${rotY.toFixed(1)}deg)`;
+            });
         }
 
         window.addEventListener('resize', resizeCanvas);

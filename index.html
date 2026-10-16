@@ -30,7 +30,7 @@
         }
     </script>
     <script src="https://unpkg.com/lucide@latest"></script>
-    <link rel="stylesheet" href="styles.css?v=6">
+    <link rel="stylesheet" href="styles.css?v=7">
 </head>
 
 <body class="selection:bg-cyan-500/30 selection:text-cyan-200 overflow-x-hidden font-sans bg-[#050508]">
@@ -504,8 +504,160 @@
         <!-- SKILLS MATRIX (CATEGORIZED BADGES WITHOUT PERCENTAGE BARS)-->
         <!-- ======================================================== -->
         <section id="skills" class="py-28 relative border-t border-white/[0.06]">
-            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 skills-stage-wrap">
                 
+                <!-- ======================================================== -->
+                <!-- 3D FLOATING CORNER PROPS (WIX STUDIO INSPIRED LEVITATION) -->
+                <!-- ======================================================== -->
+                <!-- Prop 1: Top-Left Glossy 3D Star / Splat (Electric Cyan & Space Blue) -->
+                <div class="skill-prop skill-prop-tl" id="propStar">
+                    <div class="skill-prop-parallax" data-depth="1.2" data-speed="0.28">
+                        <div class="skill-prop-inner float-bob-1">
+                            <svg class="skill-prop-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <defs>
+                                    <radialGradient id="star-base" cx="35%" cy="30%" r="70%">
+                                        <stop offset="0%" stop-color="#ffffff"/>
+                                        <stop offset="20%" stop-color="#38bdf8"/>
+                                        <stop offset="55%" stop-color="#00F2FE"/>
+                                        <stop offset="85%" stop-color="#0284c7"/>
+                                        <stop offset="100%" stop-color="#082f49"/>
+                                    </radialGradient>
+                                    <linearGradient id="star-gloss" x1="20%" y1="20%" x2="70%" y2="70%">
+                                        <stop offset="0%" stop-color="#ffffff" stop-opacity="0.85"/>
+                                        <stop offset="45%" stop-color="#ffffff" stop-opacity="0.2"/>
+                                        <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+                                    </linearGradient>
+                                    <filter id="star-drop-glow" x="-20%" y="-20%" width="140%" height="140%">
+                                        <feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#00F2FE" flood-opacity="0.5"/>
+                                        <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#000000" flood-opacity="0.8"/>
+                                    </filter>
+                                </defs>
+                                <path d="M50 6 C54 30 70 46 94 50 C70 54 54 70 50 94 C46 70 30 54 6 50 C30 46 46 30 50 6 Z" 
+                                      fill="url(#star-base)" filter="url(#star-drop-glow)"/>
+                                <circle cx="50" cy="50" r="16" fill="url(#star-base)" opacity="0.9"/>
+                                <path d="M50 12 C52 28 62 38 78 44" stroke="url(#star-gloss)" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+                                <ellipse cx="38" cy="38" rx="8" ry="4" transform="rotate(-45 38 38)" fill="#ffffff" opacity="0.85"/>
+                                <circle cx="48" cy="48" r="3" fill="#ffffff" opacity="0.9"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Prop 2: Top-Right 3D Isometric Cube / Crystal (Emerald & Teal Aurora Glow) -->
+                <div class="skill-prop skill-prop-tr" id="propCube">
+                    <div class="skill-prop-parallax" data-depth="1.1" data-speed="0.24">
+                        <div class="skill-prop-inner float-bob-3">
+                            <svg class="skill-prop-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <defs>
+                                    <linearGradient id="cube-top" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" stop-color="#6ee7b7"/>
+                                        <stop offset="50%" stop-color="#00FF87"/>
+                                        <stop offset="100%" stop-color="#10b981"/>
+                                    </linearGradient>
+                                    <linearGradient id="cube-left" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" stop-color="#14b8a6"/>
+                                        <stop offset="60%" stop-color="#0f766e"/>
+                                        <stop offset="100%" stop-color="#042f2e"/>
+                                    </linearGradient>
+                                    <linearGradient id="cube-right" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" stop-color="#059669"/>
+                                        <stop offset="70%" stop-color="#064e3b"/>
+                                        <stop offset="100%" stop-color="#022c22"/>
+                                    </linearGradient>
+                                    <filter id="cube-drop-glow" x="-20%" y="-20%" width="140%" height="140%">
+                                        <feDropShadow dx="0" dy="8" stdDeviation="11" flood-color="#00FF87" flood-opacity="0.45"/>
+                                        <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#000000" flood-opacity="0.8"/>
+                                    </filter>
+                                </defs>
+                                <g filter="url(#cube-drop-glow)">
+                                    <path d="M50 14 L84 32 L50 50 L16 32 Z" fill="url(#cube-top)"/>
+                                    <path d="M16 32 L50 50 L50 86 L16 68 Z" fill="url(#cube-left)"/>
+                                    <path d="M50 50 L84 32 L84 68 L50 86 Z" fill="url(#cube-right)"/>
+                                    <path d="M50 14 L84 32 L50 50 L16 32 Z" stroke="rgba(255, 255, 255, 0.75)" stroke-width="1.2" fill="none"/>
+                                    <line x1="50" y1="50" x2="50" y2="86" stroke="rgba(255, 255, 255, 0.65)" stroke-width="1.2"/>
+                                    <line x1="16" y1="32" x2="50" y2="50" stroke="rgba(255, 255, 255, 0.5)" stroke-width="1.2"/>
+                                    <ellipse cx="50" cy="32" rx="14" ry="6" fill="#ffffff" opacity="0.35"/>
+                                    <circle cx="50" cy="14" r="2.5" fill="#ffffff" opacity="0.95"/>
+                                    <circle cx="50" cy="50" r="3" fill="#ffffff" opacity="0.95"/>
+                                </g>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Prop 3: Bottom-Left 3D Glossy Heart (Crimson & Magenta with Specular Sheen) -->
+                <div class="skill-prop skill-prop-bl" id="propHeart">
+                    <div class="skill-prop-parallax" data-depth="0.9" data-speed="-0.22">
+                        <div class="skill-prop-inner float-bob-2">
+                            <svg class="skill-prop-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <defs>
+                                    <radialGradient id="heart-base" cx="36%" cy="28%" r="68%">
+                                        <stop offset="0%" stop-color="#fda4af"/>
+                                        <stop offset="25%" stop-color="#ff0055"/>
+                                        <stop offset="65%" stop-color="#e11d48"/>
+                                        <stop offset="90%" stop-color="#881337"/>
+                                        <stop offset="100%" stop-color="#4c0519"/>
+                                    </radialGradient>
+                                    <linearGradient id="heart-spec-1" x1="0%" y1="0%" x2="50%" y2="100%">
+                                        <stop offset="0%" stop-color="#ffffff" stop-opacity="0.95"/>
+                                        <stop offset="70%" stop-color="#ffffff" stop-opacity="0.1"/>
+                                        <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+                                    </linearGradient>
+                                    <filter id="heart-drop-glow" x="-20%" y="-20%" width="140%" height="140%">
+                                        <feDropShadow dx="0" dy="8" stdDeviation="11" flood-color="#ff0055" flood-opacity="0.45"/>
+                                        <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#000000" flood-opacity="0.8"/>
+                                    </filter>
+                                </defs>
+                                <path d="M50 86 C32 72 14 54 14 34 C14 19 25 10 38 10 C45 10 50 15 50 15 C50 15 55 10 62 10 C75 10 86 19 86 34 C86 54 68 72 50 86 Z" 
+                                      fill="url(#heart-base)" filter="url(#heart-drop-glow)"/>
+                                <ellipse cx="32" cy="22" rx="9" ry="4.5" transform="rotate(-35 32 22)" fill="url(#heart-spec-1)"/>
+                                <circle cx="28" cy="20" r="2" fill="#ffffff" opacity="0.95"/>
+                                <ellipse cx="68" cy="22" rx="6" ry="3" transform="rotate(30 68 22)" fill="#ffffff" opacity="0.55"/>
+                                <path d="M42 75 C47 80 50 82 50 82 C50 82 53 80 58 75" stroke="rgba(255, 100, 150, 0.4)" stroke-width="2" stroke-linecap="round" fill="none"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Prop 4: Bottom-Right Soft 3D Flower (Iridescent Violet Petals & Amber Pearl) -->
+                <div class="skill-prop skill-prop-br" id="propFlower">
+                    <div class="skill-prop-parallax" data-depth="0.85" data-speed="-0.26">
+                        <div class="skill-prop-inner float-bob-4">
+                            <svg class="skill-prop-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <defs>
+                                    <radialGradient id="petal-grad" cx="40%" cy="35%" r="65%">
+                                        <stop offset="0%" stop-color="#ffffff"/>
+                                        <stop offset="35%" stop-color="#e9d5ff"/>
+                                        <stop offset="70%" stop-color="#a855f7"/>
+                                        <stop offset="100%" stop-color="#6B00FF"/>
+                                    </radialGradient>
+                                    <radialGradient id="center-pearl" cx="35%" cy="30%" r="70%">
+                                        <stop offset="0%" stop-color="#fef08a"/>
+                                        <stop offset="35%" stop-color="#f59e0b"/>
+                                        <stop offset="85%" stop-color="#b45309"/>
+                                        <stop offset="100%" stop-color="#78350f"/>
+                                    </radialGradient>
+                                    <filter id="flower-drop-glow" x="-20%" y="-20%" width="140%" height="140%">
+                                        <feDropShadow dx="0" dy="8" stdDeviation="11" flood-color="#a855f7" flood-opacity="0.45"/>
+                                        <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#000000" flood-opacity="0.8"/>
+                                    </filter>
+                                </defs>
+                                <g filter="url(#flower-drop-glow)">
+                                    <circle cx="50" cy="27" r="16" fill="url(#petal-grad)"/>
+                                    <circle cx="70" cy="42" r="16" fill="url(#petal-grad)"/>
+                                    <circle cx="62" cy="68" r="16" fill="url(#petal-grad)"/>
+                                    <circle cx="38" cy="68" r="16" fill="url(#petal-grad)"/>
+                                    <circle cx="30" cy="42" r="16" fill="url(#petal-grad)"/>
+                                    <ellipse cx="48" cy="22" rx="6" ry="2.5" fill="#ffffff" opacity="0.6"/>
+                                    <ellipse cx="68" cy="36" rx="5" ry="2" transform="rotate(35 68 36)" fill="#ffffff" opacity="0.5"/>
+                                    <circle cx="50" cy="50" r="13" fill="url(#center-pearl)"/>
+                                    <ellipse cx="46" cy="46" rx="4" ry="2.2" transform="rotate(-30 46 46)" fill="#ffffff" opacity="0.95"/>
+                                </g>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Standardized Center Header with Scroll-Fill Animation -->
                 <div class="text-center mb-16 reveal">
                     <span class="text-[11px] font-mono text-[#00F2FE] tracking-widest uppercase font-semibold">Technical Arsenal</span>
@@ -1197,8 +1349,8 @@
         <span id="toastMessage">Done</span>
     </div>
 
-    <!-- Scripts with Cache-Buster v=6 -->
-    <script src="main.js?v=6"></script>
+    <!-- Scripts with Cache-Buster v=7 -->
+    <script src="main.js?v=7"></script>
     <script>lucide.createIcons();</script>
 </body>
 </html>
