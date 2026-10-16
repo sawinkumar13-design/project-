@@ -18,7 +18,7 @@
             theme: {
                 extend: {
                     colors: {
-                        obsidian: { 950: '#030306', 900: '#06060a', 850: '#0a0a10', 800: '#12121c', 700: '#1a1a28' },
+                        obsidian: { 950: '#030306', 900: '#050508', 850: '#0a0a12', 800: '#12121c', 700: '#1a1a28' },
                         cosmic: { cyan: '#00F2FE', violet: '#6B00FF', emerald: '#00FF87', purple: '#a855f7' }
                     },
                     fontFamily: {
@@ -30,16 +30,19 @@
         }
     </script>
     <script src="https://unpkg.com/lucide@latest"></script>
-    <link rel="stylesheet" href="styles.css?v=5">
+    <link rel="stylesheet" href="styles.css?v=6">
 </head>
 
-<body class="selection:bg-cyan-500/30 selection:text-cyan-200 overflow-x-hidden font-sans">
+<body class="selection:bg-cyan-500/30 selection:text-cyan-200 overflow-x-hidden font-sans bg-[#050508]">
 
     <!-- ======================================================== -->
-    <!-- INTERACTIVE GALAXY & SCROLL-REACTIVE STARFIELD           -->
+    <!-- INTERACTIVE STARFIELD & CURSOR SPOTLIGHT                 -->
     <!-- ======================================================== -->
-    <!-- Starfield Canvas (Reacts to scroll speed and depth) -->
+    <!-- Starfield Canvas (Reacts to scroll speed, depth, and mouse coordinates) -->
     <canvas id="galaxyCanvas"></canvas>
+
+    <!-- Trailing Cosmic Aurora Cursor Spotlight (Follows mouse with smooth lerp) -->
+    <div id="cursorGlow" aria-hidden="true"></div>
 
     <!-- Ambient Cosmic Nebula Glow Backdrop (Shifts color smoothly on scroll) -->
     <div class="nebula-backdrop">
@@ -50,15 +53,15 @@
     <div class="cosmic-grid"></div>
 
     <!-- ======================================================== -->
-    <!-- NAVIGATION BAR (GLOSSY GLASS WITH BRANDED TOOL ICONS)    -->
+    <!-- NAVIGATION BAR (GLOSSY GLASS WITH ACCURATE SOCIAL LINKS) -->
     <!-- ======================================================== -->
-    <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-500 backdrop-blur-2xl bg-[#06060a]/75 border-b border-white/[0.08]" id="navbar">
+    <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-500 backdrop-blur-2xl bg-[#050508]/80 border-b border-white/[0.08]" id="navbar">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
             
             <!-- Brand / Logo -->
             <a href="#hero" class="flex items-center gap-3 group">
                 <div class="relative w-9 h-9 rounded-xl p-[1.5px] bg-gradient-to-tr from-[#00F2FE] via-[#6B00FF] to-[#00FF87] transition-transform duration-300 group-hover:scale-105 shadow-md shadow-[#00F2FE]/20">
-                    <img src="assets/profile.jpg?v=5" alt="Sawin Kumar" class="w-full h-full object-cover rounded-[10px]">
+                    <img src="assets/profile.jpg?v=6" alt="Sawin Kumar" class="w-full h-full object-cover rounded-[10px]">
                 </div>
                 <div>
                     <span class="font-bold text-sm text-white group-hover:text-[#00F2FE] tracking-tight transition-colors">Sawin Kumar</span>
@@ -66,8 +69,8 @@
                 </div>
             </a>
 
-            <!-- Desktop Navigation -->
-            <nav class="hidden md:flex items-center gap-1 bg-white/[0.035] border border-white/[0.09] px-2.5 py-1 rounded-full backdrop-blur-xl shadow-inner">
+            <!-- Desktop Navigation Links -->
+            <nav class="hidden md:flex items-center gap-1 bg-white/[0.035] border border-white/[0.09] px-3 py-1 rounded-full backdrop-blur-xl shadow-inner">
                 <a href="#about" class="nav-link px-3.5 py-1 text-xs text-slate-300 hover:text-white rounded-full transition-all">About</a>
                 <a href="#education" class="nav-link px-3.5 py-1 text-xs text-slate-300 hover:text-white rounded-full transition-all">Education</a>
                 <a href="#skills" class="nav-link px-3.5 py-1 text-xs text-slate-300 hover:text-white rounded-full transition-all">Skills</a>
@@ -81,31 +84,37 @@
                 <a href="#contact" class="nav-link px-3.5 py-1 text-xs text-slate-300 hover:text-white rounded-full transition-all">Contact</a>
             </nav>
 
-            <!-- Social Action Icons -->
+            <!-- Social Action Icons (Verified Links) -->
             <div class="hidden sm:flex items-center gap-2">
-                <!-- LeetCode -->
-                <a href="https://leetcode.com/u/sawinkumar/" target="_blank" rel="noopener noreferrer" 
+                <!-- LeetCode Verified Profile -->
+                <a href="https://leetcode.com/u/sawin_kumar" target="_blank" rel="noopener noreferrer" 
                    class="glass-pill p-2 rounded-xl text-amber-400 hover:text-amber-300 transition-all hover:scale-105" title="LeetCode Profile">
                     <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
                         <path d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104 5.35 5.35 0 0 0-.125.513 5.527 5.527 0 0 0 .062 2.362 5.83 5.83 0 0 0 .349 1.017 5.938 5.938 0 0 0 1.271 1.818l4.277 4.193.039.038c2.248 2.165 5.852 2.133 8.063-.074l2.396-2.392c.54-.54.54-1.414.003-1.955a1.378 1.378 0 0 0-1.951-.003l-2.396 2.392a3.021 3.021 0 0 1-4.205.038l-.02-.019-4.276-4.193c-.652-.64-.972-1.469-.948-2.263a2.68 2.68 0 0 1 .066-.523 2.545 2.545 0 0 1 .619-1.164L9.13 8.114c1.058-1.134 3.204-1.27 4.43-.278l3.501 2.831c.593.48 1.461.387 1.94-.207a1.384 1.384 0 0 0-.207-1.943l-3.5-2.831c-.8-.647-1.766-1.045-2.774-1.202l2.015-2.158A1.384 1.384 0 0 0 13.483 0zm-2.866 12.815a1.38 1.38 0 0 0-1.38 1.382 1.38 1.38 0 0 0 1.38 1.382H20.79a1.38 1.38 0 0 0 1.38-1.382 1.38 1.38 0 0 0-1.38-1.382z"/>
                     </svg>
                 </a>
-                <!-- LinkedIn -->
-                <a href="https://linkedin.com/in/sawinkumar" target="_blank" rel="noopener noreferrer" 
+                <!-- LinkedIn Verified Profile -->
+                <a href="https://www.linkedin.com/in/sawin-kumar-5941763a1" target="_blank" rel="noopener noreferrer" 
                    class="glass-pill p-2 rounded-xl text-blue-400 hover:text-blue-300 transition-all hover:scale-105" title="LinkedIn Profile">
                     <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
                         <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 8.76a1.65 1.65 0 1 0 0-3.3 1.65 1.65 0 0 0 0 3.3m1.4 9.74v-8.37H5.06v8.37h2.8z"/>
                     </svg>
                 </a>
-                <!-- GitHub -->
+                <!-- GitHub Verified Profile -->
                 <a href="https://github.com/sawinkumar13-design" target="_blank" rel="noopener noreferrer" 
                    class="glass-pill p-2 rounded-xl text-slate-300 hover:text-white transition-all hover:scale-105" title="GitHub Profile">
                     <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
                         <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
                     </svg>
                 </a>
+                <!-- Resume Download Link -->
+                <a href="assets/Sawin_Kumar_Resume.pdf" target="_blank" download="Sawin_Kumar_Resume.pdf"
+                   class="glass-pill flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-mono text-cyan-300 hover:text-white" title="Download Verified Resume">
+                    <i data-lucide="file-down" class="w-3.5 h-3.5"></i>
+                    <span>Resume</span>
+                </a>
                 <!-- CTA Button -->
-                <a href="#contact" class="cosmic-btn-primary ml-1.5 px-4 py-1.5 text-xs font-semibold rounded-full">
+                <a href="#contact" class="cosmic-btn-primary ml-1 px-4 py-1.5 text-xs font-bold rounded-full">
                     Get In Touch
                 </a>
             </div>
@@ -117,7 +126,7 @@
         </div>
 
         <!-- Mobile Drawer -->
-        <div id="mobileMenu" class="hidden md:hidden bg-[#06060a]/95 border-b border-white/10 px-6 py-5 space-y-3 backdrop-blur-2xl">
+        <div id="mobileMenu" class="hidden md:hidden bg-[#050508]/95 border-b border-white/10 px-6 py-5 space-y-3 backdrop-blur-2xl">
             <a href="#about" class="block text-slate-300 hover:text-cyan-300 text-sm py-1.5">About</a>
             <a href="#education" class="block text-slate-300 hover:text-cyan-300 text-sm py-1.5">Education</a>
             <a href="#skills" class="block text-slate-300 hover:text-cyan-300 text-sm py-1.5">Skills</a>
@@ -127,11 +136,12 @@
             
             <div class="pt-3 border-t border-white/10 flex items-center justify-between">
                 <div class="flex items-center gap-3">
-                    <a href="https://leetcode.com/u/sawinkumar/" target="_blank" class="text-amber-400"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104 5.35 5.35 0 0 0-.125.513 5.527 5.527 0 0 0 .062 2.362 5.83 5.83 0 0 0 .349 1.017 5.938 5.938 0 0 0 1.271 1.818l4.277 4.193.039.038c2.248 2.165 5.852 2.133 8.063-.074l2.396-2.392c.54-.54.54-1.414.003-1.955a1.378 1.378 0 0 0-1.951-.003l-2.396 2.392a3.021 3.021 0 0 1-4.205.038l-.02-.019-4.276-4.193c-.652-.64-.972-1.469-.948-2.263a2.68 2.68 0 0 1 .066-.523 2.545 2.545 0 0 1 .619-1.164L9.13 8.114c1.058-1.134 3.204-1.27 4.43-.278l3.501 2.831c.593.48 1.461.387 1.94-.207a1.384 1.384 0 0 0-.207-1.943l-3.5-2.831c-.8-.647-1.766-1.045-2.774-1.202l2.015-2.158A1.384 1.384 0 0 0 13.483 0zm-2.866 12.815a1.38 1.38 0 0 0-1.38 1.382 1.38 1.38 0 0 0 1.38 1.382H20.79a1.38 1.38 0 0 0 1.38-1.382 1.38 1.38 0 0 0-1.38-1.382z"/></svg></a>
-                    <a href="https://linkedin.com/in/sawinkumar" target="_blank" class="text-blue-400"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 8.76a1.65 1.65 0 1 0 0-3.3 1.65 1.65 0 0 0 0 3.3m1.4 9.74v-8.37H5.06v8.37h2.8z"/></svg></a>
+                    <a href="https://leetcode.com/u/sawin_kumar" target="_blank" class="text-amber-400"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104 5.35 5.35 0 0 0-.125.513 5.527 5.527 0 0 0 .062 2.362 5.83 5.83 0 0 0 .349 1.017 5.938 5.938 0 0 0 1.271 1.818l4.277 4.193.039.038c2.248 2.165 5.852 2.133 8.063-.074l2.396-2.392c.54-.54.54-1.414.003-1.955a1.378 1.378 0 0 0-1.951-.003l-2.396 2.392a3.021 3.021 0 0 1-4.205.038l-.02-.019-4.276-4.193c-.652-.64-.972-1.469-.948-2.263a2.68 2.68 0 0 1 .066-.523 2.545 2.545 0 0 1 .619-1.164L9.13 8.114c1.058-1.134 3.204-1.27 4.43-.278l3.501 2.831c.593.48 1.461.387 1.94-.207a1.384 1.384 0 0 0-.207-1.943l-3.5-2.831c-.8-.647-1.766-1.045-2.774-1.202l2.015-2.158A1.384 1.384 0 0 0 13.483 0zm-2.866 12.815a1.38 1.38 0 0 0-1.38 1.382 1.38 1.38 0 0 0 1.38 1.382H20.79a1.38 1.38 0 0 0 1.38-1.382 1.38 1.38 0 0 0-1.38-1.382z"/></svg></a>
+                    <a href="https://www.linkedin.com/in/sawin-kumar-5941763a1" target="_blank" class="text-blue-400"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 8.76a1.65 1.65 0 1 0 0-3.3 1.65 1.65 0 0 0 0 3.3m1.4 9.74v-8.37H5.06v8.37h2.8z"/></svg></a>
                     <a href="https://github.com/sawinkumar13-design" target="_blank" class="text-white"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg></a>
+                    <a href="assets/Sawin_Kumar_Resume.pdf" target="_blank" download class="text-cyan-300"><i data-lucide="file-down" class="w-5 h-5"></i></a>
                 </div>
-                <a href="#contact" class="px-3 py-1 bg-purple-600 rounded-lg text-white text-xs font-medium">Contact</a>
+                <a href="#contact" class="px-3 py-1 bg-cyan-500 text-[#050508] font-bold rounded-lg text-xs">Contact</a>
             </div>
         </div>
     </header>
@@ -139,116 +149,145 @@
     <main class="relative z-10">
 
         <!-- ======================================================== -->
-        <!-- HERO SECTION: SIGNATURE SHOWPIECE PHOTO + LIVE AURORA    -->
+        <!-- HERO SECTION: 2-COLUMN DESKTOP LAYOUT WITH WATERMARK     -->
         <!-- ======================================================== -->
-        <section id="hero" class="min-h-screen flex items-center justify-center relative overflow-hidden pt-20 pb-16">
-            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10">
-                <div class="flex flex-col items-center text-center space-y-10">
+        <section id="hero" class="min-h-screen flex items-center justify-center relative overflow-hidden pt-24 pb-16">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10">
+                
+                <div class="grid grid-cols-1 lg:grid-cols-12 items-center gap-10 lg:gap-14">
                     
                     <!-- ============================================== -->
-                    <!-- SIGNATURE PHOTO SHOWPIECE & LIVE MOVING AURORA -->
+                    <!-- LEFT COLUMN: INTRO CARD & SOCIAL ACTION LINKS  -->
                     <!-- ============================================== -->
-                    <div class="photo-showpiece-wrap reveal-photo">
+                    <div class="lg:col-span-7 text-left space-y-6">
                         
-                        <!-- Live Multi-Layered Moving Aurora Waves (Behind & Trailing Left) -->
-                        <div class="aurora-trail-left" aria-hidden="true">
-                            <div class="aurora-wave-layer aurora-wave-1"></div>
-                            <div class="aurora-wave-layer aurora-wave-2"></div>
-                            <div class="aurora-wave-layer aurora-wave-3"></div>
-                        </div>
-
-                        <!-- Sleek Rectangular Photo Card with Specular 3D Borders -->
-                        <div class="photo-rectangular-card">
-                            <div class="photo-inner-wrap">
-                                <div class="photo-specular-sheen"></div>
-                                <img src="assets/profile.jpg?v=5" alt="Sawin Kumar" class="photo-img">
-                                <div class="photo-bottom-fade"></div>
-                                
-                                <div class="photo-name-tag">
-                                    <span class="photo-pill">
-                                        <span class="live-dot"></span>
-                                        <span>Mr. Sawin Kumar</span>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <!-- ============================================== -->
-                    <!-- HIGH-END FROSTED GLOSSY GLASS BEHIND TEXT      -->
-                    <!-- ============================================== -->
-                    <div class="hero-glass-box p-7 sm:p-10 max-w-2xl w-full text-center space-y-5">
-                        
-                        <!-- Status Pill -->
+                        <!-- Availability Status Pill -->
                         <div class="text-reveal" style="--delay: 0">
-                            <span class="glass-pill inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono text-cyan-300">
+                            <span class="glass-pill inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full text-xs font-mono text-cyan-300">
                                 <span class="relative flex h-2 w-2">
                                     <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                                     <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
                                 </span>
-                                <span>B.Tech CSE @ GLA University · 7.9 CPI</span>
+                                <span>Open for Internships &middot; B.Tech CSE (7.9 CPI)</span>
                             </span>
                         </div>
 
                         <!-- Name Headline -->
                         <div class="text-reveal" style="--delay: 1">
-                            <h1 class="text-4xl sm:text-6xl font-black tracking-tight leading-[1.08] text-white text-cosmic-glow">
+                            <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight leading-[1.05] text-white text-cosmic-glow">
                                 Sawin Kumar
                             </h1>
                         </div>
 
-                        <!-- Subtitle / Identity -->
+                        <!-- Subtitle / Role -->
                         <div class="text-reveal" style="--delay: 2">
-                            <p class="text-base sm:text-lg font-medium text-aurora-gradient">
+                            <p class="text-lg sm:text-2xl font-semibold text-aurora-gradient">
                                 Aspiring Data Scientist &amp; Software Engineer
                             </p>
                         </div>
 
-                        <!-- Bio Lead (Muted Metallic Silver) -->
+                        <!-- Streamlined Bio Paragraph -->
                         <div class="text-reveal" style="--delay: 3">
-                            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed max-w-xl mx-auto">
-                                Computer Science student at <strong class="text-white font-semibold">GLA University</strong> passionate about developing data-driven architectures using <span class="text-cyan-300 font-medium">Python, NumPy, Pandas</span>, and <span class="text-purple-300 font-medium">Java</span>. Active problem solver on LeetCode with the <span class="text-amber-400 font-medium">50 Days Badge</span>.
+                            <p class="text-sm sm:text-base text-slate-300 leading-relaxed max-w-xl">
+                                Second-year Computer Science &amp; Engineering student at <strong class="text-white font-semibold">GLA University, Mathura</strong> (2025–2029 batch) maintaining a <span class="text-cyan-300 font-mono font-semibold">7.9 CPI</span>. Focused on practical data analytics with <span class="text-cyan-300 font-medium">Python, NumPy, Pandas</span>, and modular OOP architecture in <span class="text-purple-300 font-medium">Java</span>. Active problem solver with the <span class="text-amber-400 font-medium">LeetCode 50 Days Badge</span>.
                             </p>
                         </div>
 
-                        <!-- Contact Quick Pills (Frosted Glass) -->
-                        <div class="text-reveal flex flex-wrap items-center justify-center gap-2.5 pt-2" style="--delay: 4">
-                            <a href="mailto:sawinkumar13@gmail.com" class="glass-pill flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono text-slate-200 hover:text-white">
-                                <i data-lucide="mail" class="w-3.5 h-3.5 text-cyan-400"></i>
-                                <span>sawinkumar13@gmail.com</span>
+                        <!-- Social Icon Links Row (Replacing raw contact strings) -->
+                        <div class="text-reveal flex flex-wrap items-center gap-3 pt-1" style="--delay: 4">
+                            <!-- GitHub Link -->
+                            <a href="https://github.com/sawinkumar13-design" target="_blank" rel="noopener noreferrer" 
+                               class="glass-pill flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-mono text-slate-200 hover:text-white group">
+                                <svg class="w-4 h-4 text-white group-hover:scale-110 transition-transform" viewBox="0 0 24 24" fill="currentColor">
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+                                </svg>
+                                <span>GitHub</span>
                             </a>
-                            <a href="tel:+919259451815" class="glass-pill flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono text-slate-200 hover:text-white">
-                                <i data-lucide="phone" class="w-3.5 h-3.5 text-emerald-400"></i>
-                                <span>+91-9259451815</span>
+                            <!-- LinkedIn Link -->
+                            <a href="https://www.linkedin.com/in/sawin-kumar-5941763a1" target="_blank" rel="noopener noreferrer" 
+                               class="glass-pill flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-mono text-slate-200 hover:text-white group">
+                                <svg class="w-4 h-4 text-blue-400 group-hover:scale-110 transition-transform" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 8.76a1.65 1.65 0 1 0 0-3.3 1.65 1.65 0 0 0 0 3.3m1.4 9.74v-8.37H5.06v8.37h2.8z"/>
+                                </svg>
+                                <span>LinkedIn</span>
                             </a>
-                            <span class="glass-pill flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono text-slate-400">
-                                <i data-lucide="map-pin" class="w-3.5 h-3.5 text-purple-400"></i>
-                                <span>Mathura &amp; Etah, UP</span>
-                            </span>
+                            <!-- LeetCode Link -->
+                            <a href="https://leetcode.com/u/sawin_kumar" target="_blank" rel="noopener noreferrer" 
+                               class="glass-pill flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-mono text-amber-300 hover:text-amber-200 group">
+                                <svg class="w-4 h-4 text-amber-400 group-hover:scale-110 transition-transform" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104 5.35 5.35 0 0 0-.125.513 5.527 5.527 0 0 0 .062 2.362 5.83 5.83 0 0 0 .349 1.017 5.938 5.938 0 0 0 1.271 1.818l4.277 4.193.039.038c2.248 2.165 5.852 2.133 8.063-.074l2.396-2.392c.54-.54.54-1.414.003-1.955a1.378 1.378 0 0 0-1.951-.003l-2.396 2.392a3.021 3.021 0 0 1-4.205.038l-.02-.019-4.276-4.193c-.652-.64-.972-1.469-.948-2.263a2.68 2.68 0 0 1 .066-.523 2.545 2.545 0 0 1 .619-1.164L9.13 8.114c1.058-1.134 3.204-1.27 4.43-.278l3.501 2.831c.593.48 1.461.387 1.94-.207a1.384 1.384 0 0 0-.207-1.943l-3.5-2.831c-.8-.647-1.766-1.045-2.774-1.202l2.015-2.158A1.384 1.384 0 0 0 13.483 0zm-2.866 12.815a1.38 1.38 0 0 0-1.38 1.382 1.38 1.38 0 0 0 1.38 1.382H20.79a1.38 1.38 0 0 0 1.38-1.382 1.38 1.38 0 0 0-1.38-1.382z"/>
+                                </svg>
+                                <span>LeetCode</span>
+                            </a>
+                            <!-- Verified Resume PDF Download -->
+                            <a href="assets/Sawin_Kumar_Resume.pdf" target="_blank" download="Sawin_Kumar_Resume.pdf" 
+                               class="glass-pill flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-mono text-cyan-300 hover:text-white border-cyan-500/30 group">
+                                <i data-lucide="file-text" class="w-4 h-4 text-cyan-400 group-hover:scale-110 transition-transform"></i>
+                                <span>Resume (PDF)</span>
+                            </a>
                         </div>
 
                         <!-- Action Buttons -->
-                        <div class="text-reveal flex flex-wrap items-center justify-center gap-3.5 pt-3" style="--delay: 5">
-                            <a href="#projects" class="cosmic-btn-primary px-6 py-3 rounded-full font-semibold text-xs sm:text-sm flex items-center gap-2">
+                        <div class="text-reveal flex flex-wrap items-center gap-4 pt-3" style="--delay: 5">
+                            <!-- High Contrast Magnetic Primary CTA -->
+                            <a href="#projects" class="cosmic-btn-primary magnetic-btn px-7 py-3.5 rounded-full text-xs sm:text-sm flex items-center gap-2">
                                 <i data-lucide="folder-git-2" class="w-4 h-4"></i>
                                 <span>Explore My Work</span>
                             </a>
-                            <a href="#achievements" class="glass-pill px-5 py-3 rounded-full text-amber-300 font-medium text-xs sm:text-sm hover:border-amber-500/40 transition-all flex items-center gap-2">
-                                <svg class="w-4 h-4 text-amber-400" viewBox="0 0 24 24" fill="currentColor">
-                                    <path d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104 5.35 5.35 0 0 0-.125.513 5.527 5.527 0 0 0 .062 2.362 5.83 5.83 0 0 0 .349 1.017 5.938 5.938 0 0 0 1.271 1.818l4.277 4.193.039.038c2.248 2.165 5.852 2.133 8.063-.074l2.396-2.392c.54-.54.54-1.414.003-1.955a1.378 1.378 0 0 0-1.951-.003l-2.396 2.392a3.021 3.021 0 0 1-4.205.038l-.02-.019-4.276-4.193c-.652-.64-.972-1.469-.948-2.263a2.68 2.68 0 0 1 .066-.523 2.545 2.545 0 0 1 .619-1.164L9.13 8.114c1.058-1.134 3.204-1.27 4.43-.278l3.501 2.831c.593.48 1.461.387 1.94-.207a1.384 1.384 0 0 0-.207-1.943l-3.5-2.831c-.8-.647-1.766-1.045-2.774-1.202l2.015-2.158A1.384 1.384 0 0 0 13.483 0zm-2.866 12.815a1.38 1.38 0 0 0-1.38 1.382 1.38 1.38 0 0 0 1.38 1.382H20.79a1.38 1.38 0 0 0 1.38-1.382 1.38 1.38 0 0 0-1.38-1.382z"/>
-                                </svg>
-                                <span>LeetCode 50 Days Badge</span>
+                            <!-- Secondary Contact Link -->
+                            <a href="#contact" class="glass-pill px-6 py-3.5 rounded-full text-white font-medium text-xs sm:text-sm hover:border-cyan-500/40 transition-all flex items-center gap-2">
+                                <i data-lucide="send" class="w-4 h-4 text-cyan-400"></i>
+                                <span>Get In Touch</span>
                             </a>
                         </div>
 
                     </div>
 
+
+                    <!-- ============================================== -->
+                    <!-- RIGHT COLUMN: RECTANGULAR PHOTO & LIVE AURORA  -->
+                    <!-- ============================================== -->
+                    <div class="lg:col-span-5 flex justify-center relative">
+                        
+                        <!-- Massive Bold Metallic Watermark Typography behind portrait -->
+                        <div class="hero-bg-watermark">SAWIN</div>
+
+                        <div class="photo-showpiece-wrap reveal-photo">
+                            
+                            <!-- Live Multi-Layered Moving Aurora Waves (Behind & Trailing Left) -->
+                            <div class="aurora-trail-left" aria-hidden="true">
+                                <div class="aurora-wave-layer aurora-wave-1"></div>
+                                <div class="aurora-wave-layer aurora-wave-2"></div>
+                                <div class="aurora-wave-layer aurora-wave-3"></div>
+                            </div>
+
+                            <!-- Sleek Rectangular Photo Card with Specular 3D Borders & Glare -->
+                            <div class="photo-rectangular-card">
+                                <div class="photo-inner-wrap">
+                                    <div class="photo-specular-sheen"></div>
+                                    <img src="assets/profile.jpg?v=6" alt="Sawin Kumar" class="photo-img">
+                                    <div class="photo-bottom-fade"></div>
+                                    
+                                    <!-- Clean Availability Badge (Replaced redundant name tag) -->
+                                    <div class="photo-name-tag">
+                                        <span class="photo-pill">
+                                            <span class="live-dot"></span>
+                                            <span>Open for Internships</span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
                 </div>
+
             </div>
 
             <!-- Scroll Indicator -->
-            <div class="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 text-slate-400 text-reveal" style="--delay: 6">
+            <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 text-slate-400 text-reveal" style="--delay: 6">
                 <span class="text-[9px] font-mono tracking-widest uppercase">Scroll Down</span>
                 <div class="w-4 h-7 rounded-full border border-cyan-500/30 flex items-start justify-center p-1">
                     <div class="w-1 h-2 bg-[#00F2FE] rounded-full animate-bounce"></div>
@@ -258,33 +297,73 @@
 
 
         <!-- ======================================================== -->
-        <!-- ABOUT SECTION WITH GLOSSY SPECULAR GLASS CONTAINERS      -->
+        <!-- INFINITE HORIZONTAL MARQUEE (SKILLS & CORE TOOLS)        -->
+        <!-- ======================================================== -->
+        <section class="py-6 border-y border-white/[0.06] bg-[#050508]/60 relative z-10 overflow-hidden">
+            <div class="marquee-container">
+                <div class="marquee-track">
+                    <!-- Set 1 -->
+                    <div class="marquee-pill"><i data-lucide="code" class="w-4 h-4 text-cyan-400"></i> Python 3.x</div>
+                    <div class="marquee-pill"><i data-lucide="coffee" class="w-4 h-4 text-purple-400"></i> Java OOP</div>
+                    <div class="marquee-pill"><i data-lucide="table" class="w-4 h-4 text-emerald-400"></i> Pandas</div>
+                    <div class="marquee-pill"><i data-lucide="grid" class="w-4 h-4 text-blue-400"></i> NumPy</div>
+                    <div class="marquee-pill"><i data-lucide="bar-chart-2" class="w-4 h-4 text-pink-400"></i> Matplotlib</div>
+                    <div class="marquee-pill"><i data-lucide="binary" class="w-4 h-4 text-amber-400"></i> Data Structures</div>
+                    <div class="marquee-pill"><i data-lucide="award" class="w-4 h-4 text-amber-300"></i> LeetCode 50 Days</div>
+                    <div class="marquee-pill"><i data-lucide="git-branch" class="w-4 h-4 text-cyan-300"></i> Git &amp; GitHub</div>
+                    <div class="marquee-pill"><i data-lucide="terminal" class="w-4 h-4 text-indigo-400"></i> VS Code</div>
+                    <div class="marquee-pill"><i data-lucide="cpu" class="w-4 h-4 text-purple-300"></i> IntelliJ IDEA</div>
+                    <div class="marquee-pill"><i data-lucide="book-open" class="w-4 h-4 text-orange-400"></i> Jupyter Notebook</div>
+
+                    <!-- Set 2 (Seamless loop duplicate) -->
+                    <div class="marquee-pill"><i data-lucide="code" class="w-4 h-4 text-cyan-400"></i> Python 3.x</div>
+                    <div class="marquee-pill"><i data-lucide="coffee" class="w-4 h-4 text-purple-400"></i> Java OOP</div>
+                    <div class="marquee-pill"><i data-lucide="table" class="w-4 h-4 text-emerald-400"></i> Pandas</div>
+                    <div class="marquee-pill"><i data-lucide="grid" class="w-4 h-4 text-blue-400"></i> NumPy</div>
+                    <div class="marquee-pill"><i data-lucide="bar-chart-2" class="w-4 h-4 text-pink-400"></i> Matplotlib</div>
+                    <div class="marquee-pill"><i data-lucide="binary" class="w-4 h-4 text-amber-400"></i> Data Structures</div>
+                    <div class="marquee-pill"><i data-lucide="award" class="w-4 h-4 text-amber-300"></i> LeetCode 50 Days</div>
+                    <div class="marquee-pill"><i data-lucide="git-branch" class="w-4 h-4 text-cyan-300"></i> Git &amp; GitHub</div>
+                    <div class="marquee-pill"><i data-lucide="terminal" class="w-4 h-4 text-indigo-400"></i> VS Code</div>
+                    <div class="marquee-pill"><i data-lucide="cpu" class="w-4 h-4 text-purple-300"></i> IntelliJ IDEA</div>
+                    <div class="marquee-pill"><i data-lucide="book-open" class="w-4 h-4 text-orange-400"></i> Jupyter Notebook</div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ======================================================== -->
+        <!-- ABOUT SECTION WITH SCROLL-FILL TYPOGRAPHY & EQUAL HEIGHTS-->
         <!-- ======================================================== -->
         <section id="about" class="py-28 relative border-t border-white/[0.06]">
-            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 
+                <!-- Standardized Center Header with Scroll-Fill Hollow-to-Solid Animation -->
                 <div class="text-center mb-16 reveal">
                     <span class="text-[11px] font-mono text-[#00F2FE] tracking-widest uppercase font-semibold">Background &amp; Profile</span>
-                    <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-2 tracking-tight">About Me</h2>
+                    <h2 class="text-3xl sm:text-5xl font-black mt-2 tracking-tight scroll-fill-title">ABOUT ME</h2>
                     <div class="w-16 h-1 bg-gradient-to-r from-[#00F2FE] via-[#6B00FF] to-[#00FF87] mx-auto mt-4 rounded-full"></div>
                 </div>
 
-                <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+                <!-- Equal Height Layout (items-stretch) -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
                     
                     <!-- Biography in Glossy Container -->
-                    <div class="lg:col-span-7 glossy-card p-7 sm:p-8 space-y-5 text-slate-300 text-sm sm:text-base leading-relaxed reveal">
-                        <p>
-                            I am a first-year <strong class="text-white font-semibold">Computer Science &amp; Engineering student at GLA University, Mathura</strong> (2025–2029 batch), maintaining a strong academic standing of <span class="text-cyan-300 font-semibold font-mono">7.9 CPI</span>. I reside between Mathura and Etah, Uttar Pradesh.
-                        </p>
-                        <p>
-                            Driven by curiosity for data patterns, my objective is to grow into an impactful <span class="text-white font-medium">Data Scientist</span>. I enjoy wrangling datasets using <span class="text-cyan-300 font-medium">Pandas &amp; NumPy</span>, uncovering patterns with <span class="text-purple-300 font-medium">Matplotlib</span>, and building modular applications in <span class="text-white font-medium">Java</span>.
-                        </p>
-                        <p>
-                            To build unbreakable programming foundations, I solve algorithmic challenges consistently on <span class="text-amber-400 font-medium">LeetCode</span> (achieving the 50 Days Badge) and HackerRank, focusing on two-pointer techniques, recursion, and optimal time-space complexity.
-                        </p>
+                    <div class="lg:col-span-7 glossy-card p-7 sm:p-9 flex flex-col justify-between space-y-6 text-slate-300 text-sm sm:text-base leading-relaxed reveal">
+                        <div class="space-y-4">
+                            <p>
+                                I am a second-year <strong class="text-white font-semibold">Computer Science &amp; Engineering student at GLA University, Mathura</strong> (2025–2029 batch), maintaining a strong academic standing of <span class="text-cyan-300 font-semibold font-mono">7.9 CPI</span>. I reside between Mathura and Etah, Uttar Pradesh.
+                            </p>
+                            <p>
+                                Driven by curiosity for data patterns, my objective is to grow into an impactful <span class="text-white font-medium">Data Scientist &amp; Software Engineer</span>. I enjoy wrangling datasets using <span class="text-cyan-300 font-medium">Pandas &amp; NumPy</span>, uncovering statistical patterns with <span class="text-purple-300 font-medium">Matplotlib</span>, and building modular applications in <span class="text-white font-medium">Java</span>.
+                            </p>
+                            <p>
+                                To maintain programming discipline, I solve algorithmic challenges consistently on <span class="text-amber-400 font-medium">LeetCode</span>, applying two-pointer techniques, recursion, and time-space optimization to build high-performance solutions.
+                            </p>
+                        </div>
 
                         <!-- Key Competencies Pills with Icons -->
-                        <div class="pt-3 flex flex-wrap gap-2 border-t border-white/[0.08]">
+                        <div class="pt-4 flex flex-wrap gap-2 border-t border-white/[0.08]">
                             <span class="tool-chip"><i data-lucide="database" class="w-3.5 h-3.5 text-cyan-400"></i> Data Wrangling</span>
                             <span class="tool-chip"><i data-lucide="bar-chart-3" class="w-3.5 h-3.5 text-purple-400"></i> Visual Analytics</span>
                             <span class="tool-chip"><i data-lucide="code-2" class="w-3.5 h-3.5 text-blue-400"></i> OOP Architecture</span>
@@ -292,35 +371,50 @@
                         </div>
                     </div>
 
-                    <!-- Highlight Cards with Specular Gloss -->
-                    <div class="lg:col-span-5 grid grid-cols-2 gap-3.5">
-                        <div class="glossy-card p-4 rounded-2xl reveal delay-1">
-                            <div class="w-8 h-8 rounded-lg bg-cyan-500/10 flex items-center justify-center text-cyan-400 mb-2.5">
-                                <i data-lucide="bar-chart-2" class="w-4 h-4"></i>
+                    <!-- Highlight Cards with Specular Gloss (Equal Vertical Height) -->
+                    <div class="lg:col-span-5 grid grid-cols-2 gap-4">
+                        <div class="glossy-card p-5 rounded-2xl flex flex-col justify-between reveal delay-1">
+                            <div>
+                                <div class="w-9 h-9 rounded-xl bg-cyan-500/10 flex items-center justify-center text-cyan-400 mb-3">
+                                    <i data-lucide="bar-chart-2" class="w-5 h-5"></i>
+                                </div>
+                                <h4 class="text-white font-bold text-sm">Data Analysis</h4>
+                                <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">Cleaning, filtering, grouping, missing value imputation.</p>
                             </div>
-                            <h4 class="text-white font-semibold text-xs">Data Analysis</h4>
-                            <p class="text-[11px] text-slate-400 mt-1">Filtering, grouping, missing value imputation.</p>
+                            <span class="text-[10px] font-mono text-cyan-300/80 mt-3 block">Pandas &middot; NumPy</span>
                         </div>
-                        <div class="glossy-card p-4 rounded-2xl reveal delay-2">
-                            <div class="w-8 h-8 rounded-lg bg-purple-500/10 flex items-center justify-center text-purple-400 mb-2.5">
-                                <i data-lucide="coffee" class="w-4 h-4"></i>
+
+                        <div class="glossy-card p-5 rounded-2xl flex flex-col justify-between reveal delay-2">
+                            <div>
+                                <div class="w-9 h-9 rounded-xl bg-purple-500/10 flex items-center justify-center text-purple-400 mb-3">
+                                    <i data-lucide="coffee" class="w-5 h-5"></i>
+                                </div>
+                                <h4 class="text-white font-bold text-sm">Java &amp; OOP</h4>
+                                <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">Encapsulation, inheritance, modular banking architecture.</p>
                             </div>
-                            <h4 class="text-white font-semibold text-xs">Java &amp; OOP</h4>
-                            <p class="text-[11px] text-slate-400 mt-1">Encapsulation, inheritance, modular methods.</p>
+                            <span class="text-[10px] font-mono text-purple-300/80 mt-3 block">Core Java &middot; Classes</span>
                         </div>
-                        <div class="glossy-card p-4 rounded-2xl reveal delay-3">
-                            <div class="w-8 h-8 rounded-lg bg-amber-500/10 flex items-center justify-center text-amber-400 mb-2.5">
-                                <i data-lucide="git-commit" class="w-4 h-4"></i>
+
+                        <div class="glossy-card p-5 rounded-2xl flex flex-col justify-between reveal delay-3">
+                            <div>
+                                <div class="w-9 h-9 rounded-xl bg-amber-500/10 flex items-center justify-center text-amber-400 mb-3">
+                                    <i data-lucide="git-commit" class="w-5 h-5"></i>
+                                </div>
+                                <h4 class="text-white font-bold text-sm">LeetCode Daily</h4>
+                                <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">Array manipulation, two pointers, optimal time complexity.</p>
                             </div>
-                            <h4 class="text-white font-semibold text-xs">LeetCode Daily</h4>
-                            <p class="text-[11px] text-slate-400 mt-1">50 Days badge, array &amp; two-pointer mastery.</p>
+                            <span class="text-[10px] font-mono text-amber-300/80 mt-3 block">50+ Days Streak</span>
                         </div>
-                        <div class="glossy-card p-4 rounded-2xl reveal delay-4">
-                            <div class="w-8 h-8 rounded-lg bg-emerald-500/10 flex items-center justify-center text-emerald-400 mb-2.5">
-                                <i data-lucide="line-chart" class="w-4 h-4"></i>
+
+                        <div class="glossy-card p-5 rounded-2xl flex flex-col justify-between reveal delay-4">
+                            <div>
+                                <div class="w-9 h-9 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-400 mb-3">
+                                    <i data-lucide="line-chart" class="w-5 h-5"></i>
+                                </div>
+                                <h4 class="text-white font-bold text-sm">Visual Analytics</h4>
+                                <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">Matplotlib figures, categorical distributions, histograms.</p>
                             </div>
-                            <h4 class="text-white font-semibold text-xs">Data Visualization</h4>
-                            <p class="text-[11px] text-slate-400 mt-1">Matplotlib plots, histograms, distributions.</p>
+                            <span class="text-[10px] font-mono text-emerald-300/80 mt-3 block">Charts &middot; Plots</span>
                         </div>
                     </div>
 
@@ -331,29 +425,30 @@
 
 
         <!-- ======================================================== -->
-        <!-- EDUCATION SECTION                                        -->
+        <!-- EDUCATION SECTION (STREAMLINED & COLLEGE HIGHLIGHTED)     -->
         <!-- ======================================================== -->
         <section id="education" class="py-28 relative border-t border-white/[0.06]">
             <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 
+                <!-- Standardized Center Header with Scroll-Fill Animation -->
                 <div class="text-center mb-16 reveal">
                     <span class="text-[11px] font-mono text-[#00F2FE] tracking-widest uppercase font-semibold">Academic Foundation</span>
-                    <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-2 tracking-tight">Education</h2>
+                    <h2 class="text-3xl sm:text-5xl font-black mt-2 tracking-tight scroll-fill-title">EDUCATION</h2>
                     <div class="w-16 h-1 bg-gradient-to-r from-[#00F2FE] to-[#6B00FF] mx-auto mt-4 rounded-full"></div>
                 </div>
 
                 <div class="max-w-3xl mx-auto space-y-7 relative before:absolute before:inset-0 before:left-5 before:w-[2px] before:bg-gradient-to-b before:from-[#00F2FE] before:via-[#6B00FF] before:to-transparent">
 
-                    <!-- B.Tech GLA University -->
+                    <!-- B.Tech GLA University (Highlighted CPI) -->
                     <div class="relative pl-14 reveal">
-                        <div class="absolute left-3.5 top-3 w-3.5 h-3.5 rounded-full bg-[#00F2FE] border-2 border-[#06060a] shadow-[0_0_14px_rgba(0,242,254,0.9)]"></div>
+                        <div class="absolute left-3.5 top-3 w-3.5 h-3.5 rounded-full bg-[#00F2FE] border-2 border-[#050508] shadow-[0_0_14px_rgba(0,242,254,0.9)]"></div>
                         <div class="glossy-card p-6 sm:p-7">
                             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
                                 <div>
                                     <h3 class="text-lg font-bold text-white">Bachelor of Technology (B.Tech)</h3>
-                                    <p class="text-xs text-cyan-300 font-mono">Computer Science &amp; Engineering · GLA University, Mathura</p>
+                                    <p class="text-xs text-cyan-300 font-mono">Computer Science &amp; Engineering &middot; GLA University, Mathura</p>
                                 </div>
-                                <span class="text-xs font-mono px-3 py-1 rounded-full bg-cyan-950/60 text-cyan-300 border border-cyan-800/40 w-fit">2025 — 2029 (Pursuing)</span>
+                                <span class="text-xs font-mono px-3 py-1 rounded-full bg-cyan-950/60 text-cyan-300 border border-cyan-800/40 w-fit">2025 &mdash; 2029 (Pursuing)</span>
                             </div>
                             <div class="my-3 inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-emerald-950/50 border border-emerald-500/30 text-emerald-400 text-xs font-mono font-bold">
                                 <i data-lucide="award" class="w-3.5 h-3.5"></i>
@@ -365,42 +460,36 @@
                         </div>
                     </div>
 
-                    <!-- Intermediate CBSE -->
+                    <!-- Senior Secondary CBSE (Streamlined, no percentage badge) -->
                     <div class="relative pl-14 reveal delay-1">
-                        <div class="absolute left-3.5 top-3 w-3.5 h-3.5 rounded-full bg-[#6B00FF] border-2 border-[#06060a] shadow-[0_0_12px_rgba(107,0,255,0.8)]"></div>
+                        <div class="absolute left-3.5 top-3 w-3.5 h-3.5 rounded-full bg-[#6B00FF] border-2 border-[#050508] shadow-[0_0_12px_rgba(107,0,255,0.8)]"></div>
                         <div class="glossy-card p-6 sm:p-7">
                             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
                                 <div>
-                                    <h3 class="text-lg font-bold text-white">Intermediate (Senior Secondary - Class XII)</h3>
-                                    <p class="text-xs text-slate-400 font-mono">Dr. Lokman Das Public School, Etah (CBSE Board)</p>
+                                    <h3 class="text-lg font-bold text-white">Intermediate (Senior Secondary &mdash; Class XII)</h3>
+                                    <p class="text-xs text-slate-400 font-mono">St. Paul’s Senior Secondary School, Etah (CBSE Board)</p>
                                 </div>
-                                <span class="text-xs font-mono px-3 py-1 rounded-full bg-white/[0.04] text-slate-400 border border-white/[0.08] w-fit">2024 — 2025</span>
+                                <span class="text-xs font-mono px-3 py-1 rounded-full bg-white/[0.04] text-slate-400 border border-white/[0.08] w-fit">2024 &mdash; 2025</span>
                             </div>
-                            <div class="my-3 inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/[0.03] border border-white/[0.08] text-slate-300 text-xs font-mono">
-                                <span>Score: <strong class="text-white font-bold">66%</strong></span>
-                            </div>
-                            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
-                                Completed Senior Secondary schooling under CBSE curriculum with focus on Physics, Chemistry, and Mathematics.
+                            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed mt-2">
+                                Completed Senior Secondary schooling under the CBSE curriculum with coursework focusing on Physics, Chemistry, and Mathematics.
                             </p>
                         </div>
                     </div>
 
-                    <!-- High School CBSE -->
+                    <!-- Secondary CBSE (Streamlined, no percentage badge) -->
                     <div class="relative pl-14 reveal delay-2">
-                        <div class="absolute left-3.5 top-3 w-3.5 h-3.5 rounded-full bg-[#2AF598] border-2 border-[#06060a] shadow-[0_0_10px_rgba(42,245,152,0.7)]"></div>
+                        <div class="absolute left-3.5 top-3 w-3.5 h-3.5 rounded-full bg-[#2AF598] border-2 border-[#050508] shadow-[0_0_10px_rgba(42,245,152,0.7)]"></div>
                         <div class="glossy-card p-6 sm:p-7">
                             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
                                 <div>
-                                    <h3 class="text-lg font-bold text-white">High School (Secondary - Class X)</h3>
-                                    <p class="text-xs text-slate-400 font-mono">Dr. Lokman Das Public School, Etah (CBSE Board)</p>
+                                    <h3 class="text-lg font-bold text-white">High School (Secondary &mdash; Class X)</h3>
+                                    <p class="text-xs text-slate-400 font-mono">Dr. Lokman Singh Higher Secondary School, Etah (CBSE Board)</p>
                                 </div>
-                                <span class="text-xs font-mono px-3 py-1 rounded-full bg-white/[0.04] text-slate-400 border border-white/[0.08] w-fit">2022 — 2023</span>
+                                <span class="text-xs font-mono px-3 py-1 rounded-full bg-white/[0.04] text-slate-400 border border-white/[0.08] w-fit">2022 &mdash; 2023</span>
                             </div>
-                            <div class="my-3 inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/[0.03] border border-white/[0.08] text-slate-300 text-xs font-mono">
-                                <span>Score: <strong class="text-white font-bold">77%</strong></span>
-                            </div>
-                            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
-                                Completed Secondary education with strong marks across science, mathematics, and computer applications.
+                            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed mt-2">
+                                Completed Secondary education under the CBSE curriculum covering science, mathematics, and basic computer fundamentals.
                             </p>
                         </div>
                     </div>
@@ -412,282 +501,198 @@
 
 
         <!-- ======================================================== -->
-        <!-- SKILLS MATRIX WITH HIGH-END GLOSS & BRANDED ICONS        -->
+        <!-- SKILLS MATRIX (CATEGORIZED BADGES WITHOUT PERCENTAGE BARS)-->
         <!-- ======================================================== -->
         <section id="skills" class="py-28 relative border-t border-white/[0.06]">
             <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 
+                <!-- Standardized Center Header with Scroll-Fill Animation -->
                 <div class="text-center mb-16 reveal">
-                    <span class="text-[11px] font-mono text-[#00F2FE] tracking-widest uppercase font-semibold">Technical Stack &amp; Tools</span>
-                    <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-2 tracking-tight">Skills &amp; Technologies</h2>
-                    <p class="text-slate-400 text-xs sm:text-sm mt-2 max-w-lg mx-auto">Languages, data libraries, problem-solving topics, and developer environments.</p>
+                    <span class="text-[11px] font-mono text-[#00F2FE] tracking-widest uppercase font-semibold">Technical Arsenal</span>
+                    <h2 class="text-3xl sm:text-5xl font-black mt-2 tracking-tight scroll-fill-title">SKILLS &amp; TECHNOLOGIES</h2>
+                    <p class="text-slate-400 text-xs sm:text-sm mt-2 max-w-lg mx-auto">Categorized by domain proficiency — verified through projects and algorithmic problem solving.</p>
                     <div class="w-16 h-1 bg-gradient-to-r from-[#00F2FE] via-[#6B00FF] to-[#00FF87] mx-auto mt-4 rounded-full"></div>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
-                    <!-- Programming Languages -->
-                    <div class="glossy-card p-6 reveal">
-                        <div class="flex items-center gap-3 mb-5">
-                            <div class="p-2.5 rounded-xl bg-cyan-500/10 text-cyan-400">
-                                <i data-lucide="code" class="w-5 h-5"></i>
+                    <!-- Group 1: Core Programming Languages -->
+                    <div class="glossy-card p-6 sm:p-7 flex flex-col justify-between reveal">
+                        <div>
+                            <div class="flex items-center gap-3 mb-5">
+                                <div class="p-3 rounded-xl bg-cyan-500/10 text-cyan-400">
+                                    <i data-lucide="code" class="w-5 h-5"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-bold text-white text-base">Core Languages</h3>
+                                    <span class="text-[10px] text-cyan-300 font-mono uppercase tracking-wider">Foundation</span>
+                                </div>
                             </div>
-                            <div>
-                                <h3 class="font-bold text-white text-sm">Programming Languages</h3>
-                                <p class="text-[10px] text-slate-400 font-mono">Core Languages</p>
+
+                            <div class="space-y-3">
+                                <!-- Python -->
+                                <div class="p-3.5 rounded-xl bg-black/40 border border-white/[0.06] flex items-center justify-between">
+                                    <div class="flex items-center gap-2.5">
+                                        <svg class="w-5 h-5 text-[#00F2FE]" viewBox="0 0 24 24" fill="currentColor"><path d="M11.914 0C5.82 0 6.2 2.656 6.2 2.656l.006 2.752h5.803v.826H3.854S0 5.79 0 11.9c0 6.108 3.364 5.898 3.364 5.898h2.008v-2.824s-.108-3.363 3.308-3.363h5.688s3.195.053 3.195-3.093V2.656S18.006 0 11.914 0zm-3.36 1.74a1.01 1.01 0 1 1 0 2.02 1.01 1.01 0 0 1 0-2.02zM12.086 24c6.094 0 5.714-2.656 5.714-2.656l-.006-2.752H11.99v-.826h8.156S24 18.21 24 12.1c0-6.108-3.364-5.898-3.364-5.898h-2.008v2.824s.108 3.363-3.308 3.363H9.63s-3.195-.053-3.195 3.093v5.869S5.994 24 12.086 24zm3.36-1.74a1.01 1.01 0 1 1 0-2.02 1.01 1.01 0 0 1 0 2.02z"/></svg>
+                                        <div>
+                                            <span class="text-sm font-semibold text-white block">Python 3.x</span>
+                                            <span class="text-[11px] text-slate-400">Data analysis, logic, scripts</span>
+                                        </div>
+                                    </div>
+                                    <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-cyan-950/70 border border-cyan-800/40 text-cyan-300">Core</span>
+                                </div>
+
+                                <!-- Java -->
+                                <div class="p-3.5 rounded-xl bg-black/40 border border-white/[0.06] flex items-center justify-between">
+                                    <div class="flex items-center gap-2.5">
+                                        <svg class="w-5 h-5 text-orange-400" viewBox="0 0 24 24" fill="currentColor"><path d="M8.851 18.56s-.917.534.653.714c1.902.218 2.874.187 4.969-.211 0 0 .552.346 1.321.64-4.869 1.624-9.871-.24-6.943-1.143zm-1.42 2.671s-1.042.62.531.815c2.164.269 3.844.244 6.784-.251 0 0 .399.313 1.018.571-5.787 1.838-11.455-.162-8.333-1.135zM9.44 14.887s-4.349 1.042-1.523 1.408c2.993.388 5.485.344 9.473-.34 0 0 .343.349.805.587-4.995 1.488-12.784.662-8.755-1.655zm3.805-4.436c.866.974.204 1.85-.929 2.766-1.077.872-1.996 1.442-1.996 1.442s-.363-.448.243-.728c1.698-.783 2.126-1.571 1.708-2.228-.685-1.074-2.894-.972-2.894-.972s.517-.552 1.821-.692c1.303-.139 1.472-.143 2.047.412zm-3.08-4.832s-1.896 1.938.802 3.652c.983.626 1.579 1.047 1.443 1.583-.162.639-1.034 1.139-1.034 1.139s.41-.097.875-.417c.725-.499 1.021-1.196.816-1.761-.318-.874-1.979-1.688-1.979-2.67 0-.747.535-1.282.853-1.558-1.289.049-1.776.032-.776.032zm7.747 10.963c.691 1.523-2.277 2.92-5.419 2.946-3.143.027-5.918-.946-6.609-2.469-.317-.698.058-1.378.892-1.928-.276.471-.258.986.136 1.425.968 1.078 3.513 1.517 6.009 1.496 2.497-.021 4.795-.515 5.539-1.637.262-.395.27-.828.084-1.238.566.457.844.954.368 1.405z"/></svg>
+                                        <div>
+                                            <span class="text-sm font-semibold text-white block">Java OOP</span>
+                                            <span class="text-[11px] text-slate-400">Classes, Collections, Scanner</span>
+                                        </div>
+                                    </div>
+                                    <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-purple-950/70 border border-purple-800/40 text-purple-300">Core</span>
+                                </div>
+
+                                <!-- DSA -->
+                                <div class="p-3.5 rounded-xl bg-black/40 border border-white/[0.06] flex items-center justify-between">
+                                    <div class="flex items-center gap-2.5">
+                                        <i data-lucide="binary" class="w-5 h-5 text-amber-400"></i>
+                                        <div>
+                                            <span class="text-sm font-semibold text-white block">Data Structures</span>
+                                            <span class="text-[11px] text-slate-400">Arrays, Strings, Two Pointers</span>
+                                        </div>
+                                    </div>
+                                    <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-950/70 border border-amber-800/40 text-amber-300">Applied</span>
+                                </div>
                             </div>
                         </div>
-                        <div class="space-y-4">
-                            <div>
-                                <div class="flex justify-between items-center text-xs font-mono mb-1.5">
-                                    <span class="text-slate-200 flex items-center gap-2">
-                                        <!-- Python SVG -->
-                                        <svg class="w-4 h-4 text-[#00F2FE]" viewBox="0 0 24 24" fill="currentColor"><path d="M11.914 0C5.82 0 6.2 2.656 6.2 2.656l.006 2.752h5.803v.826H3.854S0 5.79 0 11.9c0 6.108 3.364 5.898 3.364 5.898h2.008v-2.824s-.108-3.363 3.308-3.363h5.688s3.195.053 3.195-3.093V2.656S18.006 0 11.914 0zm-3.36 1.74a1.01 1.01 0 1 1 0 2.02 1.01 1.01 0 0 1 0-2.02zM12.086 24c6.094 0 5.714-2.656 5.714-2.656l-.006-2.752H11.99v-.826h8.156S24 18.21 24 12.1c0-6.108-3.364-5.898-3.364-5.898h-2.008v2.824s.108 3.363-3.308 3.363H9.63s-3.195-.053-3.195 3.093v5.869S5.994 24 12.086 24zm3.36-1.74a1.01 1.01 0 1 1 0-2.02 1.01 1.01 0 0 1 0 2.02z"/></svg>
-                                        <span>Python 3.x</span>
-                                    </span>
-                                    <span class="text-cyan-400 font-bold">90%</span>
-                                </div>
-                                <div class="h-1.5 w-full bg-obsidian-950 rounded-full overflow-hidden p-0.5">
-                                    <div class="h-full bg-gradient-to-r from-[#00F2FE] to-[#6B00FF] rounded-full" style="width:90%"></div>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="flex justify-between items-center text-xs font-mono mb-1.5">
-                                    <span class="text-slate-200 flex items-center gap-2">
-                                        <!-- Java SVG -->
-                                        <svg class="w-4 h-4 text-purple-400" viewBox="0 0 24 24" fill="currentColor"><path d="M8.851 18.56s-.917.534.667.733c2.308.291 4.502.261 6.758-.206.001 0 .611.368 1.488.665-6.52 2.296-12.87-.714-8.913-1.192zm-1.066-2.923s-1.077.72.584.977c2.784.433 5.928.468 9.387-.193 0 0 .428.397 1.082.607-7.886 2.072-15.011-.692-11.053-1.391zm8.286-6.666c.866 1.002.046 1.93-.932 2.805-2.007 1.794-4.218 2.68-6.113 3.655-1.075.553-2.007.037-1.157-.751 1.579-1.464 3.447-2.64 5.045-3.957 1.258-1.036 2.457-1.572 3.157-1.752zm-1.89-5.127c-.896 1.052-.164 2.12.756 3.045.989.994 2.227 1.905 2.107 3.332-.204 2.42-3.192 3.528-5.116 4.673-1.282.763-2.451.272-1.428-.707 1.705-1.632 3.824-2.825 5.006-4.908.761-1.341.314-2.44-.925-3.529-1.393-1.225-1.921-1.674-.4-1.906zm4.722 13.914c-1.368.106-2.793.136-4.249.083-2.738-.1-5.125-.662-5.125-.662s-.404.382-.016.634c3.082 2.004 11.238 1.411 12.812-.045.001 0-.742-.317-3.422-.01zm2.493-2.383c-1.168.69-3.238.995-5.32 1.04-3.279.071-6.75-.461-6.75-.461s-.322.378.118.618c3.978 2.17 13.568 1.344 14.887-.492 0 0-.825-.494-2.935-.705z"/></svg>
-                                        <span>Java (Core &amp; OOP)</span>
-                                    </span>
-                                    <span class="text-purple-400 font-bold">85%</span>
-                                </div>
-                                <div class="h-1.5 w-full bg-obsidian-950 rounded-full overflow-hidden p-0.5">
-                                    <div class="h-full bg-gradient-to-r from-purple-500 to-indigo-500 rounded-full" style="width:85%"></div>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="flex justify-between items-center text-xs font-mono mb-1.5">
-                                    <span class="text-slate-200 flex items-center gap-2">
-                                        <i data-lucide="file-code" class="w-4 h-4 text-orange-400"></i>
-                                        <span>HTML5 &amp; CSS3</span>
-                                    </span>
-                                    <span class="text-orange-400 font-bold">80%</span>
-                                </div>
-                                <div class="h-1.5 w-full bg-obsidian-950 rounded-full overflow-hidden p-0.5">
-                                    <div class="h-full bg-orange-400 rounded-full" style="width:80%"></div>
-                                </div>
-                            </div>
+
+                        <div class="mt-5 pt-4 border-t border-white/[0.06]">
+                            <span class="text-[11px] text-slate-400 flex items-center gap-1.5 font-mono">
+                                <i data-lucide="check" class="w-3.5 h-3.5 text-cyan-400"></i>
+                                Object-oriented &amp; algorithmic thinking
+                            </span>
                         </div>
                     </div>
 
-                    <!-- Python Data Science Libraries -->
-                    <div class="glossy-card p-6 reveal delay-1">
-                        <div class="flex items-center gap-3 mb-5">
-                            <div class="p-2.5 rounded-xl bg-purple-500/10 text-purple-400">
-                                <i data-lucide="database" class="w-5 h-5"></i>
+                    <!-- Group 2: Data Science & Analytics Stack -->
+                    <div class="glossy-card p-6 sm:p-7 flex flex-col justify-between reveal delay-1">
+                        <div>
+                            <div class="flex items-center gap-3 mb-5">
+                                <div class="p-3 rounded-xl bg-purple-500/10 text-purple-400">
+                                    <i data-lucide="database" class="w-5 h-5"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-bold text-white text-base">Data Science Stack</h3>
+                                    <span class="text-[10px] text-purple-300 font-mono uppercase tracking-wider">Analytics</span>
+                                </div>
                             </div>
-                            <div>
-                                <h3 class="font-bold text-white text-sm">Data Science Libraries</h3>
-                                <p class="text-[10px] text-slate-400 font-mono">Python Ecosystem</p>
+
+                            <div class="space-y-3">
+                                <!-- Pandas -->
+                                <div class="p-3.5 rounded-xl bg-black/40 border border-white/[0.06] flex items-center justify-between">
+                                    <div class="flex items-center gap-2.5">
+                                        <i data-lucide="table" class="w-5 h-5 text-purple-400"></i>
+                                        <div>
+                                            <span class="text-sm font-semibold text-white block">Pandas</span>
+                                            <span class="text-[11px] text-slate-400">DataFrames, GroupBy, Imputation</span>
+                                        </div>
+                                    </div>
+                                    <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-purple-950/70 border border-purple-800/40 text-purple-300">Proficient</span>
+                                </div>
+
+                                <!-- NumPy -->
+                                <div class="p-3.5 rounded-xl bg-black/40 border border-white/[0.06] flex items-center justify-between">
+                                    <div class="flex items-center gap-2.5">
+                                        <i data-lucide="grid" class="w-5 h-5 text-blue-400"></i>
+                                        <div>
+                                            <span class="text-sm font-semibold text-white block">NumPy</span>
+                                            <span class="text-[11px] text-slate-400">N-d arrays, vectorization</span>
+                                        </div>
+                                    </div>
+                                    <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-blue-950/70 border border-blue-800/40 text-blue-300">Proficient</span>
+                                </div>
+
+                                <!-- Matplotlib -->
+                                <div class="p-3.5 rounded-xl bg-black/40 border border-white/[0.06] flex items-center justify-between">
+                                    <div class="flex items-center gap-2.5">
+                                        <i data-lucide="pie-chart" class="w-5 h-5 text-pink-400"></i>
+                                        <div>
+                                            <span class="text-sm font-semibold text-white block">Matplotlib</span>
+                                            <span class="text-[11px] text-slate-400">Plots, histograms, subplots</span>
+                                        </div>
+                                    </div>
+                                    <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-pink-950/70 border border-pink-800/40 text-pink-300">Proficient</span>
+                                </div>
                             </div>
                         </div>
-                        <div class="space-y-4">
-                            <div>
-                                <div class="flex justify-between items-center text-xs font-mono mb-1.5">
-                                    <span class="text-slate-200 flex items-center gap-2">
-                                        <i data-lucide="table" class="w-4 h-4 text-cyan-400"></i>
-                                        <span>Pandas (DataFrames)</span>
-                                    </span>
-                                    <span class="text-cyan-400 font-bold">88%</span>
-                                </div>
-                                <div class="h-1.5 w-full bg-obsidian-950 rounded-full overflow-hidden p-0.5">
-                                    <div class="h-full bg-gradient-to-r from-[#00F2FE] to-purple-500 rounded-full" style="width:88%"></div>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="flex justify-between items-center text-xs font-mono mb-1.5">
-                                    <span class="text-slate-200 flex items-center gap-2">
-                                        <i data-lucide="grid" class="w-4 h-4 text-blue-400"></i>
-                                        <span>NumPy (Arrays)</span>
-                                    </span>
-                                    <span class="text-blue-400 font-bold">85%</span>
-                                </div>
-                                <div class="h-1.5 w-full bg-obsidian-950 rounded-full overflow-hidden p-0.5">
-                                    <div class="h-full bg-gradient-to-r from-blue-400 to-[#00FF87] rounded-full" style="width:85%"></div>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="flex justify-between items-center text-xs font-mono mb-1.5">
-                                    <span class="text-slate-200 flex items-center gap-2">
-                                        <i data-lucide="pie-chart" class="w-4 h-4 text-pink-400"></i>
-                                        <span>Matplotlib (Plotting)</span>
-                                    </span>
-                                    <span class="text-pink-400 font-bold">82%</span>
-                                </div>
-                                <div class="h-1.5 w-full bg-obsidian-950 rounded-full overflow-hidden p-0.5">
-                                    <div class="h-full bg-gradient-to-r from-pink-500 to-purple-500 rounded-full" style="width:82%"></div>
-                                </div>
-                            </div>
+
+                        <div class="mt-5 pt-4 border-t border-white/[0.06]">
+                            <span class="text-[11px] text-slate-400 flex items-center gap-1.5 font-mono">
+                                <i data-lucide="check" class="w-3.5 h-3.5 text-purple-400"></i>
+                                Dataset wrangling &amp; statistical visualization
+                            </span>
                         </div>
                     </div>
 
-                    <!-- Java & DSA Problem Solving -->
-                    <div class="glossy-card p-6 reveal delay-2">
-                        <div class="flex items-center gap-3 mb-5">
-                            <div class="p-2.5 rounded-xl bg-amber-500/10 text-amber-400">
-                                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
-                                    <path d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104 5.35 5.35 0 0 0-.125.513 5.527 5.527 0 0 0 .062 2.362 5.83 5.83 0 0 0 .349 1.017 5.938 5.938 0 0 0 1.271 1.818l4.277 4.193.039.038c2.248 2.165 5.852 2.133 8.063-.074l2.396-2.392c.54-.54.54-1.414.003-1.955a1.378 1.378 0 0 0-1.951-.003l-2.396 2.392a3.021 3.021 0 0 1-4.205.038l-.02-.019-4.276-4.193c-.652-.64-.972-1.469-.948-2.263a2.68 2.68 0 0 1 .066-.523 2.545 2.545 0 0 1 .619-1.164L9.13 8.114c1.058-1.134 3.204-1.27 4.43-.278l3.501 2.831c.593.48 1.461.387 1.94-.207a1.384 1.384 0 0 0-.207-1.943l-3.5-2.831c-.8-.647-1.766-1.045-2.774-1.202l2.015-2.158A1.384 1.384 0 0 0 13.483 0zm-2.866 12.815a1.38 1.38 0 0 0-1.38 1.382 1.38 1.38 0 0 0 1.38 1.382H20.79a1.38 1.38 0 0 0 1.38-1.382 1.38 1.38 0 0 0-1.38-1.382z"/>
-                                </svg>
-                            </div>
-                            <div>
-                                <h3 class="font-bold text-white text-sm">Java &amp; DSA</h3>
-                                <p class="text-[10px] text-slate-400 font-mono">Algorithms &amp; Logic</p>
-                            </div>
-                        </div>
-                        <div class="space-y-4">
-                            <div>
-                                <div class="flex justify-between items-center text-xs font-mono mb-1.5">
-                                    <span class="text-slate-200">Arrays &amp; Strings</span>
-                                    <span class="text-amber-400 font-bold">90%</span>
+                    <!-- Group 3: Development Tools & Workflow -->
+                    <div class="glossy-card p-6 sm:p-7 flex flex-col justify-between reveal delay-2">
+                        <div>
+                            <div class="flex items-center gap-3 mb-5">
+                                <div class="p-3 rounded-xl bg-emerald-500/10 text-emerald-400">
+                                    <i data-lucide="terminal" class="w-5 h-5"></i>
                                 </div>
-                                <div class="h-1.5 w-full bg-obsidian-950 rounded-full overflow-hidden p-0.5">
-                                    <div class="h-full bg-amber-400 rounded-full" style="width:90%"></div>
+                                <div>
+                                    <h3 class="font-bold text-white text-base">Developer Tools</h3>
+                                    <span class="text-[10px] text-emerald-300 font-mono uppercase tracking-wider">Workflow</span>
                                 </div>
                             </div>
-                            <div>
-                                <div class="flex justify-between items-center text-xs font-mono mb-1.5">
-                                    <span class="text-slate-200">Two Pointers Technique</span>
-                                    <span class="text-amber-400 font-bold">85%</span>
-                                </div>
-                                <div class="h-1.5 w-full bg-obsidian-950 rounded-full overflow-hidden p-0.5">
-                                    <div class="h-full bg-amber-400 rounded-full" style="width:85%"></div>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="flex justify-between items-center text-xs font-mono mb-1.5">
-                                    <span class="text-slate-200">Recursion &amp; Search</span>
-                                    <span class="text-amber-400 font-bold">80%</span>
-                                </div>
-                                <div class="h-1.5 w-full bg-obsidian-950 rounded-full overflow-hidden p-0.5">
-                                    <div class="h-full bg-amber-400 rounded-full" style="width:80%"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
-                    <!-- Core Computer Science -->
-                    <div class="glossy-card p-6 reveal delay-3">
-                        <div class="flex items-center gap-3 mb-5">
-                            <div class="p-2.5 rounded-xl bg-indigo-500/10 text-indigo-400">
-                                <i data-lucide="layers" class="w-5 h-5"></i>
-                            </div>
-                            <div>
-                                <h3 class="font-bold text-white text-sm">Core Computer Science</h3>
-                                <p class="text-[10px] text-slate-400 font-mono">Foundational Concepts</p>
-                            </div>
-                        </div>
-                        <div class="space-y-4">
-                            <div>
-                                <div class="flex justify-between items-center text-xs font-mono mb-1.5">
-                                    <span class="text-slate-200">OOP Fundamentals</span>
-                                    <span class="text-indigo-400 font-bold">90%</span>
+                            <div class="space-y-3">
+                                <!-- Git & GitHub -->
+                                <div class="p-3.5 rounded-xl bg-black/40 border border-white/[0.06] flex items-center justify-between">
+                                    <div class="flex items-center gap-2.5">
+                                        <i data-lucide="git-branch" class="w-5 h-5 text-cyan-400"></i>
+                                        <div>
+                                            <span class="text-sm font-semibold text-white block">Git &amp; GitHub</span>
+                                            <span class="text-[11px] text-slate-400">Version control, remotes</span>
+                                        </div>
+                                    </div>
+                                    <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-cyan-950/70 border border-cyan-800/40 text-cyan-300">Workflow</span>
                                 </div>
-                                <div class="h-1.5 w-full bg-obsidian-950 rounded-full overflow-hidden p-0.5">
-                                    <div class="h-full bg-indigo-400 rounded-full" style="width:90%"></div>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="flex justify-between items-center text-xs font-mono mb-1.5">
-                                    <span class="text-slate-200">Data Structures Concepts</span>
-                                    <span class="text-indigo-400 font-bold">85%</span>
-                                </div>
-                                <div class="h-1.5 w-full bg-obsidian-950 rounded-full overflow-hidden p-0.5">
-                                    <div class="h-full bg-indigo-400 rounded-full" style="width:85%"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
-                    <!-- Developer Tools & IDEs with SVGs -->
-                    <div class="glossy-card p-6 reveal delay-4">
-                        <div class="flex items-center gap-3 mb-5">
-                            <div class="p-2.5 rounded-xl bg-emerald-500/10 text-emerald-400">
-                                <i data-lucide="terminal" class="w-5 h-5"></i>
-                            </div>
-                            <div>
-                                <h3 class="font-bold text-white text-sm">Developer Tools</h3>
-                                <p class="text-[10px] text-slate-400 font-mono">Environments &amp; VCS</p>
-                            </div>
-                        </div>
-                        <div class="space-y-4">
-                            <div>
-                                <div class="flex justify-between items-center text-xs font-mono mb-1.5">
-                                    <span class="text-slate-200 flex items-center gap-2">
-                                        <i data-lucide="git-branch" class="w-4 h-4 text-emerald-400"></i>
-                                        <span>Git &amp; GitHub</span>
-                                    </span>
-                                    <span class="text-emerald-400 font-bold">88%</span>
+                                <!-- VS Code & IntelliJ -->
+                                <div class="p-3.5 rounded-xl bg-black/40 border border-white/[0.06] flex items-center justify-between">
+                                    <div class="flex items-center gap-2.5">
+                                        <i data-lucide="cpu" class="w-5 h-5 text-indigo-400"></i>
+                                        <div>
+                                            <span class="text-sm font-semibold text-white block">VS Code &amp; IntelliJ</span>
+                                            <span class="text-[11px] text-slate-400">Debugging, linting, builds</span>
+                                        </div>
+                                    </div>
+                                    <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-indigo-950/70 border border-indigo-800/40 text-indigo-300">IDE</span>
                                 </div>
-                                <div class="h-1.5 w-full bg-obsidian-950 rounded-full overflow-hidden p-0.5">
-                                    <div class="h-full bg-emerald-400 rounded-full" style="width:88%"></div>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="flex justify-between items-center text-xs font-mono mb-1.5">
-                                    <span class="text-slate-200 flex items-center gap-2">
-                                        <i data-lucide="terminal" class="w-4 h-4 text-blue-400"></i>
-                                        <span>VS Code &amp; IntelliJ IDEA</span>
-                                    </span>
-                                    <span class="text-blue-400 font-bold">92%</span>
-                                </div>
-                                <div class="h-1.5 w-full bg-obsidian-950 rounded-full overflow-hidden p-0.5">
-                                    <div class="h-full bg-blue-400 rounded-full" style="width:92%"></div>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="flex justify-between items-center text-xs font-mono mb-1.5">
-                                    <span class="text-slate-200 flex items-center gap-2">
-                                        <i data-lucide="book-open" class="w-4 h-4 text-amber-400"></i>
-                                        <span>Jupyter Notebook</span>
-                                    </span>
-                                    <span class="text-amber-400 font-bold">85%</span>
-                                </div>
-                                <div class="h-1.5 w-full bg-obsidian-950 rounded-full overflow-hidden p-0.5">
-                                    <div class="h-full bg-amber-400 rounded-full" style="width:85%"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
-                    <!-- Professional Methodologies -->
-                    <div class="glossy-card p-6 reveal delay-5">
-                        <div class="flex items-center gap-3 mb-5">
-                            <div class="p-2.5 rounded-xl bg-pink-500/10 text-pink-400">
-                                <i data-lucide="check-square" class="w-5 h-5"></i>
-                            </div>
-                            <div>
-                                <h3 class="font-bold text-white text-sm">Methodologies</h3>
-                                <p class="text-[10px] text-slate-400 font-mono">Professional Skills</p>
+                                <!-- Jupyter -->
+                                <div class="p-3.5 rounded-xl bg-black/40 border border-white/[0.06] flex items-center justify-between">
+                                    <div class="flex items-center gap-2.5">
+                                        <i data-lucide="book-open" class="w-5 h-5 text-orange-400"></i>
+                                        <div>
+                                            <span class="text-sm font-semibold text-white block">Jupyter Notebook</span>
+                                            <span class="text-[11px] text-slate-400">Interactive EDA &amp; testing</span>
+                                        </div>
+                                    </div>
+                                    <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-orange-950/70 border border-orange-800/40 text-orange-300">Analytics</span>
+                                </div>
                             </div>
                         </div>
-                        <div class="space-y-4">
-                            <div>
-                                <div class="flex justify-between items-center text-xs font-mono mb-1.5">
-                                    <span class="text-slate-200">Time Management</span>
-                                    <span class="text-pink-400 font-bold">90%</span>
-                                </div>
-                                <div class="h-1.5 w-full bg-obsidian-950 rounded-full overflow-hidden p-0.5">
-                                    <div class="h-full bg-pink-400 rounded-full" style="width:90%"></div>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="flex justify-between items-center text-xs font-mono mb-1.5">
-                                    <span class="text-slate-200">Analytical Thinking</span>
-                                    <span class="text-pink-400 font-bold">88%</span>
-                                </div>
-                                <div class="h-1.5 w-full bg-obsidian-950 rounded-full overflow-hidden p-0.5">
-                                    <div class="h-full bg-pink-400 rounded-full" style="width:88%"></div>
-                                </div>
-                            </div>
+
+                        <div class="mt-5 pt-4 border-t border-white/[0.06]">
+                            <span class="text-[11px] text-slate-400 flex items-center gap-1.5 font-mono">
+                                <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400"></i>
+                                Automated workflows &amp; code persistence
+                            </span>
                         </div>
                     </div>
 
@@ -698,167 +703,286 @@
 
 
         <!-- ======================================================== -->
-        <!-- PROJECTS SECTION (GLOSSY GLASS CARDS WITH HOVER SWEEPS)  -->
+        <!-- FEATURED PROJECTS: STICKY STACKING WITH VISUAL PREVIEWS  -->
         <!-- ======================================================== -->
         <section id="projects" class="py-28 relative border-t border-white/[0.06]">
-            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 
-                <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 reveal">
-                    <div>
-                        <span class="text-[11px] font-mono text-[#00F2FE] tracking-widest uppercase font-semibold">Featured Work</span>
-                        <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-2 tracking-tight">Projects</h2>
-                        <p class="text-slate-400 text-xs sm:text-sm mt-1">Real academic and data analysis applications.</p>
-                    </div>
-
-                    <!-- Category Filter Buttons -->
-                    <div class="flex gap-2 mt-5 md:mt-0" id="projectFilter">
-                        <button class="filter-btn active" data-filter="all">All</button>
+                <!-- Standardized Center Header with Scroll-Fill Animation -->
+                <div class="text-center mb-14 reveal">
+                    <span class="text-[11px] font-mono text-[#00F2FE] tracking-widest uppercase font-semibold">Engineering &amp; Code</span>
+                    <h2 class="text-3xl sm:text-5xl font-black mt-2 tracking-tight scroll-fill-title">FEATURED PROJECTS</h2>
+                    <p class="text-slate-400 text-xs sm:text-sm mt-2 max-w-md mx-auto">Full-stack data analysis, OOP systems, and algorithmic problem suites.</p>
+                    
+                    <!-- Center Aligned Category Filter Tabs -->
+                    <div class="flex justify-center gap-2.5 mt-6" id="projectFilter">
+                        <button class="filter-btn active" data-filter="all">All Projects</button>
                         <button class="filter-btn" data-filter="python">Python &amp; Data</button>
                         <button class="filter-btn" data-filter="java">Java &amp; OOP</button>
                     </div>
+                    <div class="w-16 h-1 bg-gradient-to-r from-[#00F2FE] via-[#6B00FF] to-[#00FF87] mx-auto mt-6 rounded-full"></div>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="projectsContainer">
+                <!-- Sticky Stacking Cards Container -->
+                <div class="space-y-8" id="projectsContainer">
 
-                    <!-- Project 1: Employee Data Analysis -->
-                    <article class="project-card glossy-card p-6 sm:p-7 flex flex-col justify-between reveal" data-category="python">
-                        <div>
-                            <div class="flex items-center justify-between mb-4">
-                                <span class="text-[11px] font-mono text-cyan-300 px-3 py-1 bg-cyan-950/60 border border-cyan-800/40 rounded-full flex items-center gap-1.5">
-                                    <i data-lucide="bar-chart-2" class="w-3.5 h-3.5"></i> Python · Data Science
-                                </span>
-                                <span class="text-[11px] font-mono text-slate-400">Practice Project</span>
-                            </div>
-
-                            <h3 class="text-xl font-bold text-white mb-3">Employee Data Analysis</h3>
+                    <!-- STICKY CARD 1: Employee Data Analysis (Python) -->
+                    <article class="project-card sticky-project-card sticky-card-1 glossy-card p-6 sm:p-9 rounded-3xl reveal" data-category="python">
+                        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
                             
-                            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed mb-4">
-                                Exploratory data analysis pipeline built with Python, Pandas, and Matplotlib. Ingests employee records, cleans missing values, conducts multi-column filtering and grouping, and outputs visual charts communicating workforce insights.
-                            </p>
+                            <!-- Left: Details & Specs -->
+                            <div class="lg:col-span-7 space-y-4">
+                                <div class="flex items-center gap-2">
+                                    <span class="text-[11px] font-mono text-cyan-300 px-3 py-1 bg-cyan-950/70 border border-cyan-800/40 rounded-full flex items-center gap-1.5 font-semibold">
+                                        <i data-lucide="bar-chart-2" class="w-3.5 h-3.5"></i> Python &middot; Data Science
+                                    </span>
+                                    <span class="text-[11px] font-mono text-slate-400">Featured Application</span>
+                                </div>
 
-                            <div class="space-y-2 mb-5 p-3.5 rounded-xl bg-black/40 border border-white/[0.05] text-xs text-slate-300">
-                                <div class="flex items-start gap-2">
-                                    <i data-lucide="check" class="w-3.5 h-3.5 text-cyan-400 mt-0.5 flex-shrink-0"></i>
-                                    <span>Used employee dataset to explore, clean, and summarize structural metrics.</span>
+                                <h3 class="text-2xl sm:text-3xl font-bold text-white tracking-tight">Employee Data Analysis &amp; Visualization Suite</h3>
+                                
+                                <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                                    Exploratory data analytics pipeline built with Python, Pandas, and Matplotlib. Ingests raw organizational workforce datasets, handles missing values, conducts categorical aggregation, and outputs publication-quality visualization charts.
+                                </p>
+
+                                <div class="space-y-2 p-3.5 rounded-xl bg-black/50 border border-white/[0.06] text-xs text-slate-300">
+                                    <div class="flex items-start gap-2">
+                                        <i data-lucide="check" class="w-3.5 h-3.5 text-cyan-400 mt-0.5 flex-shrink-0"></i>
+                                        <span>Cleaned and imputed missing organizational workforce metrics with Pandas.</span>
+                                    </div>
+                                    <div class="flex items-start gap-2">
+                                        <i data-lucide="check" class="w-3.5 h-3.5 text-cyan-400 mt-0.5 flex-shrink-0"></i>
+                                        <span>Analyzed departmental compensation and tenure distributions with NumPy.</span>
+                                    </div>
+                                    <div class="flex items-start gap-2">
+                                        <i data-lucide="check" class="w-3.5 h-3.5 text-cyan-400 mt-0.5 flex-shrink-0"></i>
+                                        <span>Plotted customized Matplotlib figures to communicate attrition insights.</span>
+                                    </div>
                                 </div>
-                                <div class="flex items-start gap-2">
-                                    <i data-lucide="check" class="w-3.5 h-3.5 text-cyan-400 mt-0.5 flex-shrink-0"></i>
-                                    <span>Calculated summary statistics, handled missing values, and sorted subsets.</span>
+
+                                <div class="flex flex-wrap gap-2 pt-1">
+                                    <span class="tag"><i data-lucide="code" class="w-3 h-3 text-cyan-400"></i> Python</span>
+                                    <span class="tag"><i data-lucide="table" class="w-3 h-3 text-purple-400"></i> Pandas</span>
+                                    <span class="tag"><i data-lucide="grid" class="w-3 h-3 text-blue-400"></i> NumPy</span>
+                                    <span class="tag"><i data-lucide="pie-chart" class="w-3 h-3 text-pink-400"></i> Matplotlib</span>
                                 </div>
-                                <div class="flex items-start gap-2">
-                                    <i data-lucide="check" class="w-3.5 h-3.5 text-cyan-400 mt-0.5 flex-shrink-0"></i>
-                                    <span>Plotted Matplotlib charts to communicate departmental patterns.</span>
+
+                                <div class="pt-4 border-t border-white/[0.08] flex items-center gap-4">
+                                    <a href="https://github.com/sawinkumar13-design/project-" target="_blank" class="cosmic-btn-primary px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5">
+                                        <i data-lucide="github" class="w-3.5 h-3.5"></i>
+                                        <span>View Repository</span>
+                                    </a>
+                                    <a href="https://github.com/sawinkumar13-design/project-" target="_blank" class="glass-pill px-4 py-2 rounded-xl text-xs font-mono text-cyan-300 hover:text-white flex items-center gap-1.5">
+                                        <i data-lucide="file-code" class="w-3.5 h-3.5"></i>
+                                        <span>Notebook Demo</span>
+                                    </a>
                                 </div>
                             </div>
 
-                            <div class="flex flex-wrap gap-1.5">
-                                <span class="tag"><i data-lucide="code" class="w-3 h-3 text-cyan-400"></i> Python</span>
-                                <span class="tag"><i data-lucide="table" class="w-3 h-3 text-purple-400"></i> Pandas</span>
-                                <span class="tag"><i data-lucide="grid" class="w-3 h-3 text-blue-400"></i> NumPy</span>
-                                <span class="tag"><i data-lucide="pie-chart" class="w-3 h-3 text-pink-400"></i> Matplotlib</span>
+                            <!-- Right: Visual Preview Graphic -->
+                            <div class="lg:col-span-5">
+                                <div class="project-preview-box p-4 space-y-3">
+                                    <div class="flex items-center justify-between text-[11px] font-mono text-slate-400 border-b border-white/[0.08] pb-2">
+                                        <span class="flex items-center gap-1.5 text-cyan-300"><i data-lucide="bar-chart" class="w-3.5 h-3.5"></i> Matplotlib Distribution</span>
+                                        <span>EDA Output</span>
+                                    </div>
+                                    <!-- Simulated High-Tech Data Chart Graphic -->
+                                    <div class="space-y-2.5 pt-1">
+                                        <div>
+                                            <div class="flex justify-between text-[10px] font-mono text-slate-300 mb-1">
+                                                <span>Engineering &middot; Retention</span>
+                                                <span class="text-cyan-400">92.4%</span>
+                                            </div>
+                                            <div class="h-2 rounded-full bg-slate-800 overflow-hidden">
+                                                <div class="h-full bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full" style="width: 92%"></div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="flex justify-between text-[10px] font-mono text-slate-300 mb-1">
+                                                <span>Operations &middot; Efficiency</span>
+                                                <span class="text-purple-400">88.1%</span>
+                                            </div>
+                                            <div class="h-2 rounded-full bg-slate-800 overflow-hidden">
+                                                <div class="h-full bg-gradient-to-r from-purple-400 to-pink-500 rounded-full" style="width: 88%"></div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="flex justify-between text-[10px] font-mono text-slate-300 mb-1">
+                                                <span>Data Analytics &middot; Growth</span>
+                                                <span class="text-emerald-400">95.6%</span>
+                                            </div>
+                                            <div class="h-2 rounded-full bg-slate-800 overflow-hidden">
+                                                <div class="h-full bg-gradient-to-r from-emerald-400 to-cyan-400 rounded-full" style="width: 95%"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="pt-2 flex items-center justify-between text-[10px] font-mono text-slate-400 border-t border-white/[0.06]">
+                                        <span>Rows: 10,000+ Records</span>
+                                        <span class="text-emerald-400 flex items-center gap-1"><i data-lucide="check" class="w-3 h-3"></i> Imputed Clean</span>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="pt-5 mt-5 border-t border-white/[0.08] flex items-center justify-between">
-                            <a href="https://github.com/sawinkumar13-design/project-" target="_blank" class="flex items-center gap-1.5 text-xs font-mono text-cyan-300 hover:text-white transition-colors">
-                                <i data-lucide="github" class="w-4 h-4"></i>
-                                <span>Source Code</span>
-                            </a>
-                            <span class="text-[11px] font-mono text-emerald-400 flex items-center gap-1">
-                                <i data-lucide="check-circle-2" class="w-3.5 h-3.5"></i> Verified Project
-                            </span>
                         </div>
                     </article>
 
-                    <!-- Project 2: Banking System Java App -->
-                    <article class="project-card glossy-card p-6 sm:p-7 flex flex-col justify-between reveal delay-1" data-category="java">
-                        <div>
-                            <div class="flex items-center justify-between mb-4">
-                                <span class="text-[11px] font-mono text-purple-300 px-3 py-1 bg-purple-950/60 border border-purple-800/40 rounded-full flex items-center gap-1.5">
-                                    <i data-lucide="coffee" class="w-3.5 h-3.5"></i> Java · OOP
-                                </span>
-                                <span class="text-[11px] font-mono text-slate-400">Academic Project</span>
-                            </div>
 
-                            <h3 class="text-xl font-bold text-white mb-3">Banking System — Java Console App</h3>
+                    <!-- STICKY CARD 2: Banking System Java App (Java) -->
+                    <article class="project-card sticky-project-card sticky-card-2 glossy-card p-6 sm:p-9 rounded-3xl reveal" data-category="java">
+                        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
                             
-                            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed mb-4">
-                                Menu-driven financial application modeling real-world banking operations. Built with modular Java classes, object-oriented encapsulation, input validation with Scanner, and complete deposit, withdrawal, and balance checking operations.
-                            </p>
+                            <!-- Left: Details & Specs -->
+                            <div class="lg:col-span-7 space-y-4">
+                                <div class="flex items-center gap-2">
+                                    <span class="text-[11px] font-mono text-purple-300 px-3 py-1 bg-purple-950/70 border border-purple-800/40 rounded-full flex items-center gap-1.5 font-semibold">
+                                        <i data-lucide="coffee" class="w-3.5 h-3.5"></i> Java &middot; OOP Architecture
+                                    </span>
+                                    <span class="text-[11px] font-mono text-slate-400">Academic Project</span>
+                                </div>
 
-                            <div class="space-y-2 mb-5 p-3.5 rounded-xl bg-black/40 border border-white/[0.05] text-xs text-slate-300">
-                                <div class="flex items-start gap-2">
-                                    <i data-lucide="check" class="w-3.5 h-3.5 text-purple-400 mt-0.5 flex-shrink-0"></i>
-                                    <span>Built an intuitive console menu to model essential account actions.</span>
+                                <h3 class="text-2xl sm:text-3xl font-bold text-white tracking-tight">Banking Management System &mdash; Java Console Architecture</h3>
+                                
+                                <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                                    Console-driven financial simulation modeling real banking transactions. Engineered with object-oriented encapsulation, robust Scanner input validation, user account state handling, and modular balance auditing methods.
+                                </p>
+
+                                <div class="space-y-2 p-3.5 rounded-xl bg-black/50 border border-white/[0.06] text-xs text-slate-300">
+                                    <div class="flex items-start gap-2">
+                                        <i data-lucide="check" class="w-3.5 h-3.5 text-purple-400 mt-0.5 flex-shrink-0"></i>
+                                        <span>Engineered account transactions with private fields and getter/setter security.</span>
+                                    </div>
+                                    <div class="flex items-start gap-2">
+                                        <i data-lucide="check" class="w-3.5 h-3.5 text-purple-400 mt-0.5 flex-shrink-0"></i>
+                                        <span>Built interactive console menus with graceful input and exception handling.</span>
+                                    </div>
+                                    <div class="flex items-start gap-2">
+                                        <i data-lucide="check" class="w-3.5 h-3.5 text-purple-400 mt-0.5 flex-shrink-0"></i>
+                                        <span>Practiced clean method separation and modular classes in IntelliJ IDEA.</span>
+                                    </div>
                                 </div>
-                                <div class="flex items-start gap-2">
-                                    <i data-lucide="check" class="w-3.5 h-3.5 text-purple-400 mt-0.5 flex-shrink-0"></i>
-                                    <span>Implemented deposit, withdrawal, and balance inquiry using Java methods.</span>
+
+                                <div class="flex flex-wrap gap-2 pt-1">
+                                    <span class="tag"><i data-lucide="coffee" class="w-3 h-3 text-purple-400"></i> Java</span>
+                                    <span class="tag"><i data-lucide="box" class="w-3 h-3 text-cyan-400"></i> Encapsulation</span>
+                                    <span class="tag"><i data-lucide="terminal" class="w-3 h-3 text-indigo-400"></i> Scanner</span>
+                                    <span class="tag"><i data-lucide="cpu" class="w-3 h-3 text-pink-400"></i> IntelliJ IDEA</span>
                                 </div>
-                                <div class="flex items-start gap-2">
-                                    <i data-lucide="check" class="w-3.5 h-3.5 text-purple-400 mt-0.5 flex-shrink-0"></i>
-                                    <span>Practiced OOP fundamentals, conditional control flow, and Scanner validation.</span>
+
+                                <div class="pt-4 border-t border-white/[0.08] flex items-center gap-4">
+                                    <a href="https://github.com/sawinkumar13-design/project-" target="_blank" class="cosmic-btn-primary px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5">
+                                        <i data-lucide="github" class="w-3.5 h-3.5"></i>
+                                        <span>View Repository</span>
+                                    </a>
+                                    <a href="https://github.com/sawinkumar13-design/project-" target="_blank" class="glass-pill px-4 py-2 rounded-xl text-xs font-mono text-purple-300 hover:text-white flex items-center gap-1.5">
+                                        <i data-lucide="terminal" class="w-3.5 h-3.5"></i>
+                                        <span>Console Spec</span>
+                                    </a>
                                 </div>
                             </div>
 
-                            <div class="flex flex-wrap gap-1.5">
-                                <span class="tag"><i data-lucide="coffee" class="w-3 h-3 text-purple-400"></i> Java</span>
-                                <span class="tag"><i data-lucide="box" class="w-3 h-3 text-cyan-400"></i> OOP</span>
-                                <span class="tag"><i data-lucide="terminal" class="w-3 h-3 text-indigo-400"></i> Scanner</span>
-                                <span class="tag"><i data-lucide="cpu" class="w-3 h-3 text-pink-400"></i> IntelliJ IDEA</span>
+                            <!-- Right: Visual Terminal Window Preview -->
+                            <div class="lg:col-span-5">
+                                <div class="project-preview-box">
+                                    <!-- macOS Terminal Header -->
+                                    <div class="terminal-bar">
+                                        <div class="terminal-dot bg-red-500"></div>
+                                        <div class="terminal-dot bg-amber-500"></div>
+                                        <div class="terminal-dot bg-emerald-500"></div>
+                                        <span class="text-[10px] font-mono text-slate-400 ml-2">java BankingSystem.java</span>
+                                    </div>
+                                    <div class="p-4 font-mono text-[11px] space-y-1.5 text-slate-300">
+                                        <p class="text-cyan-400">$ java -jar BankingSystem.jar</p>
+                                        <p class="text-slate-400">=== SECURE BANKING CONSOLE ===</p>
+                                        <p class="text-slate-300">[1] Deposit Funds &nbsp;&nbsp;[2] Withdraw</p>
+                                        <p class="text-slate-300">[3] Check Balance &nbsp;[4] Exit</p>
+                                        <p class="text-emerald-400">&gt; Authenticated: User #8115</p>
+                                        <p class="text-purple-300">&gt; Available Balance: &#8377;45,000.00</p>
+                                        <p class="text-slate-400">&gt; Status: 200 OK &middot; Thread Safe</p>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="pt-5 mt-5 border-t border-white/[0.08] flex items-center justify-between">
-                            <a href="https://github.com/sawinkumar13-design/project-" target="_blank" class="flex items-center gap-1.5 text-xs font-mono text-purple-300 hover:text-white transition-colors">
-                                <i data-lucide="github" class="w-4 h-4"></i>
-                                <span>Source Code</span>
-                            </a>
-                            <span class="text-[11px] font-mono text-purple-400 flex items-center gap-1">
-                                <i data-lucide="check-circle-2" class="w-3.5 h-3.5"></i> Verified Project
-                            </span>
                         </div>
                     </article>
 
-                    <!-- Project 3: DSA Problem Solving Suite -->
-                    <article class="project-card glossy-card p-6 sm:p-7 flex flex-col justify-between reveal delay-2 md:col-span-2" data-category="java">
-                        <div>
-                            <div class="flex items-center justify-between mb-4">
-                                <span class="text-[11px] font-mono text-amber-300 px-3 py-1 bg-amber-950/60 border border-amber-800/40 rounded-full flex items-center gap-1.5">
-                                    <svg class="w-3.5 h-3.5 text-amber-400" viewBox="0 0 24 24" fill="currentColor">
-                                        <path d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104 5.35 5.35 0 0 0-.125.513 5.527 5.527 0 0 0 .062 2.362 5.83 5.83 0 0 0 .349 1.017 5.938 5.938 0 0 0 1.271 1.818l4.277 4.193.039.038c2.248 2.165 5.852 2.133 8.063-.074l2.396-2.392c.54-.54.54-1.414.003-1.955a1.378 1.378 0 0 0-1.951-.003l-2.396 2.392a3.021 3.021 0 0 1-4.205.038l-.02-.019-4.276-4.193c-.652-.64-.972-1.469-.948-2.263a2.68 2.68 0 0 1 .066-.523 2.545 2.545 0 0 1 .619-1.164L9.13 8.114c1.058-1.134 3.204-1.27 4.43-.278l3.501 2.831c.593.48 1.461.387 1.94-.207a1.384 1.384 0 0 0-.207-1.943l-3.5-2.831c-.8-.647-1.766-1.045-2.774-1.202l2.015-2.158A1.384 1.384 0 0 0 13.483 0zm-2.866 12.815a1.38 1.38 0 0 0-1.38 1.382 1.38 1.38 0 0 0 1.38 1.382H20.79a1.38 1.38 0 0 0 1.38-1.382 1.38 1.38 0 0 0-1.38-1.382z"/>
-                                    </svg>
-                                    <span>LeetCode &amp; HackerRank Algorithmic Suite</span>
-                                </span>
-                                <span class="text-[11px] font-mono text-amber-400 font-bold">50+ Days Solved</span>
-                            </div>
 
-                            <h3 class="text-xl font-bold text-white mb-3">Data Structures &amp; Problem Solving Suite</h3>
+                    <!-- STICKY CARD 3: DSA Suite & Algorithms (Java & Python) -->
+                    <article class="project-card sticky-project-card sticky-card-3 glossy-card p-6 sm:p-9 rounded-3xl reveal" data-category="java">
+                        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
                             
-                            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed mb-4">
-                                Comprehensive repository of algorithmic implementations in Java and Python. Focuses on Arrays, Strings, Two-Pointer technique, and basic Recursion, with careful time and space complexity evaluations.
-                            </p>
+                            <!-- Left: Details & Specs -->
+                            <div class="lg:col-span-7 space-y-4">
+                                <div class="flex items-center gap-2">
+                                    <span class="text-[11px] font-mono text-amber-300 px-3 py-1 bg-amber-950/70 border border-amber-800/40 rounded-full flex items-center gap-1.5 font-semibold">
+                                        <svg class="w-3.5 h-3.5 text-amber-400" viewBox="0 0 24 24" fill="currentColor">
+                                            <path d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104 5.35 5.35 0 0 0-.125.513 5.527 5.527 0 0 0 .062 2.362 5.83 5.83 0 0 0 .349 1.017 5.938 5.938 0 0 0 1.271 1.818l4.277 4.193.039.038c2.248 2.165 5.852 2.133 8.063-.074l2.396-2.392c.54-.54.54-1.414.003-1.955a1.378 1.378 0 0 0-1.951-.003l-2.396 2.392a3.021 3.021 0 0 1-4.205.038l-.02-.019-4.276-4.193c-.652-.64-.972-1.469-.948-2.263a2.68 2.68 0 0 1 .066-.523 2.545 2.545 0 0 1 .619-1.164L9.13 8.114c1.058-1.134 3.204-1.27 4.43-.278l3.501 2.831c.593.48 1.461.387 1.94-.207a1.384 1.384 0 0 0-.207-1.943l-3.5-2.831c-.8-.647-1.766-1.045-2.774-1.202l2.015-2.158A1.384 1.384 0 0 0 13.483 0zm-2.866 12.815a1.38 1.38 0 0 0-1.38 1.382 1.38 1.38 0 0 0 1.38 1.382H20.79a1.38 1.38 0 0 0 1.38-1.382 1.38 1.38 0 0 0-1.38-1.382z"/>
+                                        </svg>
+                                        <span>LeetCode Algorithmic Suite</span>
+                                    </span>
+                                    <span class="text-[11px] font-mono text-amber-400 font-bold">50+ Days Streak</span>
+                                </div>
 
-                            <div class="flex flex-wrap gap-1.5">
-                                <span class="tag"><i data-lucide="coffee" class="w-3 h-3 text-purple-400"></i> Java</span>
-                                <span class="tag"><i data-lucide="code" class="w-3 h-3 text-cyan-400"></i> Python</span>
-                                <span class="tag"><i data-lucide="binary" class="w-3 h-3 text-amber-400"></i> DSA</span>
-                                <span class="tag"><i data-lucide="git-branch" class="w-3 h-3 text-indigo-400"></i> Two Pointers</span>
-                                <span class="tag"><i data-lucide="repeat" class="w-3 h-3 text-pink-400"></i> Recursion</span>
+                                <h3 class="text-2xl sm:text-3xl font-bold text-white tracking-tight">Data Structures &amp; Algorithmic Problem Solving Suite</h3>
+                                
+                                <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                                    Comprehensive collection of solved algorithmic problems in Java and Python. Focuses on array transformations, two-pointer convergence, string searching, and recursive back-tracking evaluated for optimal O(1) space and O(n) time complexity.
+                                </p>
+
+                                <div class="space-y-2 p-3.5 rounded-xl bg-black/50 border border-white/[0.06] text-xs text-slate-300">
+                                    <div class="flex items-start gap-2">
+                                        <i data-lucide="check" class="w-3.5 h-3.5 text-amber-400 mt-0.5 flex-shrink-0"></i>
+                                        <span>Two-pointer traversal patterns across sorted and unsorted numeric arrays.</span>
+                                    </div>
+                                    <div class="flex items-start gap-2">
+                                        <i data-lucide="check" class="w-3.5 h-3.5 text-amber-400 mt-0.5 flex-shrink-0"></i>
+                                        <span>String mutation and sliding window substring character counts.</span>
+                                    </div>
+                                    <div class="flex items-start gap-2">
+                                        <i data-lucide="check" class="w-3.5 h-3.5 text-amber-400 mt-0.5 flex-shrink-0"></i>
+                                        <span>Consistent 50-day streak with verified daily commit and submission logs.</span>
+                                    </div>
+                                </div>
+
+                                <div class="flex flex-wrap gap-2 pt-1">
+                                    <span class="tag"><i data-lucide="coffee" class="w-3 h-3 text-purple-400"></i> Java</span>
+                                    <span class="tag"><i data-lucide="code" class="w-3 h-3 text-cyan-400"></i> Python</span>
+                                    <span class="tag"><i data-lucide="binary" class="w-3 h-3 text-amber-400"></i> DSA</span>
+                                    <span class="tag"><i data-lucide="git-branch" class="w-3 h-3 text-indigo-400"></i> Two Pointers</span>
+                                </div>
+
+                                <div class="pt-4 border-t border-white/[0.08] flex items-center gap-4">
+                                    <a href="https://leetcode.com/u/sawin_kumar" target="_blank" class="cosmic-btn-primary px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5">
+                                        <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor"><path d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104 5.35 5.35 0 0 0-.125.513 5.527 5.527 0 0 0 .062 2.362 5.83 5.83 0 0 0 .349 1.017 5.938 5.938 0 0 0 1.271 1.818l4.277 4.193.039.038c2.248 2.165 5.852 2.133 8.063-.074l2.396-2.392c.54-.54.54-1.414.003-1.955a1.378 1.378 0 0 0-1.951-.003l-2.396 2.392a3.021 3.021 0 0 1-4.205.038l-.02-.019-4.276-4.193c-.652-.64-.972-1.469-.948-2.263a2.68 2.68 0 0 1 .066-.523 2.545 2.545 0 0 1 .619-1.164L9.13 8.114c1.058-1.134 3.204-1.27 4.43-.278l3.501 2.831c.593.48 1.461.387 1.94-.207a1.384 1.384 0 0 0-.207-1.943l-3.5-2.831c-.8-.647-1.766-1.045-2.774-1.202l2.015-2.158A1.384 1.384 0 0 0 13.483 0zm-2.866 12.815a1.38 1.38 0 0 0-1.38 1.382 1.38 1.38 0 0 0 1.38 1.382H20.79a1.38 1.38 0 0 0 1.38-1.382 1.38 1.38 0 0 0-1.38-1.382z"/></svg>
+                                        <span>LeetCode Profile</span>
+                                    </a>
+                                    <a href="https://github.com/sawinkumar13-design/project-" target="_blank" class="glass-pill px-4 py-2 rounded-xl text-xs font-mono text-slate-300 hover:text-white flex items-center gap-1.5">
+                                        <i data-lucide="github" class="w-3.5 h-3.5"></i>
+                                        <span>GitHub Solutions</span>
+                                    </a>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="pt-5 mt-5 border-t border-white/[0.08] flex items-center gap-6">
-                            <a href="https://leetcode.com/u/sawinkumar/" target="_blank" class="flex items-center gap-2 text-xs font-mono font-medium text-amber-400 hover:text-amber-300 transition-colors">
-                                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
-                                    <path d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104 5.35 5.35 0 0 0-.125.513 5.527 5.527 0 0 0 .062 2.362 5.83 5.83 0 0 0 .349 1.017 5.938 5.938 0 0 0 1.271 1.818l4.277 4.193.039.038c2.248 2.165 5.852 2.133 8.063-.074l2.396-2.392c.54-.54.54-1.414.003-1.955a1.378 1.378 0 0 0-1.951-.003l-2.396 2.392a3.021 3.021 0 0 1-4.205.038l-.02-.019-4.276-4.193c-.652-.64-.972-1.469-.948-2.263a2.68 2.68 0 0 1 .066-.523 2.545 2.545 0 0 1 .619-1.164L9.13 8.114c1.058-1.134 3.204-1.27 4.43-.278l3.501 2.831c.593.48 1.461.387 1.94-.207a1.384 1.384 0 0 0-.207-1.943l-3.5-2.831c-.8-.647-1.766-1.045-2.774-1.202l2.015-2.158A1.384 1.384 0 0 0 13.483 0zm-2.866 12.815a1.38 1.38 0 0 0-1.38 1.382 1.38 1.38 0 0 0 1.38 1.382H20.79a1.38 1.38 0 0 0 1.38-1.382 1.38 1.38 0 0 0-1.38-1.382z"/>
-                                </svg>
-                                <span>LeetCode Profile</span>
-                            </a>
-                            <a href="https://github.com/sawinkumar13-design/project-" target="_blank" class="flex items-center gap-1.5 text-xs font-mono text-slate-400 hover:text-white transition-colors">
-                                <i data-lucide="github" class="w-4 h-4"></i>
-                                <span>GitHub Repository</span>
-                            </a>
+                            <!-- Right: Algorithmic Tracer Preview Graphic -->
+                            <div class="lg:col-span-5">
+                                <div class="project-preview-box p-4 space-y-3">
+                                    <div class="flex items-center justify-between text-[11px] font-mono text-slate-400 border-b border-white/[0.08] pb-2">
+                                        <span class="flex items-center gap-1.5 text-amber-400"><i data-lucide="git-merge" class="w-3.5 h-3.5"></i> Array Execution Tracer</span>
+                                        <span>O(n) Time &middot; O(1) Space</span>
+                                    </div>
+                                    <div class="grid grid-cols-6 gap-1 text-center font-mono text-xs pt-1">
+                                        <div class="p-2 rounded bg-cyan-950/70 border border-cyan-500/40 text-cyan-300 font-bold">2<br><span class="text-[9px] text-cyan-400 font-normal">L &rarr;</span></div>
+                                        <div class="p-2 rounded bg-slate-900 border border-white/10 text-slate-300">7</div>
+                                        <div class="p-2 rounded bg-slate-900 border border-white/10 text-slate-300">11</div>
+                                        <div class="p-2 rounded bg-slate-900 border border-white/10 text-slate-300">15</div>
+                                        <div class="p-2 rounded bg-slate-900 border border-white/10 text-slate-300">23</div>
+                                        <div class="p-2 rounded bg-purple-950/70 border border-purple-500/40 text-purple-300 font-bold">39<br><span class="text-[9px] text-purple-400 font-normal">&larr; R</span></div>
+                                    </div>
+                                    <div class="p-2.5 rounded-lg bg-black/60 border border-white/[0.05] text-[11px] font-mono text-slate-300">
+                                        <span class="text-cyan-400">Target Sum: 41</span> &rarr; <span class="text-emerald-400">Found pair (2, 39) in 1 pass</span>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     </article>
 
@@ -869,14 +993,15 @@
 
 
         <!-- ======================================================== -->
-        <!-- LEETCODE 50 DAYS BADGE SECTION (EXCLUSIVE BADGE)        -->
+        <!-- SPECIAL ACHIEVEMENT: CONSOLIDATED LEETCODE 50 DAYS BADGE -->
         <!-- ======================================================== -->
         <section id="achievements" class="py-28 relative border-t border-white/[0.06]">
             <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 
+                <!-- Standardized Center Header with Scroll-Fill Animation -->
                 <div class="text-center mb-14 reveal">
-                    <span class="text-[11px] font-mono text-amber-400 tracking-widest uppercase font-semibold">Special Achievement</span>
-                    <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-2 tracking-tight">LeetCode 50 Days Badge</h2>
+                    <span class="text-[11px] font-mono text-amber-400 tracking-widest uppercase font-semibold">Verified Milestone</span>
+                    <h2 class="text-3xl sm:text-5xl font-black mt-2 tracking-tight scroll-fill-title">SPECIAL ACHIEVEMENT</h2>
                     <div class="w-16 h-1 bg-gradient-to-r from-amber-500 via-orange-500 to-[#6B00FF] mx-auto mt-4 rounded-full"></div>
                 </div>
 
@@ -885,7 +1010,7 @@
                     <!-- Badge Visual Circle -->
                     <div class="relative w-36 h-36 mx-auto mb-6">
                         <div class="absolute -inset-2 rounded-full bg-gradient-to-tr from-amber-500 via-orange-500 to-[#6B00FF] blur-xl opacity-60 animate-pulse"></div>
-                        <div class="relative w-full h-full rounded-full bg-gradient-to-b from-obsidian-950 to-black border-2 border-amber-500/50 flex flex-col items-center justify-center shadow-2xl">
+                        <div class="relative w-full h-full rounded-full bg-gradient-to-b from-[#050508] to-black border-2 border-amber-500/50 flex flex-col items-center justify-center shadow-2xl">
                             <!-- LeetCode Official Icon -->
                             <svg class="w-8 h-8 text-amber-400 mb-1" viewBox="0 0 24 24" fill="currentColor">
                                 <path d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104 5.35 5.35 0 0 0-.125.513 5.527 5.527 0 0 0 .062 2.362 5.83 5.83 0 0 0 .349 1.017 5.938 5.938 0 0 0 1.271 1.818l4.277 4.193.039.038c2.248 2.165 5.852 2.133 8.063-.074l2.396-2.392c.54-.54.54-1.414.003-1.955a1.378 1.378 0 0 0-1.951-.003l-2.396 2.392a3.021 3.021 0 0 1-4.205.038l-.02-.019-4.276-4.193c-.652-.64-.972-1.469-.948-2.263a2.68 2.68 0 0 1 .066-.523 2.545 2.545 0 0 1 .619-1.164L9.13 8.114c1.058-1.134 3.204-1.27 4.43-.278l3.501 2.831c.593.48 1.461.387 1.94-.207a1.384 1.384 0 0 0-.207-1.943l-3.5-2.831c-.8-.647-1.766-1.045-2.774-1.202l2.015-2.158A1.384 1.384 0 0 0 13.483 0zm-2.866 12.815a1.38 1.38 0 0 0-1.38 1.382 1.38 1.38 0 0 0 1.38 1.382H20.79a1.38 1.38 0 0 0 1.38-1.382 1.38 1.38 0 0 0-1.38-1.382z"/>
@@ -898,16 +1023,16 @@
                     <h3 class="text-2xl font-bold text-white mb-2">50 Days Consistency Badge</h3>
                     
                     <p class="text-xs sm:text-sm text-slate-300 leading-relaxed mb-6 max-w-sm mx-auto">
-                        Awarded by <strong class="text-white">LeetCode</strong> for consecutive daily problem-solving discipline. Reflects strong algorithmic perseverance, syntax mastery, and problem breakdown techniques.
+                        Awarded by <strong class="text-white">LeetCode</strong> for consecutive daily problem solving. Demonstrates algorithmic perseverance, syntax mastery, and time-space optimization.
                     </p>
 
                     <div class="flex items-center justify-center">
-                        <a href="https://leetcode.com/u/sawinkumar/" target="_blank" rel="noopener noreferrer" 
+                        <a href="https://leetcode.com/u/sawin_kumar" target="_blank" rel="noopener noreferrer" 
                            class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 text-black font-bold text-xs uppercase tracking-wider hover:opacity-95 transition-all shadow-lg shadow-amber-500/30 hover:scale-[1.02]">
                             <svg class="w-4 h-4 fill-black" viewBox="0 0 24 24">
                                 <path d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104 5.35 5.35 0 0 0-.125.513 5.527 5.527 0 0 0 .062 2.362 5.83 5.83 0 0 0 .349 1.017 5.938 5.938 0 0 0 1.271 1.818l4.277 4.193.039.038c2.248 2.165 5.852 2.133 8.063-.074l2.396-2.392c.54-.54.54-1.414.003-1.955a1.378 1.378 0 0 0-1.951-.003l-2.396 2.392a3.021 3.021 0 0 1-4.205.038l-.02-.019-4.276-4.193c-.652-.64-.972-1.469-.948-2.263a2.68 2.68 0 0 1 .066-.523 2.545 2.545 0 0 1 .619-1.164L9.13 8.114c1.058-1.134 3.204-1.27 4.43-.278l3.501 2.831c.593.48 1.461.387 1.94-.207a1.384 1.384 0 0 0-.207-1.943l-3.5-2.831c-.8-.647-1.766-1.045-2.774-1.202l2.015-2.158A1.384 1.384 0 0 0 13.483 0zm-2.866 12.815a1.38 1.38 0 0 0-1.38 1.382 1.38 1.38 0 0 0 1.38 1.382H20.79a1.38 1.38 0 0 0 1.38-1.382 1.38 1.38 0 0 0-1.38-1.382z"/>
                             </svg>
-                            <span>Verify on LeetCode</span>
+                            <span>Verify on LeetCode Profile</span>
                         </a>
                     </div>
 
@@ -918,27 +1043,29 @@
 
 
         <!-- ======================================================== -->
-        <!-- CONTACT SECTION                                          -->
+        <!-- CONTACT SECTION: SPAM-PROTECTED PHONE & EQUAL HEIGHTS    -->
         <!-- ======================================================== -->
         <section id="contact" class="py-28 relative border-t border-white/[0.06]">
             <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 
+                <!-- Standardized Center Header with Scroll-Fill Animation -->
                 <div class="text-center mb-16 reveal">
                     <span class="text-[11px] font-mono text-[#00F2FE] tracking-widest uppercase font-semibold">Initiate Collaboration</span>
-                    <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-2 tracking-tight">Get In Touch</h2>
-                    <p class="text-slate-400 text-xs sm:text-sm mt-2 max-w-md mx-auto">Open for internships, projects, and technical discussions.</p>
+                    <h2 class="text-3xl sm:text-5xl font-black mt-2 tracking-tight scroll-fill-title">GET IN TOUCH</h2>
+                    <p class="text-slate-400 text-xs sm:text-sm mt-2 max-w-md mx-auto">Open for internships, collaborative projects, and engineering conversations.</p>
                     <div class="w-16 h-1 bg-gradient-to-r from-[#00F2FE] to-[#6B00FF] mx-auto mt-4 rounded-full"></div>
                 </div>
 
-                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 max-w-4xl mx-auto items-start">
+                <!-- Equal Height Layout (items-stretch) -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 max-w-4xl mx-auto items-stretch">
                     
-                    <!-- Contact Channels with Icons -->
-                    <div class="lg:col-span-5 space-y-3 reveal">
+                    <!-- Left: Verified Contact Channels -->
+                    <div class="lg:col-span-5 flex flex-col justify-between space-y-3.5 reveal">
                         
                         <!-- Personal Email -->
-                        <div class="glossy-card flex items-center justify-between p-3.5 rounded-2xl">
+                        <div class="glossy-card flex items-center justify-between p-4 rounded-2xl">
                             <div class="flex items-center gap-3">
-                                <div class="w-8 h-8 rounded-lg bg-cyan-500/10 flex items-center justify-center text-cyan-400">
+                                <div class="w-9 h-9 rounded-xl bg-cyan-500/10 flex items-center justify-center text-cyan-400">
                                     <i data-lucide="mail" class="w-4 h-4"></i>
                                 </div>
                                 <div>
@@ -946,45 +1073,48 @@
                                     <a href="mailto:sawinkumar13@gmail.com" class="text-xs text-slate-200 hover:text-cyan-300 transition-colors font-medium" id="emailDisplay">sawinkumar13@gmail.com</a>
                                 </div>
                             </div>
-                            <button id="copyEmailBtn" class="text-[10px] font-mono text-cyan-400 hover:text-white px-2 py-1 rounded-lg bg-cyan-950/60 border border-cyan-800/40">Copy</button>
+                            <button id="copyEmailBtn" class="text-[10px] font-mono text-cyan-400 hover:text-white px-2.5 py-1 rounded-lg bg-cyan-950/60 border border-cyan-800/40">Copy</button>
                         </div>
 
                         <!-- University Email -->
-                        <div class="glossy-card flex items-center gap-3 p-3.5 rounded-2xl">
-                            <div class="w-8 h-8 rounded-lg bg-purple-500/10 flex items-center justify-center text-purple-400">
+                        <div class="glossy-card flex items-center gap-3 p-4 rounded-2xl">
+                            <div class="w-9 h-9 rounded-xl bg-purple-500/10 flex items-center justify-center text-purple-400">
                                 <i data-lucide="graduation-cap" class="w-4 h-4"></i>
                             </div>
                             <div>
-                                <div class="text-[9px] text-slate-400 font-mono">College Email</div>
+                                <div class="text-[9px] text-slate-400 font-mono">University Email</div>
                                 <a href="mailto:sawin.kumar_cs25@gla.ac.in" class="text-xs text-slate-200 hover:text-purple-300 transition-colors font-medium">sawin.kumar_cs25@gla.ac.in</a>
                             </div>
                         </div>
 
-                        <!-- Phone -->
-                        <a href="tel:+919259451815" class="glossy-card flex items-center gap-3 p-3.5 rounded-2xl group">
-                            <div class="w-8 h-8 rounded-lg bg-emerald-500/10 flex items-center justify-center text-emerald-400">
-                                <i data-lucide="phone" class="w-4 h-4"></i>
+                        <!-- Protected Phone via Resume PDF -->
+                        <a href="assets/Sawin_Kumar_Resume.pdf" target="_blank" download="Sawin_Kumar_Resume.pdf" class="glossy-card flex items-center justify-between p-4 rounded-2xl group">
+                            <div class="flex items-center gap-3">
+                                <div class="w-9 h-9 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-400">
+                                    <i data-lucide="phone-call" class="w-4 h-4"></i>
+                                </div>
+                                <div>
+                                    <div class="text-[9px] text-slate-400 font-mono">Direct Phone Contact</div>
+                                    <span class="text-xs text-emerald-300 font-medium">Available on Resume (PDF)</span>
+                                </div>
                             </div>
-                            <div>
-                                <div class="text-[9px] text-slate-400 font-mono">Phone / WhatsApp</div>
-                                <span class="text-xs text-slate-200 group-hover:text-emerald-300 transition-colors font-medium">+91-9259451815</span>
-                            </div>
+                            <i data-lucide="download" class="w-4 h-4 text-emerald-400 group-hover:translate-y-0.5 transition-transform"></i>
                         </a>
 
                         <!-- LinkedIn -->
-                        <a href="https://linkedin.com/in/sawinkumar" target="_blank" rel="noopener noreferrer" class="glossy-card flex items-center gap-3 p-3.5 rounded-2xl group">
-                            <div class="w-8 h-8 rounded-lg bg-blue-500/10 flex items-center justify-center text-blue-400">
+                        <a href="https://www.linkedin.com/in/sawin-kumar-5941763a1" target="_blank" rel="noopener noreferrer" class="glossy-card flex items-center gap-3 p-4 rounded-2xl group">
+                            <div class="w-9 h-9 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-400">
                                 <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 8.76a1.65 1.65 0 1 0 0-3.3 1.65 1.65 0 0 0 0 3.3m1.4 9.74v-8.37H5.06v8.37h2.8z"/></svg>
                             </div>
                             <div>
                                 <div class="text-[9px] text-slate-400 font-mono">LinkedIn</div>
-                                <span class="text-xs text-slate-200 group-hover:text-blue-300 transition-colors font-medium">linkedin.com/in/sawinkumar</span>
+                                <span class="text-xs text-slate-200 group-hover:text-blue-300 transition-colors font-medium">linkedin.com/in/sawin-kumar</span>
                             </div>
                         </a>
 
                         <!-- GitHub -->
-                        <a href="https://github.com/sawinkumar13-design" target="_blank" rel="noopener noreferrer" class="glossy-card flex items-center gap-3 p-3.5 rounded-2xl group">
-                            <div class="w-8 h-8 rounded-lg bg-white/[0.05] flex items-center justify-center text-white">
+                        <a href="https://github.com/sawinkumar13-design" target="_blank" rel="noopener noreferrer" class="glossy-card flex items-center gap-3 p-4 rounded-2xl group">
+                            <div class="w-9 h-9 rounded-xl bg-white/[0.05] flex items-center justify-center text-white">
                                 <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
                             </div>
                             <div>
@@ -994,42 +1124,45 @@
                         </a>
 
                         <!-- Location -->
-                        <div class="glossy-card flex items-center gap-3 p-3.5 rounded-2xl">
-                            <div class="w-8 h-8 rounded-lg bg-pink-500/10 flex items-center justify-center text-pink-400">
+                        <div class="glossy-card flex items-center gap-3 p-4 rounded-2xl">
+                            <div class="w-9 h-9 rounded-xl bg-pink-500/10 flex items-center justify-center text-pink-400">
                                 <i data-lucide="map-pin" class="w-4 h-4"></i>
                             </div>
                             <div>
                                 <div class="text-[9px] text-slate-400 font-mono">Location</div>
-                                <span class="text-xs text-slate-300">Mathura (281001) &amp; Etah, Uttar Pradesh</span>
+                                <span class="text-xs text-slate-300">Mathura &amp; Etah, Uttar Pradesh</span>
                             </div>
                         </div>
 
                     </div>
 
-                    <!-- Direct Message Form with Specular Gloss -->
+                    <!-- Right: Direct Dispatch Message Form (Equal Height) -->
                     <div class="lg:col-span-7 reveal delay-1">
-                        <form id="contactForm" class="glossy-card p-6 sm:p-7 rounded-2xl space-y-4">
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-                                <div>
-                                    <label class="block text-[11px] font-mono text-cyan-300/80 mb-1">Your Name *</label>
-                                    <input type="text" id="senderName" required placeholder="John Doe" class="w-full rounded-xl bg-black/60 border border-white/10 px-3.5 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400 transition">
+                        <form id="contactForm" class="glossy-card p-6 sm:p-8 rounded-2xl space-y-4 h-full flex flex-col justify-between">
+                            <div class="space-y-4">
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                                    <div>
+                                        <label class="block text-[11px] font-mono text-cyan-300/80 mb-1">Your Name *</label>
+                                        <input type="text" id="senderName" required placeholder="John Doe" class="w-full rounded-xl bg-black/60 border border-white/10 px-3.5 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400 transition">
+                                    </div>
+                                    <div>
+                                        <label class="block text-[11px] font-mono text-cyan-300/80 mb-1">Your Email *</label>
+                                        <input type="email" id="senderEmail" required placeholder="john@example.com" class="w-full rounded-xl bg-black/60 border border-white/10 px-3.5 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400 transition">
+                                    </div>
                                 </div>
                                 <div>
-                                    <label class="block text-[11px] font-mono text-cyan-300/80 mb-1">Your Email *</label>
-                                    <input type="email" id="senderEmail" required placeholder="john@example.com" class="w-full rounded-xl bg-black/60 border border-white/10 px-3.5 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400 transition">
+                                    <label class="block text-[11px] font-mono text-cyan-300/80 mb-1">Subject</label>
+                                    <input type="text" id="senderSubject" placeholder="Software Engineering / Data Science Opportunity" class="w-full rounded-xl bg-black/60 border border-white/10 px-3.5 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400 transition">
+                                </div>
+                                <div>
+                                    <label class="block text-[11px] font-mono text-cyan-300/80 mb-1">Message *</label>
+                                    <textarea id="senderMessage" rows="5" required placeholder="Hi Sawin, I reviewed your portfolio and would like to connect regarding an internship/project..." class="w-full rounded-xl bg-black/60 border border-white/10 px-3.5 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400 transition"></textarea>
                                 </div>
                             </div>
-                            <div>
-                                <label class="block text-[11px] font-mono text-cyan-300/80 mb-1">Subject</label>
-                                <input type="text" id="senderSubject" placeholder="Software Engineering / Data Science Opportunity" class="w-full rounded-xl bg-black/60 border border-white/10 px-3.5 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400 transition">
-                            </div>
-                            <div>
-                                <label class="block text-[11px] font-mono text-cyan-300/80 mb-1">Message *</label>
-                                <textarea id="senderMessage" rows="4" required placeholder="Hi Sawin, I saw your portfolio and would like to connect regarding..." class="w-full rounded-xl bg-black/60 border border-white/10 px-3.5 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400 transition"></textarea>
-                            </div>
-                            <button type="submit" class="cosmic-btn-primary w-full py-3 rounded-xl font-semibold text-xs flex items-center justify-center gap-2">
-                                <i data-lucide="send" class="w-3.5 h-3.5"></i>
-                                <span>Send to sawinkumar13@gmail.com</span>
+                            <!-- High Contrast Dispatch Button -->
+                            <button type="submit" class="cosmic-btn-primary w-full py-3.5 rounded-xl text-xs font-bold flex items-center justify-center gap-2 mt-4">
+                                <i data-lucide="send" class="w-4 h-4"></i>
+                                <span>Send Direct Message</span>
                             </button>
                         </form>
                     </div>
@@ -1044,14 +1177,14 @@
     <!-- ======================================================== -->
     <!-- FOOTER                                                   -->
     <!-- ======================================================== -->
-    <footer class="py-10 border-t border-white/[0.06] bg-[#06060a]/90 relative z-10">
+    <footer class="py-10 border-t border-white/[0.06] bg-[#050508]/90 relative z-10">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
             <span class="text-xs text-slate-400 font-mono">
                 &copy; 2026 Sawin Kumar &middot; GLA University (B.Tech CSE)
             </span>
             <div class="flex items-center gap-3">
-                <a href="https://leetcode.com/u/sawinkumar/" target="_blank" class="p-1.5 rounded text-amber-400/80 hover:text-amber-300 transition-colors" title="LeetCode"><svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104 5.35 5.35 0 0 0-.125.513 5.527 5.527 0 0 0 .062 2.362 5.83 5.83 0 0 0 .349 1.017 5.938 5.938 0 0 0 1.271 1.818l4.277 4.193.039.038c2.248 2.165 5.852 2.133 8.063-.074l2.396-2.392c.54-.54.54-1.414.003-1.955a1.378 1.378 0 0 0-1.951-.003l-2.396 2.392a3.021 3.021 0 0 1-4.205.038l-.02-.019-4.276-4.193c-.652-.64-.972-1.469-.948-2.263a2.68 2.68 0 0 1 .066-.523 2.545 2.545 0 0 1 .619-1.164L9.13 8.114c1.058-1.134 3.204-1.27 4.43-.278l3.501 2.831c.593.48 1.461.387 1.94-.207a1.384 1.384 0 0 0-.207-1.943l-3.5-2.831c-.8-.647-1.766-1.045-2.774-1.202l2.015-2.158A1.384 1.384 0 0 0 13.483 0zm-2.866 12.815a1.38 1.38 0 0 0-1.38 1.382 1.38 1.38 0 0 0 1.38 1.382H20.79a1.38 1.38 0 0 0 1.38-1.382 1.38 1.38 0 0 0-1.38-1.382z"/></svg></a>
-                <a href="https://linkedin.com/in/sawinkumar" target="_blank" class="p-1.5 rounded text-blue-400/80 hover:text-blue-300 transition-colors" title="LinkedIn"><svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 8.76a1.65 1.65 0 1 0 0-3.3 1.65 1.65 0 0 0 0 3.3m1.4 9.74v-8.37H5.06v8.37h2.8z"/></svg></a>
+                <a href="https://leetcode.com/u/sawin_kumar" target="_blank" class="p-1.5 rounded text-amber-400/80 hover:text-amber-300 transition-colors" title="LeetCode"><svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104 5.35 5.35 0 0 0-.125.513 5.527 5.527 0 0 0 .062 2.362 5.83 5.83 0 0 0 .349 1.017 5.938 5.938 0 0 0 1.271 1.818l4.277 4.193.039.038c2.248 2.165 5.852 2.133 8.063-.074l2.396-2.392c.54-.54.54-1.414.003-1.955a1.378 1.378 0 0 0-1.951-.003l-2.396 2.392a3.021 3.021 0 0 1-4.205.038l-.02-.019-4.276-4.193c-.652-.64-.972-1.469-.948-2.263a2.68 2.68 0 0 1 .066-.523 2.545 2.545 0 0 1 .619-1.164L9.13 8.114c1.058-1.134 3.204-1.27 4.43-.278l3.501 2.831c.593.48 1.461.387 1.94-.207a1.384 1.384 0 0 0-.207-1.943l-3.5-2.831c-.8-.647-1.766-1.045-2.774-1.202l2.015-2.158A1.384 1.384 0 0 0 13.483 0zm-2.866 12.815a1.38 1.38 0 0 0-1.38 1.382 1.38 1.38 0 0 0 1.38 1.382H20.79a1.38 1.38 0 0 0 1.38-1.382 1.38 1.38 0 0 0-1.38-1.382z"/></svg></a>
+                <a href="https://www.linkedin.com/in/sawin-kumar-5941763a1" target="_blank" class="p-1.5 rounded text-blue-400/80 hover:text-blue-300 transition-colors" title="LinkedIn"><svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 8.76a1.65 1.65 0 1 0 0-3.3 1.65 1.65 0 0 0 0 3.3m1.4 9.74v-8.37H5.06v8.37h2.8z"/></svg></a>
                 <a href="https://github.com/sawinkumar13-design" target="_blank" class="p-1.5 rounded text-slate-300 hover:text-white transition-colors" title="GitHub"><svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg></a>
                 <a href="#hero" class="p-1.5 rounded text-cyan-400 hover:text-white transition-colors" title="Back to top"><i data-lucide="arrow-up" class="w-4 h-4"></i></a>
             </div>
@@ -1059,13 +1192,13 @@
     </footer>
 
     <!-- Toast Notification -->
-    <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 px-4 py-3 rounded-xl bg-obsidian-900 border border-cyan-500/40 text-white text-xs font-mono flex items-center gap-2 shadow-2xl pointer-events-none">
+    <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 px-4 py-3 rounded-xl bg-[#050508] border border-cyan-500/40 text-white text-xs font-mono flex items-center gap-2 shadow-2xl pointer-events-none">
         <i data-lucide="check" class="w-4 h-4 text-cyan-400"></i>
         <span id="toastMessage">Done</span>
     </div>
 
-    <!-- Scripts with Cache-Buster v=5 -->
-    <script src="main.js?v=5"></script>
+    <!-- Scripts with Cache-Buster v=6 -->
+    <script src="main.js?v=6"></script>
     <script>lucide.createIcons();</script>
 </body>
 </html>

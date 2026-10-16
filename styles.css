@@ -1,6 +1,6 @@
 /* ========================================================================== */
 /* Sawin Kumar — Luxury Dark Galaxy & Cosmic Aurora Portfolio Styling         */
-/* Deep Obsidian Black (#050508 to #0a0a0f) · Glossy Glass · Live Aurora      */
+/* Deep Obsidian Black (#050508 to #0a0a12) · Glassmorphism · Mouse Reactivity */
 /* ========================================================================== */
 
 /* Custom Sleek Scrollbar */
@@ -20,18 +20,29 @@
     background: linear-gradient(180deg, #00F2FE, #6B00FF);
 }
 
-/* ========================================================================== */
-/* 1. OBSIDIAN BASE & DYNAMIC NEBULA GLOW                                     */
-/* ========================================================================== */
-body {
-    background-color: #06060a;
-    background-image: 
-        radial-gradient(circle at 50% 0%, rgba(20, 18, 38, 0.8) 0%, rgba(6, 6, 10, 0.95) 55%, #030306 100%),
-        radial-gradient(ellipse 80% 50% at 50% 100%, rgba(107, 0, 255, 0.06), transparent 70%);
-    color: #cbd5e1;
+/* Base Obsidian Theme */
+html {
+    scroll-behavior: smooth;
+    background-color: #050508;
 }
 
-/* Galaxy Canvas */
+body {
+    background-color: #050508;
+    background-image: 
+        radial-gradient(circle at 50% 0%, rgba(18, 16, 35, 0.85) 0%, rgba(5, 5, 10, 0.95) 55%, #030306 100%),
+        radial-gradient(ellipse 80% 50% at 50% 100%, rgba(107, 0, 255, 0.07), transparent 70%);
+    color: #cbd5e1;
+    overflow-x: hidden;
+}
+
+/* Offset anchor scrolling so fixed navbar doesn't cover headings */
+section[id] {
+    scroll-margin-top: 5rem;
+}
+
+/* ========================================================================== */
+/* 1. INTERACTIVE STARFIELD & AMBIENT CURSOR SPOTLIGHT                        */
+/* ========================================================================== */
 #galaxyCanvas {
     position: fixed;
     top: 0;
@@ -40,6 +51,23 @@ body {
     height: 100%;
     z-index: 0;
     pointer-events: none;
+}
+
+/* Trailing Cosmic Aurora Cursor Spotlight */
+#cursorGlow {
+    position: fixed;
+    width: 520px;
+    height: 520px;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 1;
+    mix-blend-mode: screen;
+    filter: blur(85px);
+    background: radial-gradient(circle, rgba(0, 242, 254, 0.14) 0%, rgba(107, 0, 255, 0.12) 40%, rgba(42, 245, 152, 0.04) 65%, transparent 75%);
+    transform: translate3d(-50%, -50%, 0);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    will-change: transform, opacity;
 }
 
 /* Ambient Deep Space Nebula Layer (Shifted smoothly via JS on scroll) */
@@ -73,7 +101,7 @@ body {
     100% { transform: scale(1.02) translate3d(-20px, 20px, 0) rotate(-1deg); }
 }
 
-/* Cosmic Grid Overlay */
+/* Subtle Geometric Cosmic Grid */
 .cosmic-grid {
     position: fixed;
     inset: 0;
@@ -88,8 +116,29 @@ body {
 }
 
 /* ========================================================================== */
-/* 2. SIGNATURE SHOWPIECE PHOTO & LIVE MOVING AURORA WAVES                    */
+/* 2. HERO SECTION & WATERMARK TYPOGRAPHY                                     */
 /* ========================================================================== */
+.hero-bg-watermark {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: clamp(6.5rem, 16vw, 12.5rem);
+    font-weight: 900;
+    letter-spacing: -0.06em;
+    line-height: 0.9;
+    color: transparent;
+    -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.07);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.07) 0%, rgba(0, 242, 254, 0.04) 50%, rgba(107, 0, 255, 0.03) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    pointer-events: none;
+    user-select: none;
+    z-index: 0;
+    white-space: nowrap;
+}
+
+/* Photo Showpiece Wrapper */
 .photo-showpiece-wrap {
     position: relative;
     display: inline-block;
@@ -99,12 +148,12 @@ body {
 /* Smooth Slide-In from Left + Scale + Unblur Entrance */
 .reveal-photo {
     opacity: 0;
-    transform: translate3d(-100px, 0, 0) scale(0.88);
+    transform: translate3d(-80px, 0, 0) scale(0.9);
     filter: blur(14px);
     transition: 
-        opacity 1.45s cubic-bezier(0.16, 1, 0.3, 1) 0.15s,
-        transform 1.45s cubic-bezier(0.16, 1, 0.3, 1) 0.15s,
-        filter 1.45s cubic-bezier(0.16, 1, 0.3, 1) 0.15s;
+        opacity 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.15s,
+        transform 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.15s,
+        filter 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.15s;
 }
 
 .reveal-photo.active {
@@ -117,16 +166,16 @@ body {
 .aurora-trail-left {
     position: absolute;
     top: -55px;
-    left: -110px;
-    width: calc(100% + 160px);
+    left: -100px;
+    width: calc(100% + 150px);
     height: calc(100% + 110px);
     pointer-events: none;
     z-index: 0;
     mix-blend-mode: screen;
     will-change: transform, filter, opacity;
+    transition: transform 0.25s ease-out;
 }
 
-/* Aurora Wave Layers with Distinct Cosmic Gradients */
 .aurora-wave-layer {
     position: absolute;
     inset: 0;
@@ -205,44 +254,36 @@ body {
 .photo-rectangular-card {
     position: relative;
     z-index: 2;
-    width: 17rem;
-    height: 22rem;
-    border-radius: 16px;
-    padding: 1px;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.22) 0%, rgba(0, 242, 254, 0.3) 30%, rgba(107, 0, 255, 0.35) 70%, rgba(255, 255, 255, 0.08) 100%);
+    width: 16.5rem;
+    height: 22.5rem;
+    border-radius: 18px;
+    padding: 1.5px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, rgba(0, 242, 254, 0.35) 30%, rgba(107, 0, 255, 0.35) 70%, rgba(255, 255, 255, 0.1) 100%);
     box-shadow: 
         0 0 35px rgba(0, 242, 254, 0.22),
-        0 0 50px rgba(107, 0, 255, 0.18),
-        inset 0 0 18px rgba(255, 255, 255, 0.12),
-        0 25px 60px -10px rgba(0, 0, 0, 0.9);
-    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+        0 0 55px rgba(107, 0, 255, 0.18),
+        inset 0 0 18px rgba(255, 255, 255, 0.14),
+        0 25px 60px -10px rgba(0, 0, 0, 0.95);
+    transition: transform 0.25s ease-out, box-shadow 0.35s ease;
     overflow: hidden;
     will-change: transform, box-shadow;
+    transform-style: preserve-3d;
 }
 
 @media (min-width: 640px) {
     .photo-rectangular-card {
         width: 19rem;
-        height: 24rem;
+        height: 25rem;
     }
-}
-
-.photo-rectangular-card:hover {
-    transform: translateY(-6px) scale(1.015);
-    box-shadow: 
-        0 0 45px rgba(0, 242, 254, 0.35),
-        0 0 65px rgba(107, 0, 255, 0.3),
-        inset 0 0 22px rgba(255, 255, 255, 0.18),
-        0 30px 70px -10px rgba(0, 0, 0, 0.95);
 }
 
 .photo-inner-wrap {
     position: relative;
     width: 100%;
     height: 100%;
-    border-radius: 15px;
+    border-radius: 16px;
     overflow: hidden;
-    background: #08080f;
+    background: #080811;
 }
 
 .photo-img {
@@ -250,27 +291,32 @@ body {
     height: 100%;
     object-fit: cover;
     object-position: top center;
-    filter: contrast(1.06) brightness(1.02);
+    filter: contrast(1.05) brightness(1.02);
     transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .photo-rectangular-card:hover .photo-img {
-    transform: scale(1.04);
+    transform: scale(1.035);
 }
 
-/* 3D Glass Sheen Overlay on Hover */
+/* Dynamic Glass Glare following cursor */
 .photo-specular-sheen {
     position: absolute;
     inset: 0;
     pointer-events: none;
     z-index: 3;
-    background: linear-gradient(125deg, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.05) 30%, transparent 60%);
-    opacity: 0.65;
-    transition: opacity 0.4s ease;
+    background: radial-gradient(
+        350px circle at var(--mouse-x, 50%) var(--mouse-y, 30%),
+        rgba(255, 255, 255, 0.3) 0%,
+        rgba(255, 255, 255, 0.08) 35%,
+        transparent 65%
+    );
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
 }
 
 .photo-rectangular-card:hover .photo-specular-sheen {
-    opacity: 0.9;
+    opacity: 0.95;
 }
 
 .photo-bottom-fade {
@@ -278,7 +324,7 @@ body {
     bottom: 0;
     left: 0;
     right: 0;
-    height: 6.5rem;
+    height: 6rem;
     background: linear-gradient(to top, rgba(5, 5, 8, 0.95) 0%, rgba(5, 5, 8, 0.6) 50%, transparent 100%);
     z-index: 2;
     pointer-events: none;
@@ -297,16 +343,16 @@ body {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    padding: 0.35rem 0.9rem;
+    padding: 0.38rem 0.95rem;
     border-radius: 9999px;
-    background: rgba(10, 10, 18, 0.75);
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: rgba(8, 8, 16, 0.82);
+    border: 1px solid rgba(255, 255, 255, 0.16);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.75rem;
     color: #e2e8f0;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5), 0 0 12px rgba(0, 242, 254, 0.25);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6), 0 0 14px rgba(0, 242, 254, 0.25);
 }
 
 .live-dot {
@@ -320,46 +366,67 @@ body {
 
 @keyframes livePulse {
     0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.5; transform: scale(0.85); }
+    50% { opacity: 0.45; transform: scale(0.8); }
 }
 
 /* ========================================================================== */
-/* 3. HIGH-END GLOSSY GLASS EFFECT (FOR CONTENT SECTIONS, CARDS & TEXT)       */
+/* 3. HIGH-END GLOSSY GLASS EFFECT WITH DYNAMIC GLARE & 3D TILT               */
 /* ========================================================================== */
 .glossy-card {
     position: relative;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 50%, rgba(10, 10, 18, 0.5) 100%);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 50%, rgba(10, 10, 18, 0.58) 100%);
     backdrop-filter: blur(16px) saturate(180%);
     -webkit-backdrop-filter: blur(16px) saturate(180%);
-    border-top: 1px solid rgba(255, 255, 255, 0.18);
-    border-left: 1px solid rgba(255, 255, 255, 0.14);
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    border-left: 1px solid rgba(255, 255, 255, 0.15);
     border-right: 1px solid rgba(255, 255, 255, 0.06);
     border-bottom: 1px solid rgba(255, 255, 255, 0.04);
     box-shadow: 
         inset 0 1px 1px rgba(255, 255, 255, 0.22),
-        0 20px 40px rgba(0, 0, 0, 0.6);
+        0 20px 40px rgba(0, 0, 0, 0.65);
     border-radius: 20px;
     overflow: hidden;
     transition: 
-        transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.25s ease-out,
         border-color 0.35s ease,
         box-shadow 0.35s ease,
         background 0.35s ease;
     will-change: transform, box-shadow;
+    transform-style: preserve-3d;
+}
+
+/* Dynamic Cursor-Tracking Glare Highlight */
+.glossy-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(
+        420px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+        rgba(255, 255, 255, 0.12) 0%,
+        rgba(0, 242, 254, 0.06) 30%,
+        transparent 65%
+    );
+    opacity: 0;
+    transition: opacity 0.35s ease;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.glossy-card:hover::before {
+    opacity: 1;
 }
 
 .glossy-card:hover {
-    transform: translateY(-5px);
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.035) 50%, rgba(12, 12, 22, 0.6) 100%);
-    border-top-color: rgba(0, 242, 254, 0.4);
-    border-left-color: rgba(107, 0, 255, 0.4);
     box-shadow: 
         inset 0 1px 1px rgba(255, 255, 255, 0.35),
-        0 25px 50px -10px rgba(0, 0, 0, 0.8),
-        0 0 30px rgba(107, 0, 255, 0.15);
+        0 25px 50px -10px rgba(0, 0, 0, 0.85),
+        0 0 30px rgba(0, 242, 254, 0.16);
+    border-top-color: rgba(0, 242, 254, 0.45);
+    border-left-color: rgba(107, 0, 255, 0.45);
 }
 
-/* Interactive Gloss Sweep Effect on Hover */
+/* Interactive Gloss Sweep on Hover */
 .glossy-card::after {
     content: '';
     position: absolute;
@@ -371,7 +438,7 @@ body {
         90deg,
         transparent 0%,
         rgba(255, 255, 255, 0.03) 30%,
-        rgba(255, 255, 255, 0.16) 50%,
+        rgba(255, 255, 255, 0.18) 50%,
         rgba(255, 255, 255, 0.03) 70%,
         transparent 100%
     );
@@ -379,6 +446,7 @@ body {
     transition: left 0.9s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease;
     pointer-events: none;
     opacity: 0;
+    z-index: 2;
 }
 
 .glossy-card:hover::after {
@@ -388,21 +456,21 @@ body {
 
 /* Hero Frosted Glass Container behind text */
 .hero-glass-box {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.09) 0%, rgba(255, 255, 255, 0.02) 50%, rgba(8, 8, 15, 0.55) 100%);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.09) 0%, rgba(255, 255, 255, 0.02) 50%, rgba(8, 8, 16, 0.6) 100%);
     backdrop-filter: blur(20px) saturate(180%);
     -webkit-backdrop-filter: blur(20px) saturate(180%);
-    border-top: 1px solid rgba(255, 255, 255, 0.2);
-    border-left: 1px solid rgba(255, 255, 255, 0.14);
-    border-right: 1px solid rgba(255, 255, 255, 0.06);
+    border-top: 1px solid rgba(255, 255, 255, 0.22);
+    border-left: 1px solid rgba(255, 255, 255, 0.16);
+    border-right: 1px solid rgba(255, 255, 255, 0.07);
     border-bottom: 1px solid rgba(255, 255, 255, 0.04);
     box-shadow: 
-        inset 0 1px 2px rgba(255, 255, 255, 0.25),
-        0 25px 60px -15px rgba(0, 0, 0, 0.85),
-        0 0 35px rgba(107, 0, 255, 0.1);
+        inset 0 1px 2px rgba(255, 255, 255, 0.28),
+        0 25px 60px -15px rgba(0, 0, 0, 0.9),
+        0 0 35px rgba(107, 0, 255, 0.12);
     border-radius: 28px;
 }
 
-/* Glass Pills (Buttons, Micro Badges) */
+/* Glass Pills (Social Buttons & Micro Badges) */
 .glass-pill {
     background: rgba(255, 255, 255, 0.04);
     backdrop-filter: blur(12px);
@@ -410,11 +478,12 @@ body {
     border: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15);
     transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    color: #cbd5e1;
 }
 
 .glass-pill:hover {
-    background: rgba(107, 0, 255, 0.18);
-    border-color: rgba(0, 242, 254, 0.4);
+    background: rgba(107, 0, 255, 0.2);
+    border-color: rgba(0, 242, 254, 0.45);
     box-shadow: 
         inset 0 1px 0 rgba(255, 255, 255, 0.25),
         0 0 18px rgba(0, 242, 254, 0.25);
@@ -423,8 +492,28 @@ body {
 }
 
 /* ========================================================================== */
-/* 4. SCROLL-TRIGGERED TEXT & SECTION REVEAL ANIMATIONS                        */
+/* 4. SCROLL-FILL SECTION TYPOGRAPHY & REVEALS                                */
 /* ========================================================================== */
+/* Section Headers start as hollow outlined text and fill smoothly on scroll */
+.scroll-fill-title {
+    color: transparent;
+    -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.4);
+    background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 60%, #00F2FE 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    transition: 
+        color 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+        -webkit-text-stroke 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+        text-shadow 0.85s ease;
+}
+
+.scroll-fill-title.scroll-fill-active {
+    color: #ffffff;
+    -webkit-text-stroke: 0px transparent;
+    text-shadow: 0 0 35px rgba(0, 242, 254, 0.38);
+}
+
+/* Scroll Reveal Classes */
 .reveal {
     opacity: 0;
     transform: translateY(35px);
@@ -442,7 +531,7 @@ body {
     filter: blur(0px);
 }
 
-/* Stagger Delays for Sequential Fluid Reveals */
+/* Stagger Delays */
 .delay-1 { transition-delay: 0.09s; }
 .delay-2 { transition-delay: 0.18s; }
 .delay-3 { transition-delay: 0.27s; }
@@ -453,17 +542,17 @@ body {
 /* Text reveal in Hero on Page Load */
 .text-reveal {
     opacity: 0;
-    transform: translateY(32px);
+    transform: translateY(30px);
     filter: blur(8px);
     animation: textSlideUp 0.85s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-    animation-delay: calc(0.35s + var(--delay, 0) * 0.12s);
+    animation-delay: calc(0.3s + var(--delay, 0) * 0.12s);
     will-change: transform, opacity, filter;
 }
 
 @keyframes textSlideUp {
     0% {
         opacity: 0;
-        transform: translateY(32px);
+        transform: translateY(30px);
         filter: blur(8px);
     }
     100% {
@@ -474,8 +563,32 @@ body {
 }
 
 /* ========================================================================== */
-/* 5. TYPOGRAPHY & COSMIC GRADIENTS                                           */
+/* 5. HIGH-CONTRAST BUTTONS & MAGNETIC CTA                                   */
 /* ========================================================================== */
+/* High contrast navy text on radiant cyan/violet gradient: zero washed-out white text! */
+.cosmic-btn-primary {
+    background: linear-gradient(135deg, #00F2FE 0%, #38bdf8 45%, #a855f7 100%);
+    box-shadow: 0 0 25px rgba(0, 242, 254, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.6);
+    color: #060b19 !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.01em;
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease, filter 0.25s ease;
+    will-change: transform;
+}
+
+.cosmic-btn-primary:hover {
+    box-shadow: 0 0 38px rgba(0, 242, 254, 0.65), inset 0 1px 1px rgba(255, 255, 255, 0.8);
+    filter: brightness(1.05);
+}
+
+/* Magnetic CTA Pill Button */
+.magnetic-btn {
+    display: inline-flex;
+    align-items: center;
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform;
+}
+
 .text-cosmic-glow {
     background: linear-gradient(135deg, #ffffff 30%, #cbd5e1 70%, #00F2FE 100%);
     -webkit-background-clip: text;
@@ -490,16 +603,96 @@ body {
     color: transparent;
 }
 
-.cosmic-btn-primary {
-    background: linear-gradient(135deg, #00F2FE 0%, #6B00FF 60%, #a855f7 100%);
-    box-shadow: 0 0 25px rgba(0, 242, 254, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.3);
-    color: #ffffff;
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+/* ========================================================================== */
+/* 6. STICKY STACKING PROJECT CARDS & VISUAL PREVIEWS                         */
+/* ========================================================================== */
+.sticky-project-card {
+    position: sticky;
+    z-index: 10;
+    margin-bottom: 2.25rem;
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
 }
 
-.cosmic-btn-primary:hover {
-    box-shadow: 0 0 35px rgba(0, 242, 254, 0.55), inset 0 1px 1px rgba(255, 255, 255, 0.5);
-    transform: translateY(-2px) scale(1.02);
+.sticky-card-1 { top: 5.5rem; }
+.sticky-card-2 { top: 7.25rem; }
+.sticky-card-3 { top: 9rem; }
+
+/* Visual Previews in Projects */
+.project-preview-box {
+    border-radius: 14px;
+    background: #040409;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    overflow: hidden;
+    position: relative;
+}
+
+/* Terminal Simulation Header */
+.terminal-bar {
+    background: rgba(255, 255, 255, 0.04);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    padding: 0.5rem 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.terminal-dot {
+    width: 0.65rem;
+    height: 0.65rem;
+    border-radius: 9999px;
+}
+
+/* ========================================================================== */
+/* 7. INFINITE HORIZONTAL MARQUEE (SKILLS & TOOLS)                            */
+/* ========================================================================== */
+.marquee-container {
+    overflow: hidden;
+    white-space: nowrap;
+    position: relative;
+    mask-image: linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%);
+    padding: 0.75rem 0;
+}
+
+.marquee-track {
+    display: inline-flex;
+    gap: 1rem;
+    animation: marqueeScroll 28s linear infinite;
+    will-change: transform;
+}
+
+.marquee-container:hover .marquee-track {
+    animation-play-state: paused;
+}
+
+@keyframes marqueeScroll {
+    0% { transform: translate3d(0, 0, 0); }
+    100% { transform: translate3d(-50%, 0, 0); }
+}
+
+.marquee-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.55rem 1.15rem;
+    border-radius: 9999px;
+    background: rgba(255, 255, 255, 0.035);
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: #e2e8f0;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    transition: all 0.25s ease;
+}
+
+.marquee-pill:hover {
+    background: rgba(107, 0, 255, 0.22);
+    border-color: rgba(0, 242, 254, 0.45);
+    box-shadow: 0 0 16px rgba(0, 242, 254, 0.3);
+    color: #ffffff;
+    transform: translateY(-2px);
 }
 
 /* Tool & Tech Badges */
@@ -530,7 +723,7 @@ body {
 
 .tag {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
+    font-size: 11px;
     padding: 4px 10px;
     border-radius: 7px;
     background: rgba(255, 255, 255, 0.035);
@@ -552,7 +745,7 @@ body {
 .filter-btn {
     font-family: 'JetBrains Mono', monospace;
     font-size: 11px;
-    padding: 6px 15px;
+    padding: 6px 16px;
     border-radius: 9999px;
     background: rgba(255, 255, 255, 0.035);
     border: 1px solid rgba(255, 255, 255, 0.1);

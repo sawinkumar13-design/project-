@@ -1,19 +1,51 @@
 /**
- * Sawin Kumar Portfolio — Interactive Luxury Galaxy & Cosmic Aurora Engine
- * - Dynamic Starfield with Multi-Layer Parallax & Warp Physics
+ * Sawin Kumar Portfolio — Interactive Luxury Galaxy, Cosmic Aurora & Pointer Engine
+ * - Dynamic Starfield with Multi-Layer Parallax, Warp Physics & Pointer Interaction
+ * - Ambient Trailing Cursor Spotlight & 3D Interactive Card Tilt
  * - Scroll-Reactive Speed & Shifting Cosmic Nebula Colors
  * - Constellation Clustering at Footer
- * - Silk Scroll Reveals & Showpiece Photo Entrance
- * - Project Filter, Clipboard, and Contact System
+ * - Scroll-Fill Hollow-to-Solid Section Typography
+ * - Magnetic Primary CTA Button
+ * - Sticky Stacking Project Filter & Contact System
  */
 
 document.addEventListener('DOMContentLoaded', () => {
 
+    const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
+
     // =========================================================================
-    // 1. INTERACTIVE GALAXY & SCROLL-REACTIVE STARFIELD
+    // 1. POINTER POSITION STATE & SMOOTH LERP
+    // =========================================================================
+    let targetMouseX = window.innerWidth / 2;
+    let targetMouseY = window.innerHeight / 2;
+    let mouseX = window.innerWidth / 2;
+    let mouseY = window.innerHeight / 2;
+    let isMouseOnScreen = false;
+
+    window.addEventListener('mousemove', (e) => {
+        targetMouseX = e.clientX;
+        targetMouseY = e.clientY;
+        if (!isMouseOnScreen) {
+            isMouseOnScreen = true;
+            const glow = document.getElementById('cursorGlow');
+            if (glow) glow.style.opacity = '1';
+        }
+    }, { passive: true });
+
+    document.addEventListener('mouseleave', () => {
+        isMouseOnScreen = false;
+        const glow = document.getElementById('cursorGlow');
+        if (glow) glow.style.opacity = '0';
+    });
+
+
+    // =========================================================================
+    // 2. INTERACTIVE GALAXY & SCROLL-REACTIVE STARFIELD
     // =========================================================================
     const canvas = document.getElementById('galaxyCanvas');
     const nebulaBackdrop = document.querySelector('.nebula-layer');
+    const auroraTrail = document.querySelector('.aurora-trail-left');
+    const cursorGlow = document.getElementById('cursorGlow');
 
     if (canvas) {
         const ctx = canvas.getContext('2d');
@@ -22,7 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let dpr = 1;
 
         // Starfield Configuration
-        const STAR_COUNT = 220;
+        const STAR_COUNT = 230;
         let stars = [];
         
         // Physics & Scroll Reactivity State
@@ -35,9 +67,6 @@ document.addEventListener('DOMContentLoaded', () => {
         let scrollProgress = 0;
 
         // Nebula Color Stops across the journey
-        // Top: Electric Cyan & Deep Violet
-        // Middle: Cosmic Purple & Amethyst
-        // Bottom: Bioluminescent Emerald & Cosmic Indigo
         const nebulaPalettes = [
             { c1: 'rgba(0, 242, 254, 0.22)', c2: 'rgba(107, 0, 255, 0.25)', c3: 'rgba(42, 245, 152, 0.12)', c4: 'rgba(107, 0, 255, 0.18)' }, // Hero
             { c1: 'rgba(107, 0, 255, 0.25)', c2: 'rgba(168, 85, 247, 0.24)', c3: 'rgba(0, 242, 254, 0.15)', c4: 'rgba(236, 72, 153, 0.15)' }, // Middle
@@ -63,11 +92,9 @@ document.addEventListener('DOMContentLoaded', () => {
             reset(initial = false) {
                 this.x = Math.random() * width;
                 this.y = initial ? Math.random() * height : -10;
+                this.originX = this.x;
                 
                 // 3 Depth Layers
-                // Layer 1: distant tiny star (slow, faint)
-                // Layer 2: mid-range twinkle star
-                // Layer 3: bright foreground cosmic star
                 const depthRand = Math.random();
                 if (depthRand < 0.60) {
                     this.layer = 1;
@@ -95,13 +122,32 @@ document.addEventListener('DOMContentLoaded', () => {
                 this.twinkleSpeed = Math.random() * 0.03 + 0.015;
             }
 
-            update(globalSpeed, isWarping, isClustering) {
+            update(globalSpeed, isWarping, isClustering, pointerX, pointerY) {
                 // Move vertically with parallax speed multiplier
                 const effectiveSpeed = globalSpeed * this.speedMult;
                 this.y += effectiveSpeed;
 
                 // Subtle lateral drift
                 this.x += (Math.sin(this.twinklePhase) * 0.15) * this.speedMult;
+
+                // Pointer Parallax Offset (3D Shift)
+                if (!isTouchDevice) {
+                    const centerOffsetX = (pointerX - width / 2) / (width / 2);
+                    const centerOffsetY = (pointerY - height / 2) / (height / 2);
+                    this.x += centerOffsetX * (this.layer * 0.35);
+                    this.y += centerOffsetY * (this.layer * 0.2);
+
+                    // Gentle pointer repel within radius
+                    const dx = this.x - pointerX;
+                    const dy = this.y - pointerY;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    const repelRadius = 120;
+                    if (dist < repelRadius && dist > 1) {
+                        const force = (1 - dist / repelRadius) * 1.8 * (this.layer * 0.6);
+                        this.x += (dx / dist) * force;
+                        this.y += (dy / dist) * force;
+                    }
+                }
 
                 // Twinkle cycle
                 this.twinklePhase += this.twinkleSpeed;
@@ -214,61 +260,64 @@ document.addEventListener('DOMContentLoaded', () => {
             const pA = nebulaPalettes[pIndex];
             const pB = nebulaPalettes[pIndex + 1] || nebulaPalettes[pIndex];
 
-            // Set CSS variables for smooth background transition
             nebulaBackdrop.style.setProperty('--nebula-color-1', t < 0.5 ? pA.c1 : pB.c1);
             nebulaBackdrop.style.setProperty('--nebula-color-2', t < 0.5 ? pA.c2 : pB.c2);
             nebulaBackdrop.style.setProperty('--nebula-color-3', t < 0.5 ? pA.c3 : pB.c3);
             nebulaBackdrop.style.setProperty('--nebula-color-4', t < 0.5 ? pA.c4 : pB.c4);
         }
 
-        // Animation Loop (60 FPS with lerped physics)
+        // Animation Loop (60 FPS with lerped physics & mouse parallax)
         function animate() {
             ctx.clearRect(0, 0, width, height);
 
-            // Determine scroll region states:
-            // 1. Top (progress < 0.15): Calm slow stars
-            // 2. Middle (0.15 <= progress < 0.85): Parallax warp streak
-            // 3. Bottom (progress >= 0.85): Constellation cluster
+            // Lerp mouse coordinates
+            mouseX += (targetMouseX - mouseX) * 0.08;
+            mouseY += (targetMouseY - mouseY) * 0.08;
+
+            // Update Trailing Ambient Cursor Spotlight
+            if (cursorGlow && !isTouchDevice) {
+                cursorGlow.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0) translate3d(-50%, -50%, 0)`;
+            }
+
+            // Sway Aurora Trail behind Photo slightly with mouse movement
+            if (auroraTrail && !isTouchDevice) {
+                const swayX = ((mouseX - width / 2) / width) * 20;
+                const swayY = ((mouseY - height / 2) / height) * 15;
+                auroraTrail.style.transform = `translate3d(${swayX}px, ${swayY}px, 0) scale(${1 + Math.abs(swayX) * 0.003})`;
+            }
+
+            // Determine scroll region states
             let baseSpeed = 0.4;
             let streakLength = 0;
             let clusterStrength = 0;
 
             if (scrollProgress < 0.15) {
-                // Top: Calm drifting
                 baseSpeed = 0.45;
                 streakLength = scrollVelocity * 1.5;
             } else if (scrollProgress >= 0.15 && scrollProgress < 0.85) {
-                // Middle: Faster warp speed & star streaks
                 baseSpeed = 1.35 + scrollVelocity * 1.2;
                 streakLength = Math.max(baseSpeed * 4.5, scrollVelocity * 3.5);
             } else {
-                // Bottom: Slows down into constellation cluster
                 const footerFactor = (scrollProgress - 0.85) / 0.15;
                 baseSpeed = 0.35 * (1 - footerFactor * 0.5);
                 clusterStrength = footerFactor;
             }
 
-            // Smooth interpolation (lerp) of speed
             targetSpeed = baseSpeed + scrollVelocity * 0.6;
             currentSpeed += (targetSpeed - currentSpeed) * 0.08;
 
-            // Decay scroll velocity smoothly
             scrollVelocity *= 0.92;
             if (scrollVelocity < 0.01) scrollVelocity = 0;
 
-            // Render Stars
             const isWarping = streakLength > 2.0;
             const isClustering = clusterStrength > 0.1;
 
             for (let i = 0; i < stars.length; i++) {
-                stars[i].update(currentSpeed, isWarping, isClustering);
+                stars[i].update(currentSpeed, isWarping, isClustering, mouseX, mouseY);
                 stars[i].draw(streakLength, isClustering);
             }
 
-            // Draw Constellations at bottom
             drawConstellations(clusterStrength);
-
-            // Update nebula colors
             updateNebulaColors(scrollProgress);
 
             requestAnimationFrame(animate);
@@ -281,11 +330,68 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // =========================================================================
-    // 2. SIGNATURE PHOTO ENTRANCE (SLIDE IN + SCALE + GLOW TRIGGER)
+    // 3. DYNAMIC GLASS BORDER GLARE & 3D PERSPECTIVE TILT
+    // =========================================================================
+    if (!isTouchDevice) {
+        const tiltCards = document.querySelectorAll('.glossy-card, .photo-rectangular-card');
+
+        tiltCards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+
+                const percentX = Math.round((x / rect.width) * 100);
+                const percentY = Math.round((y / rect.height) * 100);
+
+                // Set CSS variables for cursor tracking glare
+                card.style.setProperty('--mouse-x', `${percentX}%`);
+                card.style.setProperty('--mouse-y', `${percentY}%`);
+
+                // Compute subtle 3D tilt angles
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                const tiltX = ((y - centerY) / centerY) * -5.5;
+                const tiltY = ((x - centerX) / centerX) * 5.5;
+
+                card.style.transform = `perspective(1000px) rotateX(${tiltX.toFixed(2)}deg) rotateY(${tiltY.toFixed(2)}deg) scale3d(1.012, 1.012, 1.012)`;
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+                card.style.setProperty('--mouse-x', `50%`);
+                card.style.setProperty('--mouse-y', `50%`);
+            });
+        });
+    }
+
+
+    // =========================================================================
+    // 4. MAGNETIC PRIMARY CTA BUTTON
+    // =========================================================================
+    if (!isTouchDevice) {
+        const magneticBtns = document.querySelectorAll('.magnetic-btn');
+
+        magneticBtns.forEach(btn => {
+            btn.addEventListener('mousemove', (e) => {
+                const rect = btn.getBoundingClientRect();
+                const x = e.clientX - (rect.left + rect.width / 2);
+                const y = e.clientY - (rect.top + rect.height / 2);
+                btn.style.transform = `translate3d(${x * 0.28}px, ${y * 0.28}px, 0) scale(1.03)`;
+            });
+
+            btn.addEventListener('mouseleave', () => {
+                btn.style.transform = 'translate3d(0, 0, 0) scale(1)';
+            });
+        });
+    }
+
+
+    // =========================================================================
+    // 5. SIGNATURE PHOTO ENTRANCE (SLIDE IN + SCALE + GLOW TRIGGER)
     // =========================================================================
     const photoShowpiece = document.querySelector('.reveal-photo');
     if (photoShowpiece) {
-        // Trigger photo reveal with cinematic delay after page load
         setTimeout(() => {
             photoShowpiece.classList.add('active');
         }, 300);
@@ -293,11 +399,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // =========================================================================
-    // 3. SCROLL-TRIGGERED SECTION & TEXT REVEALS (IntersectionObserver)
+    // 6. SCROLL-FILL HOLLOW-TO-SOLID SECTION TYPOGRAPHY & REVEALS
     // =========================================================================
+    const scrollFillTitles = document.querySelectorAll('.scroll-fill-title');
     const revealElements = document.querySelectorAll('.reveal');
 
     if ('IntersectionObserver' in window) {
+        // Section Header Scroll-Fill Observer
+        const titleObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('scroll-fill-active');
+                } else {
+                    // Optional: remove if you want re-hollow on scroll up
+                    // entry.target.classList.remove('scroll-fill-active');
+                }
+            });
+        }, { threshold: 0.2, rootMargin: '0px 0px -50px 0px' });
+
+        scrollFillTitles.forEach(title => titleObserver.observe(title));
+
+        // General Card & Text Reveal Observer
         const revealObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -305,16 +427,17 @@ document.addEventListener('DOMContentLoaded', () => {
                     revealObserver.unobserve(entry.target);
                 }
             });
-        }, { threshold: 0.10, rootMargin: '0px 0px -40px 0px' });
+        }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
 
         revealElements.forEach(el => revealObserver.observe(el));
     } else {
+        scrollFillTitles.forEach(title => title.classList.add('scroll-fill-active'));
         revealElements.forEach(el => el.classList.add('active'));
     }
 
 
     // =========================================================================
-    // 4. PROJECT CATEGORY FILTERING
+    // 7. PROJECT CATEGORY FILTERING (STICKY CARDS COMPATIBLE)
     // =========================================================================
     const filterButtons = document.querySelectorAll('.filter-btn');
     const projectCards = document.querySelectorAll('.project-card');
@@ -328,7 +451,7 @@ document.addEventListener('DOMContentLoaded', () => {
             projectCards.forEach(card => {
                 const category = card.getAttribute('data-category');
                 if (filterValue === 'all' || category === filterValue) {
-                    card.style.display = 'flex';
+                    card.style.display = 'block';
                     setTimeout(() => {
                         card.style.opacity = '1';
                         card.style.transform = 'translateY(0)';
@@ -336,7 +459,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 } else {
                     card.style.opacity = '0';
                     card.style.transform = 'translateY(12px)';
-                    setTimeout(() => { card.style.display = 'none'; }, 250);
+                    setTimeout(() => { card.style.display = 'none'; }, 220);
                 }
             });
         });
@@ -344,7 +467,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // =========================================================================
-    // 5. TOAST NOTIFICATION & CLIPBOARD
+    // 8. TOAST NOTIFICATION & CLIPBOARD
     // =========================================================================
     const toast = document.getElementById('toast');
     const toastMessage = document.getElementById('toastMessage');
@@ -375,7 +498,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // =========================================================================
-    // 6. CONTACT FORM DISPATCH
+    // 9. CONTACT FORM DISPATCH
     // =========================================================================
     const contactForm = document.getElementById('contactForm');
     if (contactForm) {
@@ -394,7 +517,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // =========================================================================
-    // 7. MOBILE MENU TOGGLE
+    // 10. MOBILE MENU TOGGLE
     // =========================================================================
     const mobileMenuBtn = document.getElementById('mobileMenuBtn');
     const mobileMenu = document.getElementById('mobileMenu');
@@ -409,7 +532,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // =========================================================================
-    // 8. NAVBAR SCROLL SPY & FROSTED BLUR ENHANCEMENT
+    // 11. NAVBAR SCROLL SPY & BLUR ENHANCEMENT
     // =========================================================================
     const navbar = document.getElementById('navbar');
     const sections = document.querySelectorAll('section[id]');
@@ -429,7 +552,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let currentId = '';
         sections.forEach(sec => {
-            const top = sec.offsetTop - 120;
+            const top = sec.offsetTop - 140;
             if (window.scrollY >= top && window.scrollY < top + sec.offsetHeight) {
                 currentId = sec.getAttribute('id');
             }
