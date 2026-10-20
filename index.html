@@ -30,32 +30,29 @@
         }
     </script>
     <script src="https://unpkg.com/lucide@latest"></script>
-    <link rel="stylesheet" href="styles.css?v=8">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <link rel="stylesheet" href="styles.css?v=9">
 </head>
 
-<body class="selection:bg-cyan-500/30 selection:text-cyan-200 overflow-x-hidden font-sans bg-[#050508]">
+<body class="selection:bg-cyan-500/30 selection:text-cyan-200 overflow-x-hidden font-sans bg-[#050609]">
 
     <!-- ======================================================== -->
-    <!-- INTERACTIVE STARFIELD & CURSOR SPOTLIGHT                 -->
+    <!-- AESTHETIC INTERACTIVE SINGULARITY & CUSTOM CURSOR        -->
     <!-- ======================================================== -->
-    <!-- Starfield Canvas (Reacts to scroll speed, depth, and mouse coordinates) -->
-    <canvas id="galaxyCanvas"></canvas>
+    <!-- Three.js Singularity & Ethereal Nebula WebGL Canvas -->
+    <canvas id="singularityCanvas"></canvas>
 
-    <!-- Trailing Cosmic Aurora Cursor Spotlight (Follows mouse with smooth lerp) -->
-    <div id="cursorGlow" aria-hidden="true"></div>
-
-    <!-- Ambient Cosmic Nebula Glow Backdrop (Shifts color smoothly on scroll) -->
-    <div class="nebula-backdrop">
-        <div class="nebula-layer"></div>
+    <!-- Minimal Premium Custom Animated Cursor (Desktop) -->
+    <div id="singularityCursor" class="custom-cursor" aria-hidden="true">
+        <div class="cursor-aura"></div>
+        <div class="cursor-ring"></div>
+        <div class="cursor-dot"></div>
     </div>
-
-    <!-- Fine Geometric Cosmic Grid -->
-    <div class="cosmic-grid"></div>
 
     <!-- ======================================================== -->
     <!-- NAVIGATION BAR (GLOSSY GLASS WITH ACCURATE SOCIAL LINKS) -->
     <!-- ======================================================== -->
-    <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-500 backdrop-blur-2xl bg-[#050508]/80 border-b border-white/[0.08]" id="navbar">
+    <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-500 backdrop-blur-2xl bg-[#050609]/80 border-b border-white/[0.08]" id="navbar">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
             
             <!-- Brand / Logo -->
@@ -126,7 +123,7 @@
         </div>
 
         <!-- Mobile Drawer -->
-        <div id="mobileMenu" class="hidden md:hidden bg-[#050508]/95 border-b border-white/10 px-6 py-5 space-y-3 backdrop-blur-2xl">
+        <div id="mobileMenu" class="hidden md:hidden bg-[#050609]/95 border-b border-white/10 px-6 py-5 space-y-3 backdrop-blur-2xl">
             <a href="#about" class="block text-slate-300 hover:text-cyan-300 text-sm py-1.5">About</a>
             <a href="#education" class="block text-slate-300 hover:text-cyan-300 text-sm py-1.5">Education</a>
             <a href="#skills" class="block text-slate-300 hover:text-cyan-300 text-sm py-1.5">Skills</a>
@@ -299,7 +296,7 @@
         <!-- ======================================================== -->
         <!-- INFINITE HORIZONTAL MARQUEE (SKILLS & CORE TOOLS)        -->
         <!-- ======================================================== -->
-        <section class="py-6 border-y border-white/[0.06] bg-[#050508]/60 relative z-10 overflow-hidden">
+        <section class="py-6 border-y border-white/[0.06] bg-[#050609]/60 relative z-10 overflow-hidden">
             <div class="marquee-container">
                 <div class="marquee-track">
                     <!-- Set 1 -->
@@ -1944,7 +1941,7 @@
     <!-- ======================================================== -->
     <!-- FOOTER                                                   -->
     <!-- ======================================================== -->
-    <footer class="py-10 border-t border-white/[0.06] bg-[#050508]/90 relative z-10">
+    <footer class="py-10 border-t border-white/[0.06] bg-[#050609]/90 relative z-10">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
             <span class="text-xs text-slate-400 font-mono">
                 &copy; 2026 Sawin Kumar &middot; GLA University (B.Tech CSE)
@@ -1959,13 +1956,13 @@
     </footer>
 
     <!-- Toast Notification -->
-    <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 px-4 py-3 rounded-xl bg-[#050508] border border-cyan-500/40 text-white text-xs font-mono flex items-center gap-2 shadow-2xl pointer-events-none">
+    <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 px-4 py-3 rounded-xl bg-[#050609] border border-cyan-500/40 text-white text-xs font-mono flex items-center gap-2 shadow-2xl pointer-events-none">
         <i data-lucide="check" class="w-4 h-4 text-cyan-400"></i>
         <span id="toastMessage">Done</span>
     </div>
 
     <!-- Scripts with Cache-Buster v=8 -->
-    <script src="main.js?v=8"></script>
+    <script src="main.js?v=9"></script>
     <script>lucide.createIcons();</script>
 </body>
 </html>
