@@ -38,41 +38,50 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Ephemeral Stardust Particles following cursor
     const cursorParticles = [];
-    const MAX_CURSOR_PARTICLES = 25;
+    const MAX_CURSOR_PARTICLES = 45;
+    let lastMoteTime = 0;
+    let prevMouseX = window.innerWidth / 2;
+    let prevMouseY = window.innerHeight / 2;
 
-    function spawnCursorMote(px, py) {
+    function spawnCursorMote(px, py, vx, vy) {
         if (cursorParticles.length > MAX_CURSOR_PARTICLES) {
             const old = cursorParticles.shift();
             if (old.el && old.el.parentNode) old.el.parentNode.removeChild(old.el);
         }
         const mote = document.createElement('div');
         mote.className = 'cursor-mote';
-        mote.style.position = 'fixed';
-        mote.style.left = `${px + (Math.random() - 0.5) * 8}px`;
-        mote.style.top = `${py + (Math.random() - 0.5) * 8}px`;
-        mote.style.width = `${Math.random() * 2.5 + 1.2}px`;
-        mote.style.height = mote.style.width;
-        mote.style.borderRadius = '50%';
-        mote.style.pointerEvents = 'none';
-        mote.style.zIndex = '9998';
-        mote.style.backgroundColor = Math.random() > 0.5 ? '#63788A' : '#30203F';
-        mote.style.boxShadow = '0 0 5px rgba(99, 120, 138, 0.6)';
-        mote.style.opacity = '0.85';
-        mote.style.transition = 'opacity 0.75s ease-out, transform 0.75s ease-out';
+        
+        const size = Math.random() * 3.5 + 2.5; // 2.5px to 6px
+        const colors = [
+            { bg: '#00F2FE', glow: 'rgba(0, 242, 254, 0.85)' },
+            { bg: '#38BDF8', glow: 'rgba(56, 189, 248, 0.8)' },
+            { bg: '#A78BFA', glow: 'rgba(167, 139, 250, 0.85)' },
+            { bg: '#C084FC', glow: 'rgba(192, 132, 252, 0.8)' },
+            { bg: '#00FF87', glow: 'rgba(0, 255, 135, 0.8)' },
+            { bg: '#FFFFFF', glow: 'rgba(255, 255, 255, 0.9)' }
+        ];
+        const picked = colors[Math.floor(Math.random() * colors.length)];
+
+        mote.style.left = `${px}px`;
+        mote.style.top = `${py}px`;
+        mote.style.width = `${size}px`;
+        mote.style.height = `${size}px`;
+        mote.style.backgroundColor = picked.bg;
+        mote.style.boxShadow = `0 0 ${size * 2}px ${picked.glow}, 0 0 ${size * 4}px ${picked.glow}`;
+        mote.style.opacity = '0.95';
+        mote.style.transition = 'opacity 0.75s ease-out, transform 0.75s cubic-bezier(0.12, 0.8, 0.35, 1)';
         mote.style.transform = 'translate3d(-50%, -50%, 0) scale(1)';
         document.body.appendChild(mote);
 
-        const particleObj = {
-            el: mote,
-            createdAt: performance.now(),
-            vx: (Math.random() - 0.5) * 0.6,
-            vy: (Math.random() - 0.5) * 0.6 - 0.25
-        };
+        const driftX = (Math.random() - 0.5) * 14 - (vx || 0) * 0.14;
+        const driftY = (Math.random() - 0.5) * 14 - (vy || 0) * 0.14;
+
+        const particleObj = { el: mote };
         cursorParticles.push(particleObj);
 
         requestAnimationFrame(() => {
             mote.style.opacity = '0';
-            mote.style.transform = `translate3d(-50%, -50%, 0) scale(0.2) translate3d(${particleObj.vx * 24}px, ${particleObj.vy * 24}px, 0)`;
+            mote.style.transform = `translate3d(calc(-50% + ${driftX}px), calc(-50% + ${driftY}px), 0) scale(0.15)`;
         });
 
         setTimeout(() => {
@@ -84,6 +93,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (!isTouchDevice && cursorContainer) {
         window.addEventListener('mousemove', (e) => {
+            const vx = e.clientX - targetMouseX;
+            const vy = e.clientY - targetMouseY;
+            const moveDist = Math.hypot(vx, vy);
+
             targetMouseX = e.clientX;
             targetMouseY = e.clientY;
             normMouseX = (e.clientX / window.innerWidth) * 2 - 1;
@@ -99,10 +112,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 cursorDot.style.transform = `translate3d(${targetMouseX}px, ${targetMouseY}px, 0) translate3d(-50%, -50%, 0)`;
             }
 
-            // Spawn subtle stardust motes on movement
-            if (Math.random() > 0.55) {
-                spawnCursorMote(targetMouseX, targetMouseY);
+            // Spawn animated trailing stardust motes on movement
+            const now = performance.now();
+            if (moveDist > 2 && (now - lastMoteTime > 16)) {
+                lastMoteTime = now;
+                spawnCursorMote(targetMouseX, targetMouseY, vx, vy);
+                if (moveDist > 18) {
+                    spawnCursorMote((targetMouseX + prevMouseX) * 0.5, (targetMouseY + prevMouseY) * 0.5, vx, vy);
+                }
             }
+            prevMouseX = targetMouseX;
+            prevMouseY = targetMouseY;
         }, { passive: true });
 
         document.addEventListener('mouseleave', () => {
@@ -245,7 +265,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     vec3 nebulaColor2 = mix(cDeepViolet, cDesatTeal, cycle);
                     vec3 finalNebula = mix(nebulaColor1, nebulaColor2, nebulaVal * 0.65);
 
-                    vec3 finalColor = mix(cMidnight, finalNebula, nebulaVal * 0.52);
+                    vec3 finalColor = mix(cMidnight, finalNebula, nebulaVal * 0.38);
 
                     float distFromCenter = length(centeredUv);
                     float vignette = smoothstep(1.35, 0.35, distFromCenter);
@@ -437,11 +457,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const pColors = new Float32Array(PARTICLE_COUNT * 3);
 
         const paletteColors = [
-            new THREE.Color(0x63788A), // Silver-blue
-            new THREE.Color(0x123438), // Desaturated teal
-            new THREE.Color(0x30203F), // Deep violet
-            new THREE.Color(0x19152E), // Muted indigo
-            new THREE.Color(0x0A1020)  // Dark navy
+            new THREE.Color(0xe0f2fe), // Luminous ice-white stardust
+            new THREE.Color(0x38bdf8), // Vibrant cyan stardust
+            new THREE.Color(0xa78bfa), // Cosmic violet
+            new THREE.Color(0x2dd4bf), // Aurora teal
+            new THREE.Color(0x94a3b8), // Crisp silver-blue
+            new THREE.Color(0xc084fc)  // Radiant purple
         ];
 
         for (let i = 0; i < PARTICLE_COUNT; i++) {
@@ -520,14 +541,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     vec4 mvPos = modelViewMatrix * vec4(pos, 1.0);
                     gl_Position = projectionMatrix * mvPos;
 
-                    gl_PointSize = aSize * (150.0 / -mvPos.z);
-                    gl_PointSize = clamp(gl_PointSize, 1.0, 16.0);
+                    gl_PointSize = aSize * (165.0 / -mvPos.z);
+                    gl_PointSize = clamp(gl_PointSize, 1.2, 13.0);
 
                     vColor = aColor;
 
-                    float innerFade = smoothstep(1.36, 1.9, r);
-                    float outerFade = smoothstep(9.0, 5.5, r);
-                    vAlpha = innerFade * outerFade * 0.85;
+                    float innerFade = smoothstep(1.36, 1.85, r);
+                    float outerFade = smoothstep(9.5, 6.0, r);
+                    float twinkle = 0.8 + 0.2 * sin(uTime * 3.5 + aPhase * 5.0);
+                    vAlpha = innerFade * outerFade * 0.95 * twinkle;
                 }
             `,
             fragmentShader: `
@@ -539,7 +561,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     float dist = length(coord);
                     if (dist > 0.5) discard;
 
-                    float intensity = exp(-dist * dist * 6.5);
+                    // Sharp clear particle core with delicate glowing corona (clean clarity, reduced blur)
+                    float core = smoothstep(0.42, 0.0, dist);
+                    float corona = exp(-dist * dist * 13.0);
+                    float intensity = core * 0.82 + corona * 0.42;
+
                     gl_FragColor = vec4(vColor, vAlpha * intensity);
                 }
             `
@@ -601,6 +627,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 auraX += (targetMouseX - auraX) * 0.09;
                 auraY += (targetMouseY - auraY) * 0.09;
                 cursorAura.style.transform = `translate3d(${auraX}px, ${auraY}px, 0) translate3d(-50%, -50%, 0)`;
+            }
+
+            // Subtle dynamic sway on the live aurora trail behind hero portrait
+            const auroraTrailEl = document.querySelector('.aurora-trail-left');
+            if (auroraTrailEl) {
+                auroraTrailEl.style.transform = `translate3d(${lerpNormX * 16}px, ${-lerpNormY * 12}px, 0)`;
             }
 
             // Camera subtle parallax & tilt toward cursor
@@ -783,7 +815,15 @@ document.addEventListener('DOMContentLoaded', () => {
     // 6. SCROLL-TRIGGERED TEXT & SECTION REVEALS
     // =========================================================================
     const scrollFillTitles = document.querySelectorAll('.scroll-fill-title');
-    const revealElements = document.querySelectorAll('.reveal');
+    const revealElements = document.querySelectorAll('.reveal, .reveal-photo');
+
+    // Auto-trigger the hero photo reveal animation on load with smooth slide-in
+    const heroPhotoWrap = document.querySelector('.reveal-photo');
+    if (heroPhotoWrap) {
+        setTimeout(() => {
+            heroPhotoWrap.classList.add('active');
+        }, 120);
+    }
 
     if ('IntersectionObserver' in window) {
         // Hollow-to-Solid Scroll Fill Typography
