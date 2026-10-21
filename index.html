@@ -33,7 +33,7 @@
     </script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <link rel="stylesheet" href="styles.css?v=14">
+    <link rel="stylesheet" href="styles.css?v=15">
 </head>
 
 <body class="selection:bg-slate-400/20 selection:text-white overflow-x-hidden font-sans bg-[#08080a] js-enabled">
@@ -88,26 +88,6 @@
                 window.enterPortfolio(e);
             }
         });
-
-        // Wheel or touch interaction automatically enters so visitor is never blocked
-        window.addEventListener('wheel', function() {
-            if (!window.hasEnteredPortfolio) {
-                window.enterPortfolio();
-            }
-        }, { passive: true, once: true });
-
-        window.addEventListener('touchmove', function() {
-            if (!window.hasEnteredPortfolio) {
-                window.enterPortfolio();
-            }
-        }, { passive: true, once: true });
-
-        // Auto-enter timer fallback after 3.2s so visitor seamlessly transitions
-        setTimeout(function() {
-            if (!window.hasEnteredPortfolio) {
-                window.enterPortfolio();
-            }
-        }, 3200);
     </script>
 
     <!-- ======================================================== -->
@@ -212,12 +192,12 @@
 
                 <!-- 2. Theme Switcher Trigger Button & Dropdown Menu -->
                 <div class="relative theme-switcher-container">
-                    <button id="themeSwitcherBtn" class="theme-switcher-btn w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-slate-900/80 border border-slate-700/60 flex items-center justify-center text-slate-300 hover:text-white transition-all hover:scale-105 active:scale-95 focus:outline-none" aria-label="Switch Theme Accent Color" aria-haspopup="true" aria-expanded="false" title="Switch Accent Color">
+                    <button id="themeSwitcherBtn" onclick="window.toggleThemeDropdown ? window.toggleThemeDropdown(event) : null" class="theme-switcher-btn w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-slate-900/80 border border-slate-700/60 flex items-center justify-center text-slate-300 hover:text-white transition-all hover:scale-105 active:scale-95 focus:outline-none" aria-label="Switch Theme Accent Color" aria-haspopup="true" aria-expanded="false" title="Switch Accent Color">
                         <i data-lucide="palette" class="w-4 h-4 transition-transform duration-300 group-hover:rotate-12"></i>
                     </button>
 
                     <!-- Animated Floating Dropdown Card (Framer Motion style) -->
-                    <div id="themeDropdownMenu" class="theme-dropdown-menu absolute right-0 top-full mt-2.5 w-48 rounded-2xl bg-slate-900/95 backdrop-blur-xl border border-white/10 shadow-2xl p-2 z-50 transform origin-top-right transition-all duration-200 opacity-0 scale-95 pointer-events-none" role="menu">
+                    <div id="themeDropdownMenu" onclick="event.stopPropagation()" class="theme-dropdown-menu absolute right-0 top-full mt-2.5 w-48 rounded-2xl bg-slate-900/95 backdrop-blur-xl border border-white/10 shadow-2xl p-2 z-50 transform origin-top-right transition-all duration-200" role="menu">
                         <div class="px-2.5 py-1.5 text-[10px] font-mono uppercase tracking-wider text-slate-400 border-b border-white/[0.06] mb-1 flex items-center justify-between">
                             <span>Theme Accent</span>
                             <span id="currentThemeLabel" class="font-bold text-accent-dynamic">Cyan</span>
@@ -834,7 +814,7 @@
                             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
                                 <div>
                                     <h3 class="text-lg font-bold text-white">Intermediate (Senior Secondary &mdash; Class XII)</h3>
-                                    <p class="text-xs text-slate-400 font-mono">Dr. Lokman Singh Higher Secondary School, Etah (CBSE Board)</p>
+                                    <p class="text-xs text-slate-400 font-mono">Dr. lok man das public school etah(CBSE board)</p>
                                 </div>
                                 <span class="text-xs font-mono px-3 py-1 rounded-full bg-white/[0.04] text-slate-400 border border-white/[0.08] w-fit">2024 &mdash; 2025</span>
                             </div>
@@ -851,7 +831,7 @@
                             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
                                 <div>
                                     <h3 class="text-lg font-bold text-white">High School (Secondary &mdash; Class X)</h3>
-                                    <p class="text-xs text-slate-400 font-mono">Dr. Lokman Singh Higher Secondary School, Etah (CBSE Board)</p>
+                                    <p class="text-xs text-slate-400 font-mono">Dr. lok man das public school etah(CBSE board)</p>
                                 </div>
                                 <span class="text-xs font-mono px-3 py-1 rounded-full bg-white/[0.04] text-slate-400 border border-white/[0.08] w-fit">2022 &mdash; 2023</span>
                             </div>
@@ -2041,17 +2021,6 @@
                             <button id="copyEmailBtn" class="text-[10px] font-mono text-cyan-400 hover:text-white px-2.5 py-1 rounded-lg bg-cyan-950/60 border border-cyan-800/40">Copy</button>
                         </div>
 
-                        <!-- University Email -->
-                        <div class="glossy-card flex items-center gap-3 p-4 rounded-2xl">
-                            <div class="w-9 h-9 rounded-xl bg-purple-500/10 flex items-center justify-center text-purple-400">
-                                <i data-lucide="graduation-cap" class="w-4 h-4"></i>
-                            </div>
-                            <div>
-                                <div class="text-[9px] text-slate-400 font-mono">University Email</div>
-                                <a href="mailto:sawin.kumar_cs25@gla.ac.in" class="text-xs text-slate-200 hover:text-purple-300 transition-colors font-medium">sawin.kumar_cs25@gla.ac.in</a>
-                            </div>
-                        </div>
-
                         <!-- Protected Phone via Resume PDF -->
                         <a href="assets/Sawin_Kumar_Resume.pdf" target="_blank" download="Sawin_Kumar_Resume.pdf" class="glossy-card flex items-center justify-between p-4 rounded-2xl group">
                             <div class="flex items-center gap-3">
@@ -2163,7 +2132,7 @@
     </div>
 
     <!-- Scripts with Cache-Buster v=13 -->
-    <script src="main.js?v=14"></script>
+    <script src="main.js?v=15"></script>
     <script>lucide.createIcons();</script>
 </body>
 </html>

@@ -66,17 +66,98 @@
 
 /* Dropdown Menu Animations (Framer Motion style) */
 .theme-dropdown-menu {
-    transform: translateY(-8px) scale(0.95);
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.22s cubic-bezier(0.16, 1, 0.3, 1), transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
-    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.8), 0 0 25px var(--accent-glow);
+    transform: translateY(-8px) scale(0.95) !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
+    transition: opacity 0.22s cubic-bezier(0.16, 1, 0.3, 1), transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.22s !important;
+    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.8), 0 0 25px var(--accent-glow) !important;
 }
 
 .theme-dropdown-menu.open {
-    transform: translateY(0) scale(1);
-    opacity: 1;
-    pointer-events: auto;
+    transform: translateY(0) scale(1) !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    visibility: visible !important;
+}
+
+/* Global Theme Variant Classes for Whole-Site Color Switching */
+html[data-theme="violet"] {
+    --accent: #8b5cf6;
+    --accent-rgb: 139, 92, 246;
+    --accent-glow: rgba(139, 92, 246, 0.4);
+    --accent-hover: #a78bfa;
+}
+html[data-theme="violet"] .text-cyan-400,
+html[data-theme="violet"] .text-cyan-300,
+html[data-theme="violet"] .text-cyan-500,
+html[data-theme="violet"] .hover\:text-cyan-300:hover,
+html[data-theme="violet"] .hover\:text-cyan-400:hover {
+    color: #a78bfa !important;
+}
+html[data-theme="violet"] .bg-cyan-500,
+html[data-theme="violet"] .bg-cyan-400 {
+    background-color: #8b5cf6 !important;
+}
+html[data-theme="violet"] .border-cyan-500,
+html[data-theme="violet"] .border-cyan-400,
+html[data-theme="violet"] .border-cyan-800\/40 {
+    border-color: rgba(139, 92, 246, 0.6) !important;
+}
+html[data-theme="violet"] .bg-cyan-950\/60 {
+    background-color: rgba(91, 33, 182, 0.35) !important;
+}
+
+html[data-theme="emerald"] {
+    --accent: #10b981;
+    --accent-rgb: 16, 185, 129;
+    --accent-glow: rgba(16, 185, 129, 0.4);
+    --accent-hover: #34d399;
+}
+html[data-theme="emerald"] .text-cyan-400,
+html[data-theme="emerald"] .text-cyan-300,
+html[data-theme="emerald"] .text-cyan-500,
+html[data-theme="emerald"] .hover\:text-cyan-300:hover,
+html[data-theme="emerald"] .hover\:text-cyan-400:hover {
+    color: #34d399 !important;
+}
+html[data-theme="emerald"] .bg-cyan-500,
+html[data-theme="emerald"] .bg-cyan-400 {
+    background-color: #10b981 !important;
+}
+html[data-theme="emerald"] .border-cyan-500,
+html[data-theme="emerald"] .border-cyan-400,
+html[data-theme="emerald"] .border-cyan-800\/40 {
+    border-color: rgba(16, 185, 129, 0.6) !important;
+}
+html[data-theme="emerald"] .bg-cyan-950\/60 {
+    background-color: rgba(6, 78, 59, 0.35) !important;
+}
+
+html[data-theme="amber"] {
+    --accent: #f59e0b;
+    --accent-rgb: 245, 158, 11;
+    --accent-glow: rgba(245, 158, 11, 0.4);
+    --accent-hover: #fbbf24;
+}
+html[data-theme="amber"] .text-cyan-400,
+html[data-theme="amber"] .text-cyan-300,
+html[data-theme="amber"] .text-cyan-500,
+html[data-theme="amber"] .hover\:text-cyan-300:hover,
+html[data-theme="amber"] .hover\:text-cyan-400:hover {
+    color: #fbbf24 !important;
+}
+html[data-theme="amber"] .bg-cyan-500,
+html[data-theme="amber"] .bg-cyan-400 {
+    background-color: #f59e0b !important;
+}
+html[data-theme="amber"] .border-cyan-500,
+html[data-theme="amber"] .border-cyan-400,
+html[data-theme="amber"] .border-cyan-800\/40 {
+    border-color: rgba(245, 158, 11, 0.6) !important;
+}
+html[data-theme="amber"] .bg-cyan-950\/60 {
+    background-color: rgba(120, 53, 15, 0.35) !important;
 }
 
 /* ========================================================================== */
@@ -521,32 +602,30 @@ section[id] {
 @keyframes auroraWaveMove1 {
     0% {
         transform: translate3d(-8%, -5%, 0) scale(1) rotate(0deg);
-        filter: blur(70px) hue-rotate(0deg);
+        opacity: 0.5;
     }
     50% {
         transform: translate3d(6%, 8%, 0) scale(1.18) rotate(4deg);
-        filter: blur(85px) hue-rotate(18deg);
         opacity: 0.65;
     }
     100% {
         transform: translate3d(-4%, 4%, 0) scale(1.05) rotate(-3deg);
-        filter: blur(75px) hue-rotate(-10deg);
+        opacity: 0.5;
     }
 }
 
 @keyframes auroraWaveMove2 {
     0% {
         transform: translate3d(6%, 5%, 0) scale(1.1) rotate(0deg);
-        filter: blur(80px) hue-rotate(0deg);
+        opacity: 0.45;
     }
     50% {
         transform: translate3d(-10%, -8%, 0) scale(0.95) rotate(-5deg);
-        filter: blur(65px) hue-rotate(-22deg);
         opacity: 0.6;
     }
     100% {
         transform: translate3d(4%, -3%, 0) scale(1.15) rotate(3deg);
-        filter: blur(85px) hue-rotate(15deg);
+        opacity: 0.45;
     }
 }
 

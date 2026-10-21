@@ -55,46 +55,48 @@ function startApp() {
             name: 'Cyan',
             hex: '#06b6d4',
             rgb: '6, 182, 212',
-            glow: 'rgba(6, 182, 212, 0.35)',
+            glow: 'rgba(6, 182, 212, 0.4)',
             hover: '#22d3ee'
         },
         violet: {
             name: 'Violet',
             hex: '#8b5cf6',
             rgb: '139, 92, 246',
-            glow: 'rgba(139, 92, 246, 0.35)',
+            glow: 'rgba(139, 92, 246, 0.4)',
             hover: '#a78bfa'
         },
         emerald: {
             name: 'Emerald',
             hex: '#10b981',
             rgb: '16, 185, 129',
-            glow: 'rgba(16, 185, 129, 0.35)',
+            glow: 'rgba(16, 185, 129, 0.4)',
             hover: '#34d399'
         },
         amber: {
             name: 'Amber',
             hex: '#f59e0b',
             rgb: '245, 158, 11',
-            glow: 'rgba(245, 158, 11, 0.35)',
+            glow: 'rgba(245, 158, 11, 0.4)',
             hover: '#fbbf24'
         }
     };
+    window.THEMES = THEMES;
 
     let currentThemeKey = 'cyan';
     try {
         const saved = localStorage.getItem('sawin-portfolio-theme');
         if (saved && THEMES[saved]) currentThemeKey = saved;
     } catch (e) {}
+    window.currentThemeKey = currentThemeKey;
 
     const themeSwitcherBtn = document.getElementById('themeSwitcherBtn');
     const themeDropdownMenu = document.getElementById('themeDropdownMenu');
-    const themeOptionBtns = document.querySelectorAll('.theme-option-btn, .mobile-theme-btn');
     const currentThemeLabel = document.getElementById('currentThemeLabel');
 
     function applyTheme(themeKey) {
         if (!THEMES[themeKey]) return;
         currentThemeKey = themeKey;
+        window.currentThemeKey = themeKey;
         const theme = THEMES[themeKey];
 
         // 1. Update CSS root variables
@@ -103,98 +105,114 @@ function startApp() {
         document.documentElement.style.setProperty('--accent-glow', theme.glow);
         document.documentElement.style.setProperty('--accent-hover', theme.hover);
 
-        // 2. Persist in localStorage
+        // 2. Set global data-theme attribute on <html> for whole-portfolio color swapping
+        document.documentElement.setAttribute('data-theme', themeKey);
+
+        // 3. Persist in localStorage
         try {
             localStorage.setItem('sawin-portfolio-theme', themeKey);
         } catch (e) {}
 
-        // 3. Update dropdown UI indicators
+        // 4. Update dropdown UI indicators
         if (currentThemeLabel) currentThemeLabel.textContent = theme.name;
 
-        themeOptionBtns.forEach(btn => {
+        const allThemeOptionBtns = document.querySelectorAll('.theme-option-btn, .mobile-theme-btn');
+        allThemeOptionBtns.forEach(btn => {
             const key = btn.getAttribute('data-theme');
             const checkIcon = btn.querySelector('.theme-check');
             if (key === themeKey) {
-                btn.classList.add('active-theme');
-                btn.classList.add('border-accent-dynamic');
+                btn.classList.add('active-theme', 'border-accent-dynamic');
                 if (checkIcon) checkIcon.classList.remove('opacity-0');
             } else {
-                btn.classList.remove('active-theme');
-                btn.classList.remove('border-accent-dynamic');
+                btn.classList.remove('active-theme', 'border-accent-dynamic');
                 if (checkIcon) checkIcon.classList.add('opacity-0');
             }
         });
 
-        // 4. Update Three.js smoke accent color
+        // 5. Update WebGL smoke accent color
         if (typeof window.updateSmokeAccent === 'function') {
             window.updateSmokeAccent(theme.hex);
         }
     }
-
-    // Initialize Theme
-    applyTheme(currentThemeKey);
+    window.applyTheme = applyTheme;
 
     // Dropdown toggle logic
     let isThemeDropdownOpen = false;
     function openThemeDropdown() {
-        if (!themeDropdownMenu) return;
+        const menu = document.getElementById('themeDropdownMenu') || themeDropdownMenu;
+        const btn = document.getElementById('themeSwitcherBtn') || themeSwitcherBtn;
+        if (!menu) return;
         isThemeDropdownOpen = true;
-        themeDropdownMenu.classList.add('open');
-        if (themeSwitcherBtn) {
-            themeSwitcherBtn.classList.add('active-open');
-            themeSwitcherBtn.setAttribute('aria-expanded', 'true');
+        menu.classList.add('open');
+        if (btn) {
+            btn.classList.add('active-open');
+            btn.setAttribute('aria-expanded', 'true');
         }
     }
+    window.openThemeDropdown = openThemeDropdown;
 
     function closeThemeDropdown() {
-        if (!themeDropdownMenu) return;
+        const menu = document.getElementById('themeDropdownMenu') || themeDropdownMenu;
+        const btn = document.getElementById('themeSwitcherBtn') || themeSwitcherBtn;
+        if (!menu) return;
         isThemeDropdownOpen = false;
-        themeDropdownMenu.classList.remove('open');
-        if (themeSwitcherBtn) {
-            themeSwitcherBtn.classList.remove('active-open');
-            themeSwitcherBtn.setAttribute('aria-expanded', 'false');
+        menu.classList.remove('open');
+        if (btn) {
+            btn.classList.remove('active-open');
+            btn.setAttribute('aria-expanded', 'false');
         }
     }
+    window.closeThemeDropdown = closeThemeDropdown;
 
     function toggleThemeDropdown(e) {
-        if (e) e.stopPropagation();
+        if (e && e.stopPropagation) e.stopPropagation();
         if (isThemeDropdownOpen) {
             closeThemeDropdown();
         } else {
             openThemeDropdown();
         }
     }
+    window.toggleThemeDropdown = toggleThemeDropdown;
 
     if (themeSwitcherBtn) {
         themeSwitcherBtn.addEventListener('click', toggleThemeDropdown);
     }
 
-    // Theme option clicks
-    themeOptionBtns.forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            const selectedTheme = btn.getAttribute('data-theme');
-            if (selectedTheme) {
-                applyTheme(selectedTheme);
-                closeThemeDropdown();
-            }
+    // Bind option click events (Desktop & Mobile)
+    function bindThemeButtons() {
+        const btns = document.querySelectorAll('.theme-option-btn, .mobile-theme-btn');
+        btns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                if (e && e.stopPropagation) e.stopPropagation();
+                const selectedTheme = btn.getAttribute('data-theme');
+                if (selectedTheme) {
+                    applyTheme(selectedTheme);
+                    closeThemeDropdown();
+                }
+            });
         });
-    });
+    }
+    bindThemeButtons();
 
     // Click outside to dismiss
     document.addEventListener('click', (e) => {
-        if (isThemeDropdownOpen && themeDropdownMenu && !themeDropdownMenu.contains(e.target) && e.target !== themeSwitcherBtn) {
+        const menu = document.getElementById('themeDropdownMenu') || themeDropdownMenu;
+        const btn = document.getElementById('themeSwitcherBtn') || themeSwitcherBtn;
+        if (isThemeDropdownOpen && menu && !menu.contains(e.target) && (!btn || !btn.contains(e.target))) {
             closeThemeDropdown();
         }
     });
 
-    // Keyboard navigation (Escape, ArrowDown, ArrowUp)
+    // Keyboard navigation (Escape)
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && isThemeDropdownOpen) {
             closeThemeDropdown();
             if (themeSwitcherBtn) themeSwitcherBtn.focus();
         }
     });
+
+    // Initialize Theme immediately
+    applyTheme(currentThemeKey);
 
     // Ambient Audio Synthesizer (Cosmic Meditative Soundscape via Web Audio API)
     const audioToggleBtn = document.getElementById('audioToggleBtn');
@@ -274,12 +292,10 @@ function startApp() {
 
 
     // =========================================================================
-    // 1. POINTER POSITION & VOLUMETRIC SMOKE EMITTER ENGINE
+    // 1. POINTER POSITION & HIGH-PERFORMANCE VAPOR EMITTER (CANVAS ACCELERATED)
     // =========================================================================
     let targetMouseX = window.innerWidth * 0.5;
     let targetMouseY = window.innerHeight * 0.5;
-    let mouseX = window.innerWidth * 0.5;
-    let mouseY = window.innerHeight * 0.5;
     let normMouseX = 0.5;
     let normMouseY = 0.5;
     let mouseVelX = 0;
@@ -300,50 +316,75 @@ function startApp() {
     let auraX = window.innerWidth * 0.5;
     let auraY = window.innerHeight * 0.5;
 
-    const activeWisps = [];
-    const MAX_WISPS = 35;
+    // Lightweight 2D canvas overlay for pointer smoke wisps (0 DOM allocations)
+    let pointerSmokeCanvas = document.getElementById('pointerSmokeCanvas');
+    if (!pointerSmokeCanvas) {
+        pointerSmokeCanvas = document.createElement('canvas');
+        pointerSmokeCanvas.id = 'pointerSmokeCanvas';
+        pointerSmokeCanvas.style.cssText = 'position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:9998;';
+        document.body.appendChild(pointerSmokeCanvas);
+    }
+    const pCtx = pointerSmokeCanvas ? pointerSmokeCanvas.getContext('2d') : null;
 
-    // Emits soft volumetric vapor wisps directly from the pointer
+    function resizePointerCanvas() {
+        if (!pointerSmokeCanvas) return;
+        pointerSmokeCanvas.width = window.innerWidth;
+        pointerSmokeCanvas.height = window.innerHeight;
+    }
+    resizePointerCanvas();
+    window.addEventListener('resize', resizePointerCanvas, { passive: true });
+
+    const pointerParticles = [];
+    const MAX_POINTER_PARTICLES = 30;
+
     function emitPointerSmoke(px, py, vx, vy, isIdle = false) {
-        if (activeWisps.length > MAX_WISPS) {
-            const oldest = activeWisps.shift();
-            if (oldest.el && oldest.el.parentNode) oldest.el.parentNode.removeChild(oldest.el);
+        if (!pCtx) return;
+        if (pointerParticles.length >= MAX_POINTER_PARTICLES) {
+            pointerParticles.shift();
         }
-
-        const wisp = document.createElement('div');
-        wisp.className = 'pointer-smoke-wisp';
-
-        const initialSize = isIdle ? (Math.random() * 8 + 18) : (Math.random() * 12 + 24);
-        const targetExpansion = isIdle ? (initialSize * 2.2) : (initialSize * 3.2 + Math.random() * 14);
-        const rot = (Math.random() - 0.5) * 60;
-
-        wisp.style.left = `${px}px`;
-        wisp.style.top = `${py}px`;
-        wisp.style.width = `${initialSize}px`;
-        wisp.style.height = `${initialSize}px`;
-        wisp.style.opacity = isIdle ? '0.35' : (Math.random() * 0.2 + 0.58).toFixed(2);
-        wisp.style.transform = `translate3d(-50%, -50%, 0) scale(0.6) rotate(0deg)`;
-        wisp.style.transition = 'transform 1.35s cubic-bezier(0.12, 0.75, 0.35, 1), opacity 1.35s cubic-bezier(0.2, 0.7, 0.3, 1)';
-
-        document.body.appendChild(wisp);
-
-        // Buoyancy drift (slightly upward) and drag opposing motion
-        const driftX = (Math.random() - 0.5) * 22 - (vx || 0) * 0.25;
-        const driftY = (Math.random() - 0.5) * 18 - (vy || 0) * 0.25 - (Math.random() * 18 + 12);
-
-        requestAnimationFrame(() => {
-            wisp.style.opacity = '0';
-            wisp.style.transform = `translate3d(calc(-50% + ${driftX}px), calc(-50% + ${driftY}px), 0) scale(${targetExpansion / initialSize}) rotate(${rot}deg)`;
+        pointerParticles.push({
+            x: px,
+            y: py,
+            vx: (vx || 0) * 0.12 + (Math.random() - 0.5) * 0.8,
+            vy: (vy || 0) * 0.12 - (Math.random() * 0.7 + 0.6), // natural buoyancy drift upward
+            r: isIdle ? 16 : 22,
+            maxLife: isIdle ? 36 : 48,
+            life: 0,
+            growth: isIdle ? 0.42 : 0.68,
+            alpha: isIdle ? 0.22 : 0.38
         });
+    }
 
-        const wispObj = { el: wisp };
-        activeWisps.push(wispObj);
+    function renderPointerSmoke() {
+        if (!pCtx) return;
+        pCtx.clearRect(0, 0, pointerSmokeCanvas.width, pointerSmokeCanvas.height);
+        for (let i = pointerParticles.length - 1; i >= 0; i--) {
+            const p = pointerParticles[i];
+            p.life++;
+            if (p.life >= p.maxLife) {
+                pointerParticles.splice(i, 1);
+                continue;
+            }
+            p.x += p.vx;
+            p.y += p.vy;
+            p.vx *= 0.96;
+            p.vy *= 0.96;
+            p.r += p.growth;
 
-        setTimeout(() => {
-            if (wisp.parentNode) wisp.parentNode.removeChild(wisp);
-            const idx = activeWisps.indexOf(wispObj);
-            if (idx !== -1) activeWisps.splice(idx, 1);
-        }, 1400);
+            const progress = p.life / p.maxLife;
+            const currentAlpha = (1 - progress) * p.alpha;
+
+            const grad = pCtx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r);
+            grad.addColorStop(0, `rgba(215, 226, 245, ${currentAlpha.toFixed(3)})`);
+            grad.addColorStop(0.38, `rgba(148, 163, 184, ${(currentAlpha * 0.55).toFixed(3)})`);
+            grad.addColorStop(0.75, `rgba(50, 60, 80, ${(currentAlpha * 0.18).toFixed(3)})`);
+            grad.addColorStop(1, 'rgba(10, 10, 15, 0)');
+
+            pCtx.fillStyle = grad;
+            pCtx.beginPath();
+            pCtx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+            pCtx.fill();
+        }
     }
 
     if (!isTouchDevice && cursorContainer) {
@@ -372,11 +413,11 @@ function startApp() {
             const now = performance.now();
             lastMoveTime = now;
 
-            // Emit smoke vapor wisps while moving
-            if (moveDist > 2.5 && (now - lastMoteTime > 22)) {
+            // Emit smooth vapor particles on movement (rate-limited, 0 DOM overhead)
+            if (moveDist > 3 && (now - lastMoteTime > 30)) {
                 lastMoteTime = now;
                 emitPointerSmoke(targetMouseX, targetMouseY, vx, vy);
-                if (moveDist > 16) {
+                if (moveDist > 20) {
                     emitPointerSmoke((targetMouseX + prevMouseX) * 0.5, (targetMouseY + prevMouseY) * 0.5, vx, vy);
                 }
             }
@@ -384,12 +425,12 @@ function startApp() {
             prevMouseY = targetMouseY;
         }, { passive: true });
 
-        // Gentle idle smoke breath when mouse pauses
+        // Gentle idle breath when mouse rests
         setInterval(() => {
-            if (isMouseOnScreen && (performance.now() - lastMoveTime > 400)) {
+            if (isMouseOnScreen && (performance.now() - lastMoveTime > 450)) {
                 emitPointerSmoke(targetMouseX, targetMouseY, 0, 0, true);
             }
-        }, 650);
+        }, 700);
 
         document.addEventListener('mouseleave', () => {
             isMouseOnScreen = false;
@@ -426,10 +467,11 @@ function startApp() {
                 powerPreference: 'high-performance',
                 depth: false,
                 stencil: false,
-                alpha: true
+                alpha: false
             });
             renderer.setSize(width, height);
-            renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+            // Cap at 1.0 to eliminate fill-rate bottleneck and maintain 60 FPS
+            renderer.setPixelRatio(1.0);
 
             const smokeUniforms = {
                 uTime: { value: 0 },
@@ -450,7 +492,7 @@ function startApp() {
                 varying vec2 vUv;
                 void main() {
                     vUv = uv;
-                    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+                    gl_Position = vec4(position.xy, 0.0, 1.0);
                 }
             `;
 
@@ -464,49 +506,29 @@ function startApp() {
                 uniform float uScroll;
                 uniform vec3 uAccentColor;
 
-                // Fast Simplex 2D Noise
-                vec3 mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
-                vec2 mod289(vec2 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
-                vec3 permute(vec3 x) { return mod289(((x * 34.0) + 1.0) * x); }
-
-                float snoise(vec2 v) {
-                    const vec4 C = vec4(0.211324865405187, 0.366025403784439, -0.577350269189626, 0.024390243902439);
-                    vec2 i  = floor(v + dot(v, C.yy));
-                    vec2 x0 = v -   i + dot(i, C.xx);
-                    vec2 i1 = (x0.x > x0.y) ? vec2(1.0, 0.0) : vec2(0.0, 1.0);
-                    vec4 x12 = x0.xyxy + C.xxzz;
-                    x12.xy -= i1;
-                    i = mod289(i);
-                    vec3 p = permute(permute(i.y + vec3(0.0, i1.y, 1.0)) + i.x + vec3(0.0, i1.x, 1.0));
-                    vec3 m = max(0.5 - vec3(dot(x0, x0), dot(x12.xy, x12.xy), dot(x12.zw, x12.zw)), 0.0);
-                    m = m * m;
-                    m = m * m;
-                    vec3 x = 2.0 * fract(p * C.www) - 1.0;
-                    vec3 h = abs(x) - 0.5;
-                    vec3 ox = floor(x + 0.5);
-                    vec3 a0 = x - ox;
-                    m *= 1.79284291400159 - 0.85373472095314 * (a0 * a0 + h * h);
-                    vec3 g;
-                    g.x  = a0.x  * x0.x  + h.x  * x0.y;
-                    g.yz = a0.yz * x12.xz + h.yz * x12.yw;
-                    return 130.0 * dot(m, g);
-                }
-
-                // 3-Octave Fast FBM with 2D rotation for rich, natural turbulence
-                float fbm(vec2 p, float t) {
-                    float v = 0.0;
-                    float a = 0.5;
-                    mat2 rot = mat2(0.87, 0.49, -0.49, 0.87);
-                    for (int i = 0; i < 3; i++) {
-                        v += a * snoise(p + vec2(t * 0.14, -t * 0.20));
-                        p = rot * p * 2.06 + vec2(100.0, 50.0);
-                        a *= 0.48;
-                    }
-                    return v * 0.5 + 0.5;
-                }
-
+                // Ultra-fast smooth value noise with bicubic interpolation
                 float hash(vec2 p) {
-                    return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453123);
+                    p = fract(p * vec2(123.34, 456.21));
+                    p += dot(p, p + 45.32);
+                    return fract(p.x * p.y);
+                }
+
+                float noise(vec2 p) {
+                    vec2 i = floor(p);
+                    vec2 f = fract(p);
+                    vec2 u = f * f * (3.0 - 2.0 * f);
+                    return mix(
+                        mix(hash(i + vec2(0.0, 0.0)), hash(i + vec2(1.0, 0.0)), u.x),
+                        mix(hash(i + vec2(0.0, 1.0)), hash(i + vec2(1.0, 1.0)), u.x),
+                        u.y
+                    );
+                }
+
+                // 2-Octave Fast Smooth FBM
+                float fbm(vec2 p) {
+                    float v = noise(p) * 0.62;
+                    v += noise(p * 2.08 + vec2(1.7, 9.2)) * 0.38;
+                    return v;
                 }
 
                 void main() {
@@ -514,8 +536,7 @@ function startApp() {
                     vec2 normUv = vec2(uv.x, 1.0 - uv.y);
                     float aspect = uResolution.x / uResolution.y;
 
-                    // Slow, graceful continuous time
-                    float slowTime = uTime * 0.07;
+                    float slowTime = uTime * 0.08;
 
                     // Composition: Emitter in Upper-Right Corner and Right Edge
                     vec2 urPoint = vec2(0.96, 0.08);
@@ -537,27 +558,25 @@ function startApp() {
                     vec2 mDiff = (normUv - mPos) * vec2(aspect, 1.0);
                     float mDist = length(mDiff);
                     float mInfluence = 1.0 - smoothstep(0.0, 0.38, mDist);
-                    vec2 mSwirl = vec2(-mDiff.y, mDiff.x) * mInfluence * 0.48;
+                    vec2 mSwirl = vec2(-mDiff.y, mDiff.x) * mInfluence * 0.55;
                     vec2 mPush = vec2(uMouseVel.x, -uMouseVel.y) * mInfluence * 0.85;
 
-                    // Base Domain with Organic Upward and Inward Drift
-                    vec2 p = normUv * vec2(3.0 * aspect, 3.0);
-                    p.y -= slowTime * 0.38; // upward drift
-                    p.x -= slowTime * 0.26; // inward drift toward center
+                    // Base coordinates with upward & inward drift
+                    vec2 p = normUv * vec2(2.8 * aspect, 2.8);
+                    p.y -= slowTime * 0.35;
+                    p.x -= slowTime * 0.22;
                     p += mSwirl + mPush;
 
-                    // Multi-Layer Domain Warping for Volumetric Vapor Curls
-                    vec2 q = vec2(
-                        fbm(p + vec2(0.0, 0.0), slowTime),
-                        fbm(p + vec2(5.2, 1.3), slowTime)
-                    );
+                    // Trigonometric curling domain warp
+                    vec2 curlWarp = vec2(
+                        sin(p.y * 1.5 + slowTime * 1.2),
+                        cos(p.x * 1.4 - slowTime * 0.9)
+                    ) * 0.42;
 
-                    vec2 r = vec2(
-                        fbm(p + 2.8 * q + vec2(1.7, 9.2), slowTime * 1.15),
-                        fbm(p + 2.8 * q + vec2(8.3, 2.8), slowTime * 1.15)
-                    );
+                    vec2 q = vec2(fbm(p + curlWarp), fbm(p + curlWarp + vec2(4.3, 1.8)));
+                    vec2 r = vec2(fbm(p + 2.2 * q + vec2(1.7, 9.2)), fbm(p + 2.2 * q + vec2(8.3, 2.8)));
 
-                    float rawDensity = fbm(p + 3.2 * r, slowTime * 0.85);
+                    float rawDensity = fbm(p + 2.6 * r);
                     float smoke = smoothstep(0.18, 0.82, rawDensity) * emitterMask;
 
                     // Low-Key Cinematic Lighting Palette (High Contrast & Visible Vapor)
@@ -575,7 +594,7 @@ function startApp() {
                     // Subtle ambient illumination near bottom center with dynamic theme tint
                     float coolGlow = exp(-length((normUv - vec2(0.5, 0.88)) * vec2(1.0, 1.4)) * 3.2);
 
-                    // Compositing with high aesthetic contrast & visible volumetric body
+                    // Compositing
                     vec3 col = mix(cBaseBlack, cCharcoal, smoke * 0.85);
                     col = mix(col, cGraphite, smoothstep(0.12, 0.60, smoke));
                     col = mix(col, cSmokySilver, smoothstep(0.35, 0.88, smoke) * 0.75);
@@ -583,8 +602,8 @@ function startApp() {
                     col += uAccentColor * (rimLight * smoke * 0.28 + coolGlow * 0.25);
 
                     // Faint atmospheric scanline & delicate grain
-                    float horiz = sin(normUv.y * uResolution.y * 1.5) * 0.005;
-                    float grain = (hash(normUv * uResolution.xy + fract(uTime * 17.3)) - 0.5) * 0.020;
+                    float horiz = sin(normUv.y * uResolution.y * 1.5) * 0.004;
+                    float grain = (hash(normUv * uResolution.xy + fract(uTime * 17.3)) - 0.5) * 0.018;
                     col += horiz + grain;
 
                     gl_FragColor = vec4(clamp(col, 0.0, 1.0), 1.0);
@@ -639,12 +658,15 @@ function startApp() {
                 if (!isTouchDevice && cursorRing && cursorAura) {
                     ringX += (targetMouseX - ringX) * 0.16;
                     ringY += (targetMouseY - ringY) * 0.16;
-                    cursorRing.style.transform = `translate3d(${ringX}px, ${ringY}px, 0) translate3d(-50%, -50%, 0)`;
+                    cursorRing.style.transform = `translate3d(${ringX.toFixed(1)}px, ${ringY.toFixed(1)}px, 0) translate3d(-50%, -50%, 0)`;
 
                     auraX += (targetMouseX - auraX) * 0.09;
                     auraY += (targetMouseY - auraY) * 0.09;
-                    cursorAura.style.transform = `translate3d(${auraX}px, ${auraY}px, 0) translate3d(-50%, -50%, 0)`;
+                    cursorAura.style.transform = `translate3d(${auraX.toFixed(1)}px, ${auraY.toFixed(1)}px, 0) translate3d(-50%, -50%, 0)`;
                 }
+
+                // Render pointer vapor particles
+                renderPointerSmoke();
 
                 // Subtle dynamic sway on the live smoke vapor trail behind hero portrait
                 const auroraTrailEl = document.querySelector('.aurora-trail-left');
@@ -664,9 +686,21 @@ function startApp() {
             requestAnimationFrame(smokeAnimate);
         } catch (err) {
             console.warn('Smoke WebGL initialization fallback:', err);
+            // Fallback loop if WebGL init fails
+            function fallbackPointerLoop() {
+                renderPointerSmoke();
+                requestAnimationFrame(fallbackPointerLoop);
+            }
+            requestAnimationFrame(fallbackPointerLoop);
         }
+    } else {
+        // Fallback loop if Three.js not present
+        function fallbackPointerLoop() {
+            renderPointerSmoke();
+            requestAnimationFrame(fallbackPointerLoop);
+        }
+        requestAnimationFrame(fallbackPointerLoop);
     }
-
 
 
     // =========================================================================
