@@ -12,7 +12,6 @@ Personal portfolio website for **Sawin Kumar**, B.Tech Computer Science & Engine
 - **Degree**: Bachelor of Technology in Computer Science & Engineering (2025–2029)
 - **Institution**: GLA University, Mathura (7.9 CPI)
 - **Personal Email**: [sawinkumar13@gmail.com](mailto:sawinkumar13@gmail.com)
-- **University Email**: [sawin.kumar_cs25@gla.ac.in](mailto:sawin.kumar_cs25@gla.ac.in)
 - **Phone**: [+91-9259451815](tel:+919259451815)
 - **LinkedIn**: [linkedin.com/in/sawinkumar](https://linkedin.com/in/sawinkumar)
 - **GitHub**: [github.com/sawinkumar13-design](https://github.com/sawinkumar13-design)
