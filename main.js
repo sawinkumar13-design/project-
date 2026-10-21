@@ -48,6 +48,232 @@ function startApp() {
 
 
     // =========================================================================
+    // 0.5 THEME ACCENT COLOR SWITCHER & AMBIENT AUDIO CONTROLLER
+    // =========================================================================
+    const THEMES = {
+        cyan: {
+            name: 'Cyan',
+            hex: '#06b6d4',
+            rgb: '6, 182, 212',
+            glow: 'rgba(6, 182, 212, 0.35)',
+            hover: '#22d3ee'
+        },
+        violet: {
+            name: 'Violet',
+            hex: '#8b5cf6',
+            rgb: '139, 92, 246',
+            glow: 'rgba(139, 92, 246, 0.35)',
+            hover: '#a78bfa'
+        },
+        emerald: {
+            name: 'Emerald',
+            hex: '#10b981',
+            rgb: '16, 185, 129',
+            glow: 'rgba(16, 185, 129, 0.35)',
+            hover: '#34d399'
+        },
+        amber: {
+            name: 'Amber',
+            hex: '#f59e0b',
+            rgb: '245, 158, 11',
+            glow: 'rgba(245, 158, 11, 0.35)',
+            hover: '#fbbf24'
+        }
+    };
+
+    let currentThemeKey = 'cyan';
+    try {
+        const saved = localStorage.getItem('sawin-portfolio-theme');
+        if (saved && THEMES[saved]) currentThemeKey = saved;
+    } catch (e) {}
+
+    const themeSwitcherBtn = document.getElementById('themeSwitcherBtn');
+    const themeDropdownMenu = document.getElementById('themeDropdownMenu');
+    const themeOptionBtns = document.querySelectorAll('.theme-option-btn, .mobile-theme-btn');
+    const currentThemeLabel = document.getElementById('currentThemeLabel');
+
+    function applyTheme(themeKey) {
+        if (!THEMES[themeKey]) return;
+        currentThemeKey = themeKey;
+        const theme = THEMES[themeKey];
+
+        // 1. Update CSS root variables
+        document.documentElement.style.setProperty('--accent', theme.hex);
+        document.documentElement.style.setProperty('--accent-rgb', theme.rgb);
+        document.documentElement.style.setProperty('--accent-glow', theme.glow);
+        document.documentElement.style.setProperty('--accent-hover', theme.hover);
+
+        // 2. Persist in localStorage
+        try {
+            localStorage.setItem('sawin-portfolio-theme', themeKey);
+        } catch (e) {}
+
+        // 3. Update dropdown UI indicators
+        if (currentThemeLabel) currentThemeLabel.textContent = theme.name;
+
+        themeOptionBtns.forEach(btn => {
+            const key = btn.getAttribute('data-theme');
+            const checkIcon = btn.querySelector('.theme-check');
+            if (key === themeKey) {
+                btn.classList.add('active-theme');
+                btn.classList.add('border-accent-dynamic');
+                if (checkIcon) checkIcon.classList.remove('opacity-0');
+            } else {
+                btn.classList.remove('active-theme');
+                btn.classList.remove('border-accent-dynamic');
+                if (checkIcon) checkIcon.classList.add('opacity-0');
+            }
+        });
+
+        // 4. Update Three.js smoke accent color
+        if (typeof window.updateSmokeAccent === 'function') {
+            window.updateSmokeAccent(theme.hex);
+        }
+    }
+
+    // Initialize Theme
+    applyTheme(currentThemeKey);
+
+    // Dropdown toggle logic
+    let isThemeDropdownOpen = false;
+    function openThemeDropdown() {
+        if (!themeDropdownMenu) return;
+        isThemeDropdownOpen = true;
+        themeDropdownMenu.classList.add('open');
+        if (themeSwitcherBtn) {
+            themeSwitcherBtn.classList.add('active-open');
+            themeSwitcherBtn.setAttribute('aria-expanded', 'true');
+        }
+    }
+
+    function closeThemeDropdown() {
+        if (!themeDropdownMenu) return;
+        isThemeDropdownOpen = false;
+        themeDropdownMenu.classList.remove('open');
+        if (themeSwitcherBtn) {
+            themeSwitcherBtn.classList.remove('active-open');
+            themeSwitcherBtn.setAttribute('aria-expanded', 'false');
+        }
+    }
+
+    function toggleThemeDropdown(e) {
+        if (e) e.stopPropagation();
+        if (isThemeDropdownOpen) {
+            closeThemeDropdown();
+        } else {
+            openThemeDropdown();
+        }
+    }
+
+    if (themeSwitcherBtn) {
+        themeSwitcherBtn.addEventListener('click', toggleThemeDropdown);
+    }
+
+    // Theme option clicks
+    themeOptionBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const selectedTheme = btn.getAttribute('data-theme');
+            if (selectedTheme) {
+                applyTheme(selectedTheme);
+                closeThemeDropdown();
+            }
+        });
+    });
+
+    // Click outside to dismiss
+    document.addEventListener('click', (e) => {
+        if (isThemeDropdownOpen && themeDropdownMenu && !themeDropdownMenu.contains(e.target) && e.target !== themeSwitcherBtn) {
+            closeThemeDropdown();
+        }
+    });
+
+    // Keyboard navigation (Escape, ArrowDown, ArrowUp)
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && isThemeDropdownOpen) {
+            closeThemeDropdown();
+            if (themeSwitcherBtn) themeSwitcherBtn.focus();
+        }
+    });
+
+    // Ambient Audio Synthesizer (Cosmic Meditative Soundscape via Web Audio API)
+    const audioToggleBtn = document.getElementById('audioToggleBtn');
+    let audioCtx = null;
+    let osc1 = null;
+    let osc2 = null;
+    let gainNode = null;
+    let isAudioPlaying = false;
+
+    function initAudio() {
+        if (audioCtx) return;
+        try {
+            const AudioContext = window.AudioContext || window.webkitAudioContext;
+            audioCtx = new AudioContext();
+
+            const filter = audioCtx.createBiquadFilter();
+            filter.type = 'lowpass';
+            filter.frequency.setValueAtTime(160, audioCtx.currentTime);
+
+            gainNode = audioCtx.createGain();
+            gainNode.gain.setValueAtTime(0.00001, audioCtx.currentTime);
+
+            osc1 = audioCtx.createOscillator();
+            osc1.type = 'sine';
+            osc1.frequency.setValueAtTime(55, audioCtx.currentTime); // 55Hz deep fundamental
+
+            osc2 = audioCtx.createOscillator();
+            osc2.type = 'sine';
+            osc2.frequency.setValueAtTime(55.35, audioCtx.currentTime); // gentle warm acoustic beat
+
+            osc1.connect(filter);
+            osc2.connect(filter);
+            filter.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+
+            osc1.start();
+            osc2.start();
+        } catch (e) {
+            console.warn('Web Audio not available', e);
+        }
+    }
+
+    function toggleAudio() {
+        if (!audioCtx) initAudio();
+        if (!audioCtx || !gainNode) return;
+
+        if (audioCtx.state === 'suspended') {
+            audioCtx.resume();
+        }
+
+        if (!isAudioPlaying) {
+            isAudioPlaying = true;
+            gainNode.gain.setTargetAtTime(0.018, audioCtx.currentTime, 0.4);
+            if (audioToggleBtn) {
+                audioToggleBtn.classList.add('playing');
+                const mutedIcon = audioToggleBtn.querySelector('.audio-icon-muted');
+                const activeIcon = audioToggleBtn.querySelector('.audio-icon-active');
+                if (mutedIcon) mutedIcon.classList.add('hidden');
+                if (activeIcon) activeIcon.classList.remove('hidden');
+            }
+        } else {
+            isAudioPlaying = false;
+            gainNode.gain.setTargetAtTime(0.00001, audioCtx.currentTime, 0.3);
+            if (audioToggleBtn) {
+                audioToggleBtn.classList.remove('playing');
+                const mutedIcon = audioToggleBtn.querySelector('.audio-icon-muted');
+                const activeIcon = audioToggleBtn.querySelector('.audio-icon-active');
+                if (mutedIcon) mutedIcon.classList.remove('hidden');
+                if (activeIcon) activeIcon.classList.add('hidden');
+            }
+        }
+    }
+
+    if (audioToggleBtn) {
+        audioToggleBtn.addEventListener('click', toggleAudio);
+    }
+
+
+    // =========================================================================
     // 1. POINTER POSITION & VOLUMETRIC SMOKE EMITTER ENGINE
     // =========================================================================
     let targetMouseX = window.innerWidth * 0.5;
@@ -210,14 +436,21 @@ function startApp() {
                 uResolution: { value: new THREE.Vector2(width, height) },
                 uMouse: { value: new THREE.Vector2(0.5, 0.5) },
                 uMouseVel: { value: new THREE.Vector2(0, 0) },
-                uScroll: { value: 0 }
+                uScroll: { value: 0 },
+                uAccentColor: { value: new THREE.Color(THEMES[currentThemeKey].hex) }
+            };
+
+            window.updateSmokeAccent = function(hex) {
+                if (smokeUniforms && smokeUniforms.uAccentColor) {
+                    smokeUniforms.uAccentColor.value.set(hex);
+                }
             };
 
             const smokeVertexShader = `
                 varying vec2 vUv;
                 void main() {
                     vUv = uv;
-                    gl_Position = vec4(position.xy, 0.0, 1.0);
+                    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
                 }
             `;
 
@@ -229,6 +462,7 @@ function startApp() {
                 uniform vec2 uMouse;
                 uniform vec2 uMouseVel;
                 uniform float uScroll;
+                uniform vec3 uAccentColor;
 
                 // Fast Simplex 2D Noise
                 vec3 mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
@@ -287,10 +521,10 @@ function startApp() {
                     vec2 urPoint = vec2(0.96, 0.08);
                     vec2 urDistVec = (normUv - urPoint) * vec2(1.0, 1.35);
                     float distUR = length(urDistVec);
-                    float cornerSmoke = smoothstep(1.25, 0.12, distUR);
+                    float cornerSmoke = 1.0 - smoothstep(0.12, 1.25, distUR);
 
-                    float rightEdgeSmoke = smoothstep(0.42, 0.96, normUv.x) * smoothstep(1.0, 0.15, normUv.y) * 0.82;
-                    float topWisps = smoothstep(0.45, 0.02, normUv.y) * smoothstep(0.30, 0.88, normUv.x) * 0.52;
+                    float rightEdgeSmoke = smoothstep(0.42, 0.96, normUv.x) * (1.0 - smoothstep(0.15, 1.0, normUv.y)) * 0.82;
+                    float topWisps = (1.0 - smoothstep(0.02, 0.45, normUv.y)) * smoothstep(0.30, 0.88, normUv.x) * 0.52;
 
                     float emitterMask = max(cornerSmoke * 0.95, max(rightEdgeSmoke, topWisps));
 
@@ -302,7 +536,7 @@ function startApp() {
                     vec2 mPos = vec2(uMouse.x, 1.0 - uMouse.y);
                     vec2 mDiff = (normUv - mPos) * vec2(aspect, 1.0);
                     float mDist = length(mDiff);
-                    float mInfluence = smoothstep(0.38, 0.0, mDist);
+                    float mInfluence = 1.0 - smoothstep(0.0, 0.38, mDist);
                     vec2 mSwirl = vec2(-mDiff.y, mDiff.x) * mInfluence * 0.48;
                     vec2 mPush = vec2(uMouseVel.x, -uMouseVel.y) * mInfluence * 0.85;
 
@@ -332,14 +566,13 @@ function startApp() {
                     vec3 cGraphite     = vec3(0.180, 0.195, 0.225); // #2e3239
                     vec3 cSmokySilver  = vec3(0.580, 0.615, 0.675); // #949dad visible smoky silver
                     vec3 cSilverRim    = vec3(0.820, 0.850, 0.910); // #d1d9e8 specular rim
-                    vec3 cCoolBlue     = vec3(0.110, 0.165, 0.255); // #1c2a41 subtle cool blue
 
                     // Directional Backlighting from Upper-Right Emitter
                     vec2 lightDir = normalize(urPoint - normUv);
                     vec2 smokeGrad = normalize((r - vec2(0.5)) + vec2(0.001));
                     float rimLight = pow(max(0.0, dot(smokeGrad, lightDir)), 2.2);
 
-                    // Subtle cool-blue ambient illumination near bottom center
+                    // Subtle ambient illumination near bottom center with dynamic theme tint
                     float coolGlow = exp(-length((normUv - vec2(0.5, 0.88)) * vec2(1.0, 1.4)) * 3.2);
 
                     // Compositing with high aesthetic contrast & visible volumetric body
@@ -347,7 +580,7 @@ function startApp() {
                     col = mix(col, cGraphite, smoothstep(0.12, 0.60, smoke));
                     col = mix(col, cSmokySilver, smoothstep(0.35, 0.88, smoke) * 0.75);
                     col += cSilverRim * (rimLight * smoke * 0.65);
-                    col += cCoolBlue * (coolGlow * 0.35);
+                    col += uAccentColor * (rimLight * smoke * 0.28 + coolGlow * 0.25);
 
                     // Faint atmospheric scanline & delicate grain
                     float horiz = sin(normUv.y * uResolution.y * 1.5) * 0.005;
