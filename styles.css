@@ -3,6 +3,186 @@
 /* Deep Obsidian Black (#050508 to #0a0a12) · Glassmorphism · Mouse Reactivity */
 /* ========================================================================== */
 
+/* ========================================================================== */
+/* 0. CINEMATIC INTRO SCREEN & HERO REVEAL TRANSITION                         */
+/* ========================================================================== */
+.cinematic-intro-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    background-color: #0d0d0f;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transition: 
+        opacity 0.95s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 0.95s cubic-bezier(0.22, 1, 0.36, 1),
+        filter 0.95s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: opacity, transform, filter;
+}
+
+.cinematic-intro-overlay.has-entered {
+    opacity: 0;
+    transform: scale(1.06);
+    filter: blur(14px);
+    pointer-events: none;
+}
+
+.intro-spotlight {
+    background: radial-gradient(circle 650px at 50% 50%, rgba(255, 255, 255, 0.055) 0%, rgba(25, 28, 35, 0.3) 45%, rgba(13, 13, 15, 0.96) 80%);
+    pointer-events: none;
+}
+
+/* Watermark Outlined Duplicates Behind Name */
+.intro-watermark-wrap {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.intro-watermark-row {
+    font-family: 'Oswald', 'Bebas Neue', 'Inter', sans-serif;
+    font-size: clamp(6.5rem, 21vw, 16rem);
+    font-weight: 900;
+    line-height: 0.84;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    color: transparent;
+    -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.12);
+    opacity: 0.13;
+    user-select: none;
+    white-space: nowrap;
+    animation: watermarkBreathe 7s ease-in-out infinite alternate;
+}
+
+.intro-watermark-row.watermark-row-2 {
+    animation-delay: -3.5s;
+}
+
+@keyframes watermarkBreathe {
+    0% {
+        transform: scale(1) translate3d(0, 0, 0);
+        opacity: 0.11;
+    }
+    50% {
+        transform: scale(1.035) translate3d(0, -4px, 0);
+        opacity: 0.18;
+        -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.18);
+    }
+    100% {
+        transform: scale(1) translate3d(0, 0, 0);
+        opacity: 0.11;
+    }
+}
+
+/* Solid White Stacked Name with Smooth Blur-to-Clear Entrance */
+.intro-name-row {
+    font-family: 'Oswald', 'Bebas Neue', 'Inter', sans-serif;
+    font-size: clamp(4.5rem, 15vw, 10.5rem);
+    font-weight: 900;
+    line-height: 0.85;
+    letter-spacing: -0.015em;
+    text-transform: uppercase;
+    color: #ffffff;
+    text-shadow: 0 0 35px rgba(255, 255, 255, 0.18);
+    animation: introTitleReveal 1.1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    display: block;
+}
+
+.intro-name-row.name-row-1 {
+    animation-delay: 0.05s;
+}
+.intro-name-row.name-row-2 {
+    animation-delay: 0.12s;
+}
+
+@keyframes introTitleReveal {
+    0% {
+        opacity: 0;
+        filter: blur(8px);
+        transform: scale(0.96) translate3d(0, 8px, 0);
+    }
+    100% {
+        opacity: 1;
+        filter: blur(0px);
+        transform: scale(1) translate3d(0, 0, 0);
+    }
+}
+
+/* Tagline Fade-In (+0.6s) */
+.intro-tagline {
+    opacity: 0;
+    transform: translate3d(0, 10px, 0);
+    animation: introFadeInUp 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.6s forwards;
+}
+
+@keyframes introFadeInUp {
+    0% {
+        opacity: 0;
+        transform: translate3d(0, 10px, 0);
+    }
+    100% {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+/* CTA Prompt (+1.2s) */
+.intro-enter-btn {
+    opacity: 0;
+    transform: translate3d(0, 12px, 0);
+    animation: introBtnAppear 0.85s cubic-bezier(0.22, 1, 0.36, 1) 1.2s forwards,
+               introBtnPulse 3.5s ease-in-out infinite 2.1s;
+}
+
+@keyframes introBtnAppear {
+    0% {
+        opacity: 0;
+        transform: translate3d(0, 12px, 0) scale(0.95);
+    }
+    100% {
+        opacity: 1;
+        transform: translate3d(0, 0, 0) scale(1);
+    }
+}
+
+@keyframes introBtnPulse {
+    0%, 100% {
+        box-shadow: 0 0 16px rgba(255, 255, 255, 0.06), inset 0 0 10px rgba(255, 255, 255, 0.04);
+        transform: translate3d(0, 0, 0);
+    }
+    50% {
+        box-shadow: 0 0 28px rgba(255, 255, 255, 0.18), inset 0 0 14px rgba(255, 255, 255, 0.08);
+        transform: translate3d(0, -2px, 0);
+    }
+}
+
+.intro-enter-btn.fading-out {
+    opacity: 0 !important;
+    transform: scale(0.9) !important;
+    transition: opacity 0.3s ease, transform 0.3s ease !important;
+}
+
+/* Navigation Bar Reveal on Enter */
+#navbar {
+    transition: transform 0.85s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: transform, opacity;
+}
+
+#navbar.navbar-hidden {
+    transform: translate3d(0, -50px, 0) !important;
+    opacity: 0 !important;
+    pointer-events: none;
+}
+
 /* Custom Sleek Scrollbar */
 ::-webkit-scrollbar {
     width: 6px;
@@ -23,11 +203,11 @@
 /* Base Midnight Theme (Low-Saturation Cinematic Space: #050609) */
 html {
     scroll-behavior: smooth;
-    background-color: #050609;
+    background-color: #08080a;
 }
 
 body {
-    background-color: #050609;
+    background-color: #08080a;
     color: #cbd5e1;
     overflow-x: hidden;
 }
@@ -40,6 +220,7 @@ section[id] {
 /* ========================================================================== */
 /* 1. INTERACTIVE SINGULARITY WEBGL CANVAS & CUSTOM CURSOR                    */
 /* ========================================================================== */
+#smokeCanvas,
 #singularityCanvas,
 #galaxyCanvas {
     position: fixed;
@@ -49,7 +230,7 @@ section[id] {
     height: 100vh;
     z-index: 0;
     pointer-events: none;
-    background-color: #050609;
+    background-color: #070709;
 }
 
 /* Minimal Premium Animated Custom Cursor (Desktop Only) */
@@ -76,10 +257,10 @@ section[id] {
         position: absolute;
         width: 6px;
         height: 6px;
-        background: #00F2FE;
+        background: #cbd5e1;
         border-radius: 50%;
         transform: translate3d(-50%, -50%, 0);
-        box-shadow: 0 0 10px #00F2FE, 0 0 18px rgba(0, 242, 254, 0.8);
+        box-shadow: 0 0 10px rgba(203, 213, 225, 0.75), 0 0 18px rgba(148, 163, 184, 0.45);
         pointer-events: none;
         will-change: transform;
         transition: transform 0.08s ease-out, background-color 0.2s ease, box-shadow 0.2s ease;
@@ -89,11 +270,11 @@ section[id] {
         position: absolute;
         width: 32px;
         height: 32px;
-        border: 1.5px solid rgba(0, 242, 254, 0.65);
+        border: 1px solid rgba(203, 213, 225, 0.45);
         border-radius: 50%;
         transform: translate3d(-50%, -50%, 0);
         pointer-events: none;
-        box-shadow: 0 0 14px rgba(107, 0, 255, 0.45), inset 0 0 8px rgba(0, 242, 254, 0.25);
+        box-shadow: 0 0 12px rgba(148, 163, 184, 0.16);
         will-change: transform, width, height;
         transition: width 0.25s cubic-bezier(0.2, 0.9, 0.3, 1), 
                     height 0.25s cubic-bezier(0.2, 0.9, 0.3, 1), 
@@ -108,13 +289,26 @@ section[id] {
         border-radius: 50%;
         transform: translate3d(-50%, -50%, 0);
         pointer-events: none;
-        background: radial-gradient(circle, rgba(0, 242, 254, 0.25) 0%, rgba(107, 0, 255, 0.18) 45%, transparent 75%);
+        background: radial-gradient(circle, rgba(148, 163, 184, 0.14) 0%, rgba(30, 41, 59, 0.08) 50%, transparent 75%);
         filter: blur(10px);
         will-change: transform;
         transition: opacity 0.3s ease;
     }
 
-    /* Trailing Stardust Particles Created Along Pointer Movement */
+    /* Volumetric Smoke Vapor Wisps Emitted by Moving Cursor */
+    .pointer-smoke-wisp {
+        position: fixed;
+        pointer-events: none;
+        z-index: 9998;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(165, 175, 190, 0.22) 0%, rgba(80, 88, 100, 0.12) 40%, transparent 72%);
+        filter: blur(14px);
+        transform: translate3d(-50%, -50%, 0);
+        will-change: transform, opacity;
+        mix-blend-mode: screen;
+    }
+
+    /* Fallback cursor mote */
     .cursor-mote {
         position: fixed;
         pointer-events: none;
@@ -129,13 +323,13 @@ section[id] {
     .custom-cursor.hovering .cursor-ring {
         width: 48px;
         height: 48px;
-        border-color: rgba(0, 255, 135, 0.85);
-        box-shadow: 0 0 20px rgba(0, 255, 135, 0.55), inset 0 0 10px rgba(0, 255, 135, 0.3);
+        border-color: rgba(255, 255, 255, 0.85);
+        box-shadow: 0 0 18px rgba(255, 255, 255, 0.35);
     }
 
     .custom-cursor.hovering .cursor-dot {
-        background: #00FF87;
-        box-shadow: 0 0 14px #00FF87;
+        background: #ffffff;
+        box-shadow: 0 0 14px rgba(255, 255, 255, 0.95);
         transform: translate3d(-50%, -50%, 0) scale(1.3);
     }
 }
@@ -218,20 +412,20 @@ section[id] {
 }
 
 .aurora-wave-1 {
-    background: radial-gradient(ellipse 70% 60% at 30% 40%, #00F2FE 0%, #6B00FF 60%, transparent 80%);
-    animation: auroraWaveMove1 12s ease-in-out infinite alternate;
+    background: radial-gradient(ellipse 70% 60% at 25% 40%, rgba(148, 163, 184, 0.35) 0%, rgba(30, 41, 59, 0.3) 60%, transparent 80%);
+    animation: auroraWaveMove1 14s ease-in-out infinite alternate;
 }
 
 .aurora-wave-2 {
-    background: radial-gradient(ellipse 65% 55% at 45% 60%, #6B00FF 0%, #00FF87 55%, transparent 85%);
-    animation: auroraWaveMove2 18s ease-in-out infinite alternate;
+    background: radial-gradient(ellipse 65% 55% at 35% 60%, rgba(71, 85, 105, 0.3) 0%, rgba(15, 23, 42, 0.4) 55%, transparent 85%);
+    animation: auroraWaveMove2 19s ease-in-out infinite alternate;
     opacity: 0.5;
 }
 
 .aurora-wave-3 {
-    background: radial-gradient(ellipse 60% 50% at 20% 50%, #2AF598 0%, #00F2FE 50%, transparent 80%);
-    animation: auroraWaveMove3 15s ease-in-out infinite alternate;
-    opacity: 0.42;
+    background: radial-gradient(ellipse 60% 50% at 15% 50%, rgba(100, 116, 139, 0.25) 0%, rgba(30, 41, 59, 0.25) 50%, transparent 80%);
+    animation: auroraWaveMove3 16s ease-in-out infinite alternate;
+    opacity: 0.45;
 }
 
 @keyframes auroraWaveMove1 {

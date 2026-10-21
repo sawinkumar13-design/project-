@@ -9,7 +9,7 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&family=Oswald:wght@500;600;700;800;900&display=swap" rel="stylesheet">
 
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -23,7 +23,9 @@
                     },
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
-                        mono: ['JetBrains Mono', 'monospace']
+                        mono: ['JetBrains Mono', 'monospace'],
+                        oswald: ['Oswald', 'sans-serif'],
+                        bebas: ['Bebas Neue', 'sans-serif']
                     }
                 }
             }
@@ -31,19 +33,65 @@
     </script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <link rel="stylesheet" href="styles.css?v=10">
+    <link rel="stylesheet" href="styles.css?v=11">
 </head>
 
-<body class="selection:bg-cyan-500/30 selection:text-cyan-200 overflow-x-hidden font-sans bg-[#050609]">
+<body class="selection:bg-slate-400/20 selection:text-white overflow-x-hidden font-sans bg-[#08080a]">
 
     <!-- ======================================================== -->
-    <!-- AESTHETIC INTERACTIVE SINGULARITY & CUSTOM CURSOR        -->
+    <!-- CINEMATIC INTRO SCREEN & REVEAL OVERLAY (PHASE 1)         -->
     <!-- ======================================================== -->
-    <!-- Three.js Singularity & Ethereal Nebula WebGL Canvas -->
-    <canvas id="singularityCanvas"></canvas>
+    <div id="cinematicIntro" class="cinematic-intro-overlay fixed inset-0 z-[100] flex flex-col items-center justify-center overflow-hidden bg-[#0d0d0f] select-none cursor-pointer" aria-label="Intro Screen">
+        
+        <!-- Soft radial spotlight glow centered behind the main text -->
+        <div class="intro-spotlight absolute inset-0 pointer-events-none" aria-hidden="true"></div>
+
+        <!-- Watermark Outlined Duplicates Behind Name -->
+        <div class="intro-watermark-wrap absolute inset-0 flex flex-col items-center justify-center pointer-events-none -z-10" aria-hidden="true">
+            <span class="intro-watermark-row watermark-row-1">SAWIN</span>
+            <span class="intro-watermark-row watermark-row-2">KUMAR</span>
+        </div>
+
+        <!-- Center Stacked Bold Name -->
+        <div class="intro-content-wrap relative z-10 flex flex-col items-center text-center px-4 max-w-4xl mx-auto pointer-events-auto">
+            
+            <div class="intro-title-box">
+                <h1 class="intro-title flex flex-col items-center font-black tracking-tight leading-[0.85] text-white">
+                    <span class="intro-name-row name-row-1 font-oswald">SAWIN</span>
+                    <span class="intro-name-row name-row-2 font-oswald">KUMAR</span>
+                </h1>
+            </div>
+
+            <!-- Tagline Fade-In (+0.6s) -->
+            <p class="intro-tagline mt-6 sm:mt-7 text-xs sm:text-sm md:text-base font-mono uppercase tracking-[0.25em] text-white/70">
+                Always learning. Always building. Always improving.
+            </p>
+
+            <!-- CTA Prompt (+1.2s) -->
+            <button id="enterPortfolioBtn" class="intro-enter-btn mt-8 sm:mt-10 px-8 py-3 rounded-full border border-white/20 text-xs sm:text-sm font-mono tracking-widest uppercase text-white/90 hover:text-white hover:border-white/50 bg-white/[0.04] backdrop-blur-md transition-all duration-300 group cursor-pointer focus:outline-none" aria-label="Click to Enter Portfolio">
+                <span class="inline-flex items-center gap-2 group-hover:scale-105 transition-transform duration-200">
+                    <span class="text-white/40">[</span>
+                    <span class="font-bold text-white tracking-widest">CLICK TO ENTER</span>
+                    <span class="text-white/40">]</span>
+                </span>
+            </button>
+
+        </div>
+
+        <!-- Bottom subtle hint -->
+        <div class="intro-bottom-hint absolute bottom-6 text-[10px] font-mono tracking-widest uppercase text-white/30 pointer-events-none">
+            Press Enter or Click Anywhere
+        </div>
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- PHOTOREALISTIC VOLUMETRIC SMOKE BACKGROUND & CURSOR       -->
+    <!-- ======================================================== -->
+    <!-- Full-Screen Photorealistic Volumetric Smoke WebGL Canvas -->
+    <canvas id="smokeCanvas"></canvas>
 
     <!-- Minimal Premium Custom Animated Cursor (Desktop) -->
-    <div id="singularityCursor" class="custom-cursor" aria-hidden="true">
+    <div id="smokeCursor" class="custom-cursor" aria-hidden="true">
         <div class="cursor-aura"></div>
         <div class="cursor-ring"></div>
         <div class="cursor-dot"></div>
@@ -52,7 +100,7 @@
     <!-- ======================================================== -->
     <!-- NAVIGATION BAR (GLOSSY GLASS WITH ACCURATE SOCIAL LINKS) -->
     <!-- ======================================================== -->
-    <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-500 backdrop-blur-2xl bg-[#050609]/80 border-b border-white/[0.08]" id="navbar">
+    <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-500 backdrop-blur-2xl bg-[#08080c]/85 border-b border-white/[0.08] navbar-hidden" id="navbar">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
             
             <!-- Brand / Logo -->
@@ -1962,7 +2010,7 @@
     </div>
 
     <!-- Scripts with Cache-Buster v=8 -->
-    <script src="main.js?v=10"></script>
+    <script src="main.js?v=11"></script>
     <script>lucide.createIcons();</script>
 </body>
 </html>
