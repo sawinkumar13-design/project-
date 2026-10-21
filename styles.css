@@ -10,26 +10,28 @@
     position: fixed;
     inset: 0;
     z-index: 100;
-    background-color: #0d0d0f;
+    background: rgba(9, 9, 13, 0.78);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     overflow: hidden;
     transition: 
-        opacity 0.95s cubic-bezier(0.22, 1, 0.36, 1),
-        transform 0.95s cubic-bezier(0.22, 1, 0.36, 1),
-        filter 0.95s cubic-bezier(0.22, 1, 0.36, 1);
+        opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 0.85s cubic-bezier(0.22, 1, 0.36, 1),
+        filter 0.85s cubic-bezier(0.22, 1, 0.36, 1);
     will-change: opacity, transform, filter;
 }
 
 .cinematic-intro-overlay.has-entered {
     opacity: 0 !important;
     transform: scale(1.06) !important;
-    filter: blur(14px) !important;
+    filter: blur(16px) !important;
     pointer-events: none !important;
     visibility: hidden !important;
-    transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1), filter 0.8s cubic-bezier(0.22, 1, 0.36, 1), visibility 0.8s !important;
+    transition: opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1), transform 0.75s cubic-bezier(0.22, 1, 0.36, 1), filter 0.75s cubic-bezier(0.22, 1, 0.36, 1), visibility 0.75s !important;
 }
 
 .intro-spotlight {
@@ -307,8 +309,8 @@ section[id] {
         pointer-events: none;
         z-index: 9998;
         border-radius: 50%;
-        background: radial-gradient(circle, rgba(165, 175, 190, 0.22) 0%, rgba(80, 88, 100, 0.12) 40%, transparent 72%);
-        filter: blur(14px);
+        background: radial-gradient(circle, rgba(215, 226, 245, 0.65) 0%, rgba(155, 170, 192, 0.40) 35%, rgba(75, 88, 108, 0.16) 65%, transparent 80%);
+        filter: blur(7px);
         transform: translate3d(-50%, -50%, 0);
         will-change: transform, opacity;
         mix-blend-mode: screen;
@@ -748,19 +750,33 @@ section[id] {
 /* Scroll Reveal Classes */
 .reveal {
     opacity: 0;
-    transform: translateY(35px);
+    transform: translateY(30px);
     filter: blur(8px);
     transition: 
-        opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
-        transform 0.8s cubic-bezier(0.22, 1, 0.36, 1),
-        filter 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+        opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 0.75s cubic-bezier(0.22, 1, 0.36, 1),
+        filter 0.75s cubic-bezier(0.22, 1, 0.36, 1);
     will-change: opacity, transform, filter;
 }
 
 .reveal.active {
-    opacity: 1;
-    transform: translateY(0);
-    filter: blur(0px);
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+    filter: blur(0px) !important;
+}
+
+/* Fallback visibility guarantee when portfolio entered */
+body.portfolio-entered .reveal.active {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+}
+
+/* Fallback if JavaScript is disabled or delayed */
+body:not(.js-enabled) .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
 }
 
 /* Stagger Delays */

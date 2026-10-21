@@ -87,23 +87,23 @@ function startApp() {
         const wisp = document.createElement('div');
         wisp.className = 'pointer-smoke-wisp';
 
-        const initialSize = isIdle ? (Math.random() * 8 + 14) : (Math.random() * 12 + 18);
-        const targetExpansion = isIdle ? (initialSize * 2.4) : (initialSize * 3.6 + Math.random() * 15);
+        const initialSize = isIdle ? (Math.random() * 8 + 18) : (Math.random() * 12 + 24);
+        const targetExpansion = isIdle ? (initialSize * 2.2) : (initialSize * 3.2 + Math.random() * 14);
         const rot = (Math.random() - 0.5) * 60;
 
         wisp.style.left = `${px}px`;
         wisp.style.top = `${py}px`;
         wisp.style.width = `${initialSize}px`;
         wisp.style.height = `${initialSize}px`;
-        wisp.style.opacity = isIdle ? '0.18' : (Math.random() * 0.15 + 0.32).toFixed(2);
+        wisp.style.opacity = isIdle ? '0.35' : (Math.random() * 0.2 + 0.58).toFixed(2);
         wisp.style.transform = `translate3d(-50%, -50%, 0) scale(0.6) rotate(0deg)`;
-        wisp.style.transition = 'transform 1.4s cubic-bezier(0.12, 0.75, 0.35, 1), opacity 1.4s cubic-bezier(0.2, 0.7, 0.3, 1)';
+        wisp.style.transition = 'transform 1.35s cubic-bezier(0.12, 0.75, 0.35, 1), opacity 1.35s cubic-bezier(0.2, 0.7, 0.3, 1)';
 
         document.body.appendChild(wisp);
 
         // Buoyancy drift (slightly upward) and drag opposing motion
-        const driftX = (Math.random() - 0.5) * 20 - (vx || 0) * 0.22;
-        const driftY = (Math.random() - 0.5) * 16 - (vy || 0) * 0.22 - (Math.random() * 16 + 10);
+        const driftX = (Math.random() - 0.5) * 22 - (vx || 0) * 0.25;
+        const driftY = (Math.random() - 0.5) * 18 - (vy || 0) * 0.25 - (Math.random() * 18 + 12);
 
         requestAnimationFrame(() => {
             wisp.style.opacity = '0';
@@ -117,7 +117,7 @@ function startApp() {
             if (wisp.parentNode) wisp.parentNode.removeChild(wisp);
             const idx = activeWisps.indexOf(wispObj);
             if (idx !== -1) activeWisps.splice(idx, 1);
-        }, 1450);
+        }, 1400);
     }
 
     if (!isTouchDevice && cursorContainer) {
@@ -186,250 +186,252 @@ function startApp() {
     let updateAllSectionProps = () => {};
 
     if (canvas && typeof THREE !== 'undefined') {
-        let width = window.innerWidth;
-        let height = window.innerHeight;
+        try {
+            let width = window.innerWidth;
+            let height = window.innerHeight;
 
-        const scene = new THREE.Scene();
-        const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+            const scene = new THREE.Scene();
+            const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, -1, 1);
+            camera.position.set(0, 0, 0);
 
-        const renderer = new THREE.WebGLRenderer({
-            canvas: canvas,
-            antialias: false,
-            powerPreference: 'high-performance',
-            depth: false,
-            stencil: false
-        });
-        renderer.setSize(width, height);
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
-
-        const smokeUniforms = {
-            uTime: { value: 0 },
-            uResolution: { value: new THREE.Vector2(width, height) },
-            uMouse: { value: new THREE.Vector2(0.5, 0.5) },
-            uMouseVel: { value: new THREE.Vector2(0, 0) },
-            uScroll: { value: 0 }
-        };
-
-        const smokeVertexShader = `
-            varying vec2 vUv;
-            void main() {
-                vUv = uv;
-                gl_Position = vec4(position, 1.0);
-            }
-        `;
-
-        const smokeFragmentShader = `
-            precision highp float;
-            varying vec2 vUv;
-            uniform float uTime;
-            uniform vec2 uResolution;
-            uniform vec2 uMouse;
-            uniform vec2 uMouseVel;
-            uniform float uScroll;
-
-            // Fast Simplex 2D/3D Noise
-            vec3 mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
-            vec2 mod289(vec2 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
-            vec3 permute(vec3 x) { return mod289(((x * 34.0) + 1.0) * x); }
-
-            float snoise(vec2 v) {
-                const vec4 C = vec4(0.211324865405187, 0.366025403784439, -0.577350269189626, 0.024390243902439);
-                vec2 i  = floor(v + dot(v, C.yy));
-                vec2 x0 = v -   i + dot(i, C.xx);
-                vec2 i1 = (x0.x > x0.y) ? vec2(1.0, 0.0) : vec2(0.0, 1.0);
-                vec4 x12 = x0.xyxy + C.xxzz;
-                x12.xy -= i1;
-                i = mod289(i);
-                vec3 p = permute(permute(i.y + vec3(0.0, i1.y, 1.0)) + i.x + vec3(0.0, i1.x, 1.0));
-                vec3 m = max(0.5 - vec3(dot(x0, x0), dot(x12.xy, x12.xy), dot(x12.zw, x12.zw)), 0.0);
-                m = m * m;
-                m = m * m;
-                vec3 x = 2.0 * fract(p * C.www) - 1.0;
-                vec3 h = abs(x) - 0.5;
-                vec3 ox = floor(x + 0.5);
-                vec3 a0 = x - ox;
-                m *= 1.79284291400159 - 0.85373472095314 * (a0 * a0 + h * h);
-                vec3 g;
-                g.x  = a0.x  * x0.x  + h.x  * x0.y;
-                g.yz = a0.yz * x12.xz + h.yz * x12.yw;
-                return 130.0 * dot(m, g);
-            }
-
-            float fbm(vec2 p, float t) {
-                float v = 0.0;
-                float a = 0.5;
-                mat2 rot = mat2(cos(0.52), sin(0.52), -sin(0.52), cos(0.52));
-                for (int i = 0; i < 5; i++) {
-                    v += a * snoise(p + vec2(t * 0.12, -t * 0.18));
-                    p = rot * p * 2.02 + vec2(120.0, 60.0);
-                    a *= 0.48;
-                }
-                return v * 0.5 + 0.5;
-            }
-
-            // Multi-layer domain warping for organic volumetric vapor curls
-            float getSmokeDensity(vec2 p, float t) {
-                vec2 q = vec2(
-                    fbm(p + vec2(0.0, 0.0), t),
-                    fbm(p + vec2(5.2, 1.3), t)
-                );
-
-                vec2 r = vec2(
-                    fbm(p + 2.6 * q + vec2(1.7, 9.2), t * 1.15),
-                    fbm(p + 2.6 * q + vec2(8.3, 2.8), t * 1.15)
-                );
-
-                float d = fbm(p + 3.2 * r, t * 0.85);
-                return smoothstep(0.22, 0.78, d);
-            }
-
-            float hash(vec2 p) {
-                return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453123);
-            }
-
-            void main() {
-                vec2 uv = vUv;
-                vec2 normUv = vec2(uv.x, 1.0 - uv.y);
-                float aspect = uResolution.x / uResolution.y;
-
-                // Slow, graceful, continuous time
-                float slowTime = uTime * 0.065;
-
-                // Composition: Emitter in Upper-Right Corner and Right Edge
-                vec2 urPoint = vec2(0.96, 0.06);
-                vec2 urDistVec = (normUv - urPoint) * vec2(1.0, 1.45);
-                float distUR = length(urDistVec);
-                float cornerSmoke = smoothstep(1.15, 0.12, distUR);
-
-                float rightEdgeSmoke = smoothstep(0.48, 0.98, normUv.x) * smoothstep(1.0, 0.15, normUv.y) * 0.74;
-                float topWisps = smoothstep(0.48, 0.04, normUv.y) * smoothstep(0.35, 0.88, normUv.x) * 0.42;
-
-                float emitterMask = max(cornerSmoke * 0.95, max(rightEdgeSmoke, topWisps));
-
-                // Large Negative Space: Keep left side and center almost completely black
-                float negativeSpace = smoothstep(0.28, 0.78, normUv.x + (1.0 - normUv.y) * 0.42);
-                emitterMask *= negativeSpace;
-
-                // Mouse Pointer Interaction in the smoke field
-                vec2 mPos = vec2(uMouse.x, 1.0 - uMouse.y);
-                vec2 mDiff = (normUv - mPos) * vec2(aspect, 1.0);
-                float mDist = length(mDiff);
-                float mInfluence = smoothstep(0.38, 0.0, mDist);
-
-                vec2 mSwirl = vec2(-mDiff.y, mDiff.x) * mInfluence * 0.42;
-                vec2 mPush = vec2(uMouseVel.x, -uMouseVel.y) * mInfluence * 0.75;
-
-                // Base Domain Coordinates with Gentle Inward & Upward Drift
-                vec2 p = normUv * vec2(3.2 * aspect, 3.2);
-                p.y -= slowTime * 0.36; // upward drift
-                p.x -= slowTime * 0.24; // inward drift toward center
-                p += mSwirl + mPush;
-
-                float smoke = getSmokeDensity(p, slowTime);
-                smoke *= emitterMask;
-
-                // Low-Key Cinematic Lighting Palette
-                vec3 cBaseBlack   = vec3(0.027, 0.027, 0.035); // #070709
-                vec3 cCharcoal    = vec3(0.067, 0.071, 0.082); // #111215
-                vec3 cGraphite    = vec3(0.133, 0.141, 0.165); // #22242a
-                vec3 cSmokySilver = vec3(0.420, 0.445, 0.495); // #6b7280 muted smoky silver
-                vec3 cCoolBlue    = vec3(0.086, 0.125, 0.196); // #162032 diffused cool-blue glow
-
-                // Soft Backlighting from Upper-Right Edge revealing smoke contours
-                vec2 lightDir = normalize(urPoint - normUv);
-                float eps = 0.007;
-                float sX = getSmokeDensity(p + vec2(eps, 0.0), slowTime) * emitterMask;
-                float sY = getSmokeDensity(p + vec2(0.0, eps), slowTime) * emitterMask;
-                vec2 grad = normalize(vec2(sX - smoke, sY - smoke) + vec2(0.0001));
-                float rim = pow(max(0.0, dot(grad, lightDir)), 2.6) * 1.5;
-
-                // Faint diffused cool-blue glow near lower center (barely illuminating darkness)
-                float coolGlow = exp(-length((normUv - vec2(0.5, 0.88)) * vec2(1.0, 1.4)) * 3.4);
-
-                // Color compositing
-                vec3 col = mix(cBaseBlack, cCharcoal, smoke * 0.75);
-                col = mix(col, cGraphite, smoke * smoke);
-                col += cSmokySilver * (rim * smoke * 0.85);
-                col += cCoolBlue * (coolGlow * 0.38);
-
-                // Fine Atmospheric Detail: Faint horizontal texture & delicate film grain
-                float horiz = sin(normUv.y * uResolution.y * 1.6) * 0.006;
-                float grain = (hash(normUv * uResolution.xy + fract(uTime * 17.3)) - 0.5) * 0.022;
-                col += horiz + grain;
-
-                gl_FragColor = vec4(clamp(col, 0.0, 1.0), 1.0);
-            }
-        `;
-
-        const smokeGeo = new THREE.PlaneGeometry(2, 2);
-        const smokeMat = new THREE.ShaderMaterial({
-            uniforms: smokeUniforms,
-            vertexShader: smokeVertexShader,
-            fragmentShader: smokeFragmentShader,
-            depthWrite: false,
-            depthTest: false
-        });
-
-        const smokeQuad = new THREE.Mesh(smokeGeo, smokeMat);
-        scene.add(smokeQuad);
-
-        function resizeSmoke() {
-            width = window.innerWidth;
-            height = window.innerHeight;
+            const renderer = new THREE.WebGLRenderer({
+                canvas: canvas,
+                antialias: false,
+                powerPreference: 'high-performance',
+                depth: false,
+                stencil: false,
+                alpha: true
+            });
             renderer.setSize(width, height);
-            smokeUniforms.uResolution.value.set(width, height);
-        }
-        window.addEventListener('resize', resizeSmoke, { passive: true });
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
 
-        let lastFrameTime = performance.now();
-        let smoothMouseX = 0.5;
-        let smoothMouseY = 0.5;
-        let smoothVelX = 0;
-        let smoothVelY = 0;
+            const smokeUniforms = {
+                uTime: { value: 0 },
+                uResolution: { value: new THREE.Vector2(width, height) },
+                uMouse: { value: new THREE.Vector2(0.5, 0.5) },
+                uMouseVel: { value: new THREE.Vector2(0, 0) },
+                uScroll: { value: 0 }
+            };
 
-        function smokeAnimate(currentTime) {
-            const delta = Math.min((currentTime - lastFrameTime) * 0.001, 0.1);
-            lastFrameTime = currentTime;
+            const smokeVertexShader = `
+                varying vec2 vUv;
+                void main() {
+                    vUv = uv;
+                    gl_Position = vec4(position.xy, 0.0, 1.0);
+                }
+            `;
 
-            smokeUniforms.uTime.value = currentTime * 0.001;
+            const smokeFragmentShader = `
+                precision highp float;
+                varying vec2 vUv;
+                uniform float uTime;
+                uniform vec2 uResolution;
+                uniform vec2 uMouse;
+                uniform vec2 uMouseVel;
+                uniform float uScroll;
 
-            // Smooth pointer lerp
-            smoothMouseX += (normMouseX - smoothMouseX) * 0.1;
-            smoothMouseY += (normMouseY - smoothMouseY) * 0.1;
-            smokeUniforms.uMouse.value.set(smoothMouseX, smoothMouseY);
+                // Fast Simplex 2D Noise
+                vec3 mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
+                vec2 mod289(vec2 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
+                vec3 permute(vec3 x) { return mod289(((x * 34.0) + 1.0) * x); }
 
-            smoothVelX += (mouseVelX - smoothVelX) * 0.12;
-            smoothVelY += (mouseVelY - smoothVelY) * 0.12;
-            smokeUniforms.uMouseVel.value.set(smoothVelX * 0.005, smoothVelY * 0.005);
-            mouseVelX *= 0.9;
-            mouseVelY *= 0.9;
+                float snoise(vec2 v) {
+                    const vec4 C = vec4(0.211324865405187, 0.366025403784439, -0.577350269189626, 0.024390243902439);
+                    vec2 i  = floor(v + dot(v, C.yy));
+                    vec2 x0 = v -   i + dot(i, C.xx);
+                    vec2 i1 = (x0.x > x0.y) ? vec2(1.0, 0.0) : vec2(0.0, 1.0);
+                    vec4 x12 = x0.xyxy + C.xxzz;
+                    x12.xy -= i1;
+                    i = mod289(i);
+                    vec3 p = permute(permute(i.y + vec3(0.0, i1.y, 1.0)) + i.x + vec3(0.0, i1.x, 1.0));
+                    vec3 m = max(0.5 - vec3(dot(x0, x0), dot(x12.xy, x12.xy), dot(x12.zw, x12.zw)), 0.0);
+                    m = m * m;
+                    m = m * m;
+                    vec3 x = 2.0 * fract(p * C.www) - 1.0;
+                    vec3 h = abs(x) - 0.5;
+                    vec3 ox = floor(x + 0.5);
+                    vec3 a0 = x - ox;
+                    m *= 1.79284291400159 - 0.85373472095314 * (a0 * a0 + h * h);
+                    vec3 g;
+                    g.x  = a0.x  * x0.x  + h.x  * x0.y;
+                    g.yz = a0.yz * x12.xz + h.yz * x12.yw;
+                    return 130.0 * dot(m, g);
+                }
 
-            // Cursor outer ring & aura lagged follower
-            if (!isTouchDevice && cursorRing && cursorAura) {
-                ringX += (targetMouseX - ringX) * 0.16;
-                ringY += (targetMouseY - ringY) * 0.16;
-                cursorRing.style.transform = `translate3d(${ringX}px, ${ringY}px, 0) translate3d(-50%, -50%, 0)`;
+                // 3-Octave Fast FBM with 2D rotation for rich, natural turbulence
+                float fbm(vec2 p, float t) {
+                    float v = 0.0;
+                    float a = 0.5;
+                    mat2 rot = mat2(0.87, 0.49, -0.49, 0.87);
+                    for (int i = 0; i < 3; i++) {
+                        v += a * snoise(p + vec2(t * 0.14, -t * 0.20));
+                        p = rot * p * 2.06 + vec2(100.0, 50.0);
+                        a *= 0.48;
+                    }
+                    return v * 0.5 + 0.5;
+                }
 
-                auraX += (targetMouseX - auraX) * 0.09;
-                auraY += (targetMouseY - auraY) * 0.09;
-                cursorAura.style.transform = `translate3d(${auraX}px, ${auraY}px, 0) translate3d(-50%, -50%, 0)`;
+                float hash(vec2 p) {
+                    return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453123);
+                }
+
+                void main() {
+                    vec2 uv = vUv;
+                    vec2 normUv = vec2(uv.x, 1.0 - uv.y);
+                    float aspect = uResolution.x / uResolution.y;
+
+                    // Slow, graceful continuous time
+                    float slowTime = uTime * 0.07;
+
+                    // Composition: Emitter in Upper-Right Corner and Right Edge
+                    vec2 urPoint = vec2(0.96, 0.08);
+                    vec2 urDistVec = (normUv - urPoint) * vec2(1.0, 1.35);
+                    float distUR = length(urDistVec);
+                    float cornerSmoke = smoothstep(1.25, 0.12, distUR);
+
+                    float rightEdgeSmoke = smoothstep(0.42, 0.96, normUv.x) * smoothstep(1.0, 0.15, normUv.y) * 0.82;
+                    float topWisps = smoothstep(0.45, 0.02, normUv.y) * smoothstep(0.30, 0.88, normUv.x) * 0.52;
+
+                    float emitterMask = max(cornerSmoke * 0.95, max(rightEdgeSmoke, topWisps));
+
+                    // Negative Space: Left side and center remain dark obsidian charcoal
+                    float negativeSpace = smoothstep(0.24, 0.72, normUv.x + (1.0 - normUv.y) * 0.46);
+                    emitterMask *= negativeSpace;
+
+                    // Mouse Pointer Swirl & Displacement
+                    vec2 mPos = vec2(uMouse.x, 1.0 - uMouse.y);
+                    vec2 mDiff = (normUv - mPos) * vec2(aspect, 1.0);
+                    float mDist = length(mDiff);
+                    float mInfluence = smoothstep(0.38, 0.0, mDist);
+                    vec2 mSwirl = vec2(-mDiff.y, mDiff.x) * mInfluence * 0.48;
+                    vec2 mPush = vec2(uMouseVel.x, -uMouseVel.y) * mInfluence * 0.85;
+
+                    // Base Domain with Organic Upward and Inward Drift
+                    vec2 p = normUv * vec2(3.0 * aspect, 3.0);
+                    p.y -= slowTime * 0.38; // upward drift
+                    p.x -= slowTime * 0.26; // inward drift toward center
+                    p += mSwirl + mPush;
+
+                    // Multi-Layer Domain Warping for Volumetric Vapor Curls
+                    vec2 q = vec2(
+                        fbm(p + vec2(0.0, 0.0), slowTime),
+                        fbm(p + vec2(5.2, 1.3), slowTime)
+                    );
+
+                    vec2 r = vec2(
+                        fbm(p + 2.8 * q + vec2(1.7, 9.2), slowTime * 1.15),
+                        fbm(p + 2.8 * q + vec2(8.3, 2.8), slowTime * 1.15)
+                    );
+
+                    float rawDensity = fbm(p + 3.2 * r, slowTime * 0.85);
+                    float smoke = smoothstep(0.18, 0.82, rawDensity) * emitterMask;
+
+                    // Low-Key Cinematic Lighting Palette (High Contrast & Visible Vapor)
+                    vec3 cBaseBlack    = vec3(0.024, 0.025, 0.032); // #060608
+                    vec3 cCharcoal     = vec3(0.075, 0.082, 0.098); // #131519
+                    vec3 cGraphite     = vec3(0.180, 0.195, 0.225); // #2e3239
+                    vec3 cSmokySilver  = vec3(0.580, 0.615, 0.675); // #949dad visible smoky silver
+                    vec3 cSilverRim    = vec3(0.820, 0.850, 0.910); // #d1d9e8 specular rim
+                    vec3 cCoolBlue     = vec3(0.110, 0.165, 0.255); // #1c2a41 subtle cool blue
+
+                    // Directional Backlighting from Upper-Right Emitter
+                    vec2 lightDir = normalize(urPoint - normUv);
+                    vec2 smokeGrad = normalize((r - vec2(0.5)) + vec2(0.001));
+                    float rimLight = pow(max(0.0, dot(smokeGrad, lightDir)), 2.2);
+
+                    // Subtle cool-blue ambient illumination near bottom center
+                    float coolGlow = exp(-length((normUv - vec2(0.5, 0.88)) * vec2(1.0, 1.4)) * 3.2);
+
+                    // Compositing with high aesthetic contrast & visible volumetric body
+                    vec3 col = mix(cBaseBlack, cCharcoal, smoke * 0.85);
+                    col = mix(col, cGraphite, smoothstep(0.12, 0.60, smoke));
+                    col = mix(col, cSmokySilver, smoothstep(0.35, 0.88, smoke) * 0.75);
+                    col += cSilverRim * (rimLight * smoke * 0.65);
+                    col += cCoolBlue * (coolGlow * 0.35);
+
+                    // Faint atmospheric scanline & delicate grain
+                    float horiz = sin(normUv.y * uResolution.y * 1.5) * 0.005;
+                    float grain = (hash(normUv * uResolution.xy + fract(uTime * 17.3)) - 0.5) * 0.020;
+                    col += horiz + grain;
+
+                    gl_FragColor = vec4(clamp(col, 0.0, 1.0), 1.0);
+                }
+            `;
+
+            const smokeGeo = new THREE.PlaneGeometry(2, 2);
+            const smokeMat = new THREE.ShaderMaterial({
+                uniforms: smokeUniforms,
+                vertexShader: smokeVertexShader,
+                fragmentShader: smokeFragmentShader,
+                depthWrite: false,
+                depthTest: false
+            });
+
+            const smokeQuad = new THREE.Mesh(smokeGeo, smokeMat);
+            smokeQuad.frustumCulled = false;
+            scene.add(smokeQuad);
+
+            function resizeSmoke() {
+                width = window.innerWidth;
+                height = window.innerHeight;
+                renderer.setSize(width, height);
+                smokeUniforms.uResolution.value.set(width, height);
             }
+            window.addEventListener('resize', resizeSmoke, { passive: true });
 
-            // Subtle dynamic sway on the live smoke vapor trail behind hero portrait
-            const auroraTrailEl = document.querySelector('.aurora-trail-left');
-            if (auroraTrailEl) {
-                auroraTrailEl.style.transform = `translate3d(${(smoothMouseX - 0.5) * 32}px, ${(smoothMouseY - 0.5) * -24}px, 0)`;
+            let lastFrameTime = performance.now();
+            let smoothMouseX = 0.5;
+            let smoothMouseY = 0.5;
+            let smoothVelX = 0;
+            let smoothVelY = 0;
+
+            function smokeAnimate(currentTime) {
+                const delta = Math.min((currentTime - lastFrameTime) * 0.001, 0.1);
+                lastFrameTime = currentTime;
+
+                smokeUniforms.uTime.value = currentTime * 0.001;
+
+                // Smooth pointer lerp
+                smoothMouseX += (normMouseX - smoothMouseX) * 0.1;
+                smoothMouseY += (normMouseY - smoothMouseY) * 0.1;
+                smokeUniforms.uMouse.value.set(smoothMouseX, smoothMouseY);
+
+                smoothVelX += (mouseVelX - smoothVelX) * 0.12;
+                smoothVelY += (mouseVelY - smoothVelY) * 0.12;
+                smokeUniforms.uMouseVel.value.set(smoothVelX * 0.005, smoothVelY * 0.005);
+                mouseVelX *= 0.9;
+                mouseVelY *= 0.9;
+
+                // Cursor outer ring & aura lagged follower
+                if (!isTouchDevice && cursorRing && cursorAura) {
+                    ringX += (targetMouseX - ringX) * 0.16;
+                    ringY += (targetMouseY - ringY) * 0.16;
+                    cursorRing.style.transform = `translate3d(${ringX}px, ${ringY}px, 0) translate3d(-50%, -50%, 0)`;
+
+                    auraX += (targetMouseX - auraX) * 0.09;
+                    auraY += (targetMouseY - auraY) * 0.09;
+                    cursorAura.style.transform = `translate3d(${auraX}px, ${auraY}px, 0) translate3d(-50%, -50%, 0)`;
+                }
+
+                // Subtle dynamic sway on the live smoke vapor trail behind hero portrait
+                const auroraTrailEl = document.querySelector('.aurora-trail-left');
+                if (auroraTrailEl) {
+                    auroraTrailEl.style.transform = `translate3d(${(smoothMouseX - 0.5) * 32}px, ${(smoothMouseY - 0.5) * -24}px, 0)`;
+                }
+
+                try {
+                    renderer.render(scene, camera);
+                } catch (renderErr) {
+                    console.warn('Render issue:', renderErr);
+                }
+
+                requestAnimationFrame(smokeAnimate);
             }
-
-            renderer.render(scene, camera);
-
-            // Update 3D Corner Props for Slides 3-7 in the same loop
-            updateAllSectionProps();
 
             requestAnimationFrame(smokeAnimate);
+        } catch (err) {
+            console.warn('Smoke WebGL initialization fallback:', err);
         }
-
-        requestAnimationFrame(smokeAnimate);
     }
 
 
@@ -526,6 +528,13 @@ function startApp() {
         });
     };
 
+    // Dedicated animation loop for 3D props (guarantees continuous levitation regardless of WebGL state)
+    function propsAnimateLoop() {
+        updateAllSectionProps();
+        requestAnimationFrame(propsAnimateLoop);
+    }
+    requestAnimationFrame(propsAnimateLoop);
+
 
     // =========================================================================
     // 4. DYNAMIC GLASS BORDER GLARE & 3D PERSPECTIVE TILT
@@ -593,13 +602,14 @@ function startApp() {
     const scrollFillTitles = document.querySelectorAll('.scroll-fill-title');
     const revealElements = document.querySelectorAll('.reveal, .reveal-photo');
 
-    // Auto-trigger the hero photo reveal animation on load with smooth slide-in
-    const heroPhotoWrap = document.querySelector('.reveal-photo');
-    if (heroPhotoWrap) {
-        setTimeout(() => {
-            heroPhotoWrap.classList.add('active');
-        }, 120);
+    function activateReveal(el) {
+        if (!el) return;
+        el.classList.add('active');
     }
+
+    // Auto-trigger hero elements immediately so Hero is fully visible on enter
+    const heroReveals = document.querySelectorAll('#hero .reveal, .reveal-photo, .text-reveal');
+    heroReveals.forEach(el => activateReveal(el));
 
     if ('IntersectionObserver' in window) {
         // Hollow-to-Solid Scroll Fill Typography
@@ -610,25 +620,38 @@ function startApp() {
                     titleObserver.unobserve(entry.target);
                 }
             });
-        }, { threshold: 0.2 });
+        }, { threshold: 0.1 });
 
         scrollFillTitles.forEach(title => titleObserver.observe(title));
 
-        // General Card & Text Reveal Observer
+        // General Card & Text Reveal Observer (generous margin so content is revealed ahead of scroll)
         const revealObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
+                    activateReveal(entry.target);
                     revealObserver.unobserve(entry.target);
                 }
             });
-        }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+        }, { threshold: 0.02, rootMargin: '160px 0px 100px 0px' });
 
         revealElements.forEach(el => revealObserver.observe(el));
     } else {
         scrollFillTitles.forEach(title => title.classList.add('scroll-fill-active'));
-        revealElements.forEach(el => el.classList.add('active'));
+        revealElements.forEach(el => activateReveal(el));
     }
+
+    // Bulletproof scroll fallback listener ensuring no section is ever missed
+    window.addEventListener('scroll', () => {
+        const threshold = window.innerHeight + 160;
+        revealElements.forEach(el => {
+            if (!el.classList.contains('active')) {
+                const rect = el.getBoundingClientRect();
+                if (rect.top < threshold) {
+                    activateReveal(el);
+                }
+            }
+        });
+    }, { passive: true });
 
 
     // =========================================================================

@@ -33,18 +33,20 @@
     </script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <link rel="stylesheet" href="styles.css?v=12">
+    <link rel="stylesheet" href="styles.css?v=13">
 </head>
 
-<body class="selection:bg-slate-400/20 selection:text-white overflow-x-hidden font-sans bg-[#08080a]">
+<body class="selection:bg-slate-400/20 selection:text-white overflow-x-hidden font-sans bg-[#08080a] js-enabled">
 
-    <!-- Inline Instant Intro Controller (Guaranteed to execute immediately on click, tap, or keypress) -->
+    <!-- Inline Instant Intro Controller (Guaranteed to execute immediately on click, tap, scroll, or keypress) -->
     <script>
+        document.body.classList.add('js-enabled');
         window.hasEnteredPortfolio = false;
         window.enterPortfolio = function(e) {
             if (e && e.stopPropagation) e.stopPropagation();
             if (window.hasEnteredPortfolio) return;
             window.hasEnteredPortfolio = true;
+            document.body.classList.add('portfolio-entered');
             
             var intro = document.getElementById('cinematicIntro');
             var btn = document.getElementById('enterPortfolioBtn');
@@ -57,19 +59,28 @@
                 intro.style.pointerEvents = 'none';
                 setTimeout(function() {
                     intro.style.display = 'none';
-                }, 850);
+                }, 800);
             }
             
             if (nav) {
                 nav.classList.remove('navbar-hidden');
             }
             
-            var photo = document.querySelector('.reveal-photo');
-            if (photo) {
-                setTimeout(function() {
-                    photo.classList.add('active');
-                }, 200);
-            }
+            // Instantly activate all Hero elements and top-of-page sections
+            var heroElements = document.querySelectorAll('#hero .reveal, .reveal-photo, .text-reveal');
+            heroElements.forEach(function(el) {
+                el.classList.add('active');
+            });
+
+            // Activate elements currently within or near viewport
+            var reveals = document.querySelectorAll('.reveal');
+            var vh = window.innerHeight || 800;
+            reveals.forEach(function(el) {
+                var rect = el.getBoundingClientRect();
+                if (rect.top < vh * 2.0) {
+                    el.classList.add('active');
+                }
+            });
         };
 
         window.addEventListener('keydown', function(e) {
@@ -78,18 +89,31 @@
             }
         });
 
-        // Auto-enter timer fallback after 3.5s so user is never stuck
+        // Wheel or touch interaction automatically enters so visitor is never blocked
+        window.addEventListener('wheel', function() {
+            if (!window.hasEnteredPortfolio) {
+                window.enterPortfolio();
+            }
+        }, { passive: true, once: true });
+
+        window.addEventListener('touchmove', function() {
+            if (!window.hasEnteredPortfolio) {
+                window.enterPortfolio();
+            }
+        }, { passive: true, once: true });
+
+        // Auto-enter timer fallback after 3.2s so visitor seamlessly transitions
         setTimeout(function() {
             if (!window.hasEnteredPortfolio) {
                 window.enterPortfolio();
             }
-        }, 3500);
+        }, 3200);
     </script>
 
     <!-- ======================================================== -->
     <!-- CINEMATIC INTRO SCREEN & REVEAL OVERLAY (PHASE 1)         -->
     <!-- ======================================================== -->
-    <div id="cinematicIntro" class="cinematic-intro-overlay fixed inset-0 z-[100] flex flex-col items-center justify-center overflow-hidden bg-[#0d0d0f] select-none cursor-pointer" aria-label="Intro Screen" onclick="window.enterPortfolio(event)" ontouchend="window.enterPortfolio(event)">
+    <div id="cinematicIntro" class="cinematic-intro-overlay fixed inset-0 z-[100] flex flex-col items-center justify-center overflow-hidden select-none cursor-pointer" aria-label="Intro Screen" onclick="window.enterPortfolio(event)" ontouchend="window.enterPortfolio(event)">
         
         <!-- Soft radial spotlight glow centered behind the main text -->
         <div class="intro-spotlight absolute inset-0 pointer-events-none" aria-hidden="true"></div>
@@ -2057,8 +2081,8 @@
         <span id="toastMessage">Done</span>
     </div>
 
-    <!-- Scripts with Cache-Buster v=8 -->
-    <script src="main.js?v=12"></script>
+    <!-- Scripts with Cache-Buster v=13 -->
+    <script src="main.js?v=13"></script>
     <script>lucide.createIcons();</script>
 </body>
 </html>
