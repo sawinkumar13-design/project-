@@ -33,13 +33,5 @@ Personal portfolio website for **Sawin Kumar**, B.Tech Computer Science & Engine
 4. **Data Structures & Algorithms Suite**
    - Technologies: Java, Python, LeetCode, HackerRank
    - Implementations across Arrays, Strings, Two Pointers, and Recursion with optimal complexity benchmarks.
----
-
-## 🌐 Live Website
-
-Live on GitHub Pages:
-👉 **[https://sawinkumar13-design.github.io/project-/](https://sawinkumar13-design.github.io/project-/)**
-
----
 
 © 2026 Sawin Kumar · GLA University (B.Tech CSE)
