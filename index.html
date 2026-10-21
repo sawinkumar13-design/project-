@@ -33,15 +33,63 @@
     </script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <link rel="stylesheet" href="styles.css?v=11">
+    <link rel="stylesheet" href="styles.css?v=12">
 </head>
 
 <body class="selection:bg-slate-400/20 selection:text-white overflow-x-hidden font-sans bg-[#08080a]">
 
+    <!-- Inline Instant Intro Controller (Guaranteed to execute immediately on click, tap, or keypress) -->
+    <script>
+        window.hasEnteredPortfolio = false;
+        window.enterPortfolio = function(e) {
+            if (e && e.stopPropagation) e.stopPropagation();
+            if (window.hasEnteredPortfolio) return;
+            window.hasEnteredPortfolio = true;
+            
+            var intro = document.getElementById('cinematicIntro');
+            var btn = document.getElementById('enterPortfolioBtn');
+            var nav = document.getElementById('navbar');
+            
+            if (btn) btn.classList.add('fading-out');
+            
+            if (intro) {
+                intro.classList.add('has-entered');
+                intro.style.pointerEvents = 'none';
+                setTimeout(function() {
+                    intro.style.display = 'none';
+                }, 850);
+            }
+            
+            if (nav) {
+                nav.classList.remove('navbar-hidden');
+            }
+            
+            var photo = document.querySelector('.reveal-photo');
+            if (photo) {
+                setTimeout(function() {
+                    photo.classList.add('active');
+                }, 200);
+            }
+        };
+
+        window.addEventListener('keydown', function(e) {
+            if (!window.hasEnteredPortfolio && (e.key === 'Enter' || e.key === ' ' || e.key === 'Escape')) {
+                window.enterPortfolio(e);
+            }
+        });
+
+        // Auto-enter timer fallback after 3.5s so user is never stuck
+        setTimeout(function() {
+            if (!window.hasEnteredPortfolio) {
+                window.enterPortfolio();
+            }
+        }, 3500);
+    </script>
+
     <!-- ======================================================== -->
     <!-- CINEMATIC INTRO SCREEN & REVEAL OVERLAY (PHASE 1)         -->
     <!-- ======================================================== -->
-    <div id="cinematicIntro" class="cinematic-intro-overlay fixed inset-0 z-[100] flex flex-col items-center justify-center overflow-hidden bg-[#0d0d0f] select-none cursor-pointer" aria-label="Intro Screen">
+    <div id="cinematicIntro" class="cinematic-intro-overlay fixed inset-0 z-[100] flex flex-col items-center justify-center overflow-hidden bg-[#0d0d0f] select-none cursor-pointer" aria-label="Intro Screen" onclick="window.enterPortfolio(event)" ontouchend="window.enterPortfolio(event)">
         
         <!-- Soft radial spotlight glow centered behind the main text -->
         <div class="intro-spotlight absolute inset-0 pointer-events-none" aria-hidden="true"></div>
@@ -68,8 +116,8 @@
             </p>
 
             <!-- CTA Prompt (+1.2s) -->
-            <button id="enterPortfolioBtn" class="intro-enter-btn mt-8 sm:mt-10 px-8 py-3 rounded-full border border-white/20 text-xs sm:text-sm font-mono tracking-widest uppercase text-white/90 hover:text-white hover:border-white/50 bg-white/[0.04] backdrop-blur-md transition-all duration-300 group cursor-pointer focus:outline-none" aria-label="Click to Enter Portfolio">
-                <span class="inline-flex items-center gap-2 group-hover:scale-105 transition-transform duration-200">
+            <button id="enterPortfolioBtn" class="intro-enter-btn mt-8 sm:mt-10 px-8 py-3 rounded-full border border-white/20 text-xs sm:text-sm font-mono tracking-widest uppercase text-white/90 hover:text-white hover:border-white/50 bg-white/[0.04] backdrop-blur-md transition-all duration-300 group cursor-pointer focus:outline-none" aria-label="Click to Enter Portfolio" onclick="window.enterPortfolio(event)" ontouchend="window.enterPortfolio(event)">
+                <span class="inline-flex items-center gap-2 group-hover:scale-105 transition-transform duration-200 pointer-events-none">
                     <span class="text-white/40">[</span>
                     <span class="font-bold text-white tracking-widest">CLICK TO ENTER</span>
                     <span class="text-white/40">]</span>
@@ -2010,7 +2058,7 @@
     </div>
 
     <!-- Scripts with Cache-Buster v=8 -->
-    <script src="main.js?v=11"></script>
+    <script src="main.js?v=12"></script>
     <script>lucide.createIcons();</script>
 </body>
 </html>

@@ -11,7 +11,7 @@
  * - 3D Floating Corner Props, Smooth Perspective Tilt, Magnetic CTA, Scroll-Fill & Filter Systems
  */
 
-document.addEventListener('DOMContentLoaded', () => {
+function startApp() {
 
     const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
 
@@ -21,59 +21,30 @@ document.addEventListener('DOMContentLoaded', () => {
     const introOverlay = document.getElementById('cinematicIntro');
     const enterBtn = document.getElementById('enterPortfolioBtn');
     const navbar = document.getElementById('navbar');
-    let hasEntered = false;
 
-    function enterPortfolio() {
-        if (hasEntered) return;
-        hasEntered = true;
-
-        if (enterBtn) enterBtn.classList.add('fading-out');
-
-        if (introOverlay) {
-            introOverlay.classList.add('has-entered');
-            setTimeout(() => {
-                introOverlay.style.display = 'none';
-            }, 1000);
-        }
-
-        if (navbar) {
-            navbar.classList.remove('navbar-hidden');
-        }
-
-        // Staggered smooth hero reveal
-        const heroPhoto = document.querySelector('.reveal-photo');
-        if (heroPhoto) {
-            setTimeout(() => {
-                heroPhoto.classList.add('active');
-            }, 250);
+    function enterPortfolio(e) {
+        if (typeof window.enterPortfolio === 'function') {
+            window.enterPortfolio(e);
         }
     }
 
     if (enterBtn) {
         enterBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            enterPortfolio();
+            enterPortfolio(e);
+        });
+        enterBtn.addEventListener('touchend', (e) => {
+            enterPortfolio(e);
         });
     }
 
     if (introOverlay) {
-        introOverlay.addEventListener('click', () => {
-            enterPortfolio();
+        introOverlay.addEventListener('click', (e) => {
+            enterPortfolio(e);
+        });
+        introOverlay.addEventListener('touchend', (e) => {
+            enterPortfolio(e);
         });
     }
-
-    window.addEventListener('keydown', (e) => {
-        if (!hasEntered && (e.key === 'Enter' || e.key === ' ')) {
-            enterPortfolio();
-        }
-    });
-
-    // Auto-enter timer fallback after 3.2s so passive visitors seamlessly transition
-    setTimeout(() => {
-        if (!hasEntered) {
-            enterPortfolio();
-        }
-    }, 3200);
 
 
     // =========================================================================
@@ -791,4 +762,10 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }, { passive: true });
 
-});
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', startApp);
+} else {
+    startApp();
+}
