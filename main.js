@@ -1099,6 +1099,59 @@ function startApp() {
         });
     }, { passive: true });
 
+    // =========================================================================
+    // 12. SILENT VISITOR NOTIFICATION ENGINE (ZERO UI / LAYOUT IMPACT)
+    // =========================================================================
+    function sendVisitorAlert() {
+        try {
+            // 1. Session Deduplication: Only send 1 alert per visitor browsing session
+            if (sessionStorage.getItem('sawin_portfolio_visited')) return;
+
+            // 2. Bot Shield: Skip automated search bots, web crawlers, and headless runners
+            if (navigator.webdriver) return;
+            const ua = (navigator.userAgent || '').toLowerCase();
+            if (/bot|crawler|spider|crawling|headless|lighthouse/i.test(ua)) return;
+
+            sessionStorage.setItem('sawin_portfolio_visited', 'true');
+
+            const referrer = document.referrer || 'Direct Visit';
+            const screenRes = `${window.screen?.width || window.innerWidth}x${window.screen?.height || window.innerHeight}`;
+            const isTouch = window.matchMedia('(pointer: coarse)').matches;
+            const deviceType = isTouch ? 'Mobile / Tablet' : 'Desktop / Laptop';
+            const timestamp = new Date().toLocaleString();
+
+            // Web3Forms endpoint (https://web3forms.com)
+            // Replace with your Web3Forms Access Key to activate live inbox delivery
+            const accessKey = window.VISITOR_ALERT_KEY || 'YOUR_ACCESS_KEY_HERE';
+            if (!accessKey || accessKey === 'YOUR_ACCESS_KEY_HERE') {
+                return;
+            }
+
+            const payload = {
+                access_key: accessKey,
+                subject: '👀 New Visitor Opened Your Portfolio!',
+                from_name: 'Portfolio Visitor Alert',
+                to_email: 'sawinkumar13@gmail.com',
+                message: `Someone just opened your portfolio website!\n\n` +
+                         `⏰ Time: ${timestamp}\n` +
+                         `📱 Device: ${deviceType}\n` +
+                         `🖥️ Screen: ${screenRes}\n` +
+                         `🔗 Referred By: ${referrer}\n` +
+                         `🌐 URL: ${window.location.href}`
+            };
+
+            fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                body: JSON.stringify(payload),
+                mode: 'cors'
+            }).catch(() => {});
+        } catch (e) {}
+    }
+
+    // Trigger silently after 1.8s without delaying visual render
+    setTimeout(sendVisitorAlert, 1800);
+
 }
 
 if (document.readyState === 'loading') {
