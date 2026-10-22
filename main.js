@@ -1120,24 +1120,30 @@ function startApp() {
             const deviceType = isTouch ? 'Mobile / Tablet' : 'Desktop / Laptop';
             const timestamp = new Date().toLocaleString();
 
-            // Web3Forms endpoint (https://web3forms.com)
-            // Replace with your Web3Forms Access Key to activate live inbox delivery
-            const accessKey = window.VISITOR_ALERT_KEY || 'YOUR_ACCESS_KEY_HERE';
-            if (!accessKey || accessKey === 'YOUR_ACCESS_KEY_HERE') {
-                return;
-            }
+                        // Web3Forms visitor alert endpoint (https://web3forms.com)
+            const accessKey = 'e04d1dab-e0f0-4716-8ad9-f2566441fba9';
 
             const payload = {
                 access_key: accessKey,
-                subject: '👀 New Visitor Opened Your Portfolio!',
+                subject: 'New Visitor Opened Your Portfolio! (Sawin Kumar)',
                 from_name: 'Portfolio Visitor Alert',
-                to_email: 'sawinkumar13@gmail.com',
-                message: `Someone just opened your portfolio website!\n\n` +
-                         `⏰ Time: ${timestamp}\n` +
-                         `📱 Device: ${deviceType}\n` +
-                         `🖥️ Screen: ${screenRes}\n` +
-                         `🔗 Referred By: ${referrer}\n` +
-                         `🌐 URL: ${window.location.href}`
+                message: `Hello Sawin,
+
+A new visitor just opened your portfolio website!
+
+` +
+                         `• Timestamp: ${timestamp}
+` +
+                         `• Device: ${deviceType}
+` +
+                         `• Screen Resolution: ${screenRes}
+` +
+                         `• Referral Source: ${referrer}
+` +
+                         `• Live URL: ${window.location.href}
+
+` +
+                         `This alert was delivered automatically upon visit.`
             };
 
             fetch('https://api.web3forms.com/submit', {
