@@ -1107,10 +1107,15 @@ function startApp() {
             // 1. Session Deduplication: Only send 1 alert per visitor browsing session
             if (sessionStorage.getItem('sawin_portfolio_visited')) return;
 
-            // 2. Bot Shield: Skip automated search bots, web crawlers, and headless runners
-            if (navigator.webdriver) return;
+            // 2. Skip automated crawlers (unless manually testing)
+            if (navigator.webdriver) {
+                console.log('Skipping visitor alert for webdriver');
+                return;
+            }
             const ua = (navigator.userAgent || '').toLowerCase();
-            if (/bot|crawler|spider|crawling|headless|lighthouse/i.test(ua)) return;
+            if (/bot|crawler|spider|crawling|headless|lighthouse/i.test(ua)) {
+                return;
+            }
 
             sessionStorage.setItem('sawin_portfolio_visited', 'true');
 
@@ -1120,11 +1125,8 @@ function startApp() {
             const deviceType = isTouch ? 'Mobile / Tablet' : 'Desktop / Laptop';
             const timestamp = new Date().toLocaleString();
 
-                        // Web3Forms visitor alert endpoint (https://web3forms.com)
-            const accessKey = 'e04d1dab-e0f0-4716-8ad9-f2566441fba9';
-
             const payload = {
-                access_key: accessKey,
+                access_key: 'e04d1dab-e0f0-4716-8ad9-f2566441fba9',
                 subject: 'New Visitor Opened Your Portfolio! (Sawin Kumar)',
                 from_name: 'Portfolio Visitor Alert',
                 message: `Hello Sawin,
@@ -1146,17 +1148,35 @@ A new visitor just opened your portfolio website!
                          `This alert was delivered automatically upon visit.`
             };
 
+            // High-reliability fetch with keepalive (survives tab closing)
             fetch('https://api.web3forms.com/submit', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
                 body: JSON.stringify(payload),
-                mode: 'cors'
-            }).catch(() => {});
-        } catch (e) {}
+                mode: 'cors',
+                keepalive: true
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    console.log('Visitor alert sent successfully to sawinkumar13@gmail.com');
+                } else {
+                    console.warn('Visitor alert notice:', data);
+                }
+            })
+            .catch(err => {
+                console.warn('Visitor alert fetch notice:', err);
+            });
+        } catch (e) {
+            console.warn('Visitor alert catch:', e);
+        }
     }
 
-    // Trigger silently after 1.8s without delaying visual render
-    setTimeout(sendVisitorAlert, 1800);
+    // Expose globally so enterPortfolio or manual test can call it
+    window.sendVisitorAlert = sendVisitorAlert;
+
+    // Trigger fast (300ms) so even brief visits are recorded
+    setTimeout(sendVisitorAlert, 350);
 
 }
 

@@ -44,7 +44,7 @@
     </script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <link rel="stylesheet" href="styles.css?v=18">
+    <link rel="stylesheet" href="styles.css?v=19">
 </head>
 
 <body class="selection:bg-slate-400/20 selection:text-white overflow-x-hidden font-sans bg-[#08080a] js-enabled">
@@ -55,6 +55,9 @@
         window.hasEnteredPortfolio = false;
         window.enterPortfolio = function(e) {
             if (e && e.stopPropagation) e.stopPropagation();
+            if (typeof window.sendVisitorAlert === 'function') {
+                window.sendVisitorAlert();
+            }
             if (window.hasEnteredPortfolio) return;
             window.hasEnteredPortfolio = true;
             document.body.classList.add('portfolio-entered');
@@ -2148,7 +2151,7 @@
     </div>
 
     <!-- Scripts with Cache-Buster v=13 -->
-    <script src="main.js?v=18"></script>
+    <script src="main.js?v=19"></script>
     <script>lucide.createIcons();</script>
 </body>
 </html>
