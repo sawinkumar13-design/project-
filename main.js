@@ -986,13 +986,60 @@ function startApp() {
     // 9. CONTACT FORM DISPATCH
     // =========================================================================
     const contactForm = document.getElementById('contactForm');
+    let lastSubmitTime = 0;
+
+    function sanitizeInput(str) {
+        if (!str) return '';
+        return String(str)
+            .replace(/[<>]/g, '') // Strip HTML brackets to prevent tag injection
+            .replace(/[\r\n]+/g, ' ') // Collapse line breaks in headers
+            .trim();
+    }
+
     if (contactForm) {
         contactForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            const name = document.getElementById('senderName')?.value || 'Guest';
-            const email = document.getElementById('senderEmail')?.value || '';
-            const subject = document.getElementById('senderSubject')?.value || 'Opportunity / Collaboration';
-            const message = document.getElementById('senderMessage')?.value || '';
+
+            // 1. Anti-Bot Honeypot Validation
+            const honeypot = document.getElementById('formWebsiteTrap');
+            if (honeypot && honeypot.value.trim() !== '') {
+                console.warn('Bot submission silently discarded');
+                contactForm.reset();
+                showToast('Message sent successfully!');
+                return;
+            }
+
+            // 2. Client-Side Rate Limiting (5 second cooldown)
+            const now = Date.now();
+            if (now - lastSubmitTime < 5000) {
+                showToast('Please wait a few seconds before resubmitting.');
+                return;
+            }
+
+            const rawName = document.getElementById('senderName')?.value || '';
+            const rawEmail = document.getElementById('senderEmail')?.value || '';
+            const rawSubject = document.getElementById('senderSubject')?.value || '';
+            const rawMessage = document.getElementById('senderMessage')?.value || '';
+
+            const name = sanitizeInput(rawName).slice(0, 80);
+            const email = sanitizeInput(rawEmail).slice(0, 100);
+            const subject = sanitizeInput(rawSubject || 'Opportunity / Collaboration').slice(0, 120);
+            const message = String(rawMessage).replace(/[<>]/g, '').trim().slice(0, 2000);
+
+            // 3. Strict Email Regex Verification
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!email || !emailPattern.test(email)) {
+                showToast('Please enter a valid email address.');
+                return;
+            }
+
+            if (!message || message.length < 5) {
+                showToast('Please enter a meaningful message.');
+                return;
+            }
+
+            lastSubmitTime = now;
+
             const mailtoLink = `mailto:sawinkumar13@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`From: ${name} (${email})\n\nMessage:\n${message}`)}`;
             window.location.href = mailtoLink;
             showToast('Opening default email client...');

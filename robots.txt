@@ -1,0 +1,15 @@
+# Robots.txt for Sawin Kumar Portfolio
+# https://sawinkumar13-design.github.io/project-/
+
+User-agent: *
+Allow: /
+
+# Prevent indexing of raw PDF asset direct hits
+Disallow: /assets/*.pdf$
+
+# Disallow aggressive scraping of source/internal directories
+Disallow: /.git/
+Disallow: /.well-known/
+
+# Crawl Delay
+Crawl-delay: 10
