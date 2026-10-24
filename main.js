@@ -51,6 +51,13 @@ function startApp() {
     // 0.5 THEME ACCENT COLOR SWITCHER & AMBIENT AUDIO CONTROLLER
     // =========================================================================
     const THEMES = {
+        orchid: {
+            name: 'Midnight Orchid',
+            hex: '#A855F7',
+            rgb: '168, 85, 247',
+            glow: 'rgba(168, 85, 247, 0.45)',
+            hover: '#C084FC'
+        },
         sage: {
             name: 'Sage',
             hex: '#A6B69D',
@@ -89,9 +96,9 @@ function startApp() {
     };
     window.THEMES = THEMES;
 
-    let currentThemeKey = 'sage';
+    let currentThemeKey = 'orchid';
     try {
-        const saved = localStorage.getItem('sawin-portfolio-theme-v2');
+        const saved = localStorage.getItem('sawin-portfolio-theme-v3');
         if (saved && THEMES[saved]) currentThemeKey = saved;
     } catch (e) {}
     window.currentThemeKey = currentThemeKey;
@@ -117,7 +124,7 @@ function startApp() {
 
         // 3. Persist in localStorage
         try {
-            localStorage.setItem('sawin-portfolio-theme-v2', themeKey);
+            localStorage.setItem('sawin-portfolio-theme-v3', themeKey);
         } catch (e) {}
 
         // 4. Update dropdown UI indicators
@@ -586,12 +593,12 @@ function startApp() {
                     float rawDensity = fbm(p + 2.6 * r);
                     float smoke = smoothstep(0.18, 0.82, rawDensity) * emitterMask;
 
-                    // Cinematic Lighting Palette (Graphite #1B1E1C, Charcoal #202421, Ivory #F0EEE7, Muted #92988F)
-                    vec3 cBaseBlack    = vec3(0.106, 0.118, 0.110); // #1B1E1C main background
-                    vec3 cCharcoal     = vec3(0.125, 0.141, 0.129); // #202421 secondary background
-                    vec3 cGraphite     = vec3(0.145, 0.165, 0.149); // #252A26 card surface
-                    vec3 cSmokySilver  = vec3(0.573, 0.596, 0.561); // #92988F muted smoky tone
-                    vec3 cSilverRim    = vec3(0.941, 0.933, 0.906); // #F0EEE7 ivory specular rim
+                    // Cinematic Lighting Palette for Midnight Orchid (#121214, #17171C, #1C1C24, #A855F7, #6366F1)
+                    vec3 cBaseBlack    = vec3(0.071, 0.071, 0.078); // #121214 Charcoal Ink
+                    vec3 cCharcoal     = vec3(0.090, 0.090, 0.110); // #17171C Secondary
+                    vec3 cGraphite     = vec3(0.110, 0.110, 0.141); // #1C1C24 Card surface
+                    vec3 cSmokySilver  = vec3(0.486, 0.424, 0.596); // Muted orchid-slate vapor
+                    vec3 cSilverRim    = vec3(0.980, 0.980, 0.980); // #FAFAFA Off-white specular rim
 
                     // Directional Backlighting from Upper-Right Emitter
                     vec2 lightDir = normalize(urPoint - normUv);

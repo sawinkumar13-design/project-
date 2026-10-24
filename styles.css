@@ -2,24 +2,56 @@
 /* Sawin Kumar — Theme Accent Color System & Global CSS Variables              */
 /* ========================================================================== */
 :root {
-    --bg-main: #1B1E1C;
-    --bg-secondary: #202421;
-    --bg-card: #252A26;
-    --bg-card-hover: #2B312C;
-    --text-primary: #F0EEE7;
-    --text-secondary: #B7BCB5;
-    --text-muted: #92988F;
-    --border-color: #3B423C;
-    --neutral-support: #737B70;
+    --bg-main: #121214;
+    --bg-secondary: #17171C;
+    --bg-card: #1C1C24;
+    --bg-card-hover: #23232E;
+    --text-primary: #FAFAFA;
+    --text-secondary: #D4D4D8;
+    --text-muted: #A1A1AA;
+    --border-color: #2E2A40;
+    --neutral-support: #71717A;
 
-    --accent: #A6B69D;
-    --accent-rgb: 166, 182, 157;
-    --accent-glow: rgba(166, 182, 157, 0.35);
-    --accent-hover: #BAC7B2;
+    --accent: #A855F7;
+    --accent-rgb: 168, 85, 247;
+    --accent-glow: rgba(168, 85, 247, 0.45);
+    --accent-hover: #C084FC;
+
+    --secondary-indigo: #6366F1;
+    --secondary-indigo-rgb: 99, 102, 241;
 }
 
-/* Global Theme Variant: Sage (Default Palette) */
-html[data-theme="sage"], :root {
+/* Global Theme Variant: Midnight Orchid (Default Sleek & Contemporary) */
+html[data-theme="orchid"], :root {
+    --accent: #A855F7;
+    --accent-rgb: 168, 85, 247;
+    --accent-glow: rgba(168, 85, 247, 0.45);
+    --accent-hover: #C084FC;
+    --secondary-indigo: #6366F1;
+}
+html[data-theme="orchid"] .text-cyan-400,
+html[data-theme="orchid"] .text-cyan-300,
+html[data-theme="orchid"] .text-cyan-500,
+html[data-theme="orchid"] .hover\:text-cyan-300:hover,
+html[data-theme="orchid"] .hover\:text-cyan-400:hover {
+    color: #C084FC !important;
+}
+html[data-theme="orchid"] .bg-cyan-500,
+html[data-theme="orchid"] .bg-cyan-400 {
+    background-color: #A855F7 !important;
+}
+html[data-theme="orchid"] .border-cyan-500,
+html[data-theme="orchid"] .border-cyan-400,
+html[data-theme="orchid"] .border-cyan-800\/40 {
+    border-color: rgba(168, 85, 247, 0.6) !important;
+}
+html[data-theme="orchid"] .bg-cyan-950\/60,
+html[data-theme="orchid"] .bg-cyan-950\/70 {
+    background-color: rgba(99, 102, 241, 0.25) !important;
+}
+
+/* Global Theme Variant: Sage */
+html[data-theme="sage"] {
     --accent: #A6B69D;
     --accent-rgb: 166, 182, 157;
     --accent-glow: rgba(166, 182, 157, 0.4);
@@ -217,7 +249,7 @@ html[data-theme="amber"] .bg-cyan-950\/60 {
     position: fixed;
     inset: 0;
     z-index: 100;
-    background: rgba(27, 30, 28, 0.88);
+    background: rgba(18, 18, 20, 0.88);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     display: flex;
@@ -242,7 +274,7 @@ html[data-theme="amber"] .bg-cyan-950\/60 {
 }
 
 .intro-spotlight {
-    background: radial-gradient(circle 650px at 50% 50%, rgba(240, 238, 231, 0.045) 0%, rgba(37, 42, 38, 0.4) 45%, rgba(27, 30, 28, 0.98) 80%);
+    background: radial-gradient(circle 650px at 50% 50%, rgba(168, 85, 247, 0.08) 0%, rgba(99, 102, 241, 0.06) 35%, rgba(18, 18, 20, 0.98) 80%);
     pointer-events: none;
 }
     pointer-events: none;
@@ -269,7 +301,7 @@ html[data-theme="amber"] .bg-cyan-950\/60 {
     letter-spacing: -0.02em;
     text-transform: uppercase;
     color: transparent;
-    -webkit-text-stroke: 1.5px rgba(240, 238, 231, 0.08);
+    -webkit-text-stroke: 1.5px rgba(168, 85, 247, 0.12);
     opacity: 0.13;
     user-select: none;
     white-space: nowrap;
@@ -406,26 +438,26 @@ html[data-theme="amber"] .bg-cyan-950\/60 {
     height: 6px;
 }
 ::-webkit-scrollbar-track {
-    background: #1B1E1C;
+    background: #121214;
 }
 ::-webkit-scrollbar-thumb {
-    background: #252A26;
+    background: #1C1C24;
     border-radius: 999px;
-    border: 1px solid #3B423C;
+    border: 1px solid #2E2A40;
 }
 ::-webkit-scrollbar-thumb:hover {
-    background: var(--accent);
+    background: linear-gradient(180deg, #A855F7, #6366F1);
 }
 
 /* Base Midnight Theme (Low-Saturation Cinematic Space: #050609) */
 html {
     scroll-behavior: smooth;
-    background-color: #1B1E1C;
+    background-color: #121214;
 }
 
 body {
-    background-color: #1B1E1C;
-    color: #F0EEE7;
+    background-color: #121214;
+    color: #FAFAFA;
     overflow-x: hidden;
 }
 
@@ -447,8 +479,8 @@ section[id] {
     height: 100vh;
     z-index: 0;
     pointer-events: none;
-    background-color: #1B1E1C;
-    background: radial-gradient(circle 900px at 90% 10%, rgba(var(--accent-rgb), 0.1) 0%, rgba(32, 36, 33, 0.35) 45%, #1B1E1C 75%);
+    background-color: #121214;
+    background: radial-gradient(circle 900px at 90% 10%, rgba(168, 85, 247, 0.12) 0%, rgba(99, 102, 241, 0.08) 35%, #121214 75%);
 }
 
 /* Minimal Premium Animated Custom Cursor (Desktop Only) */
@@ -699,11 +731,12 @@ section[id] {
     height: 22.5rem;
     border-radius: 18px;
     padding: 1.5px;
-    background: linear-gradient(135deg, rgba(240, 238, 231, 0.2) 0%, rgba(166, 182, 157, 0.4) 30%, rgba(59, 66, 60, 0.4) 70%, rgba(240, 238, 231, 0.08) 100%);
+    background: linear-gradient(135deg, rgba(250, 250, 250, 0.25) 0%, rgba(168, 85, 247, 0.5) 35%, rgba(99, 102, 241, 0.5) 70%, rgba(250, 250, 250, 0.1) 100%);
     box-shadow:
-        0 0 35px var(--accent-glow),
-        inset 0 0 18px rgba(240, 238, 231, 0.1),
-        0 25px 60px -10px rgba(0, 0, 0, 0.7);
+        0 0 35px rgba(168, 85, 247, 0.35),
+        0 0 55px rgba(99, 102, 241, 0.22),
+        inset 0 0 18px rgba(250, 250, 250, 0.12),
+        0 25px 60px -10px rgba(0, 0, 0, 0.85);
     transition: transform 0.25s ease-out, box-shadow 0.35s ease;
     overflow: hidden;
     will-change: transform, box-shadow;
@@ -723,7 +756,7 @@ section[id] {
     height: 100%;
     border-radius: 16px;
     overflow: hidden;
-    background: #202421;
+    background: #17171C;
 }
 
 .photo-img {
@@ -766,7 +799,7 @@ section[id] {
     left: 0;
     right: 0;
     height: 3.6rem;
-    background: linear-gradient(to top, #1B1E1C 0%, rgba(27, 30, 28, 0.7) 40%, transparent 100%);
+    background: linear-gradient(to top, #121214 0%, rgba(18, 18, 20, 0.7) 40%, transparent 100%);
     z-index: 2;
     pointer-events: none;
 }
@@ -815,7 +848,7 @@ section[id] {
 /* ========================================================================== */
 .glossy-card {
     position: relative;
-    background: linear-gradient(135deg, rgba(37, 42, 38, 0.95) 0%, rgba(32, 36, 33, 0.85) 50%, rgba(27, 30, 28, 0.95) 100%);
+    background: linear-gradient(135deg, rgba(28, 28, 36, 0.95) 0%, rgba(23, 23, 28, 0.88) 50%, rgba(18, 18, 20, 0.95) 100%);
     backdrop-filter: blur(16px) saturate(180%);
     -webkit-backdrop-filter: blur(16px) saturate(180%);
     border-top: 1px solid rgba(255, 255, 255, 0.2);
@@ -860,7 +893,7 @@ section[id] {
 
 .glossy-card:hover {
     box-shadow: 
-        inset 0 1px 1px rgba(240, 238, 231, 0.15), 0 25px 50px -10px rgba(0, 0, 0, 0.65), 0 0 25px var(--accent-glow);
+        inset 0 1px 1px rgba(250, 250, 250, 0.18), 0 25px 50px -10px rgba(0, 0, 0, 0.85), 0 0 30px var(--accent-glow);
     border-color: var(--accent);
 }
 
@@ -910,7 +943,7 @@ section[id] {
 
 /* Glass Pills (Social Buttons & Micro Badges) */
 .glass-pill {
-    background: rgba(37, 42, 38, 0.85);
+    background: rgba(28, 28, 36, 0.85);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border: 1px solid var(--border-color);
@@ -1009,9 +1042,9 @@ body.portfolio-entered section .reveal {
 /* ========================================================================== */
 /* High contrast navy text on radiant cyan/violet gradient: zero washed-out white text! */
 .cosmic-btn-primary {
-    background: var(--accent);
-    box-shadow: 0 0 25px var(--accent-glow), inset 0 1px 1px rgba(240, 238, 231, 0.4);
-    color: #1B1E1C !important;
+    background: linear-gradient(135deg, #A855F7 0%, #6366F1 100%);
+    box-shadow: 0 0 25px rgba(168, 85, 247, 0.45), inset 0 1px 1px rgba(250, 250, 250, 0.4);
+    color: #FAFAFA !important;
     font-weight: 700 !important;
     letter-spacing: -0.01em;
     transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease, filter 0.25s ease;
@@ -1065,7 +1098,7 @@ background: var(--accent-hover);
 /* Visual Previews in Projects */
 .project-preview-box {
     border-radius: 14px;
-    background: #202421;
+    background: #17171C;
     border: 1px solid var(--border-color);
     overflow: hidden;
     position: relative;
@@ -1121,7 +1154,7 @@ background: var(--accent-hover);
     gap: 0.6rem;
     padding: 0.55rem 1.15rem;
     border-radius: 9999px;
-    background: rgba(37, 42, 38, 0.75);
+    background: rgba(28, 28, 36, 0.75);
     border: 1px solid var(--border-color);
     font-family: \'JetBrains Mono\', monospace;
     font-size: 0.75rem;
@@ -1429,15 +1462,15 @@ body, h1, h2, h3, h4, h5, h6, .text-white {
     height: 5px;
 }
 .scrollbar-thin::-webkit-scrollbar-track {
-    background: #1B1E1C;
-    border-radius: 9999px;
+    background: #121214;
 }
 .scrollbar-thin::-webkit-scrollbar-thumb {
-    background: #3B423C;
-    border-radius: 9999px;
+    background: #1C1C24;
+    border-radius: 999px;
+    border: 1px solid #2E2A40;
 }
 .scrollbar-thin::-webkit-scrollbar-thumb:hover {
-    background: var(--accent);
+    background: linear-gradient(180deg, #A855F7, #6366F1);
 }
 
 .line-clamp-2 {
@@ -1497,4 +1530,50 @@ body, h1, h2, h3, h4, h5, h6, .text-white {
 .contrib-4 {
     background-color: #39d353 !important;
     box-shadow: 0 0 6px rgba(57, 211, 83, 0.6) !important;
+}
+
+/* ========================================================================== */
+/* Midnight Orchid Typography: Duo-Tone Headings                              */
+/* Blending Pure Off-White (#FAFAFA) into Vibrant Orchid (#A855F7) & Indigo   */
+/* ========================================================================== */
+h1, h2, h3, .heading-gradient, .intro-title, .text-cosmic-glow {
+    background: linear-gradient(135deg, #FAFAFA 25%, #E9D5FF 55%, #A855F7 85%, #6366F1 100%) !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    color: transparent !important;
+}
+
+.intro-name-row {
+    background: linear-gradient(180deg, #FAFAFA 25%, #E9D5FF 60%, #A855F7 100%) !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    color: transparent !important;
+}
+
+.text-aurora-gradient {
+    background: linear-gradient(135deg, #FAFAFA 0%, #C084FC 50%, #6366F1 100%) !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    color: transparent !important;
+}
+
+.scroll-fill-title {
+    color: transparent !important;
+    -webkit-text-stroke: 1.5px rgba(250, 250, 250, 0.35) !important;
+    background: linear-gradient(135deg, #FAFAFA 25%, #E9D5FF 55%, #A855F7 85%, #6366F1 100%) !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    transition:
+        color 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+        -webkit-text-stroke 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+        text-shadow 0.85s ease !important;
+}
+
+.scroll-fill-title.scroll-fill-active {
+    color: transparent !important;
+    -webkit-text-fill-color: transparent !important;
+    -webkit-text-stroke: 0px transparent !important;
+    text-shadow: 0 0 35px rgba(168, 85, 247, 0.45) !important;
 }
