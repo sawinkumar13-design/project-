@@ -383,7 +383,7 @@ function startApp() {
                 uMouse: { value: new THREE.Vector2(0.5, 0.5) },
                 uMouseVel: { value: new THREE.Vector2(0, 0) },
                 uScroll: { value: 0 },
-                uAccentColor: { value: new THREE.Color('#A855F7') },
+                uAccentColor: { value: new THREE.Color('#D97706') },
                 uLightMode: { value: currentDisplayMode === 'light' ? 1.0 : 0.0 },
                 uLightMode: { value: currentDisplayMode === 'light' ? 1.0 : 0.0 }
             };
@@ -445,20 +445,33 @@ function startApp() {
 
                     float slowTime = uTime * 0.08;
 
-                    // Composition: Emitter in Upper-Right Corner and Right Edge
-                    vec2 urPoint = vec2(0.96, 0.08);
-                    vec2 urDistVec = (normUv - urPoint) * vec2(1.0, 1.35);
-                    float distUR = length(urDistVec);
-                    float cornerSmoke = 1.0 - smoothstep(0.12, 1.25, distUR);
+                    // === AMBER RADIAL GLOW: Bottom-Left origin, drifts to center-right ===
+                    // Large warm amber blob emanating from lower-left (matches reference image)
+                    vec2 blPoint = vec2(0.05, 0.92); // bottom-left origin
+                    vec2 blDistVec = (normUv - blPoint) * vec2(0.85, 1.2);
+                    float distBL = length(blDistVec);
+                    float blCornerSmoke = 1.0 - smoothstep(0.05, 1.15, distBL);
 
-                    float rightEdgeSmoke = smoothstep(0.42, 0.96, normUv.x) * (1.0 - smoothstep(0.15, 1.0, normUv.y)) * 0.82;
-                    float topWisps = (1.0 - smoothstep(0.02, 0.45, normUv.y)) * smoothstep(0.30, 0.88, normUv.x) * 0.52;
+                    // Secondary warm spread — center-left mid-zone
+                    vec2 midLeft = vec2(0.28, 0.60);
+                    float distMid = length((normUv - midLeft) * vec2(1.0, 1.3));
+                    float midSmoke = 1.0 - smoothstep(0.15, 0.82, distMid);
 
-                    float emitterMask = max(cornerSmoke * 0.95, max(rightEdgeSmoke, topWisps));
+                    // Subtle top-left wisps
+                    float topLeftWisps = (1.0 - smoothstep(0.0, 0.55, normUv.x)) * smoothstep(0.30, 0.80, normUv.y) * 0.55;
 
-                    // Negative Space: Left side and center remain dark obsidian charcoal
-                    float negativeSpace = smoothstep(0.24, 0.72, normUv.x + (1.0 - normUv.y) * 0.46);
-                    emitterMask *= negativeSpace;
+                    // Right side dark columns: suppress smoke on right half
+                    float rightDark = 1.0 - smoothstep(0.60, 0.95, normUv.x) * 0.65;
+
+                    float emitterMask = max(blCornerSmoke * 1.0, max(midSmoke * 0.78, topLeftWisps));
+                    emitterMask *= rightDark;
+
+                    // Negative Space: Upper-right and far-right stay dark
+                    float negSpace = 1.0 - smoothstep(0.52, 0.95, normUv.x) * smoothstep(0.0, 0.45, 1.0 - normUv.y);
+                    emitterMask *= negSpace;
+
+                    // Reference point for rim lighting (bottom-left)
+                    vec2 urPoint = vec2(0.05, 0.92);
 
                     // Mouse Pointer Swirl & Displacement
                     vec2 mPos = vec2(uMouse.x, 1.0 - uMouse.y);
@@ -486,29 +499,45 @@ function startApp() {
                     float rawDensity = fbm(p + 2.6 * r);
                     float smoke = smoothstep(0.18, 0.82, rawDensity) * emitterMask;
 
-                    // Cinematic Lighting Palette for Midnight Orchid (#121214, #17171C, #1C1C24, #A855F7, #6366F1)
-                    // Dynamic Lighting Palette (Interpolates Dark Mode #121214 to Bright Mode #F8F9FC)
-                    // Dynamic Lighting Palette (Interpolates Dark Mode #121214 to Soft Blush Pink #FFF0F3)
-                    vec3 cBaseBlack    = mix(vec3(0.071, 0.071, 0.078), vec3(1.000, 0.941, 0.953), uLightMode); // #FFF0F3
-                    vec3 cCharcoal     = mix(vec3(0.090, 0.090, 0.110), vec3(1.000, 0.968, 0.973), uLightMode); // #FFF7F8
-                    vec3 cGraphite     = mix(vec3(0.110, 0.110, 0.141), vec3(1.000, 1.000, 1.000), uLightMode); // #FFFFFF
-                    vec3 cSmokySilver  = mix(vec3(0.486, 0.424, 0.596), vec3(0.960, 0.820, 0.860), uLightMode); // Soft blush rose vapor
-                    vec3 cSilverRim    = mix(vec3(0.980, 0.980, 0.980), vec3(0.880, 0.400, 0.500), uLightMode); // Specular rose highlight
+                    // === WARM AMBER CINEMATIC PALETTE ===
+                    // Base: deep warm charcoal #0A0806 -> Bright: soft ivory #FEFCE8
+                    vec3 cBaseBlack    = mix(vec3(0.039, 0.031, 0.024), vec3(1.000, 0.992, 0.910), uLightMode); // #0A0806 -> #FEFCE8
+                    vec3 cCharcoal     = mix(vec3(0.059, 0.047, 0.035), vec3(0.996, 0.980, 0.902), uLightMode); // #0F0C09 warm dark
+                    vec3 cGraphite     = mix(vec3(0.086, 0.067, 0.047), vec3(0.992, 0.961, 0.855), uLightMode); // #161108 warm graphite
+                    vec3 cAmberVapor   = mix(vec3(0.549, 0.302, 0.039), vec3(0.940, 0.780, 0.300), uLightMode); // #8C4D0A warm amber vapor
+                    vec3 cAmberRim     = mix(vec3(0.851, 0.380, 0.039), vec3(0.860, 0.620, 0.180), uLightMode); // #D96110 bright amber specular
 
-                    // Directional Backlighting from Upper-Right Emitter
+                    // Directional rim light from bottom-left amber emitter
                     vec2 lightDir = normalize(urPoint - normUv);
                     vec2 smokeGrad = normalize((r - vec2(0.5)) + vec2(0.001));
-                    float rimLight = pow(max(0.0, dot(smokeGrad, lightDir)), 2.2);
+                    float rimLight = pow(max(0.0, dot(smokeGrad, lightDir)), 1.85);
 
-                    // Subtle ambient illumination near bottom center with dynamic theme tint
-                    float coolGlow = exp(-length((normUv - vec2(0.5, 0.88)) * vec2(1.0, 1.4)) * 3.2);
+                    // Large warm amber radial glow at bottom-left (the key element of the reference)
+                    float amberGlow = exp(-length((normUv - vec2(0.08, 0.88)) * vec2(0.9, 1.1)) * 1.6);
+                    // Secondary warm spread toward center
+                    float midGlow = exp(-length((normUv - vec2(0.35, 0.55)) * vec2(1.0, 1.2)) * 2.2) * 0.55;
 
-                    // Compositing
-                    vec3 col = mix(cBaseBlack, cCharcoal, smoke * 0.85);
-                    col = mix(col, cGraphite, smoothstep(0.12, 0.60, smoke));
-                    col = mix(col, cSmokySilver, smoothstep(0.35, 0.88, smoke) * 0.75);
-                    col += cSilverRim * (rimLight * smoke * 0.65);
-                    col += uAccentColor * (rimLight * smoke * 0.28 + coolGlow * 0.25);
+                    // Dark vertical columns on right side (subtle pillars like reference)
+                    float pillars = 1.0;
+                    for (int i = 0; i < 4; i++) {
+                        float col_x = 0.72 + float(i) * 0.07;
+                        float d = abs(normUv.x - col_x);
+                        pillars -= smoothstep(0.008, 0.025, d) * 0.22;
+                    }
+
+                    // Compositing: deep dark base with warm amber smoke
+                    vec3 col = mix(cBaseBlack, cCharcoal, smoke * 0.80);
+                    col = mix(col, cGraphite, smoothstep(0.15, 0.60, smoke));
+                    col = mix(col, cAmberVapor, smoothstep(0.30, 0.85, smoke) * 0.72 * emitterMask);
+                    col += cAmberRim * (rimLight * smoke * 0.55);
+
+                    // Apply the signature warm amber radial glow (bottom-left dominant)
+                    vec3 amberHue = mix(vec3(0.792, 0.384, 0.039), vec3(0.996, 0.627, 0.039), uLightMode); // #CA6210 -> #FEA00A
+                    col += amberHue * (amberGlow * 0.38 + midGlow * 0.22);
+                    col += uAccentColor * (rimLight * smoke * 0.22 + amberGlow * 0.12);
+
+                    // Apply pillar effect on right side
+                    col *= mix(1.0, pillars, smoothstep(0.68, 0.95, normUv.x));
 
                     // Faint atmospheric scanline & delicate grain
                     float horiz = sin(normUv.y * uResolution.y * 1.5) * 0.004;
@@ -568,9 +597,9 @@ function startApp() {
                     currentLightVal += lightDiff * 0.035;
                     smokeUniforms.uLightMode.value = currentLightVal;
                     if (smokeUniforms.uAccentColor) {
-                        const r = THREE.MathUtils.lerp(0.658, 0.882, currentLightVal);
-                        const g = THREE.MathUtils.lerp(0.333, 0.113, currentLightVal);
-                        const b = THREE.MathUtils.lerp(0.968, 0.282, currentLightVal);
+                        const r = THREE.MathUtils.lerp(0.851, 0.996, currentLightVal);
+                        const g = THREE.MathUtils.lerp(0.467, 0.627, currentLightVal);
+                        const b = THREE.MathUtils.lerp(0.024, 0.039, currentLightVal);
                         smokeUniforms.uAccentColor.value.setRGB(r, g, b);
                     }
                 }

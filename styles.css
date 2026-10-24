@@ -2,52 +2,54 @@
 /* Sawin Kumar — Theme Accent Color System & Global CSS Variables              */
 /* ========================================================================== */
 :root {
-    --bg-main: #121214;
-    --bg-secondary: #17171C;
-    --bg-card: #1C1C24;
-    --bg-card-hover: #23232E;
-    --text-primary: #FAFAFA;
-    --text-secondary: #D4D4D8;
-    --text-muted: #A1A1AA;
-    --border-color: #2E2A40;
-    --neutral-support: #71717A;
+    /* Warm Amber Cinematic Dark Palette */
+    --bg-main: #0A0806;
+    --bg-secondary: #0F0C09;
+    --bg-card: #161108;
+    --bg-card-hover: #1E160C;
+    --text-primary: #FAFAF0;
+    --text-secondary: #E5D5BC;
+    --text-muted: #B89868;
+    --border-color: #2E2216;
+    --neutral-support: #6B5540;
 
-    --accent: #A855F7;
-    --accent-rgb: 168, 85, 247;
-    --accent-glow: rgba(168, 85, 247, 0.45);
-    --accent-hover: #C084FC;
+    /* Warm Amber Accent (#D97706 Amber / #C8620A Burnt Orange) */
+    --accent: #D97706;
+    --accent-rgb: 217, 119, 6;
+    --accent-glow: rgba(217, 119, 6, 0.45);
+    --accent-hover: #F59E0B;
 
-    --secondary-indigo: #6366F1;
-    --secondary-indigo-rgb: 99, 102, 241;
+    --secondary-amber: #C8620A;
+    --secondary-amber-rgb: 200, 98, 10;
 }
 
-/* Global Theme Variant: Midnight Orchid (Default Sleek & Contemporary) */
-html[data-theme="orchid"], :root {
-    --accent: #A855F7;
-    --accent-rgb: 168, 85, 247;
-    --accent-glow: rgba(168, 85, 247, 0.45);
-    --accent-hover: #C084FC;
-    --secondary-indigo: #6366F1;
+/* Global Theme Variant: Warm Amber Cinematic (Default) */
+html[data-theme="orchid"], html[data-theme="amber-warm"], :root {
+    --accent: #D97706;
+    --accent-rgb: 217, 119, 6;
+    --accent-glow: rgba(217, 119, 6, 0.45);
+    --accent-hover: #F59E0B;
+    --secondary-amber: #C8620A;
 }
 html[data-theme="orchid"] .text-cyan-400,
 html[data-theme="orchid"] .text-cyan-300,
 html[data-theme="orchid"] .text-cyan-500,
 html[data-theme="orchid"] .hover\:text-cyan-300:hover,
 html[data-theme="orchid"] .hover\:text-cyan-400:hover {
-    color: #C084FC !important;
+    color: #F59E0B !important;
 }
 html[data-theme="orchid"] .bg-cyan-500,
 html[data-theme="orchid"] .bg-cyan-400 {
-    background-color: #A855F7 !important;
+    background-color: #D97706 !important;
 }
 html[data-theme="orchid"] .border-cyan-500,
 html[data-theme="orchid"] .border-cyan-400,
 html[data-theme="orchid"] .border-cyan-800\/40 {
-    border-color: rgba(168, 85, 247, 0.6) !important;
+    border-color: rgba(217, 119, 6, 0.6) !important;
 }
 html[data-theme="orchid"] .bg-cyan-950\/60,
 html[data-theme="orchid"] .bg-cyan-950\/70 {
-    background-color: rgba(99, 102, 241, 0.25) !important;
+    background-color: rgba(200, 98, 10, 0.25) !important;
 }
 
 /* Global Theme Variant: Sage */
@@ -249,7 +251,7 @@ html[data-theme="amber"] .bg-cyan-950\/60 {
     position: fixed;
     inset: 0;
     z-index: 100;
-    background: rgba(18, 18, 20, 0.88);
+    background: rgba(10, 8, 6, 0.92);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     display: flex;
@@ -274,7 +276,7 @@ html[data-theme="amber"] .bg-cyan-950\/60 {
 }
 
 .intro-spotlight {
-    background: radial-gradient(circle 650px at 50% 50%, rgba(168, 85, 247, 0.08) 0%, rgba(99, 102, 241, 0.06) 35%, rgba(18, 18, 20, 0.98) 80%);
+    background: radial-gradient(circle 700px at 8% 92%, rgba(217, 119, 6, 0.18) 0%, rgba(200, 98, 10, 0.10) 40%, rgba(10, 8, 6, 0.98) 80%);
     pointer-events: none;
 }
     pointer-events: none;
@@ -301,7 +303,7 @@ html[data-theme="amber"] .bg-cyan-950\/60 {
     letter-spacing: -0.02em;
     text-transform: uppercase;
     color: transparent;
-    -webkit-text-stroke: 1.5px rgba(168, 85, 247, 0.12);
+    -webkit-text-stroke: 1.5px rgba(217, 119, 6, 0.15);
     opacity: 0.13;
     user-select: none;
     white-space: nowrap;
@@ -438,26 +440,26 @@ html[data-theme="amber"] .bg-cyan-950\/60 {
     height: 6px;
 }
 ::-webkit-scrollbar-track {
-    background: #121214;
+    background: #0A0806;
 }
 ::-webkit-scrollbar-thumb {
-    background: #1C1C24;
+    background: #1E160C;
     border-radius: 999px;
     border: 1px solid #2E2A40;
 }
 ::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(180deg, #A855F7, #6366F1);
+    background: linear-gradient(180deg, #D97706, #C8620A);
 }
 
 /* Base Midnight Theme (Low-Saturation Cinematic Space: #050609) */
 html {
     scroll-behavior: smooth;
-    background-color: #121214;
+    background-color: #0A0806;
 }
 
 body {
-    background-color: #121214;
-    color: #FAFAFA;
+    background-color: #0A0806;
+    color: #FAFAF0;
     overflow-x: hidden;
 }
 
@@ -480,7 +482,7 @@ section[id] {
     z-index: 0;
     pointer-events: none;
     background-color: #121214;
-    background: radial-gradient(circle 900px at 90% 10%, rgba(168, 85, 247, 0.12) 0%, rgba(99, 102, 241, 0.08) 35%, #121214 75%);
+    background: radial-gradient(circle 900px at 8% 92%, rgba(217, 119, 6, 0.18) 0%, rgba(200, 98, 10, 0.10) 45%, #0A0806 75%);
 }
 
 /* Minimal Premium Animated Custom Cursor (Desktop Only) */
@@ -943,7 +945,7 @@ section[id] {
 
 /* Glass Pills (Social Buttons & Micro Badges) */
 .glass-pill {
-    background: rgba(28, 28, 36, 0.85);
+    background: rgba(22, 17, 8, 0.88);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border: 1px solid var(--border-color);
@@ -1042,8 +1044,8 @@ body.portfolio-entered section .reveal {
 /* ========================================================================== */
 /* High contrast navy text on radiant cyan/violet gradient: zero washed-out white text! */
 .cosmic-btn-primary {
-    background: linear-gradient(135deg, #A855F7 0%, #6366F1 100%);
-    box-shadow: 0 0 25px rgba(168, 85, 247, 0.45), inset 0 1px 1px rgba(250, 250, 250, 0.4);
+    background: linear-gradient(135deg, #D97706 0%, #C8620A 100%);
+    box-shadow: 0 0 25px rgba(217, 119, 6, 0.45), inset 0 1px 1px rgba(250, 250, 240, 0.4);
     color: #FAFAFA !important;
     font-weight: 700 !important;
     letter-spacing: -0.01em;
@@ -1154,7 +1156,7 @@ background: var(--accent-hover);
     gap: 0.6rem;
     padding: 0.55rem 1.15rem;
     border-radius: 9999px;
-    background: rgba(28, 28, 36, 0.75);
+    background: rgba(22, 17, 8, 0.78);
     border: 1px solid var(--border-color);
     font-family: \'JetBrains Mono\', monospace;
     font-size: 0.75rem;
@@ -1462,15 +1464,15 @@ body, h1, h2, h3, h4, h5, h6, .text-white {
     height: 5px;
 }
 .scrollbar-thin::-webkit-scrollbar-track {
-    background: #121214;
+    background: #0A0806;
 }
 .scrollbar-thin::-webkit-scrollbar-thumb {
-    background: #1C1C24;
+    background: #1E160C;
     border-radius: 999px;
     border: 1px solid #2E2A40;
 }
 .scrollbar-thin::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(180deg, #A855F7, #6366F1);
+    background: linear-gradient(180deg, #D97706, #C8620A);
 }
 
 .line-clamp-2 {
@@ -1537,7 +1539,7 @@ body, h1, h2, h3, h4, h5, h6, .text-white {
 /* Blending Pure Off-White (#FAFAFA) into Vibrant Orchid (#A855F7) & Indigo   */
 /* ========================================================================== */
 h1, h2, h3, .heading-gradient, .intro-title, .text-cosmic-glow {
-    background: linear-gradient(135deg, #FAFAFA 25%, #E9D5FF 55%, #A855F7 85%, #6366F1 100%) !important;
+    background: linear-gradient(135deg, #FAFAF0 25%, #FDE68A 55%, #D97706 80%, #C8620A 100%) !important;
     -webkit-background-clip: text !important;
     background-clip: text !important;
     -webkit-text-fill-color: transparent !important;
@@ -1545,7 +1547,7 @@ h1, h2, h3, .heading-gradient, .intro-title, .text-cosmic-glow {
 }
 
 .intro-name-row {
-    background: linear-gradient(180deg, #FAFAFA 25%, #E9D5FF 60%, #A855F7 100%) !important;
+    background: linear-gradient(180deg, #FAFAF0 25%, #FDE68A 60%, #D97706 100%) !important;
     -webkit-background-clip: text !important;
     background-clip: text !important;
     -webkit-text-fill-color: transparent !important;
@@ -1553,7 +1555,7 @@ h1, h2, h3, .heading-gradient, .intro-title, .text-cosmic-glow {
 }
 
 .text-aurora-gradient {
-    background: linear-gradient(135deg, #FAFAFA 0%, #C084FC 50%, #6366F1 100%) !important;
+    background: linear-gradient(135deg, #FAFAF0 0%, #FCD34D 50%, #D97706 100%) !important;
     -webkit-background-clip: text !important;
     background-clip: text !important;
     color: transparent !important;
@@ -1562,7 +1564,7 @@ h1, h2, h3, .heading-gradient, .intro-title, .text-cosmic-glow {
 .scroll-fill-title {
     color: transparent !important;
     -webkit-text-stroke: 1.5px rgba(250, 250, 250, 0.35) !important;
-    background: linear-gradient(135deg, #FAFAFA 25%, #E9D5FF 55%, #A855F7 85%, #6366F1 100%) !important;
+    background: linear-gradient(135deg, #FAFAF0 25%, #FDE68A 55%, #D97706 80%, #C8620A 100%) !important;
     -webkit-background-clip: text !important;
     background-clip: text !important;
     transition:
@@ -1575,7 +1577,7 @@ h1, h2, h3, .heading-gradient, .intro-title, .text-cosmic-glow {
     color: transparent !important;
     -webkit-text-fill-color: transparent !important;
     -webkit-text-stroke: 0px transparent !important;
-    text-shadow: 0 0 35px rgba(168, 85, 247, 0.45) !important;
+    text-shadow: 0 0 35px rgba(217, 119, 6, 0.50) !important;
 }
 
 
@@ -1877,3 +1879,120 @@ html[data-mode="light"] .cosmic-btn-primary {
     box-shadow: 0 0 25px rgba(225, 29, 72, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.4) !important;
     color: #FFFFFF !important;
 }
+
+
+
+/* ========================================================================== */
+/* WARM AMBER CINEMATIC BACKGROUND (Reference Image Match)                   */
+/* Deep charcoal #0A0806 with large amber/orange bottom-left glow             */
+/* ========================================================================== */
+html, body {
+    background-color: #0A0806 !important;
+}
+
+body {
+    background:
+        radial-gradient(ellipse 80% 55% at 5% 95%, rgba(200, 98, 10, 0.55) 0%, rgba(217, 119, 6, 0.28) 35%, transparent 70%),
+        radial-gradient(ellipse 55% 40% at 28% 65%, rgba(180, 83, 9, 0.20) 0%, transparent 65%),
+        #0A0806 !important;
+    background-attachment: fixed !important;
+}
+
+/* Subtle vertical pillar overlay on right third (like the reference design) */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 35%;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 0;
+    background: repeating-linear-gradient(
+        90deg,
+        transparent 0px,
+        transparent 22px,
+        rgba(0, 0, 0, 0.20) 22px,
+        rgba(0, 0, 0, 0.20) 38px
+    );
+    opacity: 0.5;
+    mix-blend-mode: multiply;
+}
+
+#smokeCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* Update navbar glass to warm dark */
+#navbar {
+    background: rgba(10, 8, 6, 0.80) !important;
+    border-bottom: 1px solid rgba(217, 119, 6, 0.12) !important;
+    box-shadow: 0 8px 32px -8px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(217, 119, 6, 0.08) !important;
+}
+
+/* Cinematic intro screen background */
+#cinematicIntro {
+    background: transparent !important;
+}
+
+/* Intro overlay body color */
+.cinematic-intro-overlay {
+    background: rgba(10, 8, 6, 0.88) !important;
+}
+
+/* Intro spotlight amber radial glow from bottom-left */
+.intro-spotlight {
+    background: radial-gradient(ellipse 75% 55% at 5% 95%, rgba(217, 119, 6, 0.22) 0%, rgba(200, 98, 10, 0.12) 40%, transparent 75%) !important;
+}
+
+/* Update card backgrounds to warm dark */
+.glossy-card {
+    background: rgba(22, 17, 8, 0.85) !important;
+    border-color: rgba(46, 34, 22, 0.9) !important;
+}
+
+.glossy-card:hover {
+    border-color: rgba(217, 119, 6, 0.6) !important;
+    box-shadow: 0 25px 50px -10px rgba(0, 0, 0, 0.8), 0 0 30px rgba(217, 119, 6, 0.25) !important;
+}
+
+/* Project preview box */
+.project-preview-box {
+    background: #0F0C09 !important;
+}
+
+/* Updated border colors for warm amber theme */
+.intro-reveal-item-badge {
+    border-color: rgba(217, 119, 6, 0.40) !important;
+    background: rgba(217, 119, 6, 0.12) !important;
+    color: #F59E0B !important;
+}
+
+/* intro main title: warm amber gradient */
+#introMainTitle {
+    background: linear-gradient(135deg, #FAFAF0 25%, #FDE68A 55%, #D97706 80%, #C8620A 100%) !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    color: transparent !important;
+}
+
+/* Enter portfolio button in amber style */
+#enterPortfolioBtn {
+    border-color: rgba(217, 119, 6, 0.45) !important;
+    background: rgba(120, 53, 15, 0.35) !important;
+    box-shadow: 0 8px 32px -8px rgba(200, 98, 10, 0.45) !important;
+}
+
+#enterPortfolioBtn:hover {
+    border-color: rgba(245, 158, 11, 0.7) !important;
+    background: rgba(146, 64, 14, 0.45) !important;
+}
+
+/* Bright mode remains Soft Blush Pink - no change */
