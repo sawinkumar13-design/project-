@@ -371,7 +371,7 @@ function startApp() {
                 powerPreference: 'high-performance',
                 depth: false,
                 stencil: false,
-                alpha: false
+                alpha: true
             });
             renderer.setSize(width, height);
             // Cap at 1.0 to eliminate fill-rate bottleneck and maintain 60 FPS
@@ -499,13 +499,13 @@ function startApp() {
                     float rawDensity = fbm(p + 2.6 * r);
                     float smoke = smoothstep(0.18, 0.82, rawDensity) * emitterMask;
 
-                    // === WARM AMBER CINEMATIC PALETTE ===
-                    // Base: deep warm charcoal #0A0806 -> Bright: soft ivory #FEFCE8
-                    vec3 cBaseBlack    = mix(vec3(0.039, 0.031, 0.024), vec3(1.000, 0.992, 0.910), uLightMode); // #0A0806 -> #FEFCE8
-                    vec3 cCharcoal     = mix(vec3(0.059, 0.047, 0.035), vec3(0.996, 0.980, 0.902), uLightMode); // #0F0C09 warm dark
-                    vec3 cGraphite     = mix(vec3(0.086, 0.067, 0.047), vec3(0.992, 0.961, 0.855), uLightMode); // #161108 warm graphite
-                    vec3 cAmberVapor   = mix(vec3(0.549, 0.302, 0.039), vec3(0.940, 0.780, 0.300), uLightMode); // #8C4D0A warm amber vapor
-                    vec3 cAmberRim     = mix(vec3(0.851, 0.380, 0.039), vec3(0.860, 0.620, 0.180), uLightMode); // #D96110 bright amber specular
+                    // === WARM AMBER -> CRIMSON VELVET CINEMATIC PALETTE ===
+                    // Base: deep warm charcoal #0A0806 -> Crimson Velvet #2C0F12
+                    vec3 cBaseBlack    = mix(vec3(0.039, 0.031, 0.024), vec3(0.173, 0.059, 0.071), uLightMode); // #0A0806 -> #2C0F12
+                    vec3 cCharcoal     = mix(vec3(0.059, 0.047, 0.035), vec3(0.220, 0.078, 0.094), uLightMode); // #0F0C09 -> #381418
+                    vec3 cGraphite     = mix(vec3(0.086, 0.067, 0.047), vec3(0.263, 0.094, 0.114), uLightMode); // #161108 -> #43181D
+                    vec3 cAmberVapor   = mix(vec3(0.549, 0.302, 0.039), vec3(0.420, 0.118, 0.137), uLightMode); // Amber vapor -> #6B1E23 Crimson Velvet
+                    vec3 cAmberRim     = mix(vec3(0.851, 0.380, 0.039), vec3(0.882, 0.114, 0.282), uLightMode); // #D96110 Amber Rim -> #E11D48 Ruby Rim
 
                     // Directional rim light from bottom-left amber emitter
                     vec2 lightDir = normalize(urPoint - normUv);
@@ -513,7 +513,7 @@ function startApp() {
                     float rimLight = pow(max(0.0, dot(smokeGrad, lightDir)), 1.85);
 
                     // Large warm amber radial glow at bottom-left (the key element of the reference)
-                    float amberGlow = exp(-length((normUv - vec2(0.08, 0.88)) * vec2(0.9, 1.1)) * 1.6);
+                    float amberGlow = exp(-length((normUv - vec2(0.08, 0.88)) * vec2(0.85, 1.05)) * 1.35);
                     // Secondary warm spread toward center
                     float midGlow = exp(-length((normUv - vec2(0.35, 0.55)) * vec2(1.0, 1.2)) * 2.2) * 0.55;
 
@@ -532,8 +532,8 @@ function startApp() {
                     col += cAmberRim * (rimLight * smoke * 0.55);
 
                     // Apply the signature warm amber radial glow (bottom-left dominant)
-                    vec3 amberHue = mix(vec3(0.792, 0.384, 0.039), vec3(0.996, 0.627, 0.039), uLightMode); // #CA6210 -> #FEA00A
-                    col += amberHue * (amberGlow * 0.38 + midGlow * 0.22);
+                    vec3 amberHue = mix(vec3(0.851, 0.467, 0.024), vec3(0.650, 0.118, 0.137), uLightMode); // Amber -> #6B1E23 Crimson // #CA6210 -> #FEA00A
+                    col += amberHue * (amberGlow * 0.65 + midGlow * 0.35);
                     col += uAccentColor * (rimLight * smoke * 0.22 + amberGlow * 0.12);
 
                     // Apply pillar effect on right side
@@ -597,9 +597,10 @@ function startApp() {
                     currentLightVal += lightDiff * 0.035;
                     smokeUniforms.uLightMode.value = currentLightVal;
                     if (smokeUniforms.uAccentColor) {
-                        const r = THREE.MathUtils.lerp(0.851, 0.996, currentLightVal);
-                        const g = THREE.MathUtils.lerp(0.467, 0.627, currentLightVal);
-                        const b = THREE.MathUtils.lerp(0.024, 0.039, currentLightVal);
+                        // Lerp between Amber #D97706 (rgb: 217,119,6) and Crimson #E11D48 (rgb: 225,29,72)
+                        const r = THREE.MathUtils.lerp(0.851, 0.882, currentLightVal);
+                        const g = THREE.MathUtils.lerp(0.467, 0.114, currentLightVal);
+                        const b = THREE.MathUtils.lerp(0.024, 0.282, currentLightVal);
                         smokeUniforms.uAccentColor.value.setRGB(r, g, b);
                     }
                 }

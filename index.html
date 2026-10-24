@@ -85,7 +85,7 @@
     </script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <link rel="stylesheet" href="styles.css?v=40">
+    <link rel="stylesheet" href="styles.css?v=45">
     <!-- Inline Immediate Mode Controller (Available from frame 1 before external JS) -->
     <script>
         (function() {
@@ -108,14 +108,14 @@
                 if (mode === 'light') {
                     sunIcons.forEach(function(i) { i.classList.add('hidden'); });
                     moonIcons.forEach(function(i) { i.classList.remove('hidden'); });
-                    if (mobileLabel) mobileLabel.textContent = 'Dark Mode';
+                    if (mobileLabel) mobileLabel.textContent = 'Amber Dark';
                     if (typeof window.lerpSmokeLightMode === 'function') {
                         window.lerpSmokeLightMode(1.0);
                     }
                 } else {
                     sunIcons.forEach(function(i) { i.classList.remove('hidden'); });
                     moonIcons.forEach(function(i) { i.classList.add('hidden'); });
-                    if (mobileLabel) mobileLabel.textContent = 'Bright Mode';
+                    if (mobileLabel) mobileLabel.textContent = 'Crimson Velvet';
                     if (typeof window.lerpSmokeLightMode === 'function') {
                         window.lerpSmokeLightMode(0.0);
                     }
@@ -295,7 +295,7 @@
                 </button>
 
                 <!-- 2. Dark Mode / Bright Mode Toggle Button -->
-                <button id="themeModeToggleBtn" onclick="window.toggleDisplayMode ? window.toggleDisplayMode() : null" class="theme-mode-btn w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/[0.04] border border-white/10 flex items-center justify-center text-slate-300 hover:text-white transition-all hover:scale-105 active:scale-95 focus:outline-none" title="Toggle Bright / Dark Mode" aria-label="Toggle Bright / Dark Mode">
+                <button id="themeModeToggleBtn" onclick="window.toggleDisplayMode ? window.toggleDisplayMode() : null" class="theme-mode-btn w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/[0.04] border border-white/10 flex items-center justify-center text-slate-300 hover:text-white transition-all hover:scale-105 active:scale-95 focus:outline-none" title="Toggle Crimson Velvet / Amber Mode" aria-label="Toggle Crimson Velvet / Amber Mode">
                     <i data-lucide="sun" class="w-4 h-4 text-amber-300 mode-icon-sun"></i>
                     <i data-lucide="moon" class="w-4 h-4 text-indigo-400 mode-icon-moon hidden"></i>
                 </button>
@@ -335,7 +335,7 @@
                 <button onclick="window.toggleDisplayMode ? window.toggleDisplayMode() : null" class="px-3 py-1.5 rounded-full border border-white/10 bg-white/[0.05] flex items-center gap-2 text-xs font-medium text-slate-200">
                     <i data-lucide="sun" class="w-3.5 h-3.5 text-amber-300 mode-icon-sun"></i>
                     <i data-lucide="moon" class="w-3.5 h-3.5 text-indigo-400 mode-icon-moon hidden"></i>
-                    <span id="mobileModeLabel">Bright Mode</span>
+                    <span id="mobileModeLabel">Crimson Velvet</span>
                 </button>
             </div>
 
@@ -2412,14 +2412,14 @@
                         </div>
                     </div>
 
-                    <!-- Legend --><!-- Legend -->
-                    <div class="flex items-center justify-end gap-2 text-[10px] font-mono text-[#A1A1AA] mt-4 pt-3 border-t border-[#2E2A40]/50">
+                    <!-- Super-Smooth Cool GitHub Legend -->
+                    <div class="flex items-center justify-end gap-2 text-[10px] font-mono text-slate-400 mt-4 pt-3 border-t border-white/10">
                         <span>Less</span>
-                        <span class="w-2.5 h-2.5 rounded-[2px] bg-[#1E2320]"></span>
-                        <span class="w-2.5 h-2.5 rounded-[2px] bg-[#134e2a]"></span>
-                        <span class="w-2.5 h-2.5 rounded-[2px] bg-[#1f733e]"></span>
-                        <span class="w-2.5 h-2.5 rounded-[2px] bg-[#29a552]"></span>
-                        <span class="w-2.5 h-2.5 rounded-[2px] bg-[#C084FC]"></span>
+                        <span class="w-2.5 h-2.5 rounded-sm bg-[#191412] border border-white/5" title="No contributions"></span>
+                        <span class="w-2.5 h-2.5 rounded-sm bg-[#78350F]" title="Low activity"></span>
+                        <span class="w-2.5 h-2.5 rounded-sm bg-[#D97706]" title="Medium activity"></span>
+                        <span class="w-2.5 h-2.5 rounded-sm bg-[#F59E0B]" title="High activity"></span>
+                        <span class="w-2.5 h-2.5 rounded-sm bg-[#FDE68A] shadow-sm shadow-amber-400/50" title="Peak activity"></span>
                         <span>More</span>
                     </div>
                 </div>
@@ -2883,7 +2883,7 @@
     </div>
 
     <!-- Scripts with Cache-Buster v=13 -->
-    <script src="main.js?v=40"></script>
+    <script src="main.js?v=45"></script>
     <script>lucide.createIcons();</script>
 </body>
 </html>

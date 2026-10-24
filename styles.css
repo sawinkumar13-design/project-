@@ -640,45 +640,15 @@ section[id] {
 }
 
 /* Live Multi-Layered Moving Aurora Waves (Behind & Trailing Left) */
-.aurora-trail-left {
-    position: absolute;
-    top: -50px;
-    left: -115px;
-    width: calc(100% + 165px);
-    height: calc(100% + 105px);
-    pointer-events: none;
-    z-index: 0;
-    mix-blend-mode: screen;
-    will-change: transform, filter, opacity;
-    transition: transform 0.25s ease-out;
-}
 
-.aurora-wave-layer {
-    position: absolute;
-    inset: 0;
-    border-radius: 50% 40% 60% 45%;
-    filter: blur(70px);
-    opacity: 0.65;
-    will-change: transform, filter;
-    transform: translate3d(0, 0, 0);
-}
 
-.aurora-wave-1 {
-    background: radial-gradient(ellipse 70% 60% at 25% 40%, rgba(148, 163, 184, 0.35) 0%, rgba(30, 41, 59, 0.3) 60%, transparent 80%);
-    animation: auroraWaveMove1 14s ease-in-out infinite alternate;
-}
 
-.aurora-wave-2 {
-    background: radial-gradient(ellipse 65% 55% at 35% 60%, rgba(71, 85, 105, 0.3) 0%, rgba(15, 23, 42, 0.4) 55%, transparent 85%);
-    animation: auroraWaveMove2 19s ease-in-out infinite alternate;
-    opacity: 0.5;
-}
 
-.aurora-wave-3 {
-    background: radial-gradient(ellipse 60% 50% at 15% 50%, rgba(100, 116, 139, 0.25) 0%, rgba(30, 41, 59, 0.25) 50%, transparent 80%);
-    animation: auroraWaveMove3 16s ease-in-out infinite alternate;
-    opacity: 0.45;
-}
+
+
+
+
+
 
 @keyframes auroraWaveMove1 {
     0% {
@@ -1691,308 +1661,428 @@ html, body, #navbar, #navbar *, .glossy-card, .glass-pill, section, footer, div,
                 box-shadow 0.85s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+
+
 /* ========================================================================== */
-/* BRIGHT MODE: SOFT BLUSH PINK LUXURY EDITORIAL PALETTE                      */
-/* Main background: #FFF0F3 (Soft Blush Pink)                                 */
-/* Secondary: #FFF7F8 | Cards: #FFFFFF | Text: #1F121E | Accent: #E11D48      */
+/* CRIMSON VELVET PALETTE (Reference: #2C0F12 & #6B1E23)                     */
+/* Luxury Dark Burgundy Velvet Mode with High-Contrast Rose-Ivory Text        */
 /* ========================================================================== */
-html[data-mode="light"] {
-    --bg-main: #FFF0F3;
-    --bg-secondary: #FFF7F8;
-    --bg-card: #FFFFFF;
-    --bg-card-hover: #FFE6EB;
-    --text-primary: #1F121E;
-    --text-secondary: #5C4556;
-    --text-muted: #8A6E82;
-    --border-color: #F8D5DC;
-    --neutral-support: #B89BAE;
+html[data-mode="light"], html[data-mode="crimson"] {
+    --bg-main: #2C0F12;
+    --bg-secondary: #381418;
+    --bg-card: #331216;
+    --bg-card-hover: #42171C;
+    --text-primary: #FFF0F2;
+    --text-secondary: #E5B8BE;
+    --text-muted: #B88B92;
+    --border-color: #5C1D23;
+    --neutral-support: #8C3A43;
 
     --accent: #E11D48;
     --accent-rgb: 225, 29, 72;
-    --accent-glow: rgba(225, 29, 72, 0.22);
-    --accent-hover: #BE123C;
-    --secondary-indigo: #8B5CF6;
+    --accent-glow: rgba(225, 29, 72, 0.45);
+    --accent-hover: #F43F5E;
+    --secondary-crimson: #6B1E23;
+    --secondary-crimson-rgb: 107, 30, 35;
 }
 
-html[data-mode="light"] body {
-    background-color: #FFF0F3 !important;
-    color: #1F121E !important;
+html[data-mode="light"] body,
+html[data-mode="crimson"] body {
+    background-color: #2C0F12 !important;
+    background:
+        radial-gradient(ellipse 85% 65% at 5% 95%, rgba(107, 30, 35, 0.85) 0%, rgba(44, 15, 18, 0.50) 45%, #2C0F12 85%) fixed,
+        radial-gradient(ellipse 60% 45% at 30% 60%, rgba(168, 44, 53, 0.35) 0%, transparent 70%) fixed,
+        #2C0F12 !important;
+    color: #FFF0F2 !important;
 }
 
-/* Navbar in Soft Blush Pink */
-html[data-mode="light"] #navbar {
-    background: rgba(255, 240, 243, 0.85) !important;
+/* Navbar in Crimson Velvet */
+html[data-mode="light"] #navbar,
+html[data-mode="crimson"] #navbar {
+    background: rgba(44, 15, 18, 0.82) !important;
     backdrop-filter: blur(24px) saturate(190%) !important;
     -webkit-backdrop-filter: blur(24px) saturate(190%) !important;
-    border-bottom: 1px solid rgba(248, 213, 220, 0.85) !important;
-    box-shadow: 0 4px 25px -4px rgba(225, 29, 72, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
+    border-bottom: 1px solid rgba(107, 30, 35, 0.65) !important;
+    box-shadow: 0 8px 32px -8px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(225, 29, 72, 0.12) !important;
 }
 
-html[data-mode="light"] #navbar .nav-link {
-    color: #5C4556 !important;
+html[data-mode="light"] #navbar .nav-link,
+html[data-mode="crimson"] #navbar .nav-link {
+    color: #E5B8BE !important;
 }
-html[data-mode="light"] #navbar .nav-link:hover {
-    color: #E11D48 !important;
-    background: rgba(225, 29, 72, 0.08) !important;
-}
-
-html[data-mode="light"] #mobileMenu {
-    background-color: rgba(255, 240, 243, 0.98) !important;
-    border-color: #F8D5DC !important;
+html[data-mode="light"] #navbar .nav-link:hover,
+html[data-mode="crimson"] #navbar .nav-link:hover {
+    color: #FFF0F2 !important;
+    background: rgba(107, 30, 35, 0.35) !important;
 }
 
-/* Background Replacements in Soft Blush Pink */
-html[data-mode="light"] .bg-\[\#121214\] {
-    background-color: #FFF0F3 !important;
+html[data-mode="light"] #mobileMenu,
+html[data-mode="crimson"] #mobileMenu {
+    background-color: rgba(44, 15, 18, 0.98) !important;
+    border-color: #5C1D23 !important;
 }
+
+/* Background replacements in Crimson Velvet */
+html[data-mode="light"] .bg-\[\#121214\],
+html[data-mode="light"] .bg-\[\#0A0806\],
+html[data-mode="crimson"] .bg-\[\#121214\],
+html[data-mode="crimson"] .bg-\[\#0A0806\] {
+    background-color: #2C0F12 !important;
+}
+
 html[data-mode="light"] .bg-\[\#17171C\],
 html[data-mode="light"] .bg-\[\#17171C\]\/90,
-html[data-mode="light"] .bg-\[\#17171C\]\/95 {
-    background-color: #FFF7F8 !important;
-}
-html[data-mode="light"] .bg-\[\#1C1C24\],
-html[data-mode="light"] .bg-\[\#1C1C24\]\/80,
-html[data-mode="light"] .bg-\[\#1C1C24\]\/90 {
-    background-color: #FFFFFF !important;
-    box-shadow: 0 8px 24px -4px rgba(225, 29, 72, 0.05), 0 0 0 1px #FCE7F3 !important;
-}
-html[data-mode="light"] .bg-\[\#23232E\] {
-    background-color: #FFE6EB !important;
-}
-html[data-mode="light"] .bg-slate-900,
-html[data-mode="light"] .bg-slate-900\/80,
-html[data-mode="light"] .bg-slate-900\/90 {
-    background-color: #FFF7F8 !important;
+html[data-mode="light"] .bg-\[\#17171C\]\/95,
+html[data-mode="crimson"] .bg-\[\#17171C\],
+html[data-mode="crimson"] .bg-\[\#17171C\]\/90,
+html[data-mode="crimson"] .bg-\[\#17171C\]\/95 {
+    background-color: #381418 !important;
 }
 
-/* Border Replacements in Soft Blush Pink */
+html[data-mode="light"] .bg-\[\#1C1C24\],
+html[data-mode="light"] .bg-\[\#1C1C24\]\/80,
+html[data-mode="light"] .bg-\[\#1C1C24\]\/90,
+html[data-mode="crimson"] .bg-\[\#1C1C24\],
+html[data-mode="crimson"] .bg-\[\#1C1C24\]\/80,
+html[data-mode="crimson"] .bg-\[\#1C1C24\]\/90 {
+    background-color: #331216 !important;
+    box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(107, 30, 35, 0.45) !important;
+}
+
+html[data-mode="light"] .bg-\[\#23232E\],
+html[data-mode="crimson"] .bg-\[\#23232E\] {
+    background-color: #42171C !important;
+}
+
+html[data-mode="light"] .bg-slate-900,
+html[data-mode="light"] .bg-slate-900\/80,
+html[data-mode="light"] .bg-slate-900\/90,
+html[data-mode="crimson"] .bg-slate-900,
+html[data-mode="crimson"] .bg-slate-900\/80,
+html[data-mode="crimson"] .bg-slate-900\/90 {
+    background-color: #381418 !important;
+}
+
+/* Border replacements in Crimson Velvet */
 html[data-mode="light"] .border-\[\#2E2A40\],
 html[data-mode="light"] .border-\[\#2E2A40\]\/50,
 html[data-mode="light"] .border-\[\#2E2A40\]\/60,
 html[data-mode="light"] .border-white\/10,
-html[data-mode="light"] .border-slate-700\/60 {
-    border-color: #F8D5DC !important;
+html[data-mode="light"] .border-slate-700\/60,
+html[data-mode="crimson"] .border-\[\#2E2A40\],
+html[data-mode="crimson"] .border-\[\#2E2A40\]\/50,
+html[data-mode="crimson"] .border-\[\#2E2A40\]\/60,
+html[data-mode="crimson"] .border-white\/10,
+html[data-mode="crimson"] .border-slate-700\/60 {
+    border-color: rgba(107, 30, 35, 0.6) !important;
 }
 
-/* Text Replacements in Soft Blush Pink */
+/* Text replacements in Crimson Velvet */
 html[data-mode="light"] .text-\[\#FAFAFA\],
-html[data-mode="light"] .text-white {
-    color: #1F121E !important;
+html[data-mode="light"] .text-\[\#FAFAF0\],
+html[data-mode="light"] .text-white,
+html[data-mode="crimson"] .text-\[\#FAFAFA\],
+html[data-mode="crimson"] .text-\[\#FAFAF0\],
+html[data-mode="crimson"] .text-white {
+    color: #FFF0F2 !important;
 }
+
 html[data-mode="light"] .text-\[\#D4D4D8\],
 html[data-mode="light"] .text-slate-200,
-html[data-mode="light"] .text-slate-300 {
-    color: #5C4556 !important;
-}
-html[data-mode="light"] .text-\[\#A1A1AA\],
-html[data-mode="light"] .text-slate-400 {
-    color: #8A6E82 !important;
+html[data-mode="light"] .text-slate-300,
+html[data-mode="crimson"] .text-\[\#D4D4D8\],
+html[data-mode="crimson"] .text-slate-200,
+html[data-mode="crimson"] .text-slate-300 {
+    color: #E5B8BE !important;
 }
 
-/* Cards & Pills in Soft Blush Pink */
-html[data-mode="light"] .glossy-card {
-    background: #FFFFFF !important;
-    border-color: #F8D5DC !important;
-    box-shadow: 0 4px 20px -2px rgba(225, 29, 72, 0.05) !important;
+html[data-mode="light"] .text-\[\#A1A1AA\],
+html[data-mode="light"] .text-slate-400,
+html[data-mode="crimson"] .text-\[\#A1A1AA\],
+html[data-mode="crimson"] .text-slate-400 {
+    color: #B88B92 !important;
 }
-html[data-mode="light"] .glossy-card:hover {
-    box-shadow: 0 20px 35px -10px rgba(225, 29, 72, 0.15), 0 0 0 1px #E11D48 !important;
+
+/* Cards & Pills in Crimson Velvet */
+html[data-mode="light"] .glossy-card,
+html[data-mode="crimson"] .glossy-card {
+    background: rgba(51, 18, 22, 0.90) !important;
+    border-color: rgba(107, 30, 35, 0.65) !important;
+    box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.5) !important;
+}
+html[data-mode="light"] .glossy-card:hover,
+html[data-mode="crimson"] .glossy-card:hover {
+    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.8), 0 0 25px rgba(225, 29, 72, 0.35) !important;
     border-color: #E11D48 !important;
 }
-html[data-mode="light"] .glass-pill {
-    background: rgba(255, 255, 255, 0.95) !important;
-    border-color: #F8D5DC !important;
-    color: #5C4556 !important;
-    box-shadow: 0 2px 8px -1px rgba(225, 29, 72, 0.04) !important;
+html[data-mode="light"] .glass-pill,
+html[data-mode="crimson"] .glass-pill {
+    background: rgba(56, 20, 24, 0.92) !important;
+    border-color: rgba(107, 30, 35, 0.65) !important;
+    color: #E5B8BE !important;
 }
 html[data-mode="light"] .theme-mode-btn,
-html[data-mode="light"] .audio-toggle-btn {
-    background: rgba(255, 255, 255, 0.9) !important;
-    border-color: #F8D5DC !important;
-    color: #5C4556 !important;
+html[data-mode="light"] .audio-toggle-btn,
+html[data-mode="crimson"] .theme-mode-btn,
+html[data-mode="crimson"] .audio-toggle-btn {
+    background: rgba(56, 20, 24, 0.85) !important;
+    border-color: rgba(107, 30, 35, 0.65) !important;
+    color: #E5B8BE !important;
 }
-html[data-mode="light"] .nav-resume-btn {
-    background: rgba(255, 255, 255, 0.9) !important;
-    border-color: #F8D5DC !important;
-    color: #1F121E !important;
+html[data-mode="light"] .nav-resume-btn,
+html[data-mode="crimson"] .nav-resume-btn {
+    background: rgba(56, 20, 24, 0.85) !important;
+    border-color: rgba(107, 30, 35, 0.65) !important;
+    color: #FFF0F2 !important;
 }
 
-/* Headings Duo-Tone in Soft Blush Pink: Plum Obsidian into Rose Berry */
+/* Headings in Crimson Velvet: Ivory-Rose into Crimson Red */
 html[data-mode="light"] h1, 
 html[data-mode="light"] h2, 
 html[data-mode="light"] h3, 
 html[data-mode="light"] .heading-gradient, 
-html[data-mode="light"] .text-cosmic-glow {
-    background: linear-gradient(135deg, #1F121E 20%, #9D174D 65%, #E11D48 100%) !important;
+html[data-mode="light"] .text-cosmic-glow,
+html[data-mode="crimson"] h1, 
+html[data-mode="crimson"] h2, 
+html[data-mode="crimson"] h3, 
+html[data-mode="crimson"] .heading-gradient, 
+html[data-mode="crimson"] .text-cosmic-glow {
+    background: linear-gradient(135deg, #FFF0F2 20%, #F472B6 50%, #E11D48 80%, #6B1E23 100%) !important;
     -webkit-background-clip: text !important;
     background-clip: text !important;
     -webkit-text-fill-color: transparent !important;
     color: transparent !important;
 }
 
-html[data-mode="light"] #introMainTitle {
-    background: linear-gradient(135deg, #1F121E 25%, #9D174D 65%, #E11D48 100%) !important;
+html[data-mode="light"] #introMainTitle,
+html[data-mode="crimson"] #introMainTitle {
+    background: linear-gradient(135deg, #FFF0F2 25%, #F472B6 55%, #E11D48 80%, #6B1E23 100%) !important;
     -webkit-background-clip: text !important;
     background-clip: text !important;
     -webkit-text-fill-color: transparent !important;
     color: transparent !important;
 }
 
-html[data-mode="light"] .scroll-fill-title {
+html[data-mode="light"] .scroll-fill-title,
+html[data-mode="crimson"] .scroll-fill-title {
     color: transparent !important;
-    -webkit-text-stroke: 1.5px rgba(31, 18, 30, 0.25) !important;
-    background: linear-gradient(135deg, #1F121E 20%, #9D174D 65%, #E11D48 100%) !important;
+    -webkit-text-stroke: 1.5px rgba(255, 240, 242, 0.25) !important;
+    background: linear-gradient(135deg, #FFF0F2 20%, #F472B6 55%, #E11D48 80%, #6B1E23 100%) !important;
     -webkit-background-clip: text !important;
     background-clip: text !important;
 }
 
-html[data-mode="light"] footer {
-    background-color: #FFF0F3 !important;
-    border-color: #F8D5DC !important;
+html[data-mode="light"] footer,
+html[data-mode="crimson"] footer {
+    background-color: #240D10 !important;
+    border-color: rgba(107, 30, 35, 0.6) !important;
 }
 
-html[data-mode="light"] .intro-spotlight {
-    background: radial-gradient(circle 650px at 50% 50%, rgba(225, 29, 72, 0.08) 0%, rgba(255, 240, 243, 0.98) 80%) !important;
+html[data-mode="light"] .intro-spotlight,
+html[data-mode="crimson"] .intro-spotlight {
+    background: radial-gradient(ellipse 75% 65% at 5% 95%, rgba(107, 30, 35, 0.35) 0%, rgba(44, 15, 18, 0.98) 80%) !important;
 }
 
-html[data-mode="light"] .cinematic-intro-overlay {
-    background: rgba(255, 240, 243, 0.97) !important;
+html[data-mode="light"] .cinematic-intro-overlay,
+html[data-mode="crimson"] .cinematic-intro-overlay {
+    background: rgba(44, 15, 18, 0.95) !important;
 }
 
-html[data-mode="light"] #enterPortfolioBtn {
-    background: rgba(255, 255, 255, 0.92) !important;
-    border-color: #F8D5DC !important;
-    color: #1F121E !important;
-    box-shadow: 0 4px 20px -2px rgba(225, 29, 72, 0.15) !important;
+html[data-mode="light"] #enterPortfolioBtn,
+html[data-mode="crimson"] #enterPortfolioBtn {
+    background: rgba(107, 30, 35, 0.45) !important;
+    border-color: rgba(225, 29, 72, 0.55) !important;
+    color: #FFF0F2 !important;
+    box-shadow: 0 8px 32px -8px rgba(107, 30, 35, 0.6) !important;
 }
 
-html[data-mode="light"] #enterPortfolioBtn span.text-white {
-    color: #1F121E !important;
-}
-
-html[data-mode="light"] #enterPortfolioBtn span.text-purple-400 {
-    color: #E11D48 !important;
-}
-
-html[data-mode="light"] .cosmic-btn-primary {
-    background: linear-gradient(135deg, #E11D48 0%, #BE123C 100%) !important;
-    box-shadow: 0 0 25px rgba(225, 29, 72, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.4) !important;
+html[data-mode="light"] .cosmic-btn-primary,
+html[data-mode="crimson"] .cosmic-btn-primary {
+    background: linear-gradient(135deg, #E11D48 0%, #6B1E23 100%) !important;
+    box-shadow: 0 0 25px rgba(225, 29, 72, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.4) !important;
     color: #FFFFFF !important;
 }
 
 
-
 /* ========================================================================== */
-/* WARM AMBER CINEMATIC BACKGROUND (Reference Image Match)                   */
-/* Deep charcoal #0A0806 with large amber/orange bottom-left glow             */
+/* SUPER-COOL PROFILE PICTURE ANIMATED GLOW BACKGROUND                        */
+/* Multi-layered shifting Aurora waves with warm amber, crimson & gold        */
 /* ========================================================================== */
-html, body {
-    background-color: #0A0806 !important;
-}
-
-body {
-    background:
-        radial-gradient(ellipse 80% 55% at 5% 95%, rgba(200, 98, 10, 0.55) 0%, rgba(217, 119, 6, 0.28) 35%, transparent 70%),
-        radial-gradient(ellipse 55% 40% at 28% 65%, rgba(180, 83, 9, 0.20) 0%, transparent 65%),
-        #0A0806 !important;
-    background-attachment: fixed !important;
-}
-
-/* Subtle vertical pillar overlay on right third (like the reference design) */
-body::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    right: 0;
-    width: 35%;
-    height: 100vh;
+.aurora-trail-left {
+    position: absolute;
+    top: -20px;
+    left: -40px;
+    width: calc(100% + 80px);
+    height: calc(100% + 40px);
     pointer-events: none;
     z-index: 0;
-    background: repeating-linear-gradient(
-        90deg,
-        transparent 0px,
-        transparent 22px,
-        rgba(0, 0, 0, 0.20) 22px,
-        rgba(0, 0, 0, 0.20) 38px
-    );
-    opacity: 0.5;
-    mix-blend-mode: multiply;
+    overflow: visible;
 }
 
-#smokeCanvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: 0;
-    pointer-events: none;
+.aurora-wave-layer {
+    position: absolute;
+    inset: -15px;
+    border-radius: 42% 58% 62% 38% / 45% 45% 55% 55%;
+    filter: blur(50px);
+    opacity: 0.85;
+    will-change: transform, filter;
+    transform: translate3d(0, 0, 0);
 }
 
-/* Update navbar glass to warm dark */
-#navbar {
-    background: rgba(10, 8, 6, 0.80) !important;
-    border-bottom: 1px solid rgba(217, 119, 6, 0.12) !important;
-    box-shadow: 0 8px 32px -8px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(217, 119, 6, 0.08) !important;
+.aurora-wave-1 {
+    background: radial-gradient(ellipse 75% 65% at 30% 40%, rgba(217, 119, 6, 0.85) 0%, rgba(200, 98, 10, 0.50) 45%, transparent 75%);
+    animation: auroraWaveMove1 9s ease-in-out infinite alternate;
 }
 
-/* Cinematic intro screen background */
-#cinematicIntro {
-    background: transparent !important;
+.aurora-wave-2 {
+    background: radial-gradient(ellipse 70% 60% at 65% 55%, rgba(107, 30, 35, 0.90) 0%, rgba(225, 29, 72, 0.60) 50%, transparent 80%);
+    animation: auroraWaveMove2 13s ease-in-out infinite alternate;
+    opacity: 0.75;
 }
 
-/* Intro overlay body color */
-.cinematic-intro-overlay {
-    background: rgba(10, 8, 6, 0.88) !important;
+.aurora-wave-3 {
+    background: radial-gradient(ellipse 65% 55% at 45% 30%, rgba(245, 158, 11, 0.70) 0%, rgba(107, 30, 35, 0.40) 55%, transparent 75%);
+    animation: auroraWaveMove3 11s ease-in-out infinite alternate;
+    opacity: 0.70;
 }
 
-/* Intro spotlight amber radial glow from bottom-left */
-.intro-spotlight {
-    background: radial-gradient(ellipse 75% 55% at 5% 95%, rgba(217, 119, 6, 0.22) 0%, rgba(200, 98, 10, 0.12) 40%, transparent 75%) !important;
+@keyframes auroraWaveMove1 {
+    0% {
+        transform: translate3d(-10%, -6%, 0) scale(1) rotate(0deg);
+        filter: blur(48px);
+    }
+    50% {
+        transform: translate3d(8%, 10%, 0) scale(1.22) rotate(8deg);
+        filter: blur(62px);
+    }
+    100% {
+        transform: translate3d(-4%, 4%, 0) scale(1.08) rotate(-5deg);
+        filter: blur(52px);
+    }
 }
 
-/* Update card backgrounds to warm dark */
-.glossy-card {
-    background: rgba(22, 17, 8, 0.85) !important;
-    border-color: rgba(46, 34, 22, 0.9) !important;
+@keyframes auroraWaveMove2 {
+    0% {
+        transform: translate3d(8%, 12%, 0) scale(1.15) rotate(0deg);
+        filter: blur(55px);
+    }
+    50% {
+        transform: translate3d(-12%, -8%, 0) scale(0.95) rotate(-10deg);
+        filter: blur(42px);
+    }
+    100% {
+        transform: translate3d(5%, -4%, 0) scale(1.10) rotate(6deg);
+        filter: blur(60px);
+    }
 }
 
-.glossy-card:hover {
-    border-color: rgba(217, 119, 6, 0.6) !important;
-    box-shadow: 0 25px 50px -10px rgba(0, 0, 0, 0.8), 0 0 30px rgba(217, 119, 6, 0.25) !important;
+@keyframes auroraWaveMove3 {
+    0% {
+        transform: translate3d(-5%, 8%, 0) scale(0.95) rotate(0deg);
+        filter: blur(45px);
+    }
+    50% {
+        transform: translate3d(10%, -6%, 0) scale(1.18) rotate(-7deg);
+        filter: blur(58px);
+    }
+    100% {
+        transform: translate3d(-8%, -10%, 0) scale(1.04) rotate(4deg);
+        filter: blur(50px);
+    }
 }
 
-/* Project preview box */
-.project-preview-box {
-    background: #0F0C09 !important;
+/* In Crimson Velvet Mode, aurora waves shift to rich burgundy crimson glow */
+html[data-mode="light"] .aurora-wave-1,
+html[data-mode="crimson"] .aurora-wave-1 {
+    background: radial-gradient(ellipse 75% 65% at 30% 40%, rgba(107, 30, 35, 0.95) 0%, rgba(225, 29, 72, 0.75) 45%, transparent 75%) !important;
+}
+html[data-mode="light"] .aurora-wave-2,
+html[data-mode="crimson"] .aurora-wave-2 {
+    background: radial-gradient(ellipse 70% 60% at 65% 55%, rgba(168, 44, 53, 0.90) 0%, rgba(107, 30, 35, 0.65) 50%, transparent 80%) !important;
+}
+html[data-mode="light"] .aurora-wave-3,
+html[data-mode="crimson"] .aurora-wave-3 {
+    background: radial-gradient(ellipse 65% 55% at 45% 30%, rgba(244, 63, 94, 0.85) 0%, rgba(107, 30, 35, 0.55) 55%, transparent 75%) !important;
 }
 
-/* Updated border colors for warm amber theme */
-.intro-reveal-item-badge {
-    border-color: rgba(217, 119, 6, 0.40) !important;
-    background: rgba(217, 119, 6, 0.12) !important;
-    color: #F59E0B !important;
+/* Photo card frame with specular glowing rim */
+.photo-rectangular-card {
+    border: 1.5px solid rgba(217, 119, 6, 0.45) !important;
+    box-shadow: 
+        0 25px 60px -15px rgba(0, 0, 0, 0.9),
+        0 0 35px rgba(217, 119, 6, 0.35),
+        0 0 70px rgba(107, 30, 35, 0.30) !important;
+    position: relative;
+    z-index: 5;
+    transition: transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease !important;
 }
 
-/* intro main title: warm amber gradient */
-#introMainTitle {
-    background: linear-gradient(135deg, #FAFAF0 25%, #FDE68A 55%, #D97706 80%, #C8620A 100%) !important;
-    -webkit-background-clip: text !important;
-    background-clip: text !important;
-    -webkit-text-fill-color: transparent !important;
-    color: transparent !important;
-}
-
-/* Enter portfolio button in amber style */
-#enterPortfolioBtn {
-    border-color: rgba(217, 119, 6, 0.45) !important;
-    background: rgba(120, 53, 15, 0.35) !important;
-    box-shadow: 0 8px 32px -8px rgba(200, 98, 10, 0.45) !important;
-}
-
-#enterPortfolioBtn:hover {
+.photo-rectangular-card:hover {
+    transform: translateY(-4px) scale(1.015) !important;
     border-color: rgba(245, 158, 11, 0.7) !important;
-    background: rgba(146, 64, 14, 0.45) !important;
+    box-shadow: 
+        0 30px 70px -15px rgba(0, 0, 0, 0.95),
+        0 0 50px rgba(217, 119, 6, 0.55),
+        0 0 90px rgba(225, 29, 72, 0.45) !important;
 }
 
-/* Bright mode remains Soft Blush Pink - no change */
+html[data-mode="light"] .photo-rectangular-card,
+html[data-mode="crimson"] .photo-rectangular-card {
+    border-color: rgba(225, 29, 72, 0.65) !important;
+    box-shadow: 
+        0 25px 60px -15px rgba(0, 0, 0, 0.9),
+        0 0 45px rgba(225, 29, 72, 0.45),
+        0 0 85px rgba(107, 30, 35, 0.55) !important;
+}
+
+
+/* ========================================================================== */
+/* SUPER-SMOOTH COOL GITHUB CONTRIBUTION GRID                                 */
+/* ========================================================================== */
+.contrib-rect {
+    transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+                filter 0.22s ease,
+                stroke 0.2s ease,
+                stroke-width 0.2s ease !important;
+    transform-origin: center !important;
+    transform-box: fill-box !important;
+    cursor: pointer !important;
+}
+
+.contrib-rect:hover {
+    transform: scale(1.45) !important;
+    stroke: #FFF0F2 !important;
+    stroke-width: 1.4px !important;
+    filter: drop-shadow(0 0 8px var(--accent)) drop-shadow(0 0 16px var(--accent-glow)) !important;
+}
+
+/* Contribution Levels in Warm Amber Mode (Default) */
+.contrib-rect[data-level="0"] { fill: #191412 !important; stroke: rgba(255, 255, 255, 0.04) !important; }
+.contrib-rect[data-level="1"] { fill: #78350F !important; }
+.contrib-rect[data-level="2"] { fill: #D97706 !important; }
+.contrib-rect[data-level="3"] { fill: #F59E0B !important; }
+.contrib-rect[data-level="4"] { fill: #FDE68A !important; filter: drop-shadow(0 0 4px rgba(245, 158, 11, 0.5)) !important; }
+
+/* Contribution Levels in Crimson Velvet Mode */
+html[data-mode="light"] .contrib-rect[data-level="0"],
+html[data-mode="crimson"] .contrib-rect[data-level="0"] {
+    fill: #240D10 !important;
+    stroke: rgba(255, 255, 255, 0.05) !important;
+}
+html[data-mode="light"] .contrib-rect[data-level="1"],
+html[data-mode="crimson"] .contrib-rect[data-level="1"] {
+    fill: #6B1E23 !important;
+}
+html[data-mode="light"] .contrib-rect[data-level="2"],
+html[data-mode="crimson"] .contrib-rect[data-level="2"] {
+    fill: #9F1239 !important;
+}
+html[data-mode="light"] .contrib-rect[data-level="3"],
+html[data-mode="crimson"] .contrib-rect[data-level="3"] {
+    fill: #E11D48 !important;
+}
+html[data-mode="light"] .contrib-rect[data-level="4"],
+html[data-mode="crimson"] .contrib-rect[data-level="4"] {
+    fill: #FB7185 !important;
+    filter: drop-shadow(0 0 6px rgba(225, 29, 72, 0.6)) !important;
+}
