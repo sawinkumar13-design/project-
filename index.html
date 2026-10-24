@@ -83,7 +83,7 @@
     </script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <link rel="stylesheet" href="styles.css?v=30">
+    <link rel="stylesheet" href="styles.css?v=31">
 </head>
 
 <body class="overflow-x-hidden font-sans bg-[#121214] text-[#FAFAFA] selection:bg-[#A855F7]/30 selection:text-[#FAFAFA] js-enabled">
@@ -143,41 +143,47 @@
         });
     </script>
 
+        <!-- ======================================================== -->
+    <!-- CINEMATIC INTRO SCREEN: THE BLURRED REVEAL & SLIDE UP     -->
     <!-- ======================================================== -->
-    <!-- CINEMATIC INTRO SCREEN & REVEAL OVERLAY (PHASE 1)         -->
-    <!-- ======================================================== -->
-    <div id="cinematicIntro" class="cinematic-intro-overlay fixed inset-0 z-[100] flex flex-col items-center justify-center overflow-hidden select-none cursor-pointer" aria-label="Intro Screen" onclick="window.enterPortfolio(event)" ontouchend="window.enterPortfolio(event)">
-        
-        <!-- Soft radial spotlight glow centered behind the main text -->
+    <div id="cinematicIntro" class="cinematic-intro-overlay fixed inset-0 z-[100] flex flex-col items-center justify-center overflow-hidden select-none cursor-pointer px-4" aria-label="Intro Screen" onclick="window.enterPortfolio(event)" ontouchend="window.enterPortfolio(event)">
+
+        <!-- Soft atmospheric radial spotlight glow -->
         <div class="intro-spotlight absolute inset-0 pointer-events-none" aria-hidden="true"></div>
 
-        <!-- Watermark Outlined Duplicates Behind Name -->
-        <div class="intro-watermark-wrap absolute inset-0 flex flex-col items-center justify-center pointer-events-none -z-10" aria-hidden="true">
-            <span class="intro-watermark-row watermark-row-1">SAWIN</span>
-            <span class="intro-watermark-row watermark-row-2">KUMAR</span>
-        </div>
-
-        <!-- Center Stacked Bold Name -->
+        <!-- Center Blurred Reveal Container -->
         <div class="intro-content-wrap relative z-10 flex flex-col items-center text-center px-4 max-w-4xl mx-auto pointer-events-auto">
-            
-            <div class="intro-title-box">
-                <h1 class="intro-title flex flex-col items-center font-black tracking-tight leading-[0.85] text-[#FAFAFA]">
-                    <span class="intro-name-row name-row-1 font-oswald">SAWIN</span>
-                    <span class="intro-name-row name-row-2 font-oswald">KUMAR</span>
+
+            <!-- Pill Tag / Category -->
+            <div id="introPill" class="intro-reveal-item mb-5 sm:mb-6 inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-purple-500/30 bg-purple-500/10 backdrop-blur-md text-xs font-mono text-purple-300 shadow-sm">
+                <span class="w-2 h-2 rounded-full bg-purple-400 animate-ping"></span>
+                <span class="tracking-widest uppercase font-semibold">Sawin Kumar &middot; Developer Portfolio</span>
+            </div>
+
+            <!-- Main Title: The Blurred Reveal & Slide Up -->
+            <div class="intro-title-box max-w-3xl">
+                <h1 id="introMainTitle" class="intro-reveal-item font-extrabold tracking-tight text-3xl sm:text-5xl md:text-6xl lg:text-7xl leading-[1.12] text-center">
+                    <span class="block text-white">Turning Data Into Intelligence.</span>
+                    <span class="block mt-2 bg-gradient-to-r from-purple-400 via-indigo-300 to-white bg-clip-text text-transparent">Building Software That Matters.</span>
                 </h1>
             </div>
 
-            <!-- Tagline Fade-In (+0.6s) -->
-            <p class="intro-tagline mt-6 sm:mt-7 text-xs sm:text-sm md:text-base font-mono uppercase tracking-[0.25em] text-[#D4D4D8]">
-                Always learning. Always building. Always improving.
-            </p>
+            <!-- Subtitle: Terminal-style AI & Backend prompt -->
+            <div id="introSubtitle" class="intro-reveal-item mt-6 sm:mt-7 max-w-xl">
+                <p class="font-mono text-sm sm:text-base md:text-lg text-[#D4D4D8] tracking-wide flex items-center justify-center gap-2">
+                    <span class="text-purple-400 font-bold">&gt;</span>
+                    <span>AI Data Scientist &amp; Backend Enthusiast</span>
+                    <span class="inline-block w-2 h-4 bg-purple-400 animate-pulse ml-0.5"></span>
+                </p>
+            </div>
 
-            <!-- CTA Prompt (+1.2s) -->
-            <button id="enterPortfolioBtn" class="intro-enter-btn mt-8 sm:mt-10 px-8 py-3 rounded-full border border-[#2E2A40] text-xs sm:text-sm font-mono tracking-widest uppercase text-[#FAFAFA] hover:border-[var(--accent)] hover:text-[#FAFAFA] bg-[#1C1C24]/80 backdrop-blur-md transition-all duration-300 group cursor-pointer focus:outline-none" aria-label="Click to Enter Portfolio" onclick="window.enterPortfolio(event)" ontouchend="window.enterPortfolio(event)">
-                <span class="inline-flex items-center gap-2 group-hover:scale-105 transition-transform duration-200 pointer-events-none">
-                    <span class="text-white/40">[</span>
-                    <span class="font-bold text-white tracking-widest">CLICK TO ENTER</span>
-                    <span class="text-white/40">]</span>
+            <!-- CTA Prompt Button -->
+            <button id="enterPortfolioBtn" class="intro-reveal-item mt-9 sm:mt-11 px-8 py-3.5 rounded-full border border-white/10 text-xs sm:text-sm font-mono tracking-widest uppercase text-[#FAFAFA] hover:border-purple-500/60 hover:text-white bg-white/[0.05] hover:bg-white/[0.1] backdrop-blur-xl transition-all duration-300 group cursor-pointer focus:outline-none shadow-lg shadow-purple-950/40" aria-label="Click to Enter Portfolio" onclick="window.enterPortfolio(event)" ontouchend="window.enterPortfolio(event)">
+                <span class="inline-flex items-center gap-2.5 group-hover:scale-105 transition-transform duration-200 pointer-events-none">
+                    <span class="text-purple-400 font-mono">[</span>
+                    <span class="font-bold tracking-widest text-white">ENTER PORTFOLIO</span>
+                    <i data-lucide="arrow-right" class="w-4 h-4 text-purple-400 group-hover:translate-x-1 transition-transform"></i>
+                    <span class="text-purple-400 font-mono">]</span>
                 </span>
             </button>
 
@@ -185,7 +191,7 @@
 
         <!-- Bottom subtle hint -->
         <div class="intro-bottom-hint absolute bottom-6 text-[10px] font-mono tracking-widest uppercase text-white/30 pointer-events-none">
-            Press Enter or Click Anywhere
+            Press Enter &middot; Click Anywhere
         </div>
     </div>
 
@@ -205,190 +211,94 @@
     <!-- ======================================================== -->
     <!-- NAVIGATION BAR (GLOSSY GLASS WITH ACCURATE SOCIAL LINKS) -->
     <!-- ======================================================== -->
-    <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-500 backdrop-blur-2xl bg-[#121214]/85 border-b border-[#2E2A40] navbar-hidden" id="navbar">
+    <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-500 bg-[#121214]/75 backdrop-blur-2xl border-b border-white/[0.08] shadow-[0_4px_30px_rgba(0,0,0,0.45)] navbar-hidden" id="navbar">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-            
+
             <!-- Brand / Logo -->
             <a href="#hero" class="flex items-center gap-3 group">
-                <div class="relative w-9 h-9 rounded-xl p-[1.5px] bg-gradient-to-tr from-[#00F2FE] via-[#6B00FF] to-[#00FF87] transition-transform duration-300 group-hover:scale-105 shadow-md shadow-[#00F2FE]/20">
-                    <img src="assets/profile.jpg?v=10" alt="Sawin Kumar" class="w-full h-full object-cover rounded-[10px]">
+                <div class="relative w-8 h-8 sm:w-9 sm:h-9 rounded-full ring-2 ring-purple-500/30 p-0.5 overflow-hidden transition-all duration-300 group-hover:ring-purple-400 group-hover:scale-105 shadow-sm">
+                    <img src="assets/profile.jpg?v=10" alt="Sawin Kumar" class="w-full h-full object-cover rounded-full">
                 </div>
                 <div>
-                    <span class="font-bold text-sm text-white group-hover:text-[#00F2FE] tracking-tight transition-colors">Sawin Kumar</span>
-                    <span class="block text-[10px] text-slate-400 font-mono">B.TECH CSE · GLA UNIVERSITY</span>
+                    <div class="flex items-center gap-1.5">
+                        <span class="font-bold text-sm text-white group-hover:text-purple-400 tracking-tight transition-colors">Sawin Kumar</span>
+                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" title="Available for Internships"></span>
+                    </div>
+                    <span class="block text-[10px] text-slate-400 font-mono">B.TECH CSE &middot; GLA UNIVERSITY</span>
                 </div>
             </a>
 
-            <!-- Desktop Navigation Links -->
-            <nav class="hidden md:flex items-center gap-1 bg-white/[0.035] border border-white/[0.09] px-3 py-1 rounded-full backdrop-blur-xl shadow-inner">
+            <!-- Desktop Clean Navigation Capsule -->
+            <nav class="hidden md:flex items-center gap-1 bg-white/[0.035] border border-white/[0.08] px-3 py-1 rounded-full backdrop-blur-xl shadow-inner">
                 <a href="#about" class="nav-link px-3.5 py-1 text-xs text-slate-300 hover:text-white rounded-full transition-all">About</a>
                 <a href="#education" class="nav-link px-3.5 py-1 text-xs text-slate-300 hover:text-white rounded-full transition-all">Education</a>
                 <a href="#skills" class="nav-link px-3.5 py-1 text-xs text-slate-300 hover:text-white rounded-full transition-all">Skills</a>
                 <a href="#projects" class="nav-link px-3.5 py-1 text-xs text-slate-300 hover:text-white rounded-full transition-all">Projects</a>
-                <a href="#achievements" class="nav-link px-3.5 py-1 text-xs text-amber-400 hover:text-amber-300 rounded-full transition-all flex items-center gap-1.5 font-medium">
-                    <svg class="w-3.5 h-3.5 text-amber-400" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104 5.35 5.35 0 0 0-.125.513 5.527 5.527 0 0 0 .062 2.362 5.83 5.83 0 0 0 .349 1.017 5.938 5.938 0 0 0 1.271 1.818l4.277 4.193.039.038c2.248 2.165 5.852 2.133 8.063-.074l2.396-2.392c.54-.54.54-1.414.003-1.955a1.378 1.378 0 0 0-1.951-.003l-2.396 2.392a3.021 3.021 0 0 1-4.205.038l-.02-.019-4.276-4.193c-.652-.64-.972-1.469-.948-2.263a2.68 2.68 0 0 1 .066-.523 2.545 2.545 0 0 1 .619-1.164L9.13 8.114c1.058-1.134 3.204-1.27 4.43-.278l3.501 2.831c.593.48 1.461.387 1.94-.207a1.384 1.384 0 0 0-.207-1.943l-3.5-2.831c-.8-.647-1.766-1.045-2.774-1.202l2.015-2.158A1.384 1.384 0 0 0 13.483 0zm-2.866 12.815a1.38 1.38 0 0 0-1.38 1.382 1.38 1.38 0 0 0 1.38 1.382H20.79a1.38 1.38 0 0 0 1.38-1.382 1.38 1.38 0 0 0-1.38-1.382z"/>
-                    </svg>
-                    <span>Profiles</span>
-                </a>
                 <a href="#contact" class="nav-link px-3.5 py-1 text-xs text-slate-300 hover:text-white rounded-full transition-all">Contact</a>
             </nav>
 
             <!-- Navbar Controls & Action Group -->
             <div class="flex items-center gap-2 sm:gap-2.5">
-                
+
                 <!-- 1. Audio / Mute Ambient Toggle Button -->
-                <button id="audioToggleBtn" class="audio-toggle-btn w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-slate-900/80 border border-slate-700/60 flex items-center justify-center text-slate-300 hover:text-white transition-all hover:scale-105 active:scale-95 focus:outline-none" title="Toggle Ambient Audio" aria-label="Toggle Ambient Audio">
+                <button id="audioToggleBtn" class="audio-toggle-btn w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/[0.04] border border-white/10 flex items-center justify-center text-slate-300 hover:text-white transition-all hover:scale-105 active:scale-95 focus:outline-none" title="Toggle Ambient Audio" aria-label="Toggle Ambient Audio">
                     <i data-lucide="volume-x" class="w-4 h-4 text-slate-400 audio-icon-muted"></i>
-                    <i data-lucide="volume-2" class="w-4 h-4 text-accent-dynamic audio-icon-active hidden"></i>
+                    <i data-lucide="volume-2" class="w-4 h-4 text-purple-400 audio-icon-active hidden"></i>
                 </button>
 
-                <!-- 2. Theme Switcher Trigger Button & Dropdown Menu -->
-                <div class="relative theme-switcher-container">
-                    <button id="themeSwitcherBtn" onclick="window.toggleThemeDropdown ? window.toggleThemeDropdown(event) : null" class="theme-switcher-btn w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-slate-900/80 border border-slate-700/60 flex items-center justify-center text-slate-300 hover:text-white transition-all hover:scale-105 active:scale-95 focus:outline-none" aria-label="Switch Theme Accent Color" aria-haspopup="true" aria-expanded="false" title="Switch Accent Color">
-                        <i data-lucide="palette" class="w-4 h-4 transition-transform duration-300 group-hover:rotate-12"></i>
-                    </button>
+                <!-- 2. Dark Mode / Bright Mode Toggle Button -->
+                <button id="themeModeToggleBtn" onclick="window.toggleDisplayMode ? window.toggleDisplayMode() : null" class="theme-mode-btn w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/[0.04] border border-white/10 flex items-center justify-center text-slate-300 hover:text-white transition-all hover:scale-105 active:scale-95 focus:outline-none" title="Toggle Bright / Dark Mode" aria-label="Toggle Bright / Dark Mode">
+                    <i data-lucide="sun" class="w-4 h-4 text-amber-300 mode-icon-sun"></i>
+                    <i data-lucide="moon" class="w-4 h-4 text-indigo-400 mode-icon-moon hidden"></i>
+                </button>
 
-                    <!-- Animated Floating Dropdown Card (Framer Motion style) -->
-                    <div id="themeDropdownMenu" onclick="event.stopPropagation()" class="theme-dropdown-menu absolute right-0 top-full mt-2.5 w-48 rounded-2xl bg-slate-900/95 backdrop-blur-xl border border-white/10 shadow-2xl p-2 z-50 transform origin-top-right transition-all duration-200" role="menu">
-                        <div class="px-2.5 py-1.5 text-[10px] font-mono uppercase tracking-wider text-slate-400 border-b border-[#2E2A40] mb-1 flex items-center justify-between">
-                            <span>Theme Accent</span>
-                            <span id="currentThemeLabel" class="font-bold text-accent-dynamic">Midnight Orchid</span>
-                        </div>
-                        
-                                                <!-- Midnight Orchid (Active Default) -->
-                        <button class="theme-option-btn w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-medium text-slate-200 hover:bg-white/10 transition-colors group active-theme" data-theme="orchid" role="menuitem">
-                            <span class="flex items-center gap-2.5">
-                                <span class="w-3.5 h-3.5 rounded-full bg-[#A855F7] shadow-sm shadow-[#A855F7]/50 ring-2 ring-transparent group-hover:ring-[#A855F7]/40"></span>
-                                <span>Midnight Orchid</span>
-                            </span>
-                            <i data-lucide="check" class="w-3.5 h-3.5 text-[#A855F7] theme-check"></i>
-                        </button>
-
-                        <!-- Cyan -->
-                        <button class="theme-option-btn w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-medium text-slate-200 hover:bg-white/10 transition-colors group" data-theme="cyan" role="menuitem">
-                            <span class="flex items-center gap-2.5">
-                                <span class="w-3.5 h-3.5 rounded-full bg-[#06b6d4] shadow-sm shadow-[#06b6d4]/50 ring-2 ring-transparent group-hover:ring-[#06b6d4]/40"></span>
-                                <span>Cyan</span>
-                            </span>
-                            <i data-lucide="check" class="w-3.5 h-3.5 text-[#06b6d4] theme-check opacity-0"></i>
-                        </button>
-                        
-                        <!-- Violet -->
-                        <button class="theme-option-btn w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-medium text-slate-200 hover:bg-white/10 transition-colors group" data-theme="violet" role="menuitem">
-                            <span class="flex items-center gap-2.5">
-                                <span class="w-3.5 h-3.5 rounded-full bg-[#8b5cf6] shadow-sm shadow-[#8b5cf6]/50 ring-2 ring-transparent group-hover:ring-[#8b5cf6]/40"></span>
-                                <span>Violet</span>
-                            </span>
-                            <i data-lucide="check" class="w-3.5 h-3.5 text-[#8b5cf6] theme-check opacity-0"></i>
-                        </button>
-                        
-                        <!-- Emerald -->
-                        <button class="theme-option-btn w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-medium text-slate-200 hover:bg-white/10 transition-colors group" data-theme="emerald" role="menuitem">
-                            <span class="flex items-center gap-2.5">
-                                <span class="w-3.5 h-3.5 rounded-full bg-[#10b981] shadow-sm shadow-[#10b981]/50 ring-2 ring-transparent group-hover:ring-[#10b981]/40"></span>
-                                <span>Emerald</span>
-                            </span>
-                            <i data-lucide="check" class="w-3.5 h-3.5 text-[#10b981] theme-check opacity-0"></i>
-                        </button>
-                        
-                        <!-- Amber -->
-                        <button class="theme-option-btn w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-medium text-slate-200 hover:bg-white/10 transition-colors group" data-theme="amber" role="menuitem">
-                            <span class="flex items-center gap-2.5">
-                                <span class="w-3.5 h-3.5 rounded-full bg-[#f59e0b] shadow-sm shadow-[#f59e0b]/50 ring-2 ring-transparent group-hover:ring-[#f59e0b]/40"></span>
-                                <span>Amber</span>
-                            </span>
-                            <i data-lucide="check" class="w-3.5 h-3.5 text-[#f59e0b] theme-check opacity-0"></i>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- 3. CV / Resume Button with Dynamic Accent Color Border & Text -->
+                <!-- 3. CV / Resume Button -->
                 <a href="assets/Sawin_Kumar_Resume.pdf" target="_blank" rel="noopener noreferrer" download="Sawin_Kumar_Resume.pdf"
                    id="navbarResumeBtn"
-                   class="nav-resume-btn hidden sm:inline-flex items-center gap-1.5 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full border text-xs font-mono font-medium transition-all duration-300 hover:scale-105"
+                   class="nav-resume-btn hidden sm:inline-flex items-center gap-1.5 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full border border-white/10 bg-white/[0.04] hover:bg-white/[0.08] text-xs font-mono font-medium text-slate-200 hover:text-white transition-all duration-300 hover:scale-105"
                    title="Download CV / Resume">
-                    <i data-lucide="file-down" class="w-3.5 h-3.5"></i>
-                    <span>CV / Resume</span>
+                    <i data-lucide="file-down" class="w-3.5 h-3.5 text-purple-400"></i>
+                    <span>Resume</span>
                 </a>
 
-                <!-- Social Profile Icons (Desktop) -->
-                <div class="hidden lg:flex items-center gap-1.5">
-                    <a href="https://leetcode.com/u/sawin_kumar" target="_blank" rel="noopener noreferrer" 
-                       class="glass-pill p-2 rounded-xl text-amber-400 hover:text-amber-300 transition-all hover:scale-105" title="LeetCode Profile">
-                        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104 5.35 5.35 0 0 0-.125.513 5.527 5.527 0 0 0 .062 2.362 5.83 5.83 0 0 0 .349 1.017 5.938 5.938 0 0 0 1.271 1.818l4.277 4.193.039.038c2.248 2.165 5.852 2.133 8.063-.074l2.396-2.392c.54-.54.54-1.414.003-1.955a1.378 1.378 0 0 0-1.951-.003l-2.396 2.392a3.021 3.021 0 0 1-4.205.038l-.02-.019-4.276-4.193c-.652-.64-.972-1.469-.948-2.263a2.68 2.68 0 0 1 .066-.523 2.545 2.545 0 0 1 .619-1.164L9.13 8.114c1.058-1.134 3.204-1.27 4.43-.278l3.501 2.831c.593.48 1.461.387 1.94-.207a1.384 1.384 0 0 0-.207-1.943l-3.5-2.831c-.8-.647-1.766-1.045-2.774-1.202l2.015-2.158A1.384 1.384 0 0 0 13.483 0zm-2.866 12.815a1.38 1.38 0 0 0-1.38 1.382 1.38 1.38 0 0 0 1.38 1.382H20.79a1.38 1.38 0 0 0 1.38-1.382 1.38 1.38 0 0 0-1.38-1.382z"/>
-                        </svg>
-                    </a>
-                    <a href="https://www.linkedin.com/in/sawin-kumar-5941763a1" target="_blank" rel="noopener noreferrer" 
-                       class="glass-pill p-2 rounded-xl text-blue-400 hover:text-blue-300 transition-all hover:scale-105" title="LinkedIn Profile">
-                        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 8.76a1.65 1.65 0 1 0 0-3.3 1.65 1.65 0 0 0 0 3.3m1.4 9.74v-8.37H5.06v8.37h2.8z"/>
-                        </svg>
-                    </a>
-                    <a href="https://github.com/sawinkumar13-design" target="_blank" rel="noopener noreferrer" 
-                       class="glass-pill p-2 rounded-xl text-slate-300 hover:text-white transition-all hover:scale-105" title="GitHub Profile">
-                        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
-                        </svg>
-                    </a>
-                </div>
-
-                <!-- Primary CTA -->
+                <!-- 4. Primary Contact CTA -->
                 <a href="#contact" class="cosmic-btn-primary hidden md:inline-flex px-4 py-1.5 text-xs font-bold rounded-full">
                     Get In Touch
                 </a>
 
-            <!-- Mobile Hamburger -->
-            <button id="mobileMenuBtn" class="md:hidden p-2 text-slate-400 hover:text-white rounded-lg" aria-label="Menu">
-                <i data-lucide="menu" class="w-5 h-5"></i>
-            </button>
+                <!-- 5. Mobile Hamburger -->
+                <button id="mobileMenuBtn" class="md:hidden p-2 text-slate-400 hover:text-white rounded-lg focus:outline-none" aria-label="Menu">
+                    <i data-lucide="menu" class="w-5 h-5"></i>
+                </button>
             </div>
         </div>
 
         <!-- Mobile Drawer -->
         <div id="mobileMenu" class="hidden md:hidden bg-[#17171C]/95 border-b border-[#2E2A40] px-6 py-5 space-y-3 backdrop-blur-2xl">
-            <a href="#about" class="block text-slate-300 hover:text-cyan-300 text-sm py-1.5">About</a>
-            <a href="#education" class="block text-slate-300 hover:text-cyan-300 text-sm py-1.5">Education</a>
-            <a href="#skills" class="block text-slate-300 hover:text-cyan-300 text-sm py-1.5">Skills</a>
-            <a href="#projects" class="block text-slate-300 hover:text-cyan-300 text-sm py-1.5">Projects</a>
-            <a href="#achievements" class="block text-amber-400 hover:text-amber-300 text-sm py-1.5 font-medium">LeetCode 50 Days Badge</a>
-            <a href="#contact" class="block text-slate-300 hover:text-cyan-300 text-sm py-1.5">Contact</a>
-            
-            <!-- Mobile Theme Palette Selector -->
-            <div class="pt-3 border-t border-[#2E2A40]">
-                <span class="text-xs font-mono text-slate-400 block mb-2">ACCENT THEME</span>
-                <div class="grid grid-cols-3 sm:grid-cols-6 gap-1.5">
-                    <button class="mobile-theme-btn px-1.5 py-1.5 rounded-lg text-xs font-medium border border-[#2E2A40] flex items-center justify-center gap-1 text-slate-200" data-theme="orchid">
-                        <span class="w-2.5 h-2.5 rounded-full bg-[#A855F7]"></span> Orchid
-                    </button>
+            <a href="#about" class="block text-slate-300 hover:text-purple-400 text-sm py-1.5 font-medium transition-colors">About</a>
+            <a href="#education" class="block text-slate-300 hover:text-purple-400 text-sm py-1.5 font-medium transition-colors">Education</a>
+            <a href="#skills" class="block text-slate-300 hover:text-purple-400 text-sm py-1.5 font-medium transition-colors">Skills</a>
+            <a href="#projects" class="block text-slate-300 hover:text-purple-400 text-sm py-1.5 font-medium transition-colors">Projects</a>
+            <a href="#contact" class="block text-slate-300 hover:text-purple-400 text-sm py-1.5 font-medium transition-colors">Contact</a>
 
-                    <button class="mobile-theme-btn px-1.5 py-1.5 rounded-lg text-xs font-medium border border-[#2E2A40] flex items-center justify-center gap-1 text-slate-200" data-theme="sage">
-                        <span class="w-2.5 h-2.5 rounded-full bg-[#A6B69D]"></span> Sage
-                    </button>
-                    <button class="mobile-theme-btn px-1.5 py-1.5 rounded-lg text-xs font-medium border border-[#2E2A40] flex items-center justify-center gap-1 text-slate-200" data-theme="cyan">
-                        <span class="w-2.5 h-2.5 rounded-full bg-[#06b6d4]"></span> Cyan
-                    </button>
-                    <button class="mobile-theme-btn px-1.5 py-1.5 rounded-lg text-xs font-medium border border-[#2E2A40] flex items-center justify-center gap-1 text-slate-200" data-theme="violet">
-                        <span class="w-2.5 h-2.5 rounded-full bg-[#8b5cf6]"></span> Violet
-                    </button>
-                    <button class="mobile-theme-btn px-1.5 py-1.5 rounded-lg text-xs font-medium border border-[#2E2A40] flex items-center justify-center gap-1 text-slate-200" data-theme="emerald">
-                        <span class="w-2.5 h-2.5 rounded-full bg-[#10b981]"></span> Emerald
-                    </button>
-                    <button class="mobile-theme-btn px-1.5 py-1.5 rounded-lg text-xs font-medium border border-[#2E2A40] flex items-center justify-center gap-1 text-slate-200" data-theme="amber">
-                        <span class="w-2.5 h-2.5 rounded-full bg-[#f59e0b]"></span> Amber
-                    </button>
-                </div>
+            <!-- Mobile Bright / Dark Mode Toggle Row -->
+            <div class="pt-3 border-t border-[#2E2A40]/50 flex items-center justify-between">
+                <span class="text-xs font-mono text-slate-400">DISPLAY MODE</span>
+                <button onclick="window.toggleDisplayMode ? window.toggleDisplayMode() : null" class="px-3 py-1.5 rounded-full border border-white/10 bg-white/[0.05] flex items-center gap-2 text-xs font-medium text-slate-200">
+                    <i data-lucide="sun" class="w-3.5 h-3.5 text-amber-300 mode-icon-sun"></i>
+                    <i data-lucide="moon" class="w-3.5 h-3.5 text-indigo-400 mode-icon-moon hidden"></i>
+                    <span id="mobileModeLabel">Bright Mode</span>
+                </button>
             </div>
 
             <div class="pt-3 border-t border-white/10 flex items-center justify-between">
                 <div class="flex items-center gap-3">
-                    <a href="https://leetcode.com/u/sawin_kumar" target="_blank" rel="noopener noreferrer" class="text-amber-400"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104 5.35 5.35 0 0 0-.125.513 5.527 5.527 0 0 0 .062 2.362 5.83 5.83 0 0 0 .349 1.017 5.938 5.938 0 0 0 1.271 1.818l4.277 4.193.039.038c2.248 2.165 5.852 2.133 8.063-.074l2.396-2.392c.54-.54.54-1.414.003-1.955a1.378 1.378 0 0 0-1.951-.003l-2.396 2.392a3.021 3.021 0 0 1-4.205.038l-.02-.019-4.276-4.193c-.652-.64-.972-1.469-.948-2.263a2.68 2.68 0 0 1 .066-.523 2.545 2.545 0 0 1 .619-1.164L9.13 8.114c1.058-1.134 3.204-1.27 4.43-.278l3.501 2.831c.593.48 1.461.387 1.94-.207a1.384 1.384 0 0 0-.207-1.943l-3.5-2.831c-.8-.647-1.766-1.045-2.774-1.202l2.015-2.158A1.384 1.384 0 0 0 13.483 0zm-2.866 12.815a1.38 1.38 0 0 0-1.38 1.382 1.38 1.38 0 0 0 1.38 1.382H20.79a1.38 1.38 0 0 0 1.38-1.382 1.38 1.38 0 0 0-1.38-1.382z"/></svg></a>
-                    <a href="https://www.linkedin.com/in/sawin-kumar-5941763a1" target="_blank" rel="noopener noreferrer" class="text-blue-400"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 8.76a1.65 1.65 0 1 0 0-3.3 1.65 1.65 0 0 0 0 3.3m1.4 9.74v-8.37H5.06v8.37h2.8z"/></svg></a>
-                    <a href="https://github.com/sawinkumar13-design" target="_blank" rel="noopener noreferrer" class="text-white"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg></a>
-                    <a href="assets/Sawin_Kumar_Resume.pdf" target="_blank" rel="noopener noreferrer" download class="text-cyan-300"><i data-lucide="file-down" class="w-5 h-5"></i></a>
+                    <a href="https://github.com/sawinkumar13-design" target="_blank" rel="noopener noreferrer" class="text-white hover:text-purple-400"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg></a>
+                    <a href="https://www.linkedin.com/in/sawin-kumar-5941763a1" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:text-blue-300"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 8.76a1.65 1.65 0 1 0 0-3.3 1.65 1.65 0 0 0 0 3.3m1.4 9.74v-8.37H5.06v8.37h2.8z"/></svg></a>
+                    <a href="https://leetcode.com/u/sawin_kumar" target="_blank" rel="noopener noreferrer" class="text-amber-400 hover:text-amber-300"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104 5.35 5.35 0 0 0-.125.513 5.527 5.527 0 0 0 .062 2.362 5.83 5.83 0 0 0 .349 1.017 5.938 5.938 0 0 0 1.271 1.818l4.277 4.193.039.038c2.248 2.165 5.852 2.133 8.063-.074l2.396-2.392c.54-.54.54-1.414.003-1.955a1.378 1.378 0 0 0-1.951-.003l-2.396 2.392a3.021 3.021 0 0 1-4.205.038l-.02-.019-4.276-4.193c-.652-.64-.972-1.469-.948-2.263a2.68 2.68 0 0 1 .066-.523 2.545 2.545 0 0 1 .619-1.164L9.13 8.114c1.058-1.134 3.204-1.27 4.43-.278l3.501 2.831c.593.48 1.461.387 1.94-.207a1.384 1.384 0 0 0-.207-1.943l-3.5-2.831c-.8-.647-1.766-1.045-2.774-1.202l2.015-2.158A1.384 1.384 0 0 0 13.483 0zm-2.866 12.815a1.38 1.38 0 0 0-1.38 1.382 1.38 1.38 0 0 0 1.38 1.382H20.79a1.38 1.38 0 0 0 1.38-1.382 1.38 1.38 0 0 0-1.38-1.382z"/></svg></a>
+                    <a href="assets/Sawin_Kumar_Resume.pdf" target="_blank" rel="noopener noreferrer" download class="text-slate-300 hover:text-white"><i data-lucide="file-down" class="w-5 h-5"></i></a>
                 </div>
-                <a href="#contact" class="px-3 py-1 bg-cyan-500 text-[#050508] font-bold rounded-lg text-xs">Contact</a>
+                <a href="#contact" class="px-3.5 py-1.5 bg-gradient-to-r from-purple-500 to-indigo-600 text-white font-bold rounded-lg text-xs">Get In Touch</a>
             </div>
         </div>
     </header>

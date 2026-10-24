@@ -48,186 +48,76 @@ function startApp() {
 
 
     // =========================================================================
-    // 0.5 THEME ACCENT COLOR SWITCHER & AMBIENT AUDIO CONTROLLER
+        // =========================================================================
+    // 0.5 DARK MODE & BRIGHT MODE CONTROLLER
     // =========================================================================
-    const THEMES = {
-        orchid: {
-            name: 'Midnight Orchid',
-            hex: '#A855F7',
-            rgb: '168, 85, 247',
-            glow: 'rgba(168, 85, 247, 0.45)',
-            hover: '#C084FC'
-        },
-        sage: {
-            name: 'Sage',
-            hex: '#A6B69D',
-            rgb: '166, 182, 157',
-            glow: 'rgba(166, 182, 157, 0.4)',
-            hover: '#BAC7B2'
-        },
-        cyan: {
-            name: 'Cyan',
-            hex: '#06b6d4',
-            rgb: '6, 182, 212',
-            glow: 'rgba(6, 182, 212, 0.4)',
-            hover: '#22d3ee'
-        },
-        violet: {
-            name: 'Violet',
-            hex: '#8b5cf6',
-            rgb: '139, 92, 246',
-            glow: 'rgba(139, 92, 246, 0.4)',
-            hover: '#a78bfa'
-        },
-        emerald: {
-            name: 'Emerald',
-            hex: '#10b981',
-            rgb: '16, 185, 129',
-            glow: 'rgba(16, 185, 129, 0.4)',
-            hover: '#34d399'
-        },
-        amber: {
-            name: 'Amber',
-            hex: '#f59e0b',
-            rgb: '245, 158, 11',
-            glow: 'rgba(245, 158, 11, 0.4)',
-            hover: '#fbbf24'
-        }
-    };
-    window.THEMES = THEMES;
-
-    let currentThemeKey = 'orchid';
+    let currentDisplayMode = 'dark';
     try {
-        const saved = localStorage.getItem('sawin-portfolio-theme-v3');
-        if (saved && THEMES[saved]) currentThemeKey = saved;
+        const savedMode = localStorage.getItem('sawin-portfolio-display-mode');
+        if (savedMode === 'light' || savedMode === 'dark') {
+            currentDisplayMode = savedMode;
+        }
     } catch (e) {}
-    window.currentThemeKey = currentThemeKey;
 
-    const themeSwitcherBtn = document.getElementById('themeSwitcherBtn');
-    const themeDropdownMenu = document.getElementById('themeDropdownMenu');
-    const currentThemeLabel = document.getElementById('currentThemeLabel');
-
-    function applyTheme(themeKey) {
-        if (!THEMES[themeKey]) return;
-        currentThemeKey = themeKey;
-        window.currentThemeKey = themeKey;
-        const theme = THEMES[themeKey];
-
-        // 1. Update CSS root variables
-        document.documentElement.style.setProperty('--accent', theme.hex);
-        document.documentElement.style.setProperty('--accent-rgb', theme.rgb);
-        document.documentElement.style.setProperty('--accent-glow', theme.glow);
-        document.documentElement.style.setProperty('--accent-hover', theme.hover);
-
-        // 2. Set global data-theme attribute on <html> for whole-portfolio color swapping
-        document.documentElement.setAttribute('data-theme', themeKey);
-
-        // 3. Persist in localStorage
+    function setDisplayMode(mode) {
+        currentDisplayMode = mode;
+        document.documentElement.setAttribute('data-mode', mode);
         try {
-            localStorage.setItem('sawin-portfolio-theme-v3', themeKey);
+            localStorage.setItem('sawin-portfolio-display-mode', mode);
         } catch (e) {}
 
-        // 4. Update dropdown UI indicators
-        if (currentThemeLabel) currentThemeLabel.textContent = theme.name;
+        const sunIcons = document.querySelectorAll('.mode-icon-sun');
+        const moonIcons = document.querySelectorAll('.mode-icon-moon');
+        const mobileLabel = document.getElementById('mobileModeLabel');
 
-        const allThemeOptionBtns = document.querySelectorAll('.theme-option-btn, .mobile-theme-btn');
-        allThemeOptionBtns.forEach(btn => {
-            const key = btn.getAttribute('data-theme');
-            const checkIcon = btn.querySelector('.theme-check');
-            if (key === themeKey) {
-                btn.classList.add('active-theme', 'border-accent-dynamic');
-                if (checkIcon) checkIcon.classList.remove('opacity-0');
-            } else {
-                btn.classList.remove('active-theme', 'border-accent-dynamic');
-                if (checkIcon) checkIcon.classList.add('opacity-0');
+        if (mode === 'light') {
+            sunIcons.forEach(i => i.classList.add('hidden'));
+            moonIcons.forEach(i => i.classList.remove('hidden'));
+            if (mobileLabel) mobileLabel.textContent = 'Dark Mode';
+            if (typeof window.setSmokeLightMode === 'function') {
+                window.setSmokeLightMode(1.0);
             }
-        });
-
-        // 5. Update WebGL smoke accent color
-        if (typeof window.updateSmokeAccent === 'function') {
-            window.updateSmokeAccent(theme.hex);
-        }
-    }
-    window.applyTheme = applyTheme;
-
-    // Dropdown toggle logic
-    let isThemeDropdownOpen = false;
-    function openThemeDropdown() {
-        const menu = document.getElementById('themeDropdownMenu') || themeDropdownMenu;
-        const btn = document.getElementById('themeSwitcherBtn') || themeSwitcherBtn;
-        if (!menu) return;
-        isThemeDropdownOpen = true;
-        menu.classList.add('open');
-        if (btn) {
-            btn.classList.add('active-open');
-            btn.setAttribute('aria-expanded', 'true');
-        }
-    }
-    window.openThemeDropdown = openThemeDropdown;
-
-    function closeThemeDropdown() {
-        const menu = document.getElementById('themeDropdownMenu') || themeDropdownMenu;
-        const btn = document.getElementById('themeSwitcherBtn') || themeSwitcherBtn;
-        if (!menu) return;
-        isThemeDropdownOpen = false;
-        menu.classList.remove('open');
-        if (btn) {
-            btn.classList.remove('active-open');
-            btn.setAttribute('aria-expanded', 'false');
-        }
-    }
-    window.closeThemeDropdown = closeThemeDropdown;
-
-    function toggleThemeDropdown(e) {
-        if (e && e.stopPropagation) e.stopPropagation();
-        if (isThemeDropdownOpen) {
-            closeThemeDropdown();
         } else {
-            openThemeDropdown();
+            sunIcons.forEach(i => i.classList.remove('hidden'));
+            moonIcons.forEach(i => i.classList.add('hidden'));
+            if (mobileLabel) mobileLabel.textContent = 'Bright Mode';
+            if (typeof window.setSmokeLightMode === 'function') {
+                window.setSmokeLightMode(0.0);
+            }
         }
     }
-    window.toggleThemeDropdown = toggleThemeDropdown;
+    window.setDisplayMode = setDisplayMode;
 
-    if (themeSwitcherBtn) {
-        themeSwitcherBtn.addEventListener('click', toggleThemeDropdown);
+    function toggleDisplayMode() {
+        setDisplayMode(currentDisplayMode === 'dark' ? 'light' : 'dark');
+        if (window.lucide && typeof window.lucide.createIcons === 'function') {
+            window.lucide.createIcons();
+        }
+    }
+    window.toggleDisplayMode = toggleDisplayMode;
+
+    const themeModeToggleBtn = document.getElementById('themeModeToggleBtn');
+    if (themeModeToggleBtn) {
+        themeModeToggleBtn.addEventListener('click', toggleDisplayMode);
     }
 
-    // Bind option click events (Desktop & Mobile)
-    function bindThemeButtons() {
-        const btns = document.querySelectorAll('.theme-option-btn, .mobile-theme-btn');
-        btns.forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                if (e && e.stopPropagation) e.stopPropagation();
-                const selectedTheme = btn.getAttribute('data-theme');
-                if (selectedTheme) {
-                    applyTheme(selectedTheme);
-                    closeThemeDropdown();
-                }
-            });
+    // Trigger Blurred Reveal & Slide Up on Page Load
+    function triggerIntroReveal() {
+        requestAnimationFrame(() => {
+            const items = document.querySelectorAll('.intro-reveal-item');
+            items.forEach(el => el.classList.add('revealed'));
         });
     }
-    bindThemeButtons();
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', triggerIntroReveal);
+    } else {
+        setTimeout(triggerIntroReveal, 50);
+    }
 
-    // Click outside to dismiss
-    document.addEventListener('click', (e) => {
-        const menu = document.getElementById('themeDropdownMenu') || themeDropdownMenu;
-        const btn = document.getElementById('themeSwitcherBtn') || themeSwitcherBtn;
-        if (isThemeDropdownOpen && menu && !menu.contains(e.target) && (!btn || !btn.contains(e.target))) {
-            closeThemeDropdown();
-        }
-    });
+    // Initialize display mode immediately
+    setDisplayMode(currentDisplayMode);
 
-    // Keyboard navigation (Escape)
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && isThemeDropdownOpen) {
-            closeThemeDropdown();
-            if (themeSwitcherBtn) themeSwitcherBtn.focus();
-        }
-    });
-
-    // Initialize Theme immediately
-    applyTheme(currentThemeKey);
-
+    // =========================================================================
     // Ambient Audio Synthesizer (Cosmic Meditative Soundscape via Web Audio API)
     const audioToggleBtn = document.getElementById('audioToggleBtn');
     let audioCtx = null;
@@ -493,7 +383,9 @@ function startApp() {
                 uMouse: { value: new THREE.Vector2(0.5, 0.5) },
                 uMouseVel: { value: new THREE.Vector2(0, 0) },
                 uScroll: { value: 0 },
-                uAccentColor: { value: new THREE.Color(THEMES[currentThemeKey].hex) }
+                uAccentColor: { value: new THREE.Color('#A855F7') },
+                uLightMode: { value: currentDisplayMode === 'light' ? 1.0 : 0.0 },
+                uLightMode: { value: currentDisplayMode === 'light' ? 1.0 : 0.0 }
             };
 
             window.updateSmokeAccent = function(hex) {
@@ -519,6 +411,7 @@ function startApp() {
                 uniform vec2 uMouseVel;
                 uniform float uScroll;
                 uniform vec3 uAccentColor;
+                uniform float uLightMode;
 
                 // Ultra-fast smooth value noise with bicubic interpolation
                 float hash(vec2 p) {
@@ -594,11 +487,12 @@ function startApp() {
                     float smoke = smoothstep(0.18, 0.82, rawDensity) * emitterMask;
 
                     // Cinematic Lighting Palette for Midnight Orchid (#121214, #17171C, #1C1C24, #A855F7, #6366F1)
-                    vec3 cBaseBlack    = vec3(0.071, 0.071, 0.078); // #121214 Charcoal Ink
-                    vec3 cCharcoal     = vec3(0.090, 0.090, 0.110); // #17171C Secondary
-                    vec3 cGraphite     = vec3(0.110, 0.110, 0.141); // #1C1C24 Card surface
-                    vec3 cSmokySilver  = vec3(0.486, 0.424, 0.596); // Muted orchid-slate vapor
-                    vec3 cSilverRim    = vec3(0.980, 0.980, 0.980); // #FAFAFA Off-white specular rim
+                    // Dynamic Lighting Palette (Interpolates Dark Mode #121214 to Bright Mode #F8F9FC)
+                    vec3 cBaseBlack    = mix(vec3(0.071, 0.071, 0.078), vec3(0.97, 0.97, 0.99), uLightMode);
+                    vec3 cCharcoal     = mix(vec3(0.090, 0.090, 0.110), vec3(0.94, 0.94, 0.97), uLightMode);
+                    vec3 cGraphite     = mix(vec3(0.110, 0.110, 0.141), vec3(0.91, 0.92, 0.95), uLightMode);
+                    vec3 cSmokySilver  = mix(vec3(0.486, 0.424, 0.596), vec3(0.72, 0.68, 0.82), uLightMode);
+                    vec3 cSilverRim    = mix(vec3(0.980, 0.980, 0.980), vec3(0.55, 0.50, 0.70), uLightMode);
 
                     // Directional Backlighting from Upper-Right Emitter
                     vec2 lightDir = normalize(urPoint - normUv);
