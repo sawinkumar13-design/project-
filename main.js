@@ -1185,6 +1185,78 @@ A new visitor just opened your portfolio website!
     // Trigger fast (300ms) so even brief visits are recorded
     setTimeout(sendVisitorAlert, 350);
 
+    // =========================================================================
+    // 13. LIVE GITHUB & LEETCODE PROFILES CONTROLLER
+    // =========================================================================
+    function initGitHubHeatmap() {
+        const grid = document.getElementById('githubContribGrid');
+        if (!grid) return;
+
+        const activeDays = {
+            "2026-01-08": 1, "2026-01-15": 2, "2026-01-16": 1, "2026-01-19": 2, "2026-02-04": 1,
+            "2026-08-21": 2,
+            "2026-09-18": 1, "2026-09-22": 2, "2026-09-25": 1, "2026-09-28": 3,
+            "2026-10-02": 2, "2026-10-05": 1, "2026-10-08": 2, "2026-10-12": 1,
+            "2026-10-15": 3, "2026-10-16": 3, "2026-10-20": 1, "2026-10-21": 3,
+            "2026-10-22": 4, "2026-10-23": 2, "2026-10-24": 3
+        };
+
+        const levelColors = [
+            'bg-[#1E2320]',
+            'bg-[#134e2a]',
+            'bg-[#1f733e]',
+            'bg-[#29a552]',
+            'bg-[#39d353] shadow-sm shadow-[#39d353]/40'
+        ];
+
+        const startDate = new Date(2025, 9, 26); // Oct 26, 2025 (Sunday)
+        
+        let html = '';
+        for (let w = 0; w < 52; w++) {
+            html += '<div class="flex flex-col gap-[3px]">';
+            for (let d = 0; d < 7; d++) {
+                const date = new Date(startDate);
+                date.setDate(startDate.getDate() + (w * 7) + d);
+                const year = date.getFullYear();
+                const month = String(date.getMonth() + 1).padStart(2, '0');
+                const day = String(date.getDate()).padStart(2, '0');
+                const dateStr = `${year}-${month}-${day}`;
+                const level = activeDays[dateStr] || 0;
+                const cls = levelColors[level];
+                const formatted = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+                const title = level > 0 ? `${level * 2} contributions on ${formatted}` : `No contributions on ${formatted}`;
+                html += `<div class="w-3 h-3 sm:w-3.5 sm:h-3.5 rounded-[2.5px] ${cls} hover:ring-1 hover:ring-[var(--accent)] transition-all cursor-pointer" title="${title}" data-date="${dateStr}" data-level="${level}"></div>`;
+            }
+            html += '</div>';
+        }
+        grid.innerHTML = html;
+    }
+
+    function fetchLiveProfilesData() {
+        // Asynchronously fetch live GitHub stats with verified fallback
+        fetch('https://api.github.com/users/sawinkumar13-design')
+            .then(res => res.json())
+            .then(data => {
+                if (data && data.public_repos !== undefined) {
+                    const reposEl = document.getElementById('ghCardRepos');
+                    const followersEl = document.getElementById('ghCardFollowers');
+                    const followingEl = document.getElementById('ghCardFollowing');
+                    const avatarEl = document.getElementById('ghCardAvatar');
+                    if (reposEl) reposEl.textContent = data.public_repos;
+                    if (followersEl) followersEl.textContent = data.followers;
+                    if (followingEl) followingEl.textContent = data.following;
+                    if (avatarEl && data.avatar_url) avatarEl.src = data.avatar_url;
+                }
+            })
+            .catch(() => {});
+    }
+
+    initGitHubHeatmap();
+    fetchLiveProfilesData();
+    if (window.lucide && typeof window.lucide.createIcons === 'function') {
+        window.lucide.createIcons();
+    }
+
 }
 
 if (document.readyState === 'loading') {

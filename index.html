@@ -194,7 +194,7 @@
                     <svg class="w-3.5 h-3.5 text-amber-400" viewBox="0 0 24 24" fill="currentColor">
                         <path d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104 5.35 5.35 0 0 0-.125.513 5.527 5.527 0 0 0 .062 2.362 5.83 5.83 0 0 0 .349 1.017 5.938 5.938 0 0 0 1.271 1.818l4.277 4.193.039.038c2.248 2.165 5.852 2.133 8.063-.074l2.396-2.392c.54-.54.54-1.414.003-1.955a1.378 1.378 0 0 0-1.951-.003l-2.396 2.392a3.021 3.021 0 0 1-4.205.038l-.02-.019-4.276-4.193c-.652-.64-.972-1.469-.948-2.263a2.68 2.68 0 0 1 .066-.523 2.545 2.545 0 0 1 .619-1.164L9.13 8.114c1.058-1.134 3.204-1.27 4.43-.278l3.501 2.831c.593.48 1.461.387 1.94-.207a1.384 1.384 0 0 0-.207-1.943l-3.5-2.831c-.8-.647-1.766-1.045-2.774-1.202l2.015-2.158A1.384 1.384 0 0 0 13.483 0zm-2.866 12.815a1.38 1.38 0 0 0-1.38 1.382 1.38 1.38 0 0 0 1.38 1.382H20.79a1.38 1.38 0 0 0 1.38-1.382 1.38 1.38 0 0 0-1.38-1.382z"/>
                     </svg>
-                    <span>LeetCode</span>
+                    <span>Profiles</span>
                 </a>
                 <a href="#contact" class="nav-link px-3.5 py-1 text-xs text-slate-300 hover:text-white rounded-full transition-all">Contact</a>
             </nav>
@@ -1667,7 +1667,7 @@
         <!-- SPECIAL ACHIEVEMENT: CONSOLIDATED LEETCODE 50 DAYS BADGE -->
         <!-- ======================================================== -->
         <section id="achievements" class="py-28 relative border-t border-[#3B423C]">
-            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 section-stage-wrap">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 section-stage-wrap">
                 
                 <!-- 3D FLOATING CORNER PROPS (ACHIEVEMENTS) -->
                 <!-- Prop 1: Top-Left 3D Golden Royalty Crown -->
@@ -1819,11 +1819,402 @@
                 </div>
                 
                 <!-- Standardized Center Header with Scroll-Fill Animation -->
-                <div class="text-center mb-14 reveal">
-                    <span class="text-[11px] font-mono text-amber-400 tracking-widest uppercase font-semibold">Verified Milestone</span>
-                    <h2 class="text-3xl sm:text-5xl font-black mt-2 tracking-tight scroll-fill-title">SPECIAL ACHIEVEMENT</h2>
-                    <div class="w-16 h-1 bg-gradient-to-r from-amber-500 via-orange-500 to-[#6B00FF] mx-auto mt-4 rounded-full"></div>
+                <div class="text-center mb-12 sm:mb-16 reveal">
+                    <span class="text-[11px] font-mono text-[var(--accent)] tracking-widest uppercase font-semibold">Verified Coding Analytics &amp; Milestones</span>
+                    <h2 class="text-3xl sm:text-5xl font-black mt-2 tracking-tight scroll-fill-title">LEETCODE &amp; GITHUB PROFILES</h2>
+                    <div class="w-16 h-1 bg-gradient-to-r from-[var(--accent)] via-amber-500 to-[#6B00FF] mx-auto mt-4 rounded-full"></div>
+                    <p class="text-xs sm:text-sm text-[#B7BCB5] mt-3 max-w-xl mx-auto">
+                        Real-time algorithmic metrics, consistency streaks, and open-source GitHub repositories.
+                    </p>
                 </div>
+
+                <!-- ======================================================== -->
+                <!-- 1. LIVE LEETCODE & GITHUB PROFILE CARDS (IMAGE 1)         -->
+                <!-- ======================================================== -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 reveal mb-8">
+
+                    <!-- GITHUB PROFILE CARD (IMAGE 1 - LEFT) -->
+                    <div class="glossy-card p-6 sm:p-7 relative overflow-hidden flex flex-col justify-between" id="githubProfileCard">
+                        <div>
+                            <!-- Header Row -->
+                            <div class="flex items-center justify-between gap-4 mb-6">
+                                <div class="flex items-center gap-3.5">
+                                    <div class="relative w-12 h-12 rounded-full overflow-hidden border-2 border-[#3B423C] bg-[#202421] shrink-0">
+                                        <img id="ghCardAvatar" src="https://avatars.githubusercontent.com/u/224829212?v=4" alt="Sawin Kumar" class="w-full h-full object-cover" onerror="this.src='assets/profile.jpg'">
+                                    </div>
+                                    <div>
+                                        <h3 id="ghCardName" class="font-bold text-base text-[#F0EEE7] leading-tight">Sawin Kumar</h3>
+                                        <p id="ghCardLogin" class="text-xs text-[#92988F] font-mono">@sawinkumar13-design</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-1.5 px-3 py-1 rounded-full border border-emerald-500/30 bg-emerald-500/10 text-emerald-400 text-[10px] font-mono font-bold tracking-wider uppercase shadow-sm shadow-emerald-500/10">
+                                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                                    <span>LIVE</span>
+                                </div>
+                            </div>
+
+                            <!-- 2x2 Stats Grid -->
+                            <div class="grid grid-cols-2 gap-3 mb-3">
+                                <div class="bg-[#202421] border border-[#3B423C] rounded-2xl p-4 transition-all hover:border-[var(--accent)] hover:bg-[#252A26]">
+                                    <span class="text-[10px] font-mono text-[#92988F] uppercase tracking-wider block mb-1">REPOSITORIES</span>
+                                    <span id="ghCardRepos" class="text-2xl sm:text-3xl font-black text-[#F0EEE7] font-mono">8</span>
+                                </div>
+                                <div class="bg-[#202421] border border-[#3B423C] rounded-2xl p-4 transition-all hover:border-[var(--accent)] hover:bg-[#252A26]">
+                                    <span class="text-[10px] font-mono text-[#92988F] uppercase tracking-wider block mb-1">FOLLOWERS</span>
+                                    <span id="ghCardFollowers" class="text-2xl sm:text-3xl font-black text-[#F0EEE7] font-mono">4</span>
+                                </div>
+                                <div class="bg-[#202421] border border-[#3B423C] rounded-2xl p-4 transition-all hover:border-[var(--accent)] hover:bg-[#252A26]">
+                                    <span class="text-[10px] font-mono text-[#92988F] uppercase tracking-wider block mb-1">FOLLOWING</span>
+                                    <span id="ghCardFollowing" class="text-2xl sm:text-3xl font-black text-[#F0EEE7] font-mono">2</span>
+                                </div>
+                                <div class="bg-[#202421] border border-[#3B423C] rounded-2xl p-4 transition-all hover:border-[var(--accent)] hover:bg-[#252A26]">
+                                    <span class="text-[10px] font-mono text-[#92988F] uppercase tracking-wider block mb-1">CONTRIBUTIONS (1 YR)</span>
+                                    <span id="ghCardContribs" class="text-2xl sm:text-3xl font-black text-[#F0EEE7] font-mono">58</span>
+                                </div>
+                            </div>
+
+                            <!-- Current Streak Card -->
+                            <div class="bg-[#202421] border border-[#3B423C] rounded-2xl p-4 mb-4 flex items-center justify-between transition-all hover:border-[var(--accent)] hover:bg-[#252A26]">
+                                <div class="flex items-center gap-2 text-xs font-mono text-[#92988F] uppercase tracking-wider">
+                                    <span class="text-amber-400 text-base">🔥</span>
+                                    <span>CURRENT STREAK</span>
+                                </div>
+                                <div>
+                                    <span id="ghCardStreak" class="text-2xl font-black text-[#F0EEE7] font-mono">4</span>
+                                    <span class="text-xs font-mono text-[#92988F] ml-1">days</span>
+                                </div>
+                            </div>
+
+                            <!-- Top Languages (by repository) -->
+                            <div class="space-y-2 mb-6">
+                                <span class="text-[11px] font-mono text-[#92988F] uppercase tracking-wider block">TOP LANGUAGES (by repository)</span>
+                                <div class="h-2.5 rounded-full overflow-hidden flex bg-[#1B1E1C] gap-0.5 p-0.5 border border-[#3B423C]">
+                                    <div class="h-full rounded-full bg-[#f59e0b] w-1/2" title="Java 50%"></div>
+                                    <div class="h-full rounded-full bg-[#8b5cf6] w-1/2" title="HTML & CSS 50%"></div>
+                                </div>
+                                <div class="flex items-center gap-4 text-xs font-mono text-[#B7BCB5] pt-1">
+                                    <span class="flex items-center gap-1.5">
+                                        <span class="w-2.5 h-2.5 rounded-full bg-[#f59e0b]"></span>
+                                        <span>Java 50%</span>
+                                    </span>
+                                    <span class="flex items-center gap-1.5">
+                                        <span class="w-2.5 h-2.5 rounded-full bg-[#8b5cf6]"></span>
+                                        <span>HTML &amp; CSS 50%</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- CTA Button -->
+                        <a href="https://github.com/sawinkumar13-design" target="_blank" rel="noopener noreferrer"
+                           class="w-full py-3 px-4 rounded-xl bg-[#202421] border border-[#3B423C] hover:border-[var(--accent)] hover:bg-[#2B312C] text-[#F0EEE7] flex items-center justify-center gap-2.5 font-medium text-xs sm:text-sm transition-all hover:scale-[1.01] shadow-lg group">
+                            <svg class="w-4 h-4 fill-current group-hover:scale-110 transition-transform" viewBox="0 0 24 24">
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+                            </svg>
+                            <span>View GitHub profile</span>
+                        </a>
+                    </div>
+
+                    <!-- LEETCODE PROFILE CARD (IMAGE 1 - RIGHT) -->
+                    <div class="glossy-card p-6 sm:p-7 relative overflow-hidden flex flex-col justify-between" id="leetcodeProfileCard">
+                        <div>
+                            <!-- Header Row -->
+                            <div class="flex items-center justify-between gap-4 mb-6">
+                                <div class="flex items-center gap-3.5">
+                                    <div class="relative w-12 h-12 rounded-full overflow-hidden border-2 border-amber-500/40 bg-[#202421] p-2 flex items-center justify-center shrink-0">
+                                        <svg class="w-6 h-6 text-amber-400" viewBox="0 0 24 24" fill="currentColor">
+                                            <path d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104 5.35 5.35 0 0 0-.125.513 5.527 5.527 0 0 0 .062 2.362 5.83 5.83 0 0 0 .349 1.017 5.938 5.938 0 0 0 1.271 1.818l4.277 4.193.039.038c2.248 2.165 5.852 2.133 8.063-.074l2.396-2.392c.54-.54.54-1.414.003-1.955a1.378 1.378 0 0 0-1.951-.003l-2.396 2.392a3.021 3.021 0 0 1-4.205.038l-.02-.019-4.276-4.193c-.652-.64-.972-1.469-.948-2.263a2.68 2.68 0 0 1 .066-.523 2.545 2.545 0 0 1 .619-1.164L9.13 8.114c1.058-1.134 3.204-1.27 4.43-.278l3.501 2.831c.593.48 1.461.387 1.94-.207a1.384 1.384 0 0 0-.207-1.943l-3.5-2.831c-.8-.647-1.766-1.045-2.774-1.202l2.015-2.158A1.384 1.384 0 0 0 13.483 0zm-2.866 12.815a1.38 1.38 0 0 0-1.38 1.382 1.38 1.38 0 0 0 1.38 1.382H20.79a1.38 1.38 0 0 0 1.38-1.382 1.38 1.38 0 0 0-1.38-1.382z"/>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-bold text-base text-[#F0EEE7] leading-tight">Sawin Kumar</h3>
+                                        <p class="text-xs text-[#92988F] font-mono">@sawin_kumar</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-1.5 px-3 py-1 rounded-full border border-emerald-500/30 bg-emerald-500/10 text-emerald-400 text-[10px] font-mono font-bold tracking-wider uppercase shadow-sm shadow-emerald-500/10">
+                                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                                    <span>LIVE</span>
+                                </div>
+                            </div>
+
+                            <!-- Problems Solved Hero -->
+                            <div class="mb-5">
+                                <div class="flex items-baseline gap-2.5 mb-2.5">
+                                    <span id="lcSolvedCount" class="text-4xl sm:text-5xl font-black text-[#A6B69D] font-mono">90</span>
+                                    <span class="text-xs sm:text-sm font-medium text-[#B7BCB5]">problems solved</span>
+                                </div>
+                                <div class="h-2.5 rounded-full overflow-hidden flex bg-[#1B1E1C] gap-0.5 p-0.5 border border-[#3B423C]">
+                                    <div id="lcBarEasy" class="h-full rounded-full bg-[#10b981]" style="width: 73%" title="Easy: 66"></div>
+                                    <div id="lcBarMed" class="h-full rounded-full bg-[#f59e0b]" style="width: 27%" title="Medium: 24"></div>
+                                    <div id="lcBarHard" class="h-full rounded-full bg-[#ef4444]" style="width: 0%" title="Hard: 0"></div>
+                                </div>
+                                <div class="flex items-center gap-4 text-xs font-mono text-[#B7BCB5] mt-2">
+                                    <span class="flex items-center gap-1.5">
+                                        <span class="w-2 h-2 rounded-full bg-[#10b981]"></span>
+                                        <span>Easy <strong id="lcEasyCount" class="text-[#F0EEE7]">66</strong></span>
+                                    </span>
+                                    <span class="flex items-center gap-1.5">
+                                        <span class="w-2 h-2 rounded-full bg-[#f59e0b]"></span>
+                                        <span>Medium <strong id="lcMedCount" class="text-[#F0EEE7]">24</strong></span>
+                                    </span>
+                                    <span class="flex items-center gap-1.5">
+                                        <span class="w-2 h-2 rounded-full bg-[#ef4444]"></span>
+                                        <span>Hard <strong id="lcHardCount" class="text-[#F0EEE7]">0</strong></span>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <!-- 2x2 Metrics Grid -->
+                            <div class="grid grid-cols-2 gap-3 mb-6">
+                                <div class="bg-[#202421] border border-[#3B423C] rounded-2xl p-4 transition-all hover:border-[var(--accent)] hover:bg-[#252A26]">
+                                    <span class="text-[10px] font-mono text-[#92988F] uppercase tracking-wider block mb-1">ACCEPTANCE RATE</span>
+                                    <span id="lcAcceptanceRate" class="text-2xl sm:text-3xl font-black text-[#F0EEE7] font-mono">83.2%</span>
+                                </div>
+                                <div class="bg-[#202421] border border-[#3B423C] rounded-2xl p-4 transition-all hover:border-[var(--accent)] hover:bg-[#252A26]">
+                                    <span class="text-[10px] font-mono text-[#92988F] uppercase tracking-wider block mb-1">CONTEST RATING</span>
+                                    <span id="lcContestRating" class="text-2xl sm:text-3xl font-black text-[#F0EEE7] font-mono">1,415</span>
+                                </div>
+                                <div class="bg-[#202421] border border-[#3B423C] rounded-2xl p-4 transition-all hover:border-[var(--accent)] hover:bg-[#252A26] flex flex-col justify-between">
+                                    <span class="text-[10px] font-mono text-[#92988F] uppercase tracking-wider block mb-1">CURRENT BADGE</span>
+                                    <div class="flex items-center gap-2">
+                                        <img src="https://assets.leetcode.com/static_assets/others/50_1080_1080.png" alt="50 Days Badge" class="w-6 h-6 object-contain shrink-0" onerror="this.style.display='none'">
+                                        <span class="text-xs font-bold text-[#F0EEE7] leading-tight">50 Days Badge 2026</span>
+                                    </div>
+                                </div>
+                                <div class="bg-[#202421] border border-[#3B423C] rounded-2xl p-4 transition-all hover:border-[var(--accent)] hover:bg-[#252A26] flex flex-col justify-between">
+                                    <span class="text-[10px] font-mono text-[#92988F] uppercase tracking-wider block mb-1 flex items-center gap-1">
+                                        <span class="text-amber-400">🔥</span> CURRENT STREAK
+                                    </span>
+                                    <div>
+                                        <span id="lcStreak" class="text-2xl sm:text-3xl font-black text-[#F0EEE7] font-mono">4</span>
+                                        <span class="text-xs font-mono text-[#92988F] ml-1">days</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- CTA Button -->
+                        <a href="https://leetcode.com/u/sawin_kumar" target="_blank" rel="noopener noreferrer"
+                           class="w-full py-3 px-4 rounded-xl bg-[#202421] border border-[#3B423C] hover:border-[var(--accent)] hover:bg-[#2B312C] text-[#F0EEE7] flex items-center justify-center gap-2 font-medium text-xs sm:text-sm transition-all hover:scale-[1.01] shadow-lg group">
+                            <span>View LeetCode profile</span>
+                            <i data-lucide="arrow-up-right" class="w-4 h-4 text-[#A6B69D] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"></i>
+                        </a>
+                    </div>
+
+                </div>
+
+                <!-- ======================================================== -->
+                <!-- 2. GITHUB CONTRIBUTIONS HEATMAP CARD (IMAGE 2 - TOP)      -->
+                <!-- ======================================================== -->
+                <div class="glossy-card p-6 sm:p-7 relative overflow-hidden reveal mb-12">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-6">
+                        <div class="flex items-center gap-2.5">
+                            <svg class="w-5 h-5 fill-current text-[#A6B69D]" viewBox="0 0 24 24">
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+                            </svg>
+                            <h3 class="font-bold text-base sm:text-lg text-[#F0EEE7]">GitHub contributions</h3>
+                        </div>
+                        <span class="text-xs font-mono text-[#92988F]">58 contributions in the last year</span>
+                    </div>
+
+                    <!-- Calendar Scrollable Wrapper -->
+                    <div class="overflow-x-auto pb-2 scrollbar-thin">
+                        <div class="min-w-[720px]">
+                            <!-- Months Label Row -->
+                            <div class="flex text-[11px] font-mono text-[#92988F] mb-2 px-1 justify-between select-none">
+                                <span>Nov</span>
+                                <span>Dec</span>
+                                <span>Jan</span>
+                                <span>Feb</span>
+                                <span>Mar</span>
+                                <span>Apr</span>
+                                <span>May</span>
+                                <span>Jun</span>
+                                <span>Jul</span>
+                                <span>Aug</span>
+                                <span>Sep</span>
+                                <span>Oct</span>
+                            </div>
+
+                            <!-- Heatmap 52-Column Grid -->
+                            <div class="flex items-center gap-[3px] select-none" id="githubContribGrid">
+                                <!-- Populated dynamically by main.js with fallback squares -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Legend -->
+                    <div class="flex items-center justify-end gap-2 text-[10px] font-mono text-[#92988F] mt-4 pt-3 border-t border-[#3B423C]/50">
+                        <span>Less</span>
+                        <span class="w-2.5 h-2.5 rounded-[2px] bg-[#1E2320]"></span>
+                        <span class="w-2.5 h-2.5 rounded-[2px] bg-[#134e2a]"></span>
+                        <span class="w-2.5 h-2.5 rounded-[2px] bg-[#1f733e]"></span>
+                        <span class="w-2.5 h-2.5 rounded-[2px] bg-[#29a552]"></span>
+                        <span class="w-2.5 h-2.5 rounded-[2px] bg-[#39d353]"></span>
+                        <span>More</span>
+                    </div>
+                </div>
+
+                <!-- ======================================================== -->
+                <!-- 3. RECENT REPOSITORIES GRID (IMAGE 2 - BOTTOM)           -->
+                <!-- ======================================================== -->
+                <div class="reveal mb-14">
+                    <div class="flex items-center justify-between mb-6">
+                        <div>
+                            <h3 class="text-xl sm:text-2xl font-bold text-[#F0EEE7] tracking-tight">Recent repositories</h3>
+                            <p class="text-xs text-[#92988F] font-mono mt-0.5">Live open-source repositories from @sawinkumar13-design</p>
+                        </div>
+                        <a href="https://github.com/sawinkumar13-design?tab=repositories" target="_blank" rel="noopener noreferrer"
+                           class="text-xs font-mono text-[#A6B69D] hover:text-[#BAC7B2] flex items-center gap-1 transition-colors">
+                            <span>Explore all (8)</span>
+                            <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                        </a>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="recentReposGrid">
+                        <!-- Repo 1: leetcode-Questions -->
+                        <a href="https://github.com/sawinkumar13-design/leetcode-Questions" target="_blank" rel="noopener noreferrer"
+                           class="bg-[#202421] border border-[#3B423C] rounded-2xl p-5 hover:border-[var(--accent)] hover:bg-[#252A26] transition-all hover:-translate-y-1 group flex flex-col justify-between shadow-lg">
+                            <div>
+                                <div class="flex items-center justify-between gap-2 mb-2">
+                                    <h4 class="font-bold text-sm sm:text-base text-[#F0EEE7] group-hover:text-[var(--accent)] transition-colors truncate">leetcode-Questions</h4>
+                                    <i data-lucide="external-link" class="w-3.5 h-3.5 text-[#92988F] group-hover:text-[var(--accent)] shrink-0 transition-colors"></i>
+                                </div>
+                                <p class="text-xs text-[#B7BCB5] leading-relaxed line-clamp-2 mb-4">Daily LeetCode solutions, algorithm implementations &amp; data structure practices in Java.</p>
+                            </div>
+                            <div class="flex items-center justify-between text-[11px] font-mono text-[#92988F] pt-3 border-t border-[#3B423C]/50">
+                                <span class="flex items-center gap-1.5">
+                                    <span class="w-2 h-2 rounded-full bg-[#f59e0b]"></span>
+                                    <span>Java</span>
+                                </span>
+                                <span class="flex items-center gap-3">
+                                    <span class="flex items-center gap-1"><i data-lucide="star" class="w-3 h-3"></i> 0</span>
+                                    <span class="flex items-center gap-1"><i data-lucide="git-fork" class="w-3 h-3"></i> 0</span>
+                                </span>
+                                <span>Updated today</span>
+                            </div>
+                        </a>
+
+                        <!-- Repo 2: project- (Portfolio) -->
+                        <a href="https://github.com/sawinkumar13-design/project-" target="_blank" rel="noopener noreferrer"
+                           class="bg-[#202421] border border-[#3B423C] rounded-2xl p-5 hover:border-[var(--accent)] hover:bg-[#252A26] transition-all hover:-translate-y-1 group flex flex-col justify-between shadow-lg">
+                            <div>
+                                <div class="flex items-center justify-between gap-2 mb-2">
+                                    <h4 class="font-bold text-sm sm:text-base text-[#F0EEE7] group-hover:text-[var(--accent)] transition-colors truncate">project-</h4>
+                                    <i data-lucide="external-link" class="w-3.5 h-3.5 text-[#92988F] group-hover:text-[var(--accent)] shrink-0 transition-colors"></i>
+                                </div>
+                                <p class="text-xs text-[#B7BCB5] leading-relaxed line-clamp-2 mb-4">Personal developer portfolio with dynamic Three.js volumetric smoke engine &amp; theme accents.</p>
+                            </div>
+                            <div class="flex items-center justify-between text-[11px] font-mono text-[#92988F] pt-3 border-t border-[#3B423C]/50">
+                                <span class="flex items-center gap-1.5">
+                                    <span class="w-2 h-2 rounded-full bg-[#8b5cf6]"></span>
+                                    <span>HTML / CSS</span>
+                                </span>
+                                <span class="flex items-center gap-3">
+                                    <span class="flex items-center gap-1"><i data-lucide="star" class="w-3 h-3"></i> 0</span>
+                                    <span class="flex items-center gap-1"><i data-lucide="git-fork" class="w-3 h-3"></i> 0</span>
+                                </span>
+                                <span>Updated 2d ago</span>
+                            </div>
+                        </a>
+
+                        <!-- Repo 3: python2 -->
+                        <a href="https://github.com/sawinkumar13-design/python2" target="_blank" rel="noopener noreferrer"
+                           class="bg-[#202421] border border-[#3B423C] rounded-2xl p-5 hover:border-[var(--accent)] hover:bg-[#252A26] transition-all hover:-translate-y-1 group flex flex-col justify-between shadow-lg">
+                            <div>
+                                <div class="flex items-center justify-between gap-2 mb-2">
+                                    <h4 class="font-bold text-sm sm:text-base text-[#F0EEE7] group-hover:text-[var(--accent)] transition-colors truncate">python2</h4>
+                                    <i data-lucide="external-link" class="w-3.5 h-3.5 text-[#92988F] group-hover:text-[var(--accent)] shrink-0 transition-colors"></i>
+                                </div>
+                                <p class="text-xs text-[#B7BCB5] leading-relaxed line-clamp-2 mb-4">Python exploratory scripts, data analytics workflows, and algorithmic utility tools.</p>
+                            </div>
+                            <div class="flex items-center justify-between text-[11px] font-mono text-[#92988F] pt-3 border-t border-[#3B423C]/50">
+                                <span class="flex items-center gap-1.5">
+                                    <span class="w-2 h-2 rounded-full bg-[#38bdf8]"></span>
+                                    <span>Python</span>
+                                </span>
+                                <span class="flex items-center gap-3">
+                                    <span class="flex items-center gap-1"><i data-lucide="star" class="w-3 h-3"></i> 0</span>
+                                    <span class="flex items-center gap-1"><i data-lucide="git-fork" class="w-3 h-3"></i> 0</span>
+                                </span>
+                                <span>Updated 1w ago</span>
+                            </div>
+                        </a>
+
+                        <!-- Repo 4: Bridgelabz-Training-2Y -->
+                        <a href="https://github.com/sawinkumar13-design/Bridgelabz-Training-2Y" target="_blank" rel="noopener noreferrer"
+                           class="bg-[#202421] border border-[#3B423C] rounded-2xl p-5 hover:border-[var(--accent)] hover:bg-[#252A26] transition-all hover:-translate-y-1 group flex flex-col justify-between shadow-lg">
+                            <div>
+                                <div class="flex items-center justify-between gap-2 mb-2">
+                                    <h4 class="font-bold text-sm sm:text-base text-[#F0EEE7] group-hover:text-[var(--accent)] transition-colors truncate">Bridgelabz-Training-2Y</h4>
+                                    <i data-lucide="external-link" class="w-3.5 h-3.5 text-[#92988F] group-hover:text-[var(--accent)] shrink-0 transition-colors"></i>
+                                </div>
+                                <p class="text-xs text-[#B7BCB5] leading-relaxed line-clamp-2 mb-4">Second-year BridgeLabz software craftsmanship labs, OOP principles, and test suites.</p>
+                            </div>
+                            <div class="flex items-center justify-between text-[11px] font-mono text-[#92988F] pt-3 border-t border-[#3B423C]/50">
+                                <span class="flex items-center gap-1.5">
+                                    <span class="w-2 h-2 rounded-full bg-[#f59e0b]"></span>
+                                    <span>Java</span>
+                                </span>
+                                <span class="flex items-center gap-3">
+                                    <span class="flex items-center gap-1"><i data-lucide="star" class="w-3 h-3"></i> 0</span>
+                                    <span class="flex items-center gap-1"><i data-lucide="git-fork" class="w-3 h-3"></i> 0</span>
+                                </span>
+                                <span>Updated 2m ago</span>
+                            </div>
+                        </a>
+
+                        <!-- Repo 5: Bridgelabz-Training-1Y -->
+                        <a href="https://github.com/sawinkumar13-design/Bridgelabz-Training-1Y" target="_blank" rel="noopener noreferrer"
+                           class="bg-[#202421] border border-[#3B423C] rounded-2xl p-5 hover:border-[var(--accent)] hover:bg-[#252A26] transition-all hover:-translate-y-1 group flex flex-col justify-between shadow-lg">
+                            <div>
+                                <div class="flex items-center justify-between gap-2 mb-2">
+                                    <h4 class="font-bold text-sm sm:text-base text-[#F0EEE7] group-hover:text-[var(--accent)] transition-colors truncate">Bridgelabz-Training-1Y</h4>
+                                    <i data-lucide="external-link" class="w-3.5 h-3.5 text-[#92988F] group-hover:text-[var(--accent)] shrink-0 transition-colors"></i>
+                                </div>
+                                <p class="text-xs text-[#B7BCB5] leading-relaxed line-clamp-2 mb-4">First-year computational problem solving, data structures, and foundational exercises.</p>
+                            </div>
+                            <div class="flex items-center justify-between text-[11px] font-mono text-[#92988F] pt-3 border-t border-[#3B423C]/50">
+                                <span class="flex items-center gap-1.5">
+                                    <span class="w-2 h-2 rounded-full bg-[#f59e0b]"></span>
+                                    <span>Java</span>
+                                </span>
+                                <span class="flex items-center gap-3">
+                                    <span class="flex items-center gap-1"><i data-lucide="star" class="w-3 h-3"></i> 0</span>
+                                    <span class="flex items-center gap-1"><i data-lucide="git-fork" class="w-3 h-3"></i> 0</span>
+                                </span>
+                                <span>Updated 9m ago</span>
+                            </div>
+                        </a>
+
+                        <!-- Repo 6: GLA_AF -->
+                        <a href="https://github.com/sawinkumar13-design/GLA_AF" target="_blank" rel="noopener noreferrer"
+                           class="bg-[#202421] border border-[#3B423C] rounded-2xl p-5 hover:border-[var(--accent)] hover:bg-[#252A26] transition-all hover:-translate-y-1 group flex flex-col justify-between shadow-lg">
+                            <div>
+                                <div class="flex items-center justify-between gap-2 mb-2">
+                                    <h4 class="font-bold text-sm sm:text-base text-[#F0EEE7] group-hover:text-[var(--accent)] transition-colors truncate">GLA_AF</h4>
+                                    <i data-lucide="external-link" class="w-3.5 h-3.5 text-[#92988F] group-hover:text-[var(--accent)] shrink-0 transition-colors"></i>
+                                </div>
+                                <p class="text-xs text-[#B7BCB5] leading-relaxed line-clamp-2 mb-4">GLA University academic coursework, core engineering assignments, and lab records.</p>
+                            </div>
+                            <div class="flex items-center justify-between text-[11px] font-mono text-[#92988F] pt-3 border-t border-[#3B423C]/50">
+                                <span class="flex items-center gap-1.5">
+                                    <span class="w-2 h-2 rounded-full bg-[#f59e0b]"></span>
+                                    <span>Java</span>
+                                </span>
+                                <span class="flex items-center gap-3">
+                                    <span class="flex items-center gap-1"><i data-lucide="star" class="w-3 h-3"></i> 0</span>
+                                    <span class="flex items-center gap-1"><i data-lucide="git-fork" class="w-3 h-3"></i> 0</span>
+                                </span>
+                                <span>Updated 9m ago</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- ======================================================== -->
+                <!-- 4. VERIFIED MILESTONE SPOTLIGHT CARD                      -->
+                <!-- ======================================================== -->
 
                 <div class="glossy-card max-w-lg mx-auto p-8 sm:p-10 text-center relative overflow-hidden reveal">
                     
