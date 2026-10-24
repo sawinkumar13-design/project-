@@ -1446,3 +1446,55 @@ body, h1, h2, h3, h4, h5, h6, .text-white {
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
+
+/* GitHub Contributions Heatmap Grid & Cells (Fixed Width & Crisp Colors) */
+.contrib-grid {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    padding-bottom: 6px;
+    width: max-content;
+}
+.contrib-col {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    flex-shrink: 0;
+}
+.contrib-cell {
+    width: 12px;
+    height: 12px;
+    border-radius: 2.5px;
+    flex-shrink: 0;
+    transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1), outline 0.15s ease;
+    cursor: pointer;
+}
+@media (min-width: 640px) {
+    .contrib-cell {
+        width: 13.5px;
+        height: 13.5px;
+    }
+}
+.contrib-cell:hover {
+    transform: scale(1.3);
+    outline: 1.5px solid var(--accent);
+    outline-offset: 1px;
+    z-index: 20;
+    position: relative;
+}
+.contrib-0 {
+    background-color: #202421 !important;
+}
+.contrib-1 {
+    background-color: #1b4329 !important;
+}
+.contrib-2 {
+    background-color: #236b35 !important;
+}
+.contrib-3 {
+    background-color: #2e944b !important;
+}
+.contrib-4 {
+    background-color: #39d353 !important;
+    box-shadow: 0 0 6px rgba(57, 211, 83, 0.6) !important;
+}

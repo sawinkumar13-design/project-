@@ -1191,6 +1191,7 @@ A new visitor just opened your portfolio website!
     function initGitHubHeatmap() {
         const grid = document.getElementById('githubContribGrid');
         if (!grid) return;
+        if (grid.children.length > 0) return; // Pre-rendered in HTML
 
         const activeDays = {
             "2026-01-08": 1, "2026-01-15": 2, "2026-01-16": 1, "2026-01-19": 2, "2026-02-04": 1,
@@ -1201,19 +1202,10 @@ A new visitor just opened your portfolio website!
             "2026-10-22": 4, "2026-10-23": 2, "2026-10-24": 3
         };
 
-        const levelColors = [
-            'bg-[#1E2320]',
-            'bg-[#134e2a]',
-            'bg-[#1f733e]',
-            'bg-[#29a552]',
-            'bg-[#39d353] shadow-sm shadow-[#39d353]/40'
-        ];
-
-        const startDate = new Date(2025, 9, 26); // Oct 26, 2025 (Sunday)
-        
+        const startDate = new Date(2025, 9, 26);
         let html = '';
         for (let w = 0; w < 52; w++) {
-            html += '<div class="flex flex-col gap-[3px]">';
+            html += '<div class="contrib-col">';
             for (let d = 0; d < 7; d++) {
                 const date = new Date(startDate);
                 date.setDate(startDate.getDate() + (w * 7) + d);
@@ -1222,10 +1214,9 @@ A new visitor just opened your portfolio website!
                 const day = String(date.getDate()).padStart(2, '0');
                 const dateStr = `${year}-${month}-${day}`;
                 const level = activeDays[dateStr] || 0;
-                const cls = levelColors[level];
                 const formatted = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
                 const title = level > 0 ? `${level * 2} contributions on ${formatted}` : `No contributions on ${formatted}`;
-                html += `<div class="w-3 h-3 sm:w-3.5 sm:h-3.5 rounded-[2.5px] ${cls} hover:ring-1 hover:ring-[var(--accent)] transition-all cursor-pointer" title="${title}" data-date="${dateStr}" data-level="${level}"></div>`;
+                html += `<div class="contrib-cell contrib-${level}" title="${title}" data-date="${dateStr}" data-level="${level}"></div>`;
             }
             html += '</div>';
         }
