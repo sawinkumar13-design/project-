@@ -20,7 +20,7 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&family=Oswald:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -72,10 +72,12 @@
                         }
                     },
                     fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
+                        sans: ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
+                        heading: ['Outfit', 'Space Grotesk', 'sans-serif'],
+                        display: ['Outfit', 'sans-serif'],
                         mono: ['JetBrains Mono', 'monospace'],
-                        oswald: ['Oswald', 'sans-serif'],
-                        bebas: ['Bebas Neue', 'sans-serif']
+                        oswald: ['Outfit', 'sans-serif'],
+                        bebas: ['Outfit', 'sans-serif']
                     }
                 }
             }
@@ -83,7 +85,53 @@
     </script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <link rel="stylesheet" href="styles.css?v=31">
+    <link rel="stylesheet" href="styles.css?v=35">
+    <!-- Inline Immediate Mode Controller (Available from frame 1 before external JS) -->
+    <script>
+        (function() {
+            var savedMode = 'dark';
+            try {
+                savedMode = localStorage.getItem('sawin-portfolio-display-mode') || 'dark';
+            } catch(e) {}
+            document.documentElement.setAttribute('data-mode', savedMode);
+
+            window.setDisplayMode = function(mode) {
+                document.documentElement.setAttribute('data-mode', mode);
+                try {
+                    localStorage.setItem('sawin-portfolio-display-mode', mode);
+                } catch(e) {}
+
+                var sunIcons = document.querySelectorAll('.mode-icon-sun');
+                var moonIcons = document.querySelectorAll('.mode-icon-moon');
+                var mobileLabel = document.getElementById('mobileModeLabel');
+
+                if (mode === 'light') {
+                    sunIcons.forEach(function(i) { i.classList.add('hidden'); });
+                    moonIcons.forEach(function(i) { i.classList.remove('hidden'); });
+                    if (mobileLabel) mobileLabel.textContent = 'Dark Mode';
+                    if (typeof window.lerpSmokeLightMode === 'function') {
+                        window.lerpSmokeLightMode(1.0);
+                    }
+                } else {
+                    sunIcons.forEach(function(i) { i.classList.remove('hidden'); });
+                    moonIcons.forEach(function(i) { i.classList.add('hidden'); });
+                    if (mobileLabel) mobileLabel.textContent = 'Bright Mode';
+                    if (typeof window.lerpSmokeLightMode === 'function') {
+                        window.lerpSmokeLightMode(0.0);
+                    }
+                }
+                if (window.lucide && typeof window.lucide.createIcons === 'function') {
+                    window.lucide.createIcons();
+                }
+            };
+
+            window.toggleDisplayMode = function() {
+                var current = document.documentElement.getAttribute('data-mode') || 'dark';
+                window.setDisplayMode(current === 'dark' ? 'light' : 'dark');
+            };
+        })();
+    </script>
+
 </head>
 
 <body class="overflow-x-hidden font-sans bg-[#121214] text-[#FAFAFA] selection:bg-[#A855F7]/30 selection:text-[#FAFAFA] js-enabled">
@@ -146,39 +194,39 @@
         <!-- ======================================================== -->
     <!-- CINEMATIC INTRO SCREEN: THE BLURRED REVEAL & SLIDE UP     -->
     <!-- ======================================================== -->
-    <div id="cinematicIntro" class="cinematic-intro-overlay fixed inset-0 z-[100] flex flex-col items-center justify-center overflow-hidden select-none cursor-pointer px-4" aria-label="Intro Screen" onclick="window.enterPortfolio(event)" ontouchend="window.enterPortfolio(event)">
+    <div id="cinematicIntro" class="cinematic-intro-overlay fixed inset-0 z-[100] flex flex-col items-center justify-center overflow-hidden select-none cursor-pointer px-4 w-screen h-screen bg-[#121214]" aria-label="Intro Screen" onclick="window.enterPortfolio(event)" ontouchend="window.enterPortfolio(event)">
 
         <!-- Soft atmospheric radial spotlight glow -->
         <div class="intro-spotlight absolute inset-0 pointer-events-none" aria-hidden="true"></div>
 
-        <!-- Center Blurred Reveal Container -->
-        <div class="intro-content-wrap relative z-10 flex flex-col items-center text-center px-4 max-w-4xl mx-auto pointer-events-auto">
+        <!-- Center Blurred Reveal Container (Dead Center) -->
+        <div class="intro-content-wrap relative z-10 flex flex-col items-center justify-center text-center px-4 max-w-4xl mx-auto my-auto pointer-events-auto">
 
             <!-- Pill Tag / Category -->
-            <div id="introPill" class="intro-reveal-item mb-5 sm:mb-6 inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-purple-500/30 bg-purple-500/10 backdrop-blur-md text-xs font-mono text-purple-300 shadow-sm">
+            <div class="intro-reveal-item-badge mb-5 sm:mb-6 inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-purple-500/35 bg-purple-500/10 backdrop-blur-md text-xs font-mono text-purple-300 shadow-sm">
                 <span class="w-2 h-2 rounded-full bg-purple-400 animate-ping"></span>
                 <span class="tracking-widest uppercase font-semibold">Sawin Kumar &middot; Developer Portfolio</span>
             </div>
 
             <!-- Main Title: The Blurred Reveal & Slide Up -->
-            <div class="intro-title-box max-w-3xl">
-                <h1 id="introMainTitle" class="intro-reveal-item font-extrabold tracking-tight text-3xl sm:text-5xl md:text-6xl lg:text-7xl leading-[1.12] text-center">
-                    <span class="block text-white">Turning Data Into Intelligence.</span>
-                    <span class="block mt-2 bg-gradient-to-r from-purple-400 via-indigo-300 to-white bg-clip-text text-transparent">Building Software That Matters.</span>
+            <div class="intro-title-box max-w-4xl">
+                <h1 id="introMainTitle" class="intro-reveal-item-title font-display font-extrabold tracking-tight text-3xl sm:text-5xl md:text-6xl lg:text-7xl leading-[1.14] text-center">
+                    <span class="block text-[#FAFAFA] drop-shadow-md">Turning Data Into Intelligence.</span>
+                    <span class="block mt-2.5 bg-gradient-to-r from-purple-300 via-violet-300 to-indigo-200 bg-clip-text text-transparent drop-shadow-sm">Building Software That Matters.</span>
                 </h1>
             </div>
 
             <!-- Subtitle: Terminal-style AI & Backend prompt -->
-            <div id="introSubtitle" class="intro-reveal-item mt-6 sm:mt-7 max-w-xl">
+            <div class="intro-reveal-item-sub mt-6 sm:mt-7 max-w-xl">
                 <p class="font-mono text-sm sm:text-base md:text-lg text-[#D4D4D8] tracking-wide flex items-center justify-center gap-2">
-                    <span class="text-purple-400 font-bold">&gt;</span>
-                    <span>AI Data Scientist &amp; Backend Enthusiast</span>
+                    <span class="text-purple-400 font-bold text-lg">&gt;</span>
+                    <span class="text-slate-200">AI Data Scientist &amp; Backend Enthusiast</span>
                     <span class="inline-block w-2 h-4 bg-purple-400 animate-pulse ml-0.5"></span>
                 </p>
             </div>
 
             <!-- CTA Prompt Button -->
-            <button id="enterPortfolioBtn" class="intro-reveal-item mt-9 sm:mt-11 px-8 py-3.5 rounded-full border border-white/10 text-xs sm:text-sm font-mono tracking-widest uppercase text-[#FAFAFA] hover:border-purple-500/60 hover:text-white bg-white/[0.05] hover:bg-white/[0.1] backdrop-blur-xl transition-all duration-300 group cursor-pointer focus:outline-none shadow-lg shadow-purple-950/40" aria-label="Click to Enter Portfolio" onclick="window.enterPortfolio(event)" ontouchend="window.enterPortfolio(event)">
+            <button id="enterPortfolioBtn" class="intro-reveal-item-btn mt-9 sm:mt-11 px-8 py-3.5 rounded-full border border-purple-500/40 text-xs sm:text-sm font-mono tracking-widest uppercase text-[#FAFAFA] hover:border-purple-400 hover:text-white bg-purple-950/40 hover:bg-purple-900/50 backdrop-blur-xl transition-all duration-300 group cursor-pointer focus:outline-none shadow-lg shadow-purple-950/60" aria-label="Click to Enter Portfolio" onclick="window.enterPortfolio(event)" ontouchend="window.enterPortfolio(event)">
                 <span class="inline-flex items-center gap-2.5 group-hover:scale-105 transition-transform duration-200 pointer-events-none">
                     <span class="text-purple-400 font-mono">[</span>
                     <span class="font-bold tracking-widest text-white">ENTER PORTFOLIO</span>
@@ -190,7 +238,7 @@
         </div>
 
         <!-- Bottom subtle hint -->
-        <div class="intro-bottom-hint absolute bottom-6 text-[10px] font-mono tracking-widest uppercase text-white/30 pointer-events-none">
+        <div class="intro-bottom-hint absolute bottom-6 text-[10px] font-mono tracking-widest uppercase text-white/40 pointer-events-none">
             Press Enter &middot; Click Anywhere
         </div>
     </div>
@@ -2835,7 +2883,7 @@
     </div>
 
     <!-- Scripts with Cache-Buster v=13 -->
-    <script src="main.js?v=19"></script>
+    <script src="main.js?v=35"></script>
     <script>lucide.createIcons();</script>
 </body>
 </html>

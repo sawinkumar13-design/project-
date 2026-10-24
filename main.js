@@ -488,11 +488,12 @@ function startApp() {
 
                     // Cinematic Lighting Palette for Midnight Orchid (#121214, #17171C, #1C1C24, #A855F7, #6366F1)
                     // Dynamic Lighting Palette (Interpolates Dark Mode #121214 to Bright Mode #F8F9FC)
-                    vec3 cBaseBlack    = mix(vec3(0.071, 0.071, 0.078), vec3(0.97, 0.97, 0.99), uLightMode);
-                    vec3 cCharcoal     = mix(vec3(0.090, 0.090, 0.110), vec3(0.94, 0.94, 0.97), uLightMode);
-                    vec3 cGraphite     = mix(vec3(0.110, 0.110, 0.141), vec3(0.91, 0.92, 0.95), uLightMode);
-                    vec3 cSmokySilver  = mix(vec3(0.486, 0.424, 0.596), vec3(0.72, 0.68, 0.82), uLightMode);
-                    vec3 cSilverRim    = mix(vec3(0.980, 0.980, 0.980), vec3(0.55, 0.50, 0.70), uLightMode);
+                    // Dynamic Lighting Palette (Interpolates Dark Mode #121214 to Soft Blush Pink #FFF0F3)
+                    vec3 cBaseBlack    = mix(vec3(0.071, 0.071, 0.078), vec3(1.000, 0.941, 0.953), uLightMode); // #FFF0F3
+                    vec3 cCharcoal     = mix(vec3(0.090, 0.090, 0.110), vec3(1.000, 0.968, 0.973), uLightMode); // #FFF7F8
+                    vec3 cGraphite     = mix(vec3(0.110, 0.110, 0.141), vec3(1.000, 1.000, 1.000), uLightMode); // #FFFFFF
+                    vec3 cSmokySilver  = mix(vec3(0.486, 0.424, 0.596), vec3(0.960, 0.820, 0.860), uLightMode); // Soft blush rose vapor
+                    vec3 cSilverRim    = mix(vec3(0.980, 0.980, 0.980), vec3(0.880, 0.400, 0.500), uLightMode); // Specular rose highlight
 
                     // Directional Backlighting from Upper-Right Emitter
                     vec2 lightDir = normalize(urPoint - normUv);
@@ -545,11 +546,34 @@ function startApp() {
             let smoothVelX = 0;
             let smoothVelY = 0;
 
+            // Smooth Light Mode Lerp ("take your make it slowly")
+            let targetLightMode = (document.documentElement.getAttribute('data-mode') === 'light') ? 1.0 : 0.0;
+            let currentLightVal = targetLightMode;
+            if (smokeUniforms && smokeUniforms.uLightMode) {
+                smokeUniforms.uLightMode.value = currentLightVal;
+            }
+            window.lerpSmokeLightMode = function(val) {
+                targetLightMode = val;
+            };
+
             function smokeAnimate(currentTime) {
                 const delta = Math.min((currentTime - lastFrameTime) * 0.001, 0.1);
                 lastFrameTime = currentTime;
 
                 smokeUniforms.uTime.value = currentTime * 0.001;
+
+                // Slow, graceful lerp for Light Mode vapor
+                const lightDiff = targetLightMode - currentLightVal;
+                if (Math.abs(lightDiff) > 0.001) {
+                    currentLightVal += lightDiff * 0.035;
+                    smokeUniforms.uLightMode.value = currentLightVal;
+                    if (smokeUniforms.uAccentColor) {
+                        const r = THREE.MathUtils.lerp(0.658, 0.882, currentLightVal);
+                        const g = THREE.MathUtils.lerp(0.333, 0.113, currentLightVal);
+                        const b = THREE.MathUtils.lerp(0.968, 0.282, currentLightVal);
+                        smokeUniforms.uAccentColor.value.setRGB(r, g, b);
+                    }
+                }
 
                 // Smooth pointer lerp
                 smoothMouseX += (normMouseX - smoothMouseX) * 0.1;

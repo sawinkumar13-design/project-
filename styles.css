@@ -1607,129 +1607,229 @@ h1, h2, h3, .heading-gradient, .intro-title, .text-cosmic-glow {
 #enterPortfolioBtn { transition-delay: 650ms; }
 
 
+
+
 /* ========================================================================== */
-/* Bright Mode (Clean Editorial Daylight Palette)                             */
+/* COOL MODERN EDITORIAL TYPOGRAPHY                                           */
+/* ========================================================================== */
+body, button, input, textarea, select {
+    font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
+}
+
+h1, h2, h3, h4, .font-display, .font-heading {
+    font-family: 'Outfit', 'Space Grotesk', 'Plus Jakarta Sans', sans-serif !important;
+    letter-spacing: -0.025em;
+}
+
+/* ========================================================================== */
+/* PURE CSS THE BLURRED "REVEAL & SLIDE UP" ANIMATION (ZERO JS RELIANCE)      */
+/* Starts blurry (16px blur) and low (30px), slides up sharp over 850ms       */
+/* ========================================================================== */
+@keyframes blurSlideUpIntro {
+    0% {
+        opacity: 0;
+        filter: blur(16px);
+        -webkit-filter: blur(16px);
+        transform: translateY(28px);
+    }
+    100% {
+        opacity: 1;
+        filter: blur(0px);
+        -webkit-filter: blur(0px);
+        transform: translateY(0px);
+    }
+}
+
+.intro-reveal-item-badge {
+    animation: blurSlideUpIntro 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.05s both;
+}
+
+.intro-reveal-item-title {
+    animation: blurSlideUpIntro 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.18s both;
+}
+
+.intro-reveal-item-sub {
+    animation: blurSlideUpIntro 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both;
+}
+
+.intro-reveal-item-btn {
+    animation: blurSlideUpIntro 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.65s both;
+}
+
+/* Fallback class if added via JS */
+.intro-reveal-item {
+    animation: blurSlideUpIntro 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Ensure #cinematicIntro is dead-center */
+#cinematicIntro {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+}
+
+.intro-content-wrap {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    margin: auto !important;
+}
+
+/* ========================================================================== */
+/* GLOBAL SLOW & GENTLE MODE TRANSITION ("take your make it slowly")          */
+/* ========================================================================== */
+html, body, #navbar, #navbar *, .glossy-card, .glass-pill, section, footer, div, a, button, p, span, h1, h2, h3 {
+    transition: background-color 0.85s cubic-bezier(0.22, 1, 0.36, 1),
+                color 0.85s cubic-bezier(0.22, 1, 0.36, 1),
+                border-color 0.85s cubic-bezier(0.22, 1, 0.36, 1),
+                box-shadow 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ========================================================================== */
+/* BRIGHT MODE: SOFT BLUSH PINK LUXURY EDITORIAL PALETTE                      */
+/* Main background: #FFF0F3 (Soft Blush Pink)                                 */
+/* Secondary: #FFF7F8 | Cards: #FFFFFF | Text: #1F121E | Accent: #E11D48      */
 /* ========================================================================== */
 html[data-mode="light"] {
-    --bg-main: #F8F9FC;
-    --bg-secondary: #FFFFFF;
+    --bg-main: #FFF0F3;
+    --bg-secondary: #FFF7F8;
     --bg-card: #FFFFFF;
-    --bg-card-hover: #F1F3F9;
-    --text-primary: #0F172A;
-    --text-secondary: #475569;
-    --text-muted: #64748B;
-    --border-color: #E2E8F0;
-    --neutral-support: #94A3B8;
+    --bg-card-hover: #FFE6EB;
+    --text-primary: #1F121E;
+    --text-secondary: #5C4556;
+    --text-muted: #8A6E82;
+    --border-color: #F8D5DC;
+    --neutral-support: #B89BAE;
 
-    --accent: #7C3AED;
-    --accent-rgb: 124, 58, 237;
-    --accent-glow: rgba(124, 58, 237, 0.22);
-    --accent-hover: #6D28D9;
-    --secondary-indigo: #4F46E5;
+    --accent: #E11D48;
+    --accent-rgb: 225, 29, 72;
+    --accent-glow: rgba(225, 29, 72, 0.22);
+    --accent-hover: #BE123C;
+    --secondary-indigo: #8B5CF6;
 }
 
 html[data-mode="light"] body {
-    background-color: #F8F9FC !important;
-    color: #0F172A !important;
+    background-color: #FFF0F3 !important;
+    color: #1F121E !important;
 }
 
+/* Navbar in Soft Blush Pink */
 html[data-mode="light"] #navbar {
-    background: rgba(255, 255, 255, 0.86) !important;
-    border-color: rgba(226, 232, 240, 0.9) !important;
-    box-shadow: 0 4px 25px -3px rgba(0, 0, 0, 0.06) !important;
+    background: rgba(255, 240, 243, 0.85) !important;
+    backdrop-filter: blur(24px) saturate(190%) !important;
+    -webkit-backdrop-filter: blur(24px) saturate(190%) !important;
+    border-bottom: 1px solid rgba(248, 213, 220, 0.85) !important;
+    box-shadow: 0 4px 25px -4px rgba(225, 29, 72, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
 }
 
 html[data-mode="light"] #navbar .nav-link {
-    color: #475569 !important;
+    color: #5C4556 !important;
 }
 html[data-mode="light"] #navbar .nav-link:hover {
-    color: #0F172A !important;
-    background: rgba(124, 58, 237, 0.08) !important;
+    color: #E11D48 !important;
+    background: rgba(225, 29, 72, 0.08) !important;
 }
 
 html[data-mode="light"] #mobileMenu {
-    background-color: rgba(255, 255, 255, 0.98) !important;
-    border-color: #E2E8F0 !important;
+    background-color: rgba(255, 240, 243, 0.98) !important;
+    border-color: #F8D5DC !important;
 }
 
+/* Background Replacements in Soft Blush Pink */
 html[data-mode="light"] .bg-\[\#121214\] {
-    background-color: #F8F9FC !important;
+    background-color: #FFF0F3 !important;
 }
 html[data-mode="light"] .bg-\[\#17171C\],
 html[data-mode="light"] .bg-\[\#17171C\]\/90,
 html[data-mode="light"] .bg-\[\#17171C\]\/95 {
-    background-color: #FFFFFF !important;
+    background-color: #FFF7F8 !important;
 }
 html[data-mode="light"] .bg-\[\#1C1C24\],
 html[data-mode="light"] .bg-\[\#1C1C24\]\/80,
 html[data-mode="light"] .bg-\[\#1C1C24\]\/90 {
     background-color: #FFFFFF !important;
-    box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.04) !important;
+    box-shadow: 0 8px 24px -4px rgba(225, 29, 72, 0.05), 0 0 0 1px #FCE7F3 !important;
 }
 html[data-mode="light"] .bg-\[\#23232E\] {
-    background-color: #F1F3F9 !important;
+    background-color: #FFE6EB !important;
 }
 html[data-mode="light"] .bg-slate-900,
 html[data-mode="light"] .bg-slate-900\/80,
 html[data-mode="light"] .bg-slate-900\/90 {
-    background-color: #F8F9FC !important;
+    background-color: #FFF7F8 !important;
 }
 
+/* Border Replacements in Soft Blush Pink */
 html[data-mode="light"] .border-\[\#2E2A40\],
 html[data-mode="light"] .border-\[\#2E2A40\]\/50,
 html[data-mode="light"] .border-\[\#2E2A40\]\/60,
 html[data-mode="light"] .border-white\/10,
 html[data-mode="light"] .border-slate-700\/60 {
-    border-color: #E2E8F0 !important;
+    border-color: #F8D5DC !important;
 }
 
+/* Text Replacements in Soft Blush Pink */
 html[data-mode="light"] .text-\[\#FAFAFA\],
 html[data-mode="light"] .text-white {
-    color: #0F172A !important;
+    color: #1F121E !important;
 }
 html[data-mode="light"] .text-\[\#D4D4D8\],
 html[data-mode="light"] .text-slate-200,
 html[data-mode="light"] .text-slate-300 {
-    color: #475569 !important;
+    color: #5C4556 !important;
 }
 html[data-mode="light"] .text-\[\#A1A1AA\],
 html[data-mode="light"] .text-slate-400 {
-    color: #64748B !important;
+    color: #8A6E82 !important;
 }
 
+/* Cards & Pills in Soft Blush Pink */
 html[data-mode="light"] .glossy-card {
     background: #FFFFFF !important;
-    border-color: #E2E8F0 !important;
-    box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05) !important;
+    border-color: #F8D5DC !important;
+    box-shadow: 0 4px 20px -2px rgba(225, 29, 72, 0.05) !important;
 }
 html[data-mode="light"] .glossy-card:hover {
-    box-shadow: 0 20px 30px -10px rgba(124, 58, 237, 0.12), 0 0 0 1px #7C3AED !important;
-    border-color: #7C3AED !important;
+    box-shadow: 0 20px 35px -10px rgba(225, 29, 72, 0.15), 0 0 0 1px #E11D48 !important;
+    border-color: #E11D48 !important;
 }
 html[data-mode="light"] .glass-pill {
     background: rgba(255, 255, 255, 0.95) !important;
-    border-color: #E2E8F0 !important;
-    color: #334155 !important;
-    box-shadow: 0 2px 8px -1px rgba(0, 0, 0, 0.04) !important;
+    border-color: #F8D5DC !important;
+    color: #5C4556 !important;
+    box-shadow: 0 2px 8px -1px rgba(225, 29, 72, 0.04) !important;
 }
 html[data-mode="light"] .theme-mode-btn,
 html[data-mode="light"] .audio-toggle-btn {
-    background: rgba(241, 245, 249, 0.8) !important;
-    border-color: #E2E8F0 !important;
-    color: #334155 !important;
+    background: rgba(255, 255, 255, 0.9) !important;
+    border-color: #F8D5DC !important;
+    color: #5C4556 !important;
 }
 html[data-mode="light"] .nav-resume-btn {
-    background: rgba(241, 245, 249, 0.8) !important;
-    border-color: #E2E8F0 !important;
-    color: #0F172A !important;
+    background: rgba(255, 255, 255, 0.9) !important;
+    border-color: #F8D5DC !important;
+    color: #1F121E !important;
 }
 
+/* Headings Duo-Tone in Soft Blush Pink: Plum Obsidian into Rose Berry */
 html[data-mode="light"] h1, 
 html[data-mode="light"] h2, 
 html[data-mode="light"] h3, 
 html[data-mode="light"] .heading-gradient, 
 html[data-mode="light"] .text-cosmic-glow {
-    background: linear-gradient(135deg, #0F172A 20%, #4338CA 65%, #7C3AED 100%) !important;
+    background: linear-gradient(135deg, #1F121E 20%, #9D174D 65%, #E11D48 100%) !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    color: transparent !important;
+}
+
+html[data-mode="light"] #introMainTitle {
+    background: linear-gradient(135deg, #1F121E 25%, #9D174D 65%, #E11D48 100%) !important;
     -webkit-background-clip: text !important;
     background-clip: text !important;
     -webkit-text-fill-color: transparent !important;
@@ -1738,85 +1838,42 @@ html[data-mode="light"] .text-cosmic-glow {
 
 html[data-mode="light"] .scroll-fill-title {
     color: transparent !important;
-    -webkit-text-stroke: 1.5px rgba(15, 23, 42, 0.25) !important;
-    background: linear-gradient(135deg, #0F172A 20%, #4338CA 65%, #7C3AED 100%) !important;
+    -webkit-text-stroke: 1.5px rgba(31, 18, 30, 0.25) !important;
+    background: linear-gradient(135deg, #1F121E 20%, #9D174D 65%, #E11D48 100%) !important;
     -webkit-background-clip: text !important;
     background-clip: text !important;
 }
 
 html[data-mode="light"] footer {
-    background-color: #F1F5F9 !important;
-    border-color: #E2E8F0 !important;
+    background-color: #FFF0F3 !important;
+    border-color: #F8D5DC !important;
 }
 
 html[data-mode="light"] .intro-spotlight {
-    background: radial-gradient(circle 650px at 50% 50%, rgba(124, 58, 237, 0.08) 0%, rgba(248, 249, 252, 0.98) 80%) !important;
+    background: radial-gradient(circle 650px at 50% 50%, rgba(225, 29, 72, 0.08) 0%, rgba(255, 240, 243, 0.98) 80%) !important;
 }
+
 html[data-mode="light"] .cinematic-intro-overlay {
-    background: rgba(248, 249, 252, 0.96) !important;
-}
-
-
-/* ========================================================================== */
-/* Intro Title & Subtitle Editorial Gradient & Mode Adaptation                */
-/* ========================================================================== */
-#introMainTitle {
-    background: linear-gradient(135deg, #FAFAFA 30%, #E9D5FF 65%, #A855F7 90%, #6366F1 100%) !important;
-    -webkit-background-clip: text !important;
-    background-clip: text !important;
-    -webkit-text-fill-color: transparent !important;
-    color: transparent !important;
-}
-
-html[data-mode="light"] #introMainTitle {
-    background: linear-gradient(135deg, #0F172A 25%, #4338CA 70%, #7C3AED 100%) !important;
-    -webkit-background-clip: text !important;
-    background-clip: text !important;
-    -webkit-text-fill-color: transparent !important;
-    color: transparent !important;
-}
-
-html[data-mode="light"] #introSubtitle p {
-    color: #475569 !important;
-}
-
-html[data-mode="light"] #introSubtitle span.text-purple-400 {
-    color: #7C3AED !important;
-}
-
-html[data-mode="light"] #introPill {
-    background: rgba(124, 58, 237, 0.08) !important;
-    border-color: rgba(124, 58, 237, 0.25) !important;
-    color: #7C3AED !important;
+    background: rgba(255, 240, 243, 0.97) !important;
 }
 
 html[data-mode="light"] #enterPortfolioBtn {
-    background: rgba(255, 255, 255, 0.9) !important;
-    border-color: #E2E8F0 !important;
-    color: #0F172A !important;
-    box-shadow: 0 4px 20px -2px rgba(124, 58, 237, 0.15) !important;
+    background: rgba(255, 255, 255, 0.92) !important;
+    border-color: #F8D5DC !important;
+    color: #1F121E !important;
+    box-shadow: 0 4px 20px -2px rgba(225, 29, 72, 0.15) !important;
 }
 
 html[data-mode="light"] #enterPortfolioBtn span.text-white {
-    color: #0F172A !important;
+    color: #1F121E !important;
 }
 
 html[data-mode="light"] #enterPortfolioBtn span.text-purple-400 {
-    color: #7C3AED !important;
+    color: #E11D48 !important;
 }
 
-/* Polished Taskbar (Navbar) Glassmorphic Blur */
-#navbar {
-    background: rgba(18, 18, 20, 0.78);
-    backdrop-filter: blur(24px) saturate(190%);
-    -webkit-backdrop-filter: blur(24px) saturate(190%);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
-    box-shadow: 0 8px 32px -8px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.06);
-    transition: background 0.4s ease, border-color 0.4s ease, transform 0.4s ease, opacity 0.4s ease;
-}
-
-html[data-mode="light"] #navbar {
-    background: rgba(255, 255, 255, 0.88) !important;
-    border-bottom: 1px solid rgba(226, 232, 240, 0.85) !important;
-    box-shadow: 0 8px 25px -6px rgba(0, 0, 0, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
+html[data-mode="light"] .cosmic-btn-primary {
+    background: linear-gradient(135deg, #E11D48 0%, #BE123C 100%) !important;
+    box-shadow: 0 0 25px rgba(225, 29, 72, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.4) !important;
+    color: #FFFFFF !important;
 }
