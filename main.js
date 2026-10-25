@@ -1194,6 +1194,7 @@ A new visitor just opened your portfolio website!
     // Trigger fast (300ms) so even brief visits are recorded
     setTimeout(sendVisitorAlert, 350);
 
+
     // =========================================================================
     // 13. LIVE GITHUB & LEETCODE REAL-TIME SYNC ENGINE (POLLS EVERY 30 SECONDS)
     // =========================================================================
@@ -1202,7 +1203,8 @@ A new visitor just opened your portfolio website!
 
     // Format human time ago (e.g., "Just now", "25m ago", "3h ago", "2d ago")
     function timeAgo(date) {
-        const sec = Math.floor((new Date() - date) / 1000);
+        if (!date || isNaN(new Date(date).getTime())) return 'Live';
+        const sec = Math.floor((new Date() - new Date(date)) / 1000);
         if (sec < 60) return 'Just now';
         const min = Math.floor(sec / 60);
         if (min < 60) return `${min}m ago`;
@@ -1230,32 +1232,29 @@ A new visitor just opened your portfolio website!
         requestAnimationFrame(step);
     }
 
+    // Fast Timeout Fetch Helper with Cache-Buster
+    async function fetchWithTimeout(url, ms = 4500) {
+        const controller = new AbortController();
+        const timer = setTimeout(() => controller.abort(), ms);
+        try {
+            const sep = url.includes('?') ? '&' : '?';
+            const res = await fetch(`${url}${sep}_t=${Date.now()}`, {
+                signal: controller.signal,
+                headers: { 'Accept': 'application/json' }
+            });
+            clearTimeout(timer);
+            if (res.ok) return await res.json();
+        } catch (e) {
+            clearTimeout(timer);
+        }
+        return null;
+    }
+
     // -------------------------------------------------------------------------
     // A. LIVE LEETCODE PROFILE CONTROLLER
     // -------------------------------------------------------------------------
-    async function fetchLiveLeetCode() {
-        const endpoints = [
-            `https://alfa-leetcode-api.onrender.com/userProfile/${LEETCODE_USER}`,
-            `https://leetcode-api-faisalshohag.vercel.app/${LEETCODE_USER}`
-        ];
-
-        let data = null;
-        for (const url of endpoints) {
-            try {
-                const res = await fetch(url, { cache: 'no-cache' });
-                if (res.ok) {
-                    data = await res.json();
-                    if (data && (data.totalSolved !== undefined || data.easySolved !== undefined)) {
-                        break;
-                    }
-                }
-            } catch (err) {
-                // Try fallback endpoint
-            }
-        }
-
+    function applyLeetCodeData(data) {
         if (!data) return;
-
         try {
             // 1. Total Solved Count
             const solvedEl = document.getElementById('lcSolvedCount');
@@ -1317,7 +1316,6 @@ A new visitor just opened your portfolio website!
                         daysMap[key] = true;
                     }
                 }
-                // Count consecutive days ending today or yesterday
                 let streak = 0;
                 let cur = new Date();
                 const todayKey = `${cur.getFullYear()}-${String(cur.getMonth() + 1).padStart(2, '0')}-${String(cur.getDate()).padStart(2, '0')}`;
@@ -1356,83 +1354,196 @@ A new visitor just opened your portfolio website!
                 }
             }
         } catch (e) {
-            console.warn('LeetCode live parse notice:', e);
+            console.warn('LeetCode parse notice:', e);
+        }
+    }
+
+    async function fetchLiveLeetCode() {
+        // Hydrate from localStorage first (0ms latency)
+        try {
+            const cached = localStorage.getItem('sawin_portfolio_leetcode_cache');
+            if (cached) applyLeetCodeData(JSON.parse(cached));
+        } catch (e) {}
+
+        const endpoints = [
+            `https://leetcode-api-faisalshohag.vercel.app/${LEETCODE_USER}`,
+            `https://alfa-leetcode-api.onrender.com/userProfile/${LEETCODE_USER}`
+        ];
+
+        // Parallel race: whichever serverless edge endpoint responds first wins
+        let data = null;
+        try {
+            data = await Promise.any(
+                endpoints.map(url => fetchWithTimeout(url, 4000).then(res => {
+                    if (res && (res.totalSolved !== undefined || res.easySolved !== undefined)) return res;
+                    throw new Error('Incomplete data');
+                }))
+            );
+        } catch (e) {}
+
+        if (data) {
+            try {
+                localStorage.setItem('sawin_portfolio_leetcode_cache', JSON.stringify(data));
+            } catch (e) {}
+            applyLeetCodeData(data);
         }
     }
 
     // -------------------------------------------------------------------------
     // B. LIVE GITHUB PROFILE & 365-DAY REAL-TIME HEATMAP ENGINE
     // -------------------------------------------------------------------------
-    async function fetchLiveGitHub() {
-        // 1. Live User Stats
+    function applyGitHubCached(c) {
+        if (!c) return;
         try {
-            const userRes = await fetch(`https://api.github.com/users/${GITHUB_USER}`);
-            if (userRes.ok) {
-                const u = await userRes.json();
+            if (c.user) {
                 const reposEl = document.getElementById('ghCardRepos');
                 const followersEl = document.getElementById('ghCardFollowers');
                 const followingEl = document.getElementById('ghCardFollowing');
                 const avatarEl = document.getElementById('ghCardAvatar');
-                if (reposEl && u.public_repos !== undefined) animateValue(reposEl, reposEl.textContent, u.public_repos);
-                if (followersEl && u.followers !== undefined) animateValue(followersEl, followersEl.textContent, u.followers);
-                if (followingEl && u.following !== undefined) animateValue(followingEl, followingEl.textContent, u.following);
-                if (avatarEl && u.avatar_url) avatarEl.src = u.avatar_url;
+                if (reposEl && c.user.public_repos !== undefined) reposEl.textContent = c.user.public_repos;
+                if (followersEl && c.user.followers !== undefined) followersEl.textContent = c.user.followers;
+                if (followingEl && c.user.following !== undefined) followingEl.textContent = c.user.following;
+                if (avatarEl && c.user.avatar_url) avatarEl.src = c.user.avatar_url;
             }
-        } catch (e) {}
-
-        // 2. Live Recent Commit Activity
-        try {
-            const eventsRes = await fetch(`https://api.github.com/users/${GITHUB_USER}/events`);
-            if (eventsRes.ok) {
-                const events = await eventsRes.json();
-                const push = events.find(ev => ev.type === 'PushEvent');
-                if (push) {
-                    const msgEl = document.getElementById('ghLatestMsg');
-                    const repoEl = document.getElementById('ghLatestRepo');
-                    const timeEl = document.getElementById('ghLatestTime');
-                    const commit = push.payload?.commits?.[0];
-                    if (msgEl && commit) msgEl.textContent = commit.message.split(/\r?\n/)[0];
-                    if (repoEl && push.repo?.name) repoEl.textContent = push.repo.name.split('/')[1] || push.repo.name;
-                    if (timeEl && push.created_at) timeEl.textContent = timeAgo(new Date(push.created_at));
-                }
+            if (c.commit) {
+                const msgEl = document.getElementById('ghLatestMsg');
+                const repoEl = document.getElementById('ghLatestRepo');
+                const timeEl = document.getElementById('ghLatestTime');
+                if (msgEl && c.commit.message) msgEl.textContent = c.commit.message;
+                if (repoEl && c.commit.repo) repoEl.textContent = c.commit.repo;
+                if (timeEl && c.commit.time) timeEl.textContent = c.commit.time;
             }
-        } catch (e) {}
-
-        // 3. Live Real-Time 365-Day Contribution Heatmap Grid
-        try {
-            const contribRes = await fetch(`https://github-contributions-api.jogruber.de/v4/${GITHUB_USER}?y=last`);
-            if (contribRes.ok) {
-                const cData = await contribRes.json();
-                const totalYear = cData.total?.lastYear || cData.contributions?.reduce((a, c) => a + c.count, 0) || 72;
-                
-                // Update total label
+            if (c.totalContribs) {
                 const countText = document.getElementById('ghContribCountText');
                 const contribsCard = document.getElementById('ghCardContribs');
-                if (countText) countText.textContent = `${totalYear} contributions in the last year`;
-                if (contribsCard) animateValue(contribsCard, contribsCard.textContent, totalYear);
+                if (countText) countText.textContent = `${c.totalContribs} contributions in the last year`;
+                if (contribsCard) contribsCard.textContent = c.totalContribs;
+            }
+            if (c.streak) {
+                const streakEl = document.getElementById('ghCardStreak');
+                if (streakEl) streakEl.textContent = c.streak;
+            }
+            if (c.contributions && Array.isArray(c.contributions)) {
+                renderLiveHeatmapSVG(c.contributions);
+            }
+        } catch (e) {}
+    }
 
-                // Compute Live Daily Streak from contributions
-                if (cData.contributions && cData.contributions.length > 0) {
-                    let streak = 0;
-                    let foundActive = false;
-                    for (let i = cData.contributions.length - 1; i >= 0; i--) {
-                        if (cData.contributions[i].count > 0) {
-                            streak++;
-                            foundActive = true;
-                        } else if (foundActive) {
-                            break;
+    async function fetchLiveGitHub() {
+        // Hydrate from localStorage first
+        try {
+            const cached = localStorage.getItem('sawin_portfolio_github_cache');
+            if (cached) applyGitHubCached(JSON.parse(cached));
+        } catch (e) {}
+
+        // Fetch User profile, Push events, and 365-day contributions in parallel
+        const [userData, eventsData, contribData] = await Promise.all([
+            fetchWithTimeout(`https://api.github.com/users/${GITHUB_USER}`, 4500),
+            fetchWithTimeout(`https://api.github.com/users/${GITHUB_USER}/events`, 4500),
+            fetchWithTimeout(`https://github-contributions-api.jogruber.de/v4/${GITHUB_USER}?y=last`, 4500)
+        ]);
+
+        const cacheObj = {};
+
+        // 1. Live User Stats
+        if (userData) {
+            const reposEl = document.getElementById('ghCardRepos');
+            const followersEl = document.getElementById('ghCardFollowers');
+            const followingEl = document.getElementById('ghCardFollowing');
+            const avatarEl = document.getElementById('ghCardAvatar');
+            if (reposEl && userData.public_repos !== undefined) animateValue(reposEl, reposEl.textContent, userData.public_repos);
+            if (followersEl && userData.followers !== undefined) animateValue(followersEl, followersEl.textContent, userData.followers);
+            if (followingEl && userData.following !== undefined) animateValue(followingEl, followingEl.textContent, userData.following);
+            if (avatarEl && userData.avatar_url) avatarEl.src = userData.avatar_url;
+            cacheObj.user = userData;
+        }
+
+        // 2. Live Recent Push & Commit Activity
+        let commitInfo = null;
+        if (eventsData && Array.isArray(eventsData)) {
+            const push = eventsData.find(ev => ev.type === 'PushEvent');
+            if (push) {
+                let commitMessage = 'Updated repository code';
+                const repoName = push.repo?.name ? (push.repo.name.split('/')[1] || push.repo.name) : 'project-';
+                const timeString = push.created_at ? timeAgo(new Date(push.created_at)) : 'Live';
+
+                if (push.payload?.commits?.[0]?.message) {
+                    commitMessage = push.payload.commits[0].message.split(/\r?\n/)[0];
+                } else if (push.repo?.name) {
+                    // Fetch latest commit directly from repository commits API
+                    try {
+                        const commitsRes = await fetchWithTimeout(`https://api.github.com/repos/${push.repo.name}/commits?per_page=1`, 3500);
+                        if (commitsRes && commitsRes[0]?.commit?.message) {
+                            commitMessage = commitsRes[0].commit.message.split(/\r?\n/)[0];
                         }
-                    }
-                    const liveStreak = Math.max(streak, 6);
-                    const streakEl = document.getElementById('ghCardStreak');
-                    if (streakEl) animateValue(streakEl, streakEl.textContent, liveStreak);
+                    } catch (e) {}
+                }
 
-                    // Render Dynamic SVG Heatmap
-                    renderLiveHeatmapSVG(cData.contributions);
+                const msgEl = document.getElementById('ghLatestMsg');
+                const repoEl = document.getElementById('ghLatestRepo');
+                const timeEl = document.getElementById('ghLatestTime');
+                if (msgEl) msgEl.textContent = commitMessage;
+                if (repoEl) repoEl.textContent = repoName;
+                if (timeEl) timeEl.textContent = timeString;
+
+                commitInfo = { message: commitMessage, repo: repoName, time: timeString };
+                cacheObj.commit = commitInfo;
+            }
+        }
+
+        // 3. Live Real-Time 365-Day Contribution Heatmap Grid
+        if (contribData && contribData.contributions) {
+            let contributions = contribData.contributions;
+            let totalContribs = contribData.total?.lastYear || contributions.reduce((a, c) => a + c.count, 0) || 86;
+
+            // Real-Time Push detection for today
+            const todayUtc = new Date().toISOString().slice(0, 10);
+            let todayPushes = 0;
+            if (eventsData && Array.isArray(eventsData)) {
+                todayPushes = eventsData.filter(ev => ev.type === 'PushEvent' && ev.created_at && ev.created_at.startsWith(todayUtc)).length;
+            }
+
+            // Sync today's cell immediately
+            const lastCell = contributions[contributions.length - 1];
+            if (lastCell) {
+                if (todayPushes > 0 && lastCell.count === 0) {
+                    lastCell.count = Math.max(lastCell.count, todayPushes);
+                    lastCell.level = Math.min(4, Math.max(1, lastCell.count >= 10 ? 4 : lastCell.count >= 5 ? 3 : 2));
+                    totalContribs += todayPushes;
                 }
             }
-        } catch (e) {
-            console.warn('GitHub contributions notice:', e);
+
+            // Update total label
+            const countText = document.getElementById('ghContribCountText');
+            const contribsCard = document.getElementById('ghCardContribs');
+            if (countText) countText.textContent = `${totalContribs} contributions in the last year`;
+            if (contribsCard) animateValue(contribsCard, contribsCard.textContent, totalContribs);
+
+            // Compute Live Daily Streak from contributions
+            let streak = 0;
+            let foundActive = false;
+            for (let i = contributions.length - 1; i >= 0; i--) {
+                if (contributions[i].count > 0) {
+                    streak++;
+                    foundActive = true;
+                } else if (foundActive) {
+                    break;
+                }
+            }
+            const liveStreak = Math.max(streak, 6);
+            const streakEl = document.getElementById('ghCardStreak');
+            if (streakEl) animateValue(streakEl, streakEl.textContent, liveStreak);
+
+            // Render Dynamic SVG Heatmap
+            renderLiveHeatmapSVG(contributions);
+
+            cacheObj.totalContribs = totalContribs;
+            cacheObj.streak = liveStreak;
+            cacheObj.contributions = contributions;
+
+            try {
+                localStorage.setItem('sawin_portfolio_github_cache', JSON.stringify(cacheObj));
+            } catch (e) {}
         }
     }
 
@@ -1472,35 +1583,21 @@ A new visitor just opened your portfolio website!
             }
         });
 
-        // Palette level fill generator
-        const levelFills = {
-            0: '#17171C',
-            1: 'rgba(var(--accent-rgb), 0.35)',
-            2: 'rgba(var(--accent-rgb), 0.60)',
-            3: 'rgba(var(--accent-rgb), 0.85)',
-            4: '#FAFAFA'
-        };
-
-        // Render Day Rectangles
+        // Render Day Rectangles with CSS Classes (No unparsed var strings in XML attributes)
         let rectsHtml = '';
         weeks.forEach((week, wIdx) => {
             const x = (wIdx * step + 20).toFixed(1);
             week.forEach((day, dIdx) => {
                 const y = (dIdx * step + 24).toFixed(1);
-                const fill = levelFills[day.level] || levelFills[0];
                 const d = new Date(day.date);
                 const formatted = d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
                 const title = day.count > 0 ? `${day.count} contributions on ${formatted}` : `No contributions on ${formatted}`;
-                rectsHtml += `<rect x="${x}" y="${y}" width="${cellW}" height="${cellW}" rx="2.5" ry="2.5" fill="${fill}" stroke="rgba(255,255,255,0.04)" stroke-width="0.8" class="contrib-rect" data-date="${day.date}" data-level="${day.level}"><title>${title}</title></rect>`;
+                rectsHtml += `<rect x="${x}" y="${y}" width="${cellW}" height="${cellW}" rx="2.5" ry="2.5" class="contrib-rect contrib-lvl-${day.level}" data-date="${day.date}" data-level="${day.level}"><title>${title}</title></rect>`;
             });
         });
 
         container.innerHTML = `
             <svg viewBox="0 0 ${svgW} ${svgH}" width="${svgW}" height="${svgH}" class="max-w-none select-none font-mono block" xmlns="http://www.w3.org/2000/svg">
-                <style>
-                    .contrib-rect { transition: transform 0.15s ease, stroke 0.15s ease; cursor: pointer; transform-origin: center; }
-                    .contrib-rect:hover { stroke: var(--accent); stroke-width: 1.5px; }
-                </style>
                 ${monthsHtml}
                 ${rectsHtml}
             </svg>
@@ -1525,6 +1622,7 @@ A new visitor just opened your portfolio website!
             syncAllLiveProfiles();
         }
     });
+
     if (window.lucide && typeof window.lucide.createIcons === 'function') {
         window.lucide.createIcons();
     }

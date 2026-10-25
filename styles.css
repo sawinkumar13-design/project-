@@ -2130,40 +2130,80 @@ html[data-mode="crimson"] .photo-rectangular-card {
 
 .contrib-rect:hover {
     transform: scale(1.45) !important;
-    stroke: #FFF0F2 !important;
+    stroke: #FAFAFA !important;
     stroke-width: 1.4px !important;
-    filter: drop-shadow(0 0 8px var(--accent)) drop-shadow(0 0 16px var(--accent-glow)) !important;
+    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.9)) !important;
 }
 
-/* Contribution Levels in Warm Amber Mode (Default) */
-.contrib-rect[data-level="0"] { fill: #191412 !important; stroke: rgba(255, 255, 255, 0.04) !important; }
-.contrib-rect[data-level="1"] { fill: #78350F !important; }
-.contrib-rect[data-level="2"] { fill: #4C4E51 !important; }
-.contrib-rect[data-level="3"] { fill: #C8CACD !important; }
-.contrib-rect[data-level="4"] { fill: #C8CACD !important; filter: drop-shadow(0 0 4px rgba(138, 141, 145, 0.5)) !important; }
-
-/* Contribution Levels in Crimson Velvet Mode */
-html[data-mode="light"] .contrib-rect[data-level="0"],
-html[data-mode="crimson"] .contrib-rect[data-level="0"] {
-    fill: #240D10 !important;
+/* Contribution Levels in Royal Charcoal Dark Mode (Default) */
+.contrib-rect[data-level="0"],
+.contrib-rect.contrib-lvl-0 {
+    fill: #191A1E !important;
+    stroke: rgba(255, 255, 255, 0.04) !important;
+}
+.contrib-rect[data-level="1"],
+.contrib-rect.contrib-lvl-1 {
+    fill: rgba(138, 141, 145, 0.40) !important;
     stroke: rgba(255, 255, 255, 0.05) !important;
 }
+.contrib-rect[data-level="2"],
+.contrib-rect.contrib-lvl-2 {
+    fill: rgba(180, 183, 188, 0.65) !important;
+    stroke: rgba(255, 255, 255, 0.06) !important;
+}
+.contrib-rect[data-level="3"],
+.contrib-rect.contrib-lvl-3 {
+    fill: rgba(225, 227, 230, 0.88) !important;
+    stroke: rgba(255, 255, 255, 0.08) !important;
+}
+.contrib-rect[data-level="4"],
+.contrib-rect.contrib-lvl-4 {
+    fill: #FFFFFF !important;
+    stroke: rgba(255, 255, 255, 0.25) !important;
+    filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.85)) !important;
+}
+
+/* Contribution Levels in Crimson Velvet Bright Mode */
+html[data-mode="light"] .contrib-rect[data-level="0"],
+html[data-mode="light"] .contrib-rect.contrib-lvl-0,
+html[data-mode="crimson"] .contrib-rect[data-level="0"],
+html[data-mode="crimson"] .contrib-rect.contrib-lvl-0 {
+    fill: #220B10 !important;
+    stroke: rgba(255, 255, 255, 0.06) !important;
+}
 html[data-mode="light"] .contrib-rect[data-level="1"],
-html[data-mode="crimson"] .contrib-rect[data-level="1"] {
-    fill: #6B1E23 !important;
+html[data-mode="light"] .contrib-rect.contrib-lvl-1,
+html[data-mode="crimson"] .contrib-rect[data-level="1"],
+html[data-mode="crimson"] .contrib-rect.contrib-lvl-1 {
+    fill: #5C161D !important;
+    stroke: rgba(255, 255, 255, 0.06) !important;
 }
 html[data-mode="light"] .contrib-rect[data-level="2"],
-html[data-mode="crimson"] .contrib-rect[data-level="2"] {
-    fill: #9F1239 !important;
+html[data-mode="light"] .contrib-rect.contrib-lvl-2,
+html[data-mode="crimson"] .contrib-rect[data-level="2"],
+html[data-mode="crimson"] .contrib-rect.contrib-lvl-2 {
+    fill: #93132B !important;
+    stroke: rgba(255, 255, 255, 0.08) !important;
 }
 html[data-mode="light"] .contrib-rect[data-level="3"],
-html[data-mode="crimson"] .contrib-rect[data-level="3"] {
-    fill: #E11D48 !important;
+html[data-mode="light"] .contrib-rect.contrib-lvl-3,
+html[data-mode="crimson"] .contrib-rect[data-level="3"],
+html[data-mode="crimson"] .contrib-rect.contrib-lvl-3 {
+    fill: #D91B42 !important;
+    stroke: rgba(255, 255, 255, 0.12) !important;
 }
 html[data-mode="light"] .contrib-rect[data-level="4"],
-html[data-mode="crimson"] .contrib-rect[data-level="4"] {
-    fill: #FB7185 !important;
-    filter: drop-shadow(0 0 6px rgba(225, 29, 72, 0.6)) !important;
+html[data-mode="light"] .contrib-rect.contrib-lvl-4,
+html[data-mode="crimson"] .contrib-rect[data-level="4"],
+html[data-mode="crimson"] .contrib-rect.contrib-lvl-4 {
+    fill: #FF4D6D !important;
+    stroke: rgba(255, 77, 109, 0.35) !important;
+    filter: drop-shadow(0 0 7px rgba(255, 77, 109, 0.85)) !important;
+}
+html[data-mode="light"] .contrib-rect:hover,
+html[data-mode="crimson"] .contrib-rect:hover {
+    stroke: #FFCCD5 !important;
+    filter: drop-shadow(0 0 9px rgba(255, 77, 109, 0.95)) !important;
 }
 
 
