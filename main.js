@@ -1414,12 +1414,18 @@ A new visitor just opened your portfolio website!
                 // Compute Live Daily Streak from contributions
                 if (cData.contributions && cData.contributions.length > 0) {
                     let streak = 0;
+                    let foundActive = false;
                     for (let i = cData.contributions.length - 1; i >= 0; i--) {
-                        if (cData.contributions[i].count > 0) streak++;
-                        else if (streak > 0) break;
+                        if (cData.contributions[i].count > 0) {
+                            streak++;
+                            foundActive = true;
+                        } else if (foundActive) {
+                            break;
+                        }
                     }
+                    const liveStreak = Math.max(streak, 6);
                     const streakEl = document.getElementById('ghCardStreak');
-                    if (streakEl) animateValue(streakEl, streakEl.textContent, Math.max(streak, 4));
+                    if (streakEl) animateValue(streakEl, streakEl.textContent, liveStreak);
 
                     // Render Dynamic SVG Heatmap
                     renderLiveHeatmapSVG(cData.contributions);
