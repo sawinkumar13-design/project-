@@ -1,5 +1,5 @@
-/* ========================================================================== */
-/* Sawin Kumar — Theme Accent Color System & Global CSS Variables              */
+﻿/* ========================================================================== */
+/* Sawin Kumar â€” Theme Accent Color System & Global CSS Variables              */
 /* ========================================================================== */
 :root {
     /* Royal Charcoal Dark Palette */
@@ -240,8 +240,8 @@ html[data-theme="amber"] .bg-cyan-950\/60 {
 }
 
 /* ========================================================================== */
-/* Sawin Kumar — Luxury Dark Galaxy & Cosmic Aurora Portfolio Styling         */
-/* Deep Obsidian Black (#050508 to #0a0a12) · Glassmorphism · Mouse Reactivity */
+/* Sawin Kumar â€” Luxury Dark Galaxy & Cosmic Aurora Portfolio Styling         */
+/* Deep Obsidian Black (#050508 to #0a0a12) Â· Glassmorphism Â· Mouse Reactivity */
 /* ========================================================================== */
 
 /* ========================================================================== */
@@ -448,7 +448,7 @@ html[data-theme="amber"] .bg-cyan-950\/60 {
     border: 1px solid #2E2A40;
 }
 ::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(180deg, #4C4E51, #C8620A);
+    background: linear-gradient(180deg, #8A8D91, #4C4E51);
 }
 
 /* Base Midnight Theme (Low-Saturation Cinematic Space: #050609) */
@@ -1018,7 +1018,7 @@ body.portfolio-entered section .reveal {
 /* ========================================================================== */
 /* High contrast navy text on radiant cyan/violet gradient: zero washed-out white text! */
 .cosmic-btn-primary {
-    background: linear-gradient(135deg, #4C4E51 0%, #C8620A 100%);
+    background: linear-gradient(135deg, #8A8D91 0%, #4C4E51 100%);
     box-shadow: 0 0 25px rgba(138, 141, 145, 0.45), inset 0 1px 1px rgba(250, 250, 240, 0.4);
     color: #FAFAFA !important;
     font-weight: 700 !important;
@@ -1446,7 +1446,7 @@ body, h1, h2, h3, h4, h5, h6, .text-white {
     border: 1px solid #2E2A40;
 }
 .scrollbar-thin::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(180deg, #4C4E51, #C8620A);
+    background: linear-gradient(180deg, #8A8D91, #4C4E51);
 }
 
 .line-clamp-2 {
@@ -1513,7 +1513,7 @@ body, h1, h2, h3, h4, h5, h6, .text-white {
 /* Blending Pure Off-White (#FAFAFA) into Vibrant Orchid (#A855F7) & Indigo   */
 /* ========================================================================== */
 h1, h2, h3, .heading-gradient, .intro-title, .text-cosmic-glow {
-    background: linear-gradient(135deg, #FAFAF0 25%, #FDE68A 55%, #4C4E51 80%, #C8620A 100%) !important;
+    background: linear-gradient(135deg, #EAEBED 25%, #C8CACD 55%, #8A8D91 80%, #4C4E51 100%) !important;
     -webkit-background-clip: text !important;
     background-clip: text !important;
     -webkit-text-fill-color: transparent !important;
@@ -1521,7 +1521,7 @@ h1, h2, h3, .heading-gradient, .intro-title, .text-cosmic-glow {
 }
 
 .intro-name-row {
-    background: linear-gradient(180deg, #FAFAF0 25%, #FDE68A 60%, #4C4E51 100%) !important;
+    background: linear-gradient(180deg, #EAEBED 25%, #C8CACD 60%, #8A8D91 100%) !important;
     -webkit-background-clip: text !important;
     background-clip: text !important;
     -webkit-text-fill-color: transparent !important;
@@ -1538,7 +1538,7 @@ h1, h2, h3, .heading-gradient, .intro-title, .text-cosmic-glow {
 .scroll-fill-title {
     color: transparent !important;
     -webkit-text-stroke: 1.5px rgba(250, 250, 250, 0.35) !important;
-    background: linear-gradient(135deg, #FAFAF0 25%, #FDE68A 55%, #4C4E51 80%, #C8620A 100%) !important;
+    background: linear-gradient(135deg, #EAEBED 25%, #C8CACD 55%, #8A8D91 80%, #4C4E51 100%) !important;
     -webkit-background-clip: text !important;
     background-clip: text !important;
     transition:
@@ -2065,7 +2065,7 @@ html[data-mode="crimson"] .photo-rectangular-card {
 .contrib-rect[data-level="1"] { fill: #78350F !important; }
 .contrib-rect[data-level="2"] { fill: #4C4E51 !important; }
 .contrib-rect[data-level="3"] { fill: #C8CACD !important; }
-.contrib-rect[data-level="4"] { fill: #FDE68A !important; filter: drop-shadow(0 0 4px rgba(245, 158, 11, 0.5)) !important; }
+.contrib-rect[data-level="4"] { fill: #C8CACD !important; filter: drop-shadow(0 0 4px rgba(138, 141, 145, 0.5)) !important; }
 
 /* Contribution Levels in Crimson Velvet Mode */
 html[data-mode="light"] .contrib-rect[data-level="0"],
@@ -2090,3 +2090,4 @@ html[data-mode="crimson"] .contrib-rect[data-level="4"] {
     fill: #FB7185 !important;
     filter: drop-shadow(0 0 6px rgba(225, 29, 72, 0.6)) !important;
 }
+
