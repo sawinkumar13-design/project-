@@ -383,7 +383,7 @@ function startApp() {
                 uMouse: { value: new THREE.Vector2(0.5, 0.5) },
                 uMouseVel: { value: new THREE.Vector2(0, 0) },
                 uScroll: { value: 0 },
-                uAccentColor: { value: new THREE.Color('#D97706') },
+                uAccentColor: { value: new THREE.Color('#8A8D91') },
                 uLightMode: { value: currentDisplayMode === 'light' ? 1.0 : 0.0 },
                 uLightMode: { value: currentDisplayMode === 'light' ? 1.0 : 0.0 }
             };
@@ -500,12 +500,12 @@ function startApp() {
                     float smoke = smoothstep(0.18, 0.82, rawDensity) * emitterMask;
 
                     // === WARM AMBER -> CRIMSON VELVET CINEMATIC PALETTE ===
-                    // Base: deep warm charcoal #0A0806 -> Crimson Velvet #2C0F12
-                    vec3 cBaseBlack    = mix(vec3(0.039, 0.031, 0.024), vec3(0.173, 0.059, 0.071), uLightMode); // #0A0806 -> #2C0F12
-                    vec3 cCharcoal     = mix(vec3(0.059, 0.047, 0.035), vec3(0.220, 0.078, 0.094), uLightMode); // #0F0C09 -> #381418
-                    vec3 cGraphite     = mix(vec3(0.086, 0.067, 0.047), vec3(0.263, 0.094, 0.114), uLightMode); // #161108 -> #43181D
-                    vec3 cAmberVapor   = mix(vec3(0.549, 0.302, 0.039), vec3(0.420, 0.118, 0.137), uLightMode); // Amber vapor -> #6B1E23 Crimson Velvet
-                    vec3 cAmberRim     = mix(vec3(0.851, 0.380, 0.039), vec3(0.882, 0.114, 0.282), uLightMode); // #D96110 Amber Rim -> #E11D48 Ruby Rim
+                    // Base: Royal Charcoal #1E2023 -> Crimson Velvet #2C0F12
+                    vec3 cBaseBlack    = mix(vec3(0.118, 0.125, 0.137), vec3(0.173, 0.059, 0.071), uLightMode); // #1E2023 -> #2C0F12
+                    vec3 cCharcoal     = mix(vec3(0.118, 0.122, 0.133), vec3(0.220, 0.078, 0.094), uLightMode); // #1E1F22 -> #381418
+                    vec3 cGraphite     = mix(vec3(0.153, 0.161, 0.176), vec3(0.263, 0.094, 0.114), uLightMode); // #27292D -> #43181D
+                    vec3 cAmberVapor   = mix(vec3(0.282, 0.290, 0.318), vec3(0.420, 0.118, 0.137), uLightMode); // Silver Charcoal vapor -> Crimson Velvet
+                    vec3 cAmberRim     = mix(vec3(0.541, 0.549, 0.573), vec3(0.882, 0.114, 0.282), uLightMode); // #8A8C92 Silver Rim -> #E11D48 Ruby Rim
 
                     // Directional rim light from bottom-left amber emitter
                     vec2 lightDir = normalize(urPoint - normUv);

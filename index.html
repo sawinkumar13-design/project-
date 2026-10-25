@@ -85,7 +85,7 @@
     </script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <link rel="stylesheet" href="styles.css?v=45">
+    <link rel="stylesheet" href="styles.css?v=50">
     <!-- Inline Immediate Mode Controller (Available from frame 1 before external JS) -->
     <script>
         (function() {
@@ -134,7 +134,7 @@
 
 </head>
 
-<body class="overflow-x-hidden font-sans bg-[#0A0806] text-[#FAFAF0] selection:bg-[#D97706]/30 selection:text-[#FAFAF0] js-enabled">
+<body class="overflow-x-hidden font-sans bg-[#1E2023] text-[#FAFAF0] selection:bg-[#8A8D91]/30 selection:text-[#FAFAF0] js-enabled">
 
     <!-- Inline Instant Intro Controller (Guaranteed to execute immediately on click, tap, scroll, or keypress) -->
     <script>
@@ -194,7 +194,7 @@
         <!-- ======================================================== -->
     <!-- CINEMATIC INTRO SCREEN: THE BLURRED REVEAL & SLIDE UP     -->
     <!-- ======================================================== -->
-    <div id="cinematicIntro" class="cinematic-intro-overlay fixed inset-0 z-[100] flex flex-col items-center justify-center overflow-hidden select-none cursor-pointer px-4 w-screen h-screen bg-[#121214]" aria-label="Intro Screen" onclick="window.enterPortfolio(event)" ontouchend="window.enterPortfolio(event)">
+    <div id="cinematicIntro" class="cinematic-intro-overlay fixed inset-0 z-[100] flex flex-col items-center justify-center overflow-hidden select-none cursor-pointer px-4 w-screen h-screen bg-[#1E2023]" aria-label="Intro Screen" onclick="window.enterPortfolio(event)" ontouchend="window.enterPortfolio(event)">
 
         <!-- Soft atmospheric radial spotlight glow -->
         <div class="intro-spotlight absolute inset-0 pointer-events-none" aria-hidden="true"></div>
@@ -203,8 +203,8 @@
         <div class="intro-content-wrap relative z-10 flex flex-col items-center justify-center text-center px-4 max-w-4xl mx-auto my-auto pointer-events-auto">
 
             <!-- Pill Tag / Category -->
-            <div class="intro-reveal-item-badge mb-5 sm:mb-6 inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-amber-500/35 bg-amber-500/10 backdrop-blur-md text-xs font-mono text-amber-300 shadow-sm">
-                <span class="w-2 h-2 rounded-full bg-amber-400 animate-ping"></span>
+            <div class="intro-reveal-item-badge mb-5 sm:mb-6 inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-slate-500/35 bg-slate-600/15 backdrop-blur-md text-xs font-mono text-slate-200 shadow-sm">
+                <span class="w-2 h-2 rounded-full bg-slate-400 animate-ping"></span>
                 <span class="tracking-widest uppercase font-semibold">Sawin Kumar &middot; Developer Portfolio</span>
             </div>
 
@@ -212,26 +212,26 @@
             <div class="intro-title-box max-w-4xl">
                 <h1 id="introMainTitle" class="intro-reveal-item-title font-display font-extrabold tracking-tight text-3xl sm:text-5xl md:text-6xl lg:text-7xl leading-[1.14] text-center">
                     <span class="block text-[#FAFAFA] drop-shadow-md">Turning Data Into Intelligence.</span>
-                    <span class="block mt-2.5 bg-gradient-to-r from-amber-300 via-yellow-200 to-amber-100 bg-clip-text text-transparent drop-shadow-sm">Building Software That Matters.</span>
+                    <span class="block mt-2.5 bg-gradient-to-r from-slate-500 via-yellow-200 to-slate-700 bg-clip-text text-transparent drop-shadow-sm">Building Software That Matters.</span>
                 </h1>
             </div>
 
             <!-- Subtitle: Terminal-style AI & Backend prompt -->
             <div class="intro-reveal-item-sub mt-6 sm:mt-7 max-w-xl">
                 <p class="font-mono text-sm sm:text-base md:text-lg text-[#D4D4D8] tracking-wide flex items-center justify-center gap-2">
-                    <span class="text-amber-400 font-bold text-lg">&gt;</span>
+                    <span class="text-slate-300 font-bold text-lg">&gt;</span>
                     <span class="text-slate-200">AI Data Scientist &amp; Backend Enthusiast</span>
-                    <span class="inline-block w-2 h-4 bg-amber-400 animate-pulse ml-0.5"></span>
+                    <span class="inline-block w-2 h-4 bg-slate-400 animate-pulse ml-0.5"></span>
                 </p>
             </div>
 
             <!-- CTA Prompt Button -->
-            <button id="enterPortfolioBtn" class="intro-reveal-item-btn mt-9 sm:mt-11 px-8 py-3.5 rounded-full border border-amber-500/40 text-xs sm:text-sm font-mono tracking-widest uppercase text-[#FAFAF0] hover:border-amber-400 hover:text-[#FAFAF0] bg-amber-950/40 hover:bg-amber-900/50 backdrop-blur-xl transition-all duration-300 group cursor-pointer focus:outline-none shadow-lg shadow-amber-950/50" aria-label="Click to Enter Portfolio" onclick="window.enterPortfolio(event)" ontouchend="window.enterPortfolio(event)">
+            <button id="enterPortfolioBtn" class="intro-reveal-item-btn mt-9 sm:mt-11 px-8 py-3.5 rounded-full border border-slate-500/40 text-xs sm:text-sm font-mono tracking-widest uppercase text-[#FAFAF0] hover:border-slate-400 hover:text-[#FAFAF0] bg-amber-950/40 hover:bg-slate-600/50 backdrop-blur-xl transition-all duration-300 group cursor-pointer focus:outline-none shadow-lg shadow-amber-950/50" aria-label="Click to Enter Portfolio" onclick="window.enterPortfolio(event)" ontouchend="window.enterPortfolio(event)">
                 <span class="inline-flex items-center gap-2.5 group-hover:scale-105 transition-transform duration-200 pointer-events-none">
-                    <span class="text-amber-400 font-mono">[</span>
+                    <span class="text-slate-300 font-mono">[</span>
                     <span class="font-bold tracking-widest text-white">ENTER PORTFOLIO</span>
-                    <i data-lucide="arrow-right" class="w-4 h-4 text-amber-400 group-hover:translate-x-1 transition-transform"></i>
-                    <span class="text-amber-400 font-mono">]</span>
+                    <i data-lucide="arrow-right" class="w-4 h-4 text-slate-300 group-hover:translate-x-1 transition-transform"></i>
+                    <span class="text-slate-300 font-mono">]</span>
                 </span>
             </button>
 
@@ -259,17 +259,17 @@
     <!-- ======================================================== -->
     <!-- NAVIGATION BAR (GLOSSY GLASS WITH ACCURATE SOCIAL LINKS) -->
     <!-- ======================================================== -->
-    <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-500 bg-[#121214]/75 backdrop-blur-2xl border-b border-white/[0.08] shadow-[0_4px_30px_rgba(0,0,0,0.45)] navbar-hidden" id="navbar">
+    <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-500 bg-[#1E2023]/75 backdrop-blur-2xl border-b border-white/[0.08] shadow-[0_4px_30px_rgba(0,0,0,0.45)] navbar-hidden" id="navbar">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
 
             <!-- Brand / Logo -->
             <a href="#hero" class="flex items-center gap-3 group">
-                <div class="relative w-8 h-8 sm:w-9 sm:h-9 rounded-full ring-2 ring-amber-500/30 p-0.5 overflow-hidden transition-all duration-300 group-hover:ring-amber-400 group-hover:scale-105 shadow-sm">
+                <div class="relative w-8 h-8 sm:w-9 sm:h-9 rounded-full ring-2 ring-slate-400/25 p-0.5 overflow-hidden transition-all duration-300 group-hover:ring-amber-400 group-hover:scale-105 shadow-sm">
                     <img src="assets/profile.jpg?v=10" alt="Sawin Kumar" class="w-full h-full object-cover rounded-full">
                 </div>
                 <div>
                     <div class="flex items-center gap-1.5">
-                        <span class="font-bold text-sm text-white group-hover:text-amber-400 tracking-tight transition-colors">Sawin Kumar</span>
+                        <span class="font-bold text-sm text-white group-hover:text-slate-300 tracking-tight transition-colors">Sawin Kumar</span>
                         <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" title="Available for Internships"></span>
                     </div>
                     <span class="block text-[10px] text-slate-400 font-mono">B.TECH CSE &middot; GLA UNIVERSITY</span>
@@ -291,12 +291,12 @@
                 <!-- 1. Audio / Mute Ambient Toggle Button -->
                 <button id="audioToggleBtn" class="audio-toggle-btn w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/[0.04] border border-white/10 flex items-center justify-center text-slate-300 hover:text-white transition-all hover:scale-105 active:scale-95 focus:outline-none" title="Toggle Ambient Audio" aria-label="Toggle Ambient Audio">
                     <i data-lucide="volume-x" class="w-4 h-4 text-slate-400 audio-icon-muted"></i>
-                    <i data-lucide="volume-2" class="w-4 h-4 text-amber-400 audio-icon-active hidden"></i>
+                    <i data-lucide="volume-2" class="w-4 h-4 text-slate-300 audio-icon-active hidden"></i>
                 </button>
 
                 <!-- 2. Dark Mode / Bright Mode Toggle Button -->
                 <button id="themeModeToggleBtn" onclick="window.toggleDisplayMode ? window.toggleDisplayMode() : null" class="theme-mode-btn w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/[0.04] border border-white/10 flex items-center justify-center text-slate-300 hover:text-white transition-all hover:scale-105 active:scale-95 focus:outline-none" title="Toggle Crimson Velvet / Amber Mode" aria-label="Toggle Crimson Velvet / Amber Mode">
-                    <i data-lucide="sun" class="w-4 h-4 text-amber-300 mode-icon-sun"></i>
+                    <i data-lucide="sun" class="w-4 h-4 text-slate-200 mode-icon-sun"></i>
                     <i data-lucide="moon" class="w-4 h-4 text-indigo-400 mode-icon-moon hidden"></i>
                 </button>
 
@@ -305,7 +305,7 @@
                    id="navbarResumeBtn"
                    class="nav-resume-btn hidden sm:inline-flex items-center gap-1.5 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full border border-white/10 bg-white/[0.04] hover:bg-white/[0.08] text-xs font-mono font-medium text-slate-200 hover:text-white transition-all duration-300 hover:scale-105"
                    title="Download CV / Resume">
-                    <i data-lucide="file-down" class="w-3.5 h-3.5 text-amber-400"></i>
+                    <i data-lucide="file-down" class="w-3.5 h-3.5 text-slate-300"></i>
                     <span>Resume</span>
                 </a>
 
@@ -333,7 +333,7 @@
             <div class="pt-3 border-t border-[#2E2A40]/50 flex items-center justify-between">
                 <span class="text-xs font-mono text-slate-400">DISPLAY MODE</span>
                 <button onclick="window.toggleDisplayMode ? window.toggleDisplayMode() : null" class="px-3 py-1.5 rounded-full border border-white/10 bg-white/[0.05] flex items-center gap-2 text-xs font-medium text-slate-200">
-                    <i data-lucide="sun" class="w-3.5 h-3.5 text-amber-300 mode-icon-sun"></i>
+                    <i data-lucide="sun" class="w-3.5 h-3.5 text-slate-200 mode-icon-sun"></i>
                     <i data-lucide="moon" class="w-3.5 h-3.5 text-indigo-400 mode-icon-moon hidden"></i>
                     <span id="mobileModeLabel">Crimson Velvet</span>
                 </button>
@@ -343,7 +343,7 @@
                 <div class="flex items-center gap-3">
                     <a href="https://github.com/sawinkumar13-design" target="_blank" rel="noopener noreferrer" class="text-white hover:text-purple-400"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg></a>
                     <a href="https://www.linkedin.com/in/sawin-kumar-5941763a1" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:text-blue-300"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 8.76a1.65 1.65 0 1 0 0-3.3 1.65 1.65 0 0 0 0 3.3m1.4 9.74v-8.37H5.06v8.37h2.8z"/></svg></a>
-                    <a href="https://leetcode.com/u/sawin_kumar" target="_blank" rel="noopener noreferrer" class="text-amber-400 hover:text-amber-300"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104 5.35 5.35 0 0 0-.125.513 5.527 5.527 0 0 0 .062 2.362 5.83 5.83 0 0 0 .349 1.017 5.938 5.938 0 0 0 1.271 1.818l4.277 4.193.039.038c2.248 2.165 5.852 2.133 8.063-.074l2.396-2.392c.54-.54.54-1.414.003-1.955a1.378 1.378 0 0 0-1.951-.003l-2.396 2.392a3.021 3.021 0 0 1-4.205.038l-.02-.019-4.276-4.193c-.652-.64-.972-1.469-.948-2.263a2.68 2.68 0 0 1 .066-.523 2.545 2.545 0 0 1 .619-1.164L9.13 8.114c1.058-1.134 3.204-1.27 4.43-.278l3.501 2.831c.593.48 1.461.387 1.94-.207a1.384 1.384 0 0 0-.207-1.943l-3.5-2.831c-.8-.647-1.766-1.045-2.774-1.202l2.015-2.158A1.384 1.384 0 0 0 13.483 0zm-2.866 12.815a1.38 1.38 0 0 0-1.38 1.382 1.38 1.38 0 0 0 1.38 1.382H20.79a1.38 1.38 0 0 0 1.38-1.382 1.38 1.38 0 0 0-1.38-1.382z"/></svg></a>
+                    <a href="https://leetcode.com/u/sawin_kumar" target="_blank" rel="noopener noreferrer" class="text-slate-300 hover:text-slate-200"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104 5.35 5.35 0 0 0-.125.513 5.527 5.527 0 0 0 .062 2.362 5.83 5.83 0 0 0 .349 1.017 5.938 5.938 0 0 0 1.271 1.818l4.277 4.193.039.038c2.248 2.165 5.852 2.133 8.063-.074l2.396-2.392c.54-.54.54-1.414.003-1.955a1.378 1.378 0 0 0-1.951-.003l-2.396 2.392a3.021 3.021 0 0 1-4.205.038l-.02-.019-4.276-4.193c-.652-.64-.972-1.469-.948-2.263a2.68 2.68 0 0 1 .066-.523 2.545 2.545 0 0 1 .619-1.164L9.13 8.114c1.058-1.134 3.204-1.27 4.43-.278l3.501 2.831c.593.48 1.461.387 1.94-.207a1.384 1.384 0 0 0-.207-1.943l-3.5-2.831c-.8-.647-1.766-1.045-2.774-1.202l2.015-2.158A1.384 1.384 0 0 0 13.483 0zm-2.866 12.815a1.38 1.38 0 0 0-1.38 1.382 1.38 1.38 0 0 0 1.38 1.382H20.79a1.38 1.38 0 0 0 1.38-1.382 1.38 1.38 0 0 0-1.38-1.382z"/></svg></a>
                     <a href="assets/Sawin_Kumar_Resume.pdf" target="_blank" rel="noopener noreferrer" download class="text-slate-300 hover:text-white"><i data-lucide="file-down" class="w-5 h-5"></i></a>
                 </div>
                 <a href="#contact" class="px-3.5 py-1.5 bg-gradient-to-r from-purple-500 to-indigo-600 text-white font-bold rounded-lg text-xs">Get In Touch</a>
@@ -394,7 +394,7 @@
                         <!-- Streamlined Bio Paragraph -->
                         <div class="text-reveal" style="--delay: 3">
                             <p class="text-sm sm:text-base text-slate-300 leading-relaxed max-w-xl">
-                                Second-year Computer Science &amp; Engineering student at <strong class="text-white font-semibold">GLA University, Mathura</strong> (2025–2029 batch) maintaining a <span class="text-cyan-300 font-mono font-semibold">7.9 CPI</span>. Focused on practical data analytics with <span class="text-cyan-300 font-medium">Python, NumPy, Pandas</span>, and modular OOP architecture in <span class="text-purple-300 font-medium">Java</span>. Active problem solver with the <span class="text-amber-400 font-medium">LeetCode 50 Days Badge</span>.
+                                Second-year Computer Science &amp; Engineering student at <strong class="text-white font-semibold">GLA University, Mathura</strong> (2025–2029 batch) maintaining a <span class="text-cyan-300 font-mono font-semibold">7.9 CPI</span>. Focused on practical data analytics with <span class="text-cyan-300 font-medium">Python, NumPy, Pandas</span>, and modular OOP architecture in <span class="text-purple-300 font-medium">Java</span>. Active problem solver with the <span class="text-slate-300 font-medium">LeetCode 50 Days Badge</span>.
                             </p>
                         </div>
 
@@ -418,8 +418,8 @@
                             </a>
                             <!-- LeetCode Link -->
                             <a href="https://leetcode.com/u/sawin_kumar" target="_blank" rel="noopener noreferrer" 
-                               class="glass-pill flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-mono text-amber-300 hover:text-amber-200 group">
-                                <svg class="w-4 h-4 text-amber-400 group-hover:scale-110 transition-transform" viewBox="0 0 24 24" fill="currentColor">
+                               class="glass-pill flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-mono text-slate-200 hover:text-slate-200 group">
+                                <svg class="w-4 h-4 text-slate-300 group-hover:scale-110 transition-transform" viewBox="0 0 24 24" fill="currentColor">
                                     <path d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104 5.35 5.35 0 0 0-.125.513 5.527 5.527 0 0 0 .062 2.362 5.83 5.83 0 0 0 .349 1.017 5.938 5.938 0 0 0 1.271 1.818l4.277 4.193.039.038c2.248 2.165 5.852 2.133 8.063-.074l2.396-2.392c.54-.54.54-1.414.003-1.955a1.378 1.378 0 0 0-1.951-.003l-2.396 2.392a3.021 3.021 0 0 1-4.205.038l-.02-.019-4.276-4.193c-.652-.64-.972-1.469-.948-2.263a2.68 2.68 0 0 1 .066-.523 2.545 2.545 0 0 1 .619-1.164L9.13 8.114c1.058-1.134 3.204-1.27 4.43-.278l3.501 2.831c.593.48 1.461.387 1.94-.207a1.384 1.384 0 0 0-.207-1.943l-3.5-2.831c-.8-.647-1.766-1.045-2.774-1.202l2.015-2.158A1.384 1.384 0 0 0 13.483 0zm-2.866 12.815a1.38 1.38 0 0 0-1.38 1.382 1.38 1.38 0 0 0 1.38 1.382H20.79a1.38 1.38 0 0 0 1.38-1.382 1.38 1.38 0 0 0-1.38-1.382z"/>
                                 </svg>
                                 <span>LeetCode</span>
@@ -513,8 +513,8 @@
                     <div class="marquee-pill"><i data-lucide="table" class="w-4 h-4 text-emerald-400"></i> Pandas</div>
                     <div class="marquee-pill"><i data-lucide="grid" class="w-4 h-4 text-blue-400"></i> NumPy</div>
                     <div class="marquee-pill"><i data-lucide="bar-chart-2" class="w-4 h-4 text-pink-400"></i> Matplotlib</div>
-                    <div class="marquee-pill"><i data-lucide="binary" class="w-4 h-4 text-amber-400"></i> Data Structures</div>
-                    <div class="marquee-pill"><i data-lucide="award" class="w-4 h-4 text-amber-300"></i> LeetCode 50 Days</div>
+                    <div class="marquee-pill"><i data-lucide="binary" class="w-4 h-4 text-slate-300"></i> Data Structures</div>
+                    <div class="marquee-pill"><i data-lucide="award" class="w-4 h-4 text-slate-200"></i> LeetCode 50 Days</div>
                     <div class="marquee-pill"><i data-lucide="git-branch" class="w-4 h-4 text-cyan-300"></i> Git &amp; GitHub</div>
                     <div class="marquee-pill"><i data-lucide="terminal" class="w-4 h-4 text-indigo-400"></i> VS Code</div>
                     <div class="marquee-pill"><i data-lucide="cpu" class="w-4 h-4 text-purple-300"></i> IntelliJ IDEA</div>
@@ -526,8 +526,8 @@
                     <div class="marquee-pill"><i data-lucide="table" class="w-4 h-4 text-emerald-400"></i> Pandas</div>
                     <div class="marquee-pill"><i data-lucide="grid" class="w-4 h-4 text-blue-400"></i> NumPy</div>
                     <div class="marquee-pill"><i data-lucide="bar-chart-2" class="w-4 h-4 text-pink-400"></i> Matplotlib</div>
-                    <div class="marquee-pill"><i data-lucide="binary" class="w-4 h-4 text-amber-400"></i> Data Structures</div>
-                    <div class="marquee-pill"><i data-lucide="award" class="w-4 h-4 text-amber-300"></i> LeetCode 50 Days</div>
+                    <div class="marquee-pill"><i data-lucide="binary" class="w-4 h-4 text-slate-300"></i> Data Structures</div>
+                    <div class="marquee-pill"><i data-lucide="award" class="w-4 h-4 text-slate-200"></i> LeetCode 50 Days</div>
                     <div class="marquee-pill"><i data-lucide="git-branch" class="w-4 h-4 text-cyan-300"></i> Git &amp; GitHub</div>
                     <div class="marquee-pill"><i data-lucide="terminal" class="w-4 h-4 text-indigo-400"></i> VS Code</div>
                     <div class="marquee-pill"><i data-lucide="cpu" class="w-4 h-4 text-purple-300"></i> IntelliJ IDEA</div>
@@ -563,7 +563,7 @@
                                 Driven by curiosity for data patterns, my objective is to grow into an impactful <span class="text-white font-medium">Data Scientist &amp; Software Engineer</span>. I enjoy wrangling datasets using <span class="text-cyan-300 font-medium">Pandas &amp; NumPy</span>, uncovering statistical patterns with <span class="text-purple-300 font-medium">Matplotlib</span>, and building modular applications in <span class="text-white font-medium">Java</span>.
                             </p>
                             <p>
-                                To maintain programming discipline, I solve algorithmic challenges consistently on <span class="text-amber-400 font-medium">LeetCode</span>, applying two-pointer techniques, recursion, and time-space optimization to build high-performance solutions.
+                                To maintain programming discipline, I solve algorithmic challenges consistently on <span class="text-slate-300 font-medium">LeetCode</span>, applying two-pointer techniques, recursion, and time-space optimization to build high-performance solutions.
                             </p>
                         </div>
 
@@ -602,13 +602,13 @@
 
                         <div class="glossy-card p-5 rounded-2xl flex flex-col justify-between reveal delay-3">
                             <div>
-                                <div class="w-9 h-9 rounded-xl bg-amber-500/10 flex items-center justify-center text-amber-400 mb-3">
+                                <div class="w-9 h-9 rounded-xl bg-slate-600/15 flex items-center justify-center text-slate-300 mb-3">
                                     <i data-lucide="git-commit" class="w-5 h-5"></i>
                                 </div>
                                 <h4 class="text-white font-bold text-sm">LeetCode Daily</h4>
                                 <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">Array manipulation, two pointers, optimal time complexity.</p>
                             </div>
-                            <span class="text-[10px] font-mono text-amber-300/80 mt-3 block">50+ Days Streak</span>
+                            <span class="text-[10px] font-mono text-slate-200/80 mt-3 block">50+ Days Streak</span>
                         </div>
 
                         <div class="glossy-card p-5 rounded-2xl flex flex-col justify-between reveal delay-4">
@@ -1083,13 +1083,13 @@
                                 <!-- DSA -->
                                 <div class="p-3.5 rounded-xl bg-black/40 border border-[#2E2A40] flex items-center justify-between">
                                     <div class="flex items-center gap-2.5">
-                                        <i data-lucide="binary" class="w-5 h-5 text-amber-400"></i>
+                                        <i data-lucide="binary" class="w-5 h-5 text-slate-300"></i>
                                         <div>
                                             <span class="text-sm font-semibold text-white block">Data Structures</span>
                                             <span class="text-[11px] text-slate-400">Arrays, Strings, Two Pointers</span>
                                         </div>
                                     </div>
-                                    <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-950/70 border border-amber-800/40 text-amber-300">Applied</span>
+                                    <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-950/70 border border-amber-800/40 text-slate-200">Applied</span>
                                 </div>
                             </div>
                         </div>
@@ -1563,7 +1563,7 @@
                                     <!-- macOS Terminal Header -->
                                     <div class="terminal-bar">
                                         <div class="terminal-dot bg-red-500"></div>
-                                        <div class="terminal-dot bg-amber-500"></div>
+                                        <div class="terminal-dot bg-slate-500"></div>
                                         <div class="terminal-dot bg-emerald-500"></div>
                                         <span class="text-[10px] font-mono text-slate-400 ml-2">java BankingSystem.java</span>
                                     </div>
@@ -1590,13 +1590,13 @@
                             <!-- Left: Details & Specs -->
                             <div class="lg:col-span-7 space-y-4">
                                 <div class="flex items-center gap-2">
-                                    <span class="text-[11px] font-mono text-amber-300 px-3 py-1 bg-amber-950/70 border border-amber-800/40 rounded-full flex items-center gap-1.5 font-semibold">
-                                        <svg class="w-3.5 h-3.5 text-amber-400" viewBox="0 0 24 24" fill="currentColor">
+                                    <span class="text-[11px] font-mono text-slate-200 px-3 py-1 bg-amber-950/70 border border-amber-800/40 rounded-full flex items-center gap-1.5 font-semibold">
+                                        <svg class="w-3.5 h-3.5 text-slate-300" viewBox="0 0 24 24" fill="currentColor">
                                             <path d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104 5.35 5.35 0 0 0-.125.513 5.527 5.527 0 0 0 .062 2.362 5.83 5.83 0 0 0 .349 1.017 5.938 5.938 0 0 0 1.271 1.818l4.277 4.193.039.038c2.248 2.165 5.852 2.133 8.063-.074l2.396-2.392c.54-.54.54-1.414.003-1.955a1.378 1.378 0 0 0-1.951-.003l-2.396 2.392a3.021 3.021 0 0 1-4.205.038l-.02-.019-4.276-4.193c-.652-.64-.972-1.469-.948-2.263a2.68 2.68 0 0 1 .066-.523 2.545 2.545 0 0 1 .619-1.164L9.13 8.114c1.058-1.134 3.204-1.27 4.43-.278l3.501 2.831c.593.48 1.461.387 1.94-.207a1.384 1.384 0 0 0-.207-1.943l-3.5-2.831c-.8-.647-1.766-1.045-2.774-1.202l2.015-2.158A1.384 1.384 0 0 0 13.483 0zm-2.866 12.815a1.38 1.38 0 0 0-1.38 1.382 1.38 1.38 0 0 0 1.38 1.382H20.79a1.38 1.38 0 0 0 1.38-1.382 1.38 1.38 0 0 0-1.38-1.382z"/>
                                         </svg>
                                         <span>LeetCode Algorithmic Suite</span>
                                     </span>
-                                    <span class="text-[11px] font-mono text-amber-400 font-bold">50+ Days Streak</span>
+                                    <span class="text-[11px] font-mono text-slate-300 font-bold">50+ Days Streak</span>
                                 </div>
 
                                 <h3 class="text-2xl sm:text-3xl font-bold text-white tracking-tight">Data Structures &amp; Algorithmic Problem Solving Suite</h3>
@@ -1607,15 +1607,15 @@
 
                                 <div class="space-y-2 p-3.5 rounded-xl bg-black/50 border border-[#2E2A40] text-xs text-slate-300">
                                     <div class="flex items-start gap-2">
-                                        <i data-lucide="check" class="w-3.5 h-3.5 text-amber-400 mt-0.5 flex-shrink-0"></i>
+                                        <i data-lucide="check" class="w-3.5 h-3.5 text-slate-300 mt-0.5 flex-shrink-0"></i>
                                         <span>Two-pointer traversal patterns across sorted and unsorted numeric arrays.</span>
                                     </div>
                                     <div class="flex items-start gap-2">
-                                        <i data-lucide="check" class="w-3.5 h-3.5 text-amber-400 mt-0.5 flex-shrink-0"></i>
+                                        <i data-lucide="check" class="w-3.5 h-3.5 text-slate-300 mt-0.5 flex-shrink-0"></i>
                                         <span>String mutation and sliding window substring character counts.</span>
                                     </div>
                                     <div class="flex items-start gap-2">
-                                        <i data-lucide="check" class="w-3.5 h-3.5 text-amber-400 mt-0.5 flex-shrink-0"></i>
+                                        <i data-lucide="check" class="w-3.5 h-3.5 text-slate-300 mt-0.5 flex-shrink-0"></i>
                                         <span>Consistent 50-day streak with verified daily commit and submission logs.</span>
                                     </div>
                                 </div>
@@ -1623,7 +1623,7 @@
                                 <div class="flex flex-wrap gap-2 pt-1">
                                     <span class="tag"><i data-lucide="coffee" class="w-3 h-3 text-purple-400"></i> Java</span>
                                     <span class="tag"><i data-lucide="code" class="w-3 h-3 text-cyan-400"></i> Python</span>
-                                    <span class="tag"><i data-lucide="binary" class="w-3 h-3 text-amber-400"></i> DSA</span>
+                                    <span class="tag"><i data-lucide="binary" class="w-3 h-3 text-slate-300"></i> DSA</span>
                                     <span class="tag"><i data-lucide="git-branch" class="w-3 h-3 text-indigo-400"></i> Two Pointers</span>
                                 </div>
 
@@ -1643,7 +1643,7 @@
                             <div class="lg:col-span-5">
                                 <div class="project-preview-box p-4 space-y-3">
                                     <div class="flex items-center justify-between text-[11px] font-mono text-slate-400 border-b border-[#2E2A40] pb-2">
-                                        <span class="flex items-center gap-1.5 text-amber-400"><i data-lucide="git-merge" class="w-3.5 h-3.5"></i> Array Execution Tracer</span>
+                                        <span class="flex items-center gap-1.5 text-slate-300"><i data-lucide="git-merge" class="w-3.5 h-3.5"></i> Array Execution Tracer</span>
                                         <span>O(n) Time &middot; O(1) Space</span>
                                     </div>
                                     <div class="grid grid-cols-6 gap-1 text-center font-mono text-xs pt-1">
@@ -1828,7 +1828,7 @@
                 <div class="text-center mb-12 sm:mb-16 reveal">
                     <span class="text-[11px] font-mono text-[var(--accent)] tracking-widest uppercase font-semibold">Verified Coding Analytics &amp; Milestones</span>
                     <h2 class="text-3xl sm:text-5xl font-black mt-2 tracking-tight scroll-fill-title">LEETCODE &amp; GITHUB PROFILES</h2>
-                    <div class="w-16 h-1 bg-gradient-to-r from-[var(--accent)] via-amber-500 to-[#6B00FF] mx-auto mt-4 rounded-full"></div>
+                    <div class="w-16 h-1 bg-gradient-to-r from-[var(--accent)] via-slate-600 to-[#6B00FF] mx-auto mt-4 rounded-full"></div>
                     <p class="text-xs sm:text-sm text-[#D4D4D8] mt-3 max-w-xl mx-auto">
                         Real-time algorithmic metrics, consistency streaks, and open-source GitHub repositories.
                     </p>
@@ -1882,7 +1882,7 @@
                             <!-- Current Streak Card -->
                             <div class="bg-[#17171C] border border-[#2E2A40] rounded-2xl p-4 mb-4 flex items-center justify-between transition-all hover:border-[var(--accent)] hover:bg-[#1C1C24]">
                                 <div class="flex items-center gap-2 text-xs font-mono text-[#A1A1AA] uppercase tracking-wider">
-                                    <span class="text-amber-400 text-base">🔥</span>
+                                    <span class="text-slate-300 text-base">🔥</span>
                                     <span>CURRENT STREAK</span>
                                 </div>
                                 <div>
@@ -1894,7 +1894,7 @@
                             <!-- Top Languages (by repository) -->
                             <div class="space-y-2 mb-6">
                                 <span class="text-[11px] font-mono text-[#A1A1AA] uppercase tracking-wider block">TOP LANGUAGES (by repository)</span>
-                                <div class="h-2.5 rounded-full overflow-hidden flex bg-[#121214] gap-0.5 p-0.5 border border-[#2E2A40]">
+                                <div class="h-2.5 rounded-full overflow-hidden flex bg-[#1E2023] gap-0.5 p-0.5 border border-[#2E2A40]">
                                     <div class="h-full rounded-full bg-[#f59e0b] w-1/2" title="Java 50%"></div>
                                     <div class="h-full rounded-full bg-[#8b5cf6] w-1/2" title="HTML & CSS 50%"></div>
                                 </div>
@@ -1927,8 +1927,8 @@
                             <!-- Header Row -->
                             <div class="flex items-center justify-between gap-4 mb-6">
                                 <div class="flex items-center gap-3.5">
-                                    <div class="relative w-12 h-12 rounded-full overflow-hidden border-2 border-amber-500/40 bg-[#17171C] p-2 flex items-center justify-center shrink-0">
-                                        <svg class="w-6 h-6 text-amber-400" viewBox="0 0 24 24" fill="currentColor">
+                                    <div class="relative w-12 h-12 rounded-full overflow-hidden border-2 border-slate-500/40 bg-[#17171C] p-2 flex items-center justify-center shrink-0">
+                                        <svg class="w-6 h-6 text-slate-300" viewBox="0 0 24 24" fill="currentColor">
                                             <path d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104 5.35 5.35 0 0 0-.125.513 5.527 5.527 0 0 0 .062 2.362 5.83 5.83 0 0 0 .349 1.017 5.938 5.938 0 0 0 1.271 1.818l4.277 4.193.039.038c2.248 2.165 5.852 2.133 8.063-.074l2.396-2.392c.54-.54.54-1.414.003-1.955a1.378 1.378 0 0 0-1.951-.003l-2.396 2.392a3.021 3.021 0 0 1-4.205.038l-.02-.019-4.276-4.193c-.652-.64-.972-1.469-.948-2.263a2.68 2.68 0 0 1 .066-.523 2.545 2.545 0 0 1 .619-1.164L9.13 8.114c1.058-1.134 3.204-1.27 4.43-.278l3.501 2.831c.593.48 1.461.387 1.94-.207a1.384 1.384 0 0 0-.207-1.943l-3.5-2.831c-.8-.647-1.766-1.045-2.774-1.202l2.015-2.158A1.384 1.384 0 0 0 13.483 0zm-2.866 12.815a1.38 1.38 0 0 0-1.38 1.382 1.38 1.38 0 0 0 1.38 1.382H20.79a1.38 1.38 0 0 0 1.38-1.382 1.38 1.38 0 0 0-1.38-1.382z"/>
                                         </svg>
                                     </div>
@@ -1949,7 +1949,7 @@
                                     <span id="lcSolvedCount" class="text-4xl sm:text-5xl font-black text-[#A6B69D] font-mono">90</span>
                                     <span class="text-xs sm:text-sm font-medium text-[#D4D4D8]">problems solved</span>
                                 </div>
-                                <div class="h-2.5 rounded-full overflow-hidden flex bg-[#121214] gap-0.5 p-0.5 border border-[#2E2A40]">
+                                <div class="h-2.5 rounded-full overflow-hidden flex bg-[#1E2023] gap-0.5 p-0.5 border border-[#2E2A40]">
                                     <div id="lcBarEasy" class="h-full rounded-full bg-[#10b981]" style="width: 73%" title="Easy: 66"></div>
                                     <div id="lcBarMed" class="h-full rounded-full bg-[#f59e0b]" style="width: 27%" title="Medium: 24"></div>
                                     <div id="lcBarHard" class="h-full rounded-full bg-[#ef4444]" style="width: 0%" title="Hard: 0"></div>
@@ -1989,7 +1989,7 @@
                                 </div>
                                 <div class="bg-[#17171C] border border-[#2E2A40] rounded-2xl p-4 transition-all hover:border-[var(--accent)] hover:bg-[#1C1C24] flex flex-col justify-between">
                                     <span class="text-[10px] font-mono text-[#A1A1AA] uppercase tracking-wider block mb-1 flex items-center gap-1">
-                                        <span class="text-amber-400">🔥</span> CURRENT STREAK
+                                        <span class="text-slate-300">🔥</span> CURRENT STREAK
                                     </span>
                                     <div>
                                         <span id="lcStreak" class="text-2xl sm:text-3xl font-black text-[#FAFAFA] font-mono">4</span>
@@ -2416,10 +2416,10 @@
                     <div class="flex items-center justify-end gap-2 text-[10px] font-mono text-slate-400 mt-4 pt-3 border-t border-white/10">
                         <span>Less</span>
                         <span class="w-2.5 h-2.5 rounded-sm bg-[#191412] border border-white/5" title="No contributions"></span>
-                        <span class="w-2.5 h-2.5 rounded-sm bg-[#78350F]" title="Low activity"></span>
-                        <span class="w-2.5 h-2.5 rounded-sm bg-[#D97706]" title="Medium activity"></span>
-                        <span class="w-2.5 h-2.5 rounded-sm bg-[#F59E0B]" title="High activity"></span>
-                        <span class="w-2.5 h-2.5 rounded-sm bg-[#FDE68A] shadow-sm shadow-amber-400/50" title="Peak activity"></span>
+                        <span class="w-2.5 h-2.5 rounded-sm bg-[#27292D]" title="Low activity"></span>
+                        <span class="w-2.5 h-2.5 rounded-sm bg-[#8A8D91]" title="Medium activity"></span>
+                        <span class="w-2.5 h-2.5 rounded-sm bg-[#C8CACD]" title="High activity"></span>
+                        <span class="w-2.5 h-2.5 rounded-sm bg-[#EAEBED] shadow-sm shadow-amber-400/50" title="Peak activity"></span>
                         <span>More</span>
                     </div>
                 </div>
@@ -2868,7 +2868,7 @@
                 &copy; 2026 Sawin Kumar &middot; GLA University (B.Tech CSE)
             </span>
             <div class="flex items-center gap-3">
-                <a href="https://leetcode.com/u/sawin_kumar" target="_blank" rel="noopener noreferrer" class="p-1.5 rounded text-amber-400/80 hover:text-amber-300 transition-colors" title="LeetCode"><svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104 5.35 5.35 0 0 0-.125.513 5.527 5.527 0 0 0 .062 2.362 5.83 5.83 0 0 0 .349 1.017 5.938 5.938 0 0 0 1.271 1.818l4.277 4.193.039.038c2.248 2.165 5.852 2.133 8.063-.074l2.396-2.392c.54-.54.54-1.414.003-1.955a1.378 1.378 0 0 0-1.951-.003l-2.396 2.392a3.021 3.021 0 0 1-4.205.038l-.02-.019-4.276-4.193c-.652-.64-.972-1.469-.948-2.263a2.68 2.68 0 0 1 .066-.523 2.545 2.545 0 0 1 .619-1.164L9.13 8.114c1.058-1.134 3.204-1.27 4.43-.278l3.501 2.831c.593.48 1.461.387 1.94-.207a1.384 1.384 0 0 0-.207-1.943l-3.5-2.831c-.8-.647-1.766-1.045-2.774-1.202l2.015-2.158A1.384 1.384 0 0 0 13.483 0zm-2.866 12.815a1.38 1.38 0 0 0-1.38 1.382 1.38 1.38 0 0 0 1.38 1.382H20.79a1.38 1.38 0 0 0 1.38-1.382 1.38 1.38 0 0 0-1.38-1.382z"/></svg></a>
+                <a href="https://leetcode.com/u/sawin_kumar" target="_blank" rel="noopener noreferrer" class="p-1.5 rounded text-slate-300/80 hover:text-slate-200 transition-colors" title="LeetCode"><svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104 5.35 5.35 0 0 0-.125.513 5.527 5.527 0 0 0 .062 2.362 5.83 5.83 0 0 0 .349 1.017 5.938 5.938 0 0 0 1.271 1.818l4.277 4.193.039.038c2.248 2.165 5.852 2.133 8.063-.074l2.396-2.392c.54-.54.54-1.414.003-1.955a1.378 1.378 0 0 0-1.951-.003l-2.396 2.392a3.021 3.021 0 0 1-4.205.038l-.02-.019-4.276-4.193c-.652-.64-.972-1.469-.948-2.263a2.68 2.68 0 0 1 .066-.523 2.545 2.545 0 0 1 .619-1.164L9.13 8.114c1.058-1.134 3.204-1.27 4.43-.278l3.501 2.831c.593.48 1.461.387 1.94-.207a1.384 1.384 0 0 0-.207-1.943l-3.5-2.831c-.8-.647-1.766-1.045-2.774-1.202l2.015-2.158A1.384 1.384 0 0 0 13.483 0zm-2.866 12.815a1.38 1.38 0 0 0-1.38 1.382 1.38 1.38 0 0 0 1.38 1.382H20.79a1.38 1.38 0 0 0 1.38-1.382 1.38 1.38 0 0 0-1.38-1.382z"/></svg></a>
                 <a href="https://www.linkedin.com/in/sawin-kumar-5941763a1" target="_blank" rel="noopener noreferrer" class="p-1.5 rounded text-blue-400/80 hover:text-blue-300 transition-colors" title="LinkedIn"><svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 8.76a1.65 1.65 0 1 0 0-3.3 1.65 1.65 0 0 0 0 3.3m1.4 9.74v-8.37H5.06v8.37h2.8z"/></svg></a>
                 <a href="https://github.com/sawinkumar13-design" target="_blank" rel="noopener noreferrer" class="p-1.5 rounded text-slate-300 hover:text-white transition-colors" title="GitHub"><svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg></a>
                 <a href="#hero" class="p-1.5 rounded text-cyan-400 hover:text-white transition-colors" title="Back to top"><i data-lucide="arrow-up" class="w-4 h-4"></i></a>
@@ -2883,7 +2883,7 @@
     </div>
 
     <!-- Scripts with Cache-Buster v=13 -->
-    <script src="main.js?v=45"></script>
+    <script src="main.js?v=50"></script>
     <script>lucide.createIcons();</script>
 </body>
 </html>

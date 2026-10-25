@@ -2,54 +2,54 @@
 /* Sawin Kumar — Theme Accent Color System & Global CSS Variables              */
 /* ========================================================================== */
 :root {
-    /* Warm Amber Cinematic Dark Palette */
-    --bg-main: #0A0806;
-    --bg-secondary: #0F0C09;
-    --bg-card: #161108;
-    --bg-card-hover: #1E160C;
-    --text-primary: #FAFAF0;
-    --text-secondary: #E5D5BC;
-    --text-muted: #B89868;
-    --border-color: #2E2216;
-    --neutral-support: #6B5540;
+    /* Royal Charcoal Dark Palette */
+    --bg-main: #1E2023;
+    --bg-secondary: #1E1F22;
+    --bg-card: #27292D;
+    --bg-card-hover: #2F3235;
+    --text-primary: #EAEBED;
+    --text-secondary: #C8CACD;
+    --text-muted: #8A8D91;
+    --border-color: #3A3D41;
+    --neutral-support: #5C5F63;
 
-    /* Warm Amber Accent (#D97706 Amber / #C8620A Burnt Orange) */
-    --accent: #D97706;
-    --accent-rgb: 217, 119, 6;
-    --accent-glow: rgba(217, 119, 6, 0.45);
-    --accent-hover: #F59E0B;
+    /* Silver Charcoal Accent */
+    --accent: #8A8D91;
+    --accent-rgb: 138, 141, 145;
+    --accent-glow: rgba(138, 141, 145, 0.35);
+    --accent-hover: #C8CACD;
 
-    --secondary-amber: #C8620A;
-    --secondary-amber-rgb: 200, 98, 10;
+    --secondary-charcoal: #4C4E51;
+    --secondary-charcoal-rgb: 76, 78, 81;
 }
 
-/* Global Theme Variant: Warm Amber Cinematic (Default) */
-html[data-theme="orchid"], html[data-theme="amber-warm"], :root {
-    --accent: #D97706;
-    --accent-rgb: 217, 119, 6;
-    --accent-glow: rgba(217, 119, 6, 0.45);
-    --accent-hover: #F59E0B;
-    --secondary-amber: #C8620A;
+/* Global Theme Variant: Royal Charcoal (Default) */
+html[data-theme="orchid"], html[data-theme="amber-warm"], html[data-theme="charcoal"], :root {
+    --accent: #8A8D91;
+    --accent-rgb: 138, 141, 145;
+    --accent-glow: rgba(138, 141, 145, 0.35);
+    --accent-hover: #C8CACD;
+    --secondary-charcoal: #4C4E51;
 }
 html[data-theme="orchid"] .text-cyan-400,
 html[data-theme="orchid"] .text-cyan-300,
 html[data-theme="orchid"] .text-cyan-500,
 html[data-theme="orchid"] .hover\:text-cyan-300:hover,
 html[data-theme="orchid"] .hover\:text-cyan-400:hover {
-    color: #F59E0B !important;
+    color: #C8CACD !important;
 }
 html[data-theme="orchid"] .bg-cyan-500,
 html[data-theme="orchid"] .bg-cyan-400 {
-    background-color: #D97706 !important;
+    background-color: #8A8D91 !important;
 }
 html[data-theme="orchid"] .border-cyan-500,
 html[data-theme="orchid"] .border-cyan-400,
 html[data-theme="orchid"] .border-cyan-800\/40 {
-    border-color: rgba(217, 119, 6, 0.6) !important;
+    border-color: rgba(138, 141, 145, 0.5) !important;
 }
 html[data-theme="orchid"] .bg-cyan-950\/60,
 html[data-theme="orchid"] .bg-cyan-950\/70 {
-    background-color: rgba(200, 98, 10, 0.25) !important;
+    background-color: rgba(76, 78, 81, 0.25) !important;
 }
 
 /* Global Theme Variant: Sage */
@@ -214,21 +214,21 @@ html[data-theme="emerald"] .bg-cyan-950\/60 {
 }
 
 html[data-theme="amber"] {
-    --accent: #f59e0b;
+    --accent: #C8CACD;
     --accent-rgb: 245, 158, 11;
     --accent-glow: rgba(245, 158, 11, 0.4);
-    --accent-hover: #fbbf24;
+    --accent-hover: #8A8D91;
 }
 html[data-theme="amber"] .text-cyan-400,
 html[data-theme="amber"] .text-cyan-300,
 html[data-theme="amber"] .text-cyan-500,
 html[data-theme="amber"] .hover\:text-cyan-300:hover,
 html[data-theme="amber"] .hover\:text-cyan-400:hover {
-    color: #fbbf24 !important;
+    color: #8A8D91 !important;
 }
 html[data-theme="amber"] .bg-cyan-500,
 html[data-theme="amber"] .bg-cyan-400 {
-    background-color: #f59e0b !important;
+    background-color: #C8CACD !important;
 }
 html[data-theme="amber"] .border-cyan-500,
 html[data-theme="amber"] .border-cyan-400,
@@ -276,7 +276,7 @@ html[data-theme="amber"] .bg-cyan-950\/60 {
 }
 
 .intro-spotlight {
-    background: radial-gradient(circle 700px at 8% 92%, rgba(217, 119, 6, 0.18) 0%, rgba(200, 98, 10, 0.10) 40%, rgba(10, 8, 6, 0.98) 80%);
+    background: radial-gradient(circle 700px at 8% 92%, rgba(138, 141, 145, 0.18) 0%, rgba(76, 78, 81, 0.25) 40%, rgba(10, 8, 6, 0.98) 80%);
     pointer-events: none;
 }
     pointer-events: none;
@@ -303,7 +303,7 @@ html[data-theme="amber"] .bg-cyan-950\/60 {
     letter-spacing: -0.02em;
     text-transform: uppercase;
     color: transparent;
-    -webkit-text-stroke: 1.5px rgba(217, 119, 6, 0.15);
+    -webkit-text-stroke: 1.5px rgba(138, 141, 145, 0.15);
     opacity: 0.13;
     user-select: none;
     white-space: nowrap;
@@ -448,17 +448,17 @@ html[data-theme="amber"] .bg-cyan-950\/60 {
     border: 1px solid #2E2A40;
 }
 ::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(180deg, #D97706, #C8620A);
+    background: linear-gradient(180deg, #4C4E51, #C8620A);
 }
 
 /* Base Midnight Theme (Low-Saturation Cinematic Space: #050609) */
 html {
     scroll-behavior: smooth;
-    background-color: #0A0806;
+    background-color: #1E2023;
 }
 
 body {
-    background-color: #0A0806;
+    background-color: #1E2023;
     color: #FAFAF0;
     overflow-x: hidden;
 }
@@ -482,7 +482,7 @@ section[id] {
     z-index: 0;
     pointer-events: none;
     background-color: #121214;
-    background: radial-gradient(circle 900px at 8% 92%, rgba(217, 119, 6, 0.18) 0%, rgba(200, 98, 10, 0.10) 45%, #0A0806 75%);
+    background: radial-gradient(circle 900px at 8% 92%, rgba(138, 141, 145, 0.18) 0%, rgba(76, 78, 81, 0.25) 45%, #0A0806 75%);
 }
 
 /* Minimal Premium Animated Custom Cursor (Desktop Only) */
@@ -828,8 +828,12 @@ section[id] {
     border-right: 1px solid rgba(255, 255, 255, 0.06);
     border-bottom: 1px solid rgba(255, 255, 255, 0.04);
     box-shadow: 
-        inset 0 1px 1px rgba(255, 255, 255, 0.22),
-        0 20px 40px rgba(0, 0, 0, 0.65);
+        inset 0 1px 1px rgba(255, 255, 255, 0.12),
+        inset 0 -1px 1px rgba(0, 0, 0, 0.45),
+        0 4px 8px rgba(0, 0, 0, 0.55),
+        0 12px 30px rgba(0, 0, 0, 0.65),
+        0 30px 60px rgba(0, 0, 0, 0.50),
+        0 0 0 1px rgba(76, 78, 81, 0.20);
     border-radius: 20px;
     overflow: hidden;
     transition: 
@@ -1014,8 +1018,8 @@ body.portfolio-entered section .reveal {
 /* ========================================================================== */
 /* High contrast navy text on radiant cyan/violet gradient: zero washed-out white text! */
 .cosmic-btn-primary {
-    background: linear-gradient(135deg, #D97706 0%, #C8620A 100%);
-    box-shadow: 0 0 25px rgba(217, 119, 6, 0.45), inset 0 1px 1px rgba(250, 250, 240, 0.4);
+    background: linear-gradient(135deg, #4C4E51 0%, #C8620A 100%);
+    box-shadow: 0 0 25px rgba(138, 141, 145, 0.45), inset 0 1px 1px rgba(250, 250, 240, 0.4);
     color: #FAFAFA !important;
     font-weight: 700 !important;
     letter-spacing: -0.01em;
@@ -1442,7 +1446,7 @@ body, h1, h2, h3, h4, h5, h6, .text-white {
     border: 1px solid #2E2A40;
 }
 .scrollbar-thin::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(180deg, #D97706, #C8620A);
+    background: linear-gradient(180deg, #4C4E51, #C8620A);
 }
 
 .line-clamp-2 {
@@ -1509,7 +1513,7 @@ body, h1, h2, h3, h4, h5, h6, .text-white {
 /* Blending Pure Off-White (#FAFAFA) into Vibrant Orchid (#A855F7) & Indigo   */
 /* ========================================================================== */
 h1, h2, h3, .heading-gradient, .intro-title, .text-cosmic-glow {
-    background: linear-gradient(135deg, #FAFAF0 25%, #FDE68A 55%, #D97706 80%, #C8620A 100%) !important;
+    background: linear-gradient(135deg, #FAFAF0 25%, #FDE68A 55%, #4C4E51 80%, #C8620A 100%) !important;
     -webkit-background-clip: text !important;
     background-clip: text !important;
     -webkit-text-fill-color: transparent !important;
@@ -1517,7 +1521,7 @@ h1, h2, h3, .heading-gradient, .intro-title, .text-cosmic-glow {
 }
 
 .intro-name-row {
-    background: linear-gradient(180deg, #FAFAF0 25%, #FDE68A 60%, #D97706 100%) !important;
+    background: linear-gradient(180deg, #FAFAF0 25%, #FDE68A 60%, #4C4E51 100%) !important;
     -webkit-background-clip: text !important;
     background-clip: text !important;
     -webkit-text-fill-color: transparent !important;
@@ -1525,7 +1529,7 @@ h1, h2, h3, .heading-gradient, .intro-title, .text-cosmic-glow {
 }
 
 .text-aurora-gradient {
-    background: linear-gradient(135deg, #FAFAF0 0%, #FCD34D 50%, #D97706 100%) !important;
+    background: linear-gradient(135deg, #FAFAF0 0%, #FCD34D 50%, #4C4E51 100%) !important;
     -webkit-background-clip: text !important;
     background-clip: text !important;
     color: transparent !important;
@@ -1534,7 +1538,7 @@ h1, h2, h3, .heading-gradient, .intro-title, .text-cosmic-glow {
 .scroll-fill-title {
     color: transparent !important;
     -webkit-text-stroke: 1.5px rgba(250, 250, 250, 0.35) !important;
-    background: linear-gradient(135deg, #FAFAF0 25%, #FDE68A 55%, #D97706 80%, #C8620A 100%) !important;
+    background: linear-gradient(135deg, #FAFAF0 25%, #FDE68A 55%, #4C4E51 80%, #C8620A 100%) !important;
     -webkit-background-clip: text !important;
     background-clip: text !important;
     transition:
@@ -1547,7 +1551,7 @@ h1, h2, h3, .heading-gradient, .intro-title, .text-cosmic-glow {
     color: transparent !important;
     -webkit-text-fill-color: transparent !important;
     -webkit-text-stroke: 0px transparent !important;
-    text-shadow: 0 0 35px rgba(217, 119, 6, 0.50) !important;
+    text-shadow: 0 0 35px rgba(138, 141, 145, 0.50) !important;
 }
 
 
@@ -1703,7 +1707,7 @@ html[data-mode="crimson"] #navbar {
     backdrop-filter: blur(24px) saturate(190%) !important;
     -webkit-backdrop-filter: blur(24px) saturate(190%) !important;
     border-bottom: 1px solid rgba(107, 30, 35, 0.65) !important;
-    box-shadow: 0 8px 32px -8px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(225, 29, 72, 0.12) !important;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.50), 0 8px 24px rgba(0,0,0,0.45), 0 0 0 1px rgba(76,78,81,0.20), inset 0 1px 0 rgba(255,255,255,0.06);
 }
 
 html[data-mode="light"] #navbar .nav-link,
@@ -1930,7 +1934,7 @@ html[data-mode="crimson"] .cosmic-btn-primary {
 }
 
 .aurora-wave-1 {
-    background: radial-gradient(ellipse 75% 65% at 30% 40%, rgba(217, 119, 6, 0.85) 0%, rgba(200, 98, 10, 0.50) 45%, transparent 75%);
+    background: radial-gradient(ellipse 75% 65% at 30% 40%, rgba(138, 141, 145, 0.85) 0%, rgba(76, 78, 81, 0.25) 45%, transparent 75%);
     animation: auroraWaveMove1 9s ease-in-out infinite alternate;
 }
 
@@ -2007,10 +2011,10 @@ html[data-mode="crimson"] .aurora-wave-3 {
 
 /* Photo card frame with specular glowing rim */
 .photo-rectangular-card {
-    border: 1.5px solid rgba(217, 119, 6, 0.45) !important;
+    border: 1.5px solid rgba(138, 141, 145, 0.45) !important;
     box-shadow: 
         0 25px 60px -15px rgba(0, 0, 0, 0.9),
-        0 0 35px rgba(217, 119, 6, 0.35),
+        0 0 35px rgba(138, 141, 145, 0.35),
         0 0 70px rgba(107, 30, 35, 0.30) !important;
     position: relative;
     z-index: 5;
@@ -2022,7 +2026,7 @@ html[data-mode="crimson"] .aurora-wave-3 {
     border-color: rgba(245, 158, 11, 0.7) !important;
     box-shadow: 
         0 30px 70px -15px rgba(0, 0, 0, 0.95),
-        0 0 50px rgba(217, 119, 6, 0.55),
+        0 0 50px rgba(138, 141, 145, 0.55),
         0 0 90px rgba(225, 29, 72, 0.45) !important;
 }
 
@@ -2059,8 +2063,8 @@ html[data-mode="crimson"] .photo-rectangular-card {
 /* Contribution Levels in Warm Amber Mode (Default) */
 .contrib-rect[data-level="0"] { fill: #191412 !important; stroke: rgba(255, 255, 255, 0.04) !important; }
 .contrib-rect[data-level="1"] { fill: #78350F !important; }
-.contrib-rect[data-level="2"] { fill: #D97706 !important; }
-.contrib-rect[data-level="3"] { fill: #F59E0B !important; }
+.contrib-rect[data-level="2"] { fill: #4C4E51 !important; }
+.contrib-rect[data-level="3"] { fill: #C8CACD !important; }
 .contrib-rect[data-level="4"] { fill: #FDE68A !important; filter: drop-shadow(0 0 4px rgba(245, 158, 11, 0.5)) !important; }
 
 /* Contribution Levels in Crimson Velvet Mode */
