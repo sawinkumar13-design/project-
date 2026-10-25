@@ -1391,8 +1391,7 @@ A new visitor just opened your portfolio website!
                     const repoEl = document.getElementById('ghLatestRepo');
                     const timeEl = document.getElementById('ghLatestTime');
                     const commit = push.payload?.commits?.[0];
-                    if (msgEl && commit) msgEl.textContent = commit.message.split('
-')[0];
+                    if (msgEl && commit) msgEl.textContent = commit.message.split(/\r?\n/)[0];
                     if (repoEl && push.repo?.name) repoEl.textContent = push.repo.name.split('/')[1] || push.repo.name;
                     if (timeEl && push.created_at) timeEl.textContent = timeAgo(new Date(push.created_at));
                 }
