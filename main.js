@@ -777,7 +777,7 @@ function startApp() {
         const tiltStyles = ['deep-float', 'holographic-glare', 'subtle-precision', 'magnetic-lift', 'inverted-depth'];
 
         const tiltCards = document.querySelectorAll(
-            '.glossy-card, .photo-rectangular-card, .hero-glass-box, .sticky-project-card, .project-card, .text-block-lift'
+            '.photo-rectangular-card, .hero-glass-box, .sticky-project-card, .project-card, section#about > div > div > .lg\:col-span-7, section#education .glossy-card, section#skills > div > div > .glossy-card'
         );
 
         tiltCards.forEach((card, index) => {

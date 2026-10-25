@@ -85,7 +85,7 @@
     </script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <link rel="stylesheet" href="styles.css?v=60">
+    <link rel="stylesheet" href="styles.css?v=65">
     <!-- Inline Immediate Mode Controller (Available from frame 1 before external JS) -->
     <script>
         (function() {
@@ -578,9 +578,9 @@
 
                     <!-- Highlight Cards with Specular Gloss (Equal Vertical Height) -->
                     <div class="lg:col-span-5 grid grid-cols-2 gap-4">
-                        <div data-tilt-style="deep-float" class="glossy-card p-5 rounded-2xl flex flex-col justify-between reveal delay-1 text-block-lift>
+                        <div class="about-highlight-card glossy-card p-5 rounded-2xl flex flex-col justify-between reveal delay-1">
                             <div>
-                                <div class="w-9 h-9 rounded-xl bg-[rgba(var(--accent-rgb),0.10)] flex items-center justify-center text-accent-dynamic mb-3">
+                                <div class="w-9 h-9 rounded-xl bg-[rgba(var(--accent-rgb),0.10)] flex items-center justify-center text-accent-dynamic mb-3 card-icon-wrap">
                                     <i data-lucide="bar-chart-2" class="w-5 h-5"></i>
                                 </div>
                                 <h4 class="text-white font-bold text-sm">Data Analysis</h4>
@@ -589,9 +589,9 @@
                             <span class="text-[10px] font-mono text-slate-300/80 mt-3 block">Pandas &middot; NumPy</span>
                         </div>
 
-                        <div data-tilt-style="holographic-glare" class="glossy-card p-5 rounded-2xl flex flex-col justify-between reveal delay-2 text-block-lift>
+                        <div class="about-highlight-card glossy-card p-5 rounded-2xl flex flex-col justify-between reveal delay-2">
                             <div>
-                                <div class="w-9 h-9 rounded-xl bg-[rgba(var(--accent-rgb),0.10)] flex items-center justify-center text-accent-dynamic mb-3">
+                                <div class="w-9 h-9 rounded-xl bg-[rgba(var(--accent-rgb),0.10)] flex items-center justify-center text-accent-dynamic mb-3 card-icon-wrap">
                                     <i data-lucide="coffee" class="w-5 h-5"></i>
                                 </div>
                                 <h4 class="text-white font-bold text-sm">Java &amp; OOP</h4>
@@ -600,9 +600,9 @@
                             <span class="text-[10px] font-mono text-slate-300/80 mt-3 block">Core Java &middot; Classes</span>
                         </div>
 
-                        <div data-tilt-style="subtle-precision" class="glossy-card p-5 rounded-2xl flex flex-col justify-between reveal delay-3 text-block-lift>
+                        <div class="about-highlight-card glossy-card p-5 rounded-2xl flex flex-col justify-between reveal delay-3">
                             <div>
-                                <div class="w-9 h-9 rounded-xl bg-slate-600/15 flex items-center justify-center text-slate-300 mb-3">
+                                <div class="w-9 h-9 rounded-xl bg-slate-600/15 flex items-center justify-center text-slate-300 mb-3 card-icon-wrap">
                                     <i data-lucide="git-commit" class="w-5 h-5"></i>
                                 </div>
                                 <h4 class="text-white font-bold text-sm">LeetCode Daily</h4>
@@ -611,9 +611,9 @@
                             <span class="text-[10px] font-mono text-slate-200/80 mt-3 block">50+ Days Streak</span>
                         </div>
 
-                        <div data-tilt-style="magnetic-lift" class="glossy-card p-5 rounded-2xl flex flex-col justify-between reveal delay-4 text-block-lift>
+                        <div class="about-highlight-card glossy-card p-5 rounded-2xl flex flex-col justify-between reveal delay-4">
                             <div>
-                                <div class="w-9 h-9 rounded-xl bg-[rgba(var(--accent-rgb),0.10)] flex items-center justify-center text-slate-300 mb-3">
+                                <div class="w-9 h-9 rounded-xl bg-[rgba(var(--accent-rgb),0.10)] flex items-center justify-center text-slate-300 mb-3 card-icon-wrap">
                                     <i data-lucide="line-chart" class="w-5 h-5"></i>
                                 </div>
                                 <h4 class="text-white font-bold text-sm">Visual Analytics</h4>
@@ -816,15 +816,15 @@
                     <!-- B.Tech GLA University (Highlighted CPI) -->
                     <div class="relative pl-14 reveal">
                         <div class="absolute left-3.5 top-3 w-3.5 h-3.5 rounded-full bg-[#00F2FE] border-2 border-[#050508] shadow-[0_0_14px_rgba(0,242,254,0.9)]"></div>
-                        <div data-tilt-style="deep-float" class="glossy-card p-6 sm:p-7 text-block-lift>
+                        <div data-tilt-style="deep-float" class="glossy-card p-6 sm:p-7">
                             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
                                 <div>
                                     <h3 class="text-lg font-bold text-white">Bachelor of Technology (B.Tech)</h3>
                                     <p class="text-xs text-slate-300 font-mono">Computer Science &amp; Engineering &middot; GLA University, Mathura</p>
                                 </div>
-                                <span class="text-xs font-mono px-3 py-1 rounded-full bg-[rgba(var(--accent-rgb),0.12)] text-slate-300 border border-[rgba(var(--accent-rgb),0.25)] w-fit">2025 &mdash; 2029 (Pursuing)</span>
+                                <span class="academic-badge text-xs font-mono px-3 py-1 rounded-full bg-[rgba(var(--accent-rgb),0.12)] text-slate-300 border border-[rgba(var(--accent-rgb),0.25)] w-fit">2025 &mdash; 2029 (Pursuing)</span>
                             </div>
-                            <div class="my-3 inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-[rgba(var(--accent-rgb),0.12)] border border-[rgba(var(--accent-rgb),0.35)] text-slate-300 text-xs font-mono font-bold">
+                            <div class="academic-badge my-3 inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-[rgba(var(--accent-rgb),0.12)] border border-[rgba(var(--accent-rgb),0.35)] text-slate-300 text-xs font-mono font-bold">
                                 <i data-lucide="award" class="w-3.5 h-3.5"></i>
                                 <span>Academic Record: 7.9 CPI</span>
                             </div>
@@ -837,7 +837,7 @@
                     <!-- Senior Secondary CBSE (Streamlined, no percentage badge) -->
                     <div class="relative pl-14 reveal delay-1">
                         <div class="absolute left-3.5 top-3 w-3.5 h-3.5 rounded-full bg-[#6B00FF] border-2 border-[#050508] shadow-[0_0_12px_rgba(107,0,255,0.8)]"></div>
-                        <div data-tilt-style="holographic-glare" class="glossy-card p-6 sm:p-7 text-block-lift>
+                        <div data-tilt-style="holographic-glare" class="glossy-card p-6 sm:p-7">
                             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
                                 <div>
                                     <h3 class="text-lg font-bold text-white">Intermediate (Senior Secondary &mdash; Class XII)</h3>
@@ -854,7 +854,7 @@
                     <!-- Secondary CBSE (Streamlined, no percentage badge) -->
                     <div class="relative pl-14 reveal delay-2">
                         <div class="absolute left-3.5 top-3 w-3.5 h-3.5 rounded-full bg-[#2AF598] border-2 border-[#050508] shadow-[0_0_10px_rgba(42,245,152,0.7)]"></div>
-                        <div data-tilt-style="subtle-precision" class="glossy-card p-6 sm:p-7 text-block-lift>
+                        <div data-tilt-style="subtle-precision" class="glossy-card p-6 sm:p-7">
                             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
                                 <div>
                                     <h3 class="text-lg font-bold text-white">High School (Secondary &mdash; Class X)</h3>
@@ -1043,7 +1043,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
                     <!-- Group 1: Core Programming Languages -->
-                    <div data-tilt-style="magnetic-lift" class="glossy-card p-6 sm:p-7 flex flex-col justify-between reveal text-block-lift>
+                    <div data-tilt-style="magnetic-lift" class="glossy-card p-6 sm:p-7 flex flex-col justify-between reveal">
                         <div>
                             <div class="flex items-center gap-3 mb-5">
                                 <div class="p-3 rounded-xl bg-[rgba(var(--accent-rgb),0.10)] text-accent-dynamic">
@@ -1057,7 +1057,7 @@
 
                             <div class="space-y-3">
                                 <!-- Python -->
-                                <div class="p-3.5 rounded-xl bg-black/40 border border-[#2E2A40] flex items-center justify-between">
+                                <div class="skill-row-item p-3.5 rounded-xl bg-black/40 border border-[#2E2A40] flex items-center justify-between">
                                     <div class="flex items-center gap-2.5">
                                         <svg class="w-5 h-5 text-[#00F2FE]" viewBox="0 0 24 24" fill="currentColor"><path d="M11.914 0C5.82 0 6.2 2.656 6.2 2.656l.006 2.752h5.803v.826H3.854S0 5.79 0 11.9c0 6.108 3.364 5.898 3.364 5.898h2.008v-2.824s-.108-3.363 3.308-3.363h5.688s3.195.053 3.195-3.093V2.656S18.006 0 11.914 0zm-3.36 1.74a1.01 1.01 0 1 1 0 2.02 1.01 1.01 0 0 1 0-2.02zM12.086 24c6.094 0 5.714-2.656 5.714-2.656l-.006-2.752H11.99v-.826h8.156S24 18.21 24 12.1c0-6.108-3.364-5.898-3.364-5.898h-2.008v2.824s.108 3.363-3.308 3.363H9.63s-3.195-.053-3.195 3.093v5.869S5.994 24 12.086 24zm3.36-1.74a1.01 1.01 0 1 1 0-2.02 1.01 1.01 0 0 1 0 2.02z"/></svg>
                                         <div>
@@ -1065,11 +1065,11 @@
                                             <span class="text-[11px] text-slate-400">Data analysis, logic, scripts</span>
                                         </div>
                                     </div>
-                                    <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-[rgba(var(--accent-rgb),0.12)] border border-[rgba(var(--accent-rgb),0.25)] text-slate-300">Core</span>
+                                    <span class="micro-skill-tag text-[10px] font-mono px-2 py-0.5 rounded bg-[rgba(var(--accent-rgb),0.12)] border border-[rgba(var(--accent-rgb),0.25)] text-slate-300">Core</span>
                                 </div>
 
                                 <!-- Java -->
-                                <div class="p-3.5 rounded-xl bg-black/40 border border-[#2E2A40] flex items-center justify-between">
+                                <div class="skill-row-item p-3.5 rounded-xl bg-black/40 border border-[#2E2A40] flex items-center justify-between">
                                     <div class="flex items-center gap-2.5">
                                         <svg class="w-5 h-5 text-accent-dynamic" viewBox="0 0 24 24" fill="currentColor"><path d="M8.851 18.56s-.917.534.653.714c1.902.218 2.874.187 4.969-.211 0 0 .552.346 1.321.64-4.869 1.624-9.871-.24-6.943-1.143zm-1.42 2.671s-1.042.62.531.815c2.164.269 3.844.244 6.784-.251 0 0 .399.313 1.018.571-5.787 1.838-11.455-.162-8.333-1.135zM9.44 14.887s-4.349 1.042-1.523 1.408c2.993.388 5.485.344 9.473-.34 0 0 .343.349.805.587-4.995 1.488-12.784.662-8.755-1.655zm3.805-4.436c.866.974.204 1.85-.929 2.766-1.077.872-1.996 1.442-1.996 1.442s-.363-.448.243-.728c1.698-.783 2.126-1.571 1.708-2.228-.685-1.074-2.894-.972-2.894-.972s.517-.552 1.821-.692c1.303-.139 1.472-.143 2.047.412zm-3.08-4.832s-1.896 1.938.802 3.652c.983.626 1.579 1.047 1.443 1.583-.162.639-1.034 1.139-1.034 1.139s.41-.097.875-.417c.725-.499 1.021-1.196.816-1.761-.318-.874-1.979-1.688-1.979-2.67 0-.747.535-1.282.853-1.558-1.289.049-1.776.032-.776.032zm7.747 10.963c.691 1.523-2.277 2.92-5.419 2.946-3.143.027-5.918-.946-6.609-2.469-.317-.698.058-1.378.892-1.928-.276.471-.258.986.136 1.425.968 1.078 3.513 1.517 6.009 1.496 2.497-.021 4.795-.515 5.539-1.637.262-.395.27-.828.084-1.238.566.457.844.954.368 1.405z"/></svg>
                                         <div>
@@ -1077,11 +1077,11 @@
                                             <span class="text-[11px] text-slate-400">Classes, Collections, Scanner</span>
                                         </div>
                                     </div>
-                                    <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-[rgba(var(--accent-rgb),0.12)] border border-[rgba(var(--accent-rgb),0.25)] text-slate-300">Core</span>
+                                    <span class="micro-skill-tag text-[10px] font-mono px-2 py-0.5 rounded bg-[rgba(var(--accent-rgb),0.12)] border border-[rgba(var(--accent-rgb),0.25)] text-slate-300">Core</span>
                                 </div>
 
                                 <!-- DSA -->
-                                <div class="p-3.5 rounded-xl bg-black/40 border border-[#2E2A40] flex items-center justify-between">
+                                <div class="skill-row-item p-3.5 rounded-xl bg-black/40 border border-[#2E2A40] flex items-center justify-between">
                                     <div class="flex items-center gap-2.5">
                                         <i data-lucide="binary" class="w-5 h-5 text-slate-300"></i>
                                         <div>
@@ -1103,7 +1103,7 @@
                     </div>
 
                     <!-- Group 2: Data Science & Analytics Stack -->
-                    <div data-tilt-style="deep-float" class="glossy-card p-6 sm:p-7 flex flex-col justify-between reveal delay-1 text-block-lift>
+                    <div data-tilt-style="deep-float" class="glossy-card p-6 sm:p-7 flex flex-col justify-between reveal delay-1">
                         <div>
                             <div class="flex items-center gap-3 mb-5">
                                 <div class="p-3 rounded-xl bg-[rgba(var(--accent-rgb),0.10)] text-accent-dynamic">
@@ -1117,7 +1117,7 @@
 
                             <div class="space-y-3">
                                 <!-- Pandas -->
-                                <div class="p-3.5 rounded-xl bg-black/40 border border-[#2E2A40] flex items-center justify-between">
+                                <div class="skill-row-item p-3.5 rounded-xl bg-black/40 border border-[#2E2A40] flex items-center justify-between">
                                     <div class="flex items-center gap-2.5">
                                         <i data-lucide="table" class="w-5 h-5 text-accent-dynamic"></i>
                                         <div>
@@ -1125,11 +1125,11 @@
                                             <span class="text-[11px] text-slate-400">DataFrames, GroupBy, Imputation</span>
                                         </div>
                                     </div>
-                                    <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-[rgba(var(--accent-rgb),0.12)] border border-[rgba(var(--accent-rgb),0.25)] text-slate-300">Proficient</span>
+                                    <span class="micro-skill-tag text-[10px] font-mono px-2 py-0.5 rounded bg-[rgba(var(--accent-rgb),0.12)] border border-[rgba(var(--accent-rgb),0.25)] text-slate-300">Proficient</span>
                                 </div>
 
                                 <!-- NumPy -->
-                                <div class="p-3.5 rounded-xl bg-black/40 border border-[#2E2A40] flex items-center justify-between">
+                                <div class="skill-row-item p-3.5 rounded-xl bg-black/40 border border-[#2E2A40] flex items-center justify-between">
                                     <div class="flex items-center gap-2.5">
                                         <i data-lucide="grid" class="w-5 h-5 text-accent-dynamic"></i>
                                         <div>
@@ -1137,11 +1137,11 @@
                                             <span class="text-[11px] text-slate-400">N-d arrays, vectorization</span>
                                         </div>
                                     </div>
-                                    <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-[rgba(var(--accent-rgb),0.12)] border border-[rgba(var(--accent-rgb),0.25)] text-slate-300">Proficient</span>
+                                    <span class="micro-skill-tag text-[10px] font-mono px-2 py-0.5 rounded bg-[rgba(var(--accent-rgb),0.12)] border border-[rgba(var(--accent-rgb),0.25)] text-slate-300">Proficient</span>
                                 </div>
 
                                 <!-- Matplotlib -->
-                                <div class="p-3.5 rounded-xl bg-black/40 border border-[#2E2A40] flex items-center justify-between">
+                                <div class="skill-row-item p-3.5 rounded-xl bg-black/40 border border-[#2E2A40] flex items-center justify-between">
                                     <div class="flex items-center gap-2.5">
                                         <i data-lucide="pie-chart" class="w-5 h-5 text-accent-dynamic"></i>
                                         <div>
@@ -1149,7 +1149,7 @@
                                             <span class="text-[11px] text-slate-400">Plots, histograms, subplots</span>
                                         </div>
                                     </div>
-                                    <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-[rgba(var(--accent-rgb),0.12)] border border-[rgba(var(--accent-rgb),0.25)] text-slate-300">Proficient</span>
+                                    <span class="micro-skill-tag text-[10px] font-mono px-2 py-0.5 rounded bg-[rgba(var(--accent-rgb),0.12)] border border-[rgba(var(--accent-rgb),0.25)] text-slate-300">Proficient</span>
                                 </div>
                             </div>
                         </div>
@@ -1163,7 +1163,7 @@
                     </div>
 
                     <!-- Group 3: Development Tools & Workflow -->
-                    <div data-tilt-style="holographic-glare" class="glossy-card p-6 sm:p-7 flex flex-col justify-between reveal delay-2 text-block-lift>
+                    <div data-tilt-style="holographic-glare" class="glossy-card p-6 sm:p-7 flex flex-col justify-between reveal delay-2">
                         <div>
                             <div class="flex items-center gap-3 mb-5">
                                 <div class="p-3 rounded-xl bg-[rgba(var(--accent-rgb),0.10)] text-slate-300">
@@ -1177,7 +1177,7 @@
 
                             <div class="space-y-3">
                                 <!-- Git & GitHub -->
-                                <div class="p-3.5 rounded-xl bg-black/40 border border-[#2E2A40] flex items-center justify-between">
+                                <div class="skill-row-item p-3.5 rounded-xl bg-black/40 border border-[#2E2A40] flex items-center justify-between">
                                     <div class="flex items-center gap-2.5">
                                         <i data-lucide="git-branch" class="w-5 h-5 text-accent-dynamic"></i>
                                         <div>
@@ -1185,11 +1185,11 @@
                                             <span class="text-[11px] text-slate-400">Version control, remotes</span>
                                         </div>
                                     </div>
-                                    <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-[rgba(var(--accent-rgb),0.12)] border border-[rgba(var(--accent-rgb),0.25)] text-slate-300">Workflow</span>
+                                    <span class="micro-skill-tag text-[10px] font-mono px-2 py-0.5 rounded bg-[rgba(var(--accent-rgb),0.12)] border border-[rgba(var(--accent-rgb),0.25)] text-slate-300">Workflow</span>
                                 </div>
 
                                 <!-- VS Code & IntelliJ -->
-                                <div class="p-3.5 rounded-xl bg-black/40 border border-[#2E2A40] flex items-center justify-between">
+                                <div class="skill-row-item p-3.5 rounded-xl bg-black/40 border border-[#2E2A40] flex items-center justify-between">
                                     <div class="flex items-center gap-2.5">
                                         <i data-lucide="cpu" class="w-5 h-5 text-accent-dynamic"></i>
                                         <div>
@@ -1197,11 +1197,11 @@
                                             <span class="text-[11px] text-slate-400">Debugging, linting, builds</span>
                                         </div>
                                     </div>
-                                    <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-[rgba(var(--accent-rgb),0.12)] border border-[rgba(var(--accent-rgb),0.25)] text-slate-300">IDE</span>
+                                    <span class="micro-skill-tag text-[10px] font-mono px-2 py-0.5 rounded bg-[rgba(var(--accent-rgb),0.12)] border border-[rgba(var(--accent-rgb),0.25)] text-slate-300">IDE</span>
                                 </div>
 
                                 <!-- Jupyter -->
-                                <div class="p-3.5 rounded-xl bg-black/40 border border-[#2E2A40] flex items-center justify-between">
+                                <div class="skill-row-item p-3.5 rounded-xl bg-black/40 border border-[#2E2A40] flex items-center justify-between">
                                     <div class="flex items-center gap-2.5">
                                         <i data-lucide="book-open" class="w-5 h-5 text-accent-dynamic"></i>
                                         <div>
@@ -1209,7 +1209,7 @@
                                             <span class="text-[11px] text-slate-400">Interactive EDA &amp; testing</span>
                                         </div>
                                     </div>
-                                    <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-[rgba(var(--accent-rgb),0.12)] border border-[rgba(var(--accent-rgb),0.25)] text-slate-300">Analytics</span>
+                                    <span class="micro-skill-tag text-[10px] font-mono px-2 py-0.5 rounded bg-[rgba(var(--accent-rgb),0.12)] border border-[rgba(var(--accent-rgb),0.25)] text-slate-300">Analytics</span>
                                 </div>
                             </div>
                         </div>
@@ -1861,19 +1861,19 @@
 
                             <!-- 2x2 Stats Grid -->
                             <div class="grid grid-cols-2 gap-3 mb-3">
-                                <div class="bg-[#17171C] border border-[#2E2A40] rounded-2xl p-4 transition-all hover:border-[var(--accent)] hover:bg-[#1C1C24]">
+                                <div class="metric-stat-box bg-[#17171C] border border-[#2E2A40] rounded-2xl p-4 transition-all hover:border-[var(--accent)] hover:bg-[#1C1C24]">
                                     <span class="text-[10px] font-mono text-[#A1A1AA] uppercase tracking-wider block mb-1">REPOSITORIES</span>
                                     <span id="ghCardRepos" class="text-2xl sm:text-3xl font-black text-[#FAFAFA] font-mono">8</span>
                                 </div>
-                                <div class="bg-[#17171C] border border-[#2E2A40] rounded-2xl p-4 transition-all hover:border-[var(--accent)] hover:bg-[#1C1C24]">
+                                <div class="metric-stat-box bg-[#17171C] border border-[#2E2A40] rounded-2xl p-4 transition-all hover:border-[var(--accent)] hover:bg-[#1C1C24]">
                                     <span class="text-[10px] font-mono text-[#A1A1AA] uppercase tracking-wider block mb-1">FOLLOWERS</span>
                                     <span id="ghCardFollowers" class="text-2xl sm:text-3xl font-black text-[#FAFAFA] font-mono">4</span>
                                 </div>
-                                <div class="bg-[#17171C] border border-[#2E2A40] rounded-2xl p-4 transition-all hover:border-[var(--accent)] hover:bg-[#1C1C24]">
+                                <div class="metric-stat-box bg-[#17171C] border border-[#2E2A40] rounded-2xl p-4 transition-all hover:border-[var(--accent)] hover:bg-[#1C1C24]">
                                     <span class="text-[10px] font-mono text-[#A1A1AA] uppercase tracking-wider block mb-1">FOLLOWING</span>
                                     <span id="ghCardFollowing" class="text-2xl sm:text-3xl font-black text-[#FAFAFA] font-mono">2</span>
                                 </div>
-                                <div class="bg-[#17171C] border border-[#2E2A40] rounded-2xl p-4 transition-all hover:border-[var(--accent)] hover:bg-[#1C1C24]">
+                                <div class="metric-stat-box bg-[#17171C] border border-[#2E2A40] rounded-2xl p-4 transition-all hover:border-[var(--accent)] hover:bg-[#1C1C24]">
                                     <span class="text-[10px] font-mono text-[#A1A1AA] uppercase tracking-wider block mb-1">CONTRIBUTIONS (1 YR)</span>
                                     <span id="ghCardContribs" class="text-2xl sm:text-3xl font-black text-[#FAFAFA] font-mono">58</span>
                                 </div>
@@ -1972,11 +1972,11 @@
 
                             <!-- 2x2 Metrics Grid -->
                             <div class="grid grid-cols-2 gap-3 mb-6">
-                                <div class="bg-[#17171C] border border-[#2E2A40] rounded-2xl p-4 transition-all hover:border-[var(--accent)] hover:bg-[#1C1C24]">
+                                <div class="metric-stat-box bg-[#17171C] border border-[#2E2A40] rounded-2xl p-4 transition-all hover:border-[var(--accent)] hover:bg-[#1C1C24]">
                                     <span class="text-[10px] font-mono text-[#A1A1AA] uppercase tracking-wider block mb-1">ACCEPTANCE RATE</span>
                                     <span id="lcAcceptanceRate" class="text-2xl sm:text-3xl font-black text-[#FAFAFA] font-mono">83.2%</span>
                                 </div>
-                                <div class="bg-[#17171C] border border-[#2E2A40] rounded-2xl p-4 transition-all hover:border-[var(--accent)] hover:bg-[#1C1C24]">
+                                <div class="metric-stat-box bg-[#17171C] border border-[#2E2A40] rounded-2xl p-4 transition-all hover:border-[var(--accent)] hover:bg-[#1C1C24]">
                                     <span class="text-[10px] font-mono text-[#A1A1AA] uppercase tracking-wider block mb-1">CONTEST RATING</span>
                                     <span id="lcContestRating" class="text-2xl sm:text-3xl font-black text-[#FAFAFA] font-mono">1,415</span>
                                 </div>
@@ -2883,7 +2883,7 @@
     </div>
 
     <!-- Scripts with Cache-Buster v=13 -->
-    <script src="main.js?v=60"></script>
+    <script src="main.js?v=65"></script>
     <script>lucide.createIcons();</script>
 </body>
 </html>
