@@ -532,7 +532,7 @@ function startApp() {
                     col += cAmberRim * (rimLight * smoke * 0.55);
 
                     // Apply the signature warm amber radial glow (bottom-left dominant)
-                    vec3 amberHue = mix(vec3(0.851, 0.467, 0.024), vec3(0.650, 0.118, 0.137), uLightMode); // Amber -> #6B1E23 Crimson // #CA6210 -> #FEA00A
+                    vec3 amberHue = mix(vec3(0.420, 0.440, 0.470), vec3(0.650, 0.118, 0.137), uLightMode); // Amber -> #6B1E23 Crimson // #CA6210 -> #FEA00A
                     col += amberHue * (amberGlow * 0.65 + midGlow * 0.35);
                     col += uAccentColor * (rimLight * smoke * 0.22 + amberGlow * 0.12);
 
@@ -766,13 +766,26 @@ function startApp() {
 
 
     // =========================================================================
-    // 4. DYNAMIC GLASS BORDER GLARE & 3D PERSPECTIVE TILT
+    // 4. MULTI-STYLE 3D TILT ENGINE (5 DISTINCT PHYSICAL PERSONALITIES)
+    // Style 1: 'deep-float'      -> Deep springy tilt (±9.5°) with translateZ lift
+    // Style 2: 'holographic-glare' -> Diagonal tilt (±6.5°) with rotateZ roll & glare
+    // Style 3: 'subtle-precision'  -> Silky gentle horizon tilt (±3.6°)
+    // Style 4: 'magnetic-lift'     -> 3D cursor tracking pull + elevation (±5.0°)
+    // Style 5: 'inverted-depth'    -> Tactile push-in contour sensation (-6px Z)
     // =========================================================================
     if (!isTouchDevice) {
-        const tiltCards = document.querySelectorAll('.glossy-card, .photo-rectangular-card');
+        const tiltStyles = ['deep-float', 'holographic-glare', 'subtle-precision', 'magnetic-lift', 'inverted-depth'];
 
-        tiltCards.forEach(card => {
+        const tiltCards = document.querySelectorAll(
+            '.glossy-card, .photo-rectangular-card, .hero-glass-box, .sticky-project-card, .project-card, .text-block-lift'
+        );
+
+        tiltCards.forEach((card, index) => {
+            const assignedStyle = card.getAttribute('data-tilt-style') || tiltStyles[index % tiltStyles.length];
+            card.setAttribute('data-tilt-style', assignedStyle);
+
             card.addEventListener('mousemove', (e) => {
+                card.style.transition = 'transform 0.08s ease-out, box-shadow 0.25s ease';
                 const rect = card.getBoundingClientRect();
                 const x = e.clientX - rect.left;
                 const y = e.clientY - rect.top;
@@ -784,17 +797,41 @@ function startApp() {
                 card.style.setProperty('--mouse-x', `${percentX}%`);
                 card.style.setProperty('--mouse-y', `${percentY}%`);
 
-                // Compute subtle 3D tilt angles
                 const centerX = rect.width / 2;
                 const centerY = rect.height / 2;
-                const tiltX = ((y - centerY) / centerY) * -5.5;
-                const tiltY = ((x - centerX) / centerX) * 5.5;
+                const normX = (x - centerX) / (centerX || 1);
+                const normY = (y - centerY) / (centerY || 1);
 
-                card.style.transform = `perspective(1000px) rotateX(${tiltX.toFixed(2)}deg) rotateY(${tiltY.toFixed(2)}deg) scale3d(1.012, 1.012, 1.012)`;
+                // Apply unique mathematical 3D transformations per assigned physical style
+                if (assignedStyle === 'deep-float') {
+                    const tiltX = normY * -9.5;
+                    const tiltY = normX * 9.5;
+                    card.style.transform = `perspective(750px) rotateX(${tiltX.toFixed(2)}deg) rotateY(${tiltY.toFixed(2)}deg) translateZ(16px) scale3d(1.025, 1.025, 1.025)`;
+                } else if (assignedStyle === 'holographic-glare') {
+                    const tiltX = normY * -6.5;
+                    const tiltY = normX * 6.5;
+                    const rotZ = normX * 1.8;
+                    card.style.transform = `perspective(1000px) rotateX(${tiltX.toFixed(2)}deg) rotateY(${tiltY.toFixed(2)}deg) rotateZ(${rotZ.toFixed(2)}deg) scale3d(1.02, 1.02, 1.02)`;
+                } else if (assignedStyle === 'subtle-precision') {
+                    const tiltX = normY * -3.6;
+                    const tiltY = normX * 3.6;
+                    card.style.transform = `perspective(1400px) rotateX(${tiltX.toFixed(2)}deg) rotateY(${tiltY.toFixed(2)}deg) scale3d(1.012, 1.012, 1.012)`;
+                } else if (assignedStyle === 'magnetic-lift') {
+                    const tiltX = normY * -5.0;
+                    const tiltY = normX * 5.0;
+                    const shiftX = (x - centerX) * 0.06;
+                    const shiftY = (y - centerY) * 0.06;
+                    card.style.transform = `translate3d(${shiftX.toFixed(1)}px, ${shiftY.toFixed(1)}px, 12px) perspective(900px) rotateX(${tiltX.toFixed(2)}deg) rotateY(${tiltY.toFixed(2)}deg) scale3d(1.018, 1.018, 1.018)`;
+                } else if (assignedStyle === 'inverted-depth') {
+                    const tiltX = normY * 4.5;
+                    const tiltY = normX * -4.5;
+                    card.style.transform = `perspective(850px) rotateX(${tiltX.toFixed(2)}deg) rotateY(${tiltY.toFixed(2)}deg) translateZ(-6px) scale3d(0.992, 0.992, 0.992)`;
+                }
             });
 
             card.addEventListener('mouseleave', () => {
-                card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+                card.style.transition = 'transform 0.55s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease';
+                card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) translate3d(0, 0, 0) scale3d(1, 1, 1)';
                 card.style.setProperty('--mouse-x', `50%`);
                 card.style.setProperty('--mouse-y', `50%`);
             });
@@ -803,6 +840,23 @@ function startApp() {
 
 
     // =========================================================================
+    
+    // =========================================================================
+    // 4b. INTERACTIVE POINTER HOVER ELEVATION & GLOW FOR TEXT BLOCKS
+    // =========================================================================
+    const textGlowBlocks = document.querySelectorAll(
+        '.text-block-lift, .text-block-glow, .hero-glass-box, .about-text-content p, .tool-chip, .marquee-pill'
+    );
+    textGlowBlocks.forEach(block => {
+        block.addEventListener('mouseenter', () => {
+            block.classList.add('text-hover-active');
+        });
+        block.addEventListener('mouseleave', () => {
+            block.classList.remove('text-hover-active');
+        });
+    });
+
+
     // 5. MAGNETIC PRIMARY CTA BUTTON
     // =========================================================================
     if (!isTouchDevice) {

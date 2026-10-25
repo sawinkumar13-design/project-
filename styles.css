@@ -1,4 +1,4 @@
-﻿/* ========================================================================== */
+/* ========================================================================== */
 /* Sawin Kumar â€” Theme Accent Color System & Global CSS Variables              */
 /* ========================================================================== */
 :root {
@@ -463,6 +463,47 @@ body {
     overflow-x: hidden;
 }
 
+/* ========================================================================== */
+/* AMBIENT GLOSSY BACKGROUND SHEEN OVERLAY (Mixture with Active Color Palette)*/
+/* ========================================================================== */
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background: 
+        /* Specular diagonal glass sheen streak */
+        linear-gradient(125deg, 
+            transparent 0%, 
+            rgba(255, 255, 255, 0.015) 30%, 
+            rgba(255, 255, 255, 0.05) 48%, 
+            rgba(255, 255, 255, 0.015) 60%, 
+            transparent 100%
+        ),
+        /* Ambient top-down glass refraction dome */
+        radial-gradient(ellipse 100% 50% at 50% 0%, rgba(var(--accent-rgb), 0.08) 0%, transparent 65%),
+        /* Ambient bottom corner subtle glow */
+        radial-gradient(circle 650px at 12% 88%, rgba(var(--accent-rgb), 0.06) 0%, transparent 75%);
+    opacity: 0.95;
+    mix-blend-mode: screen;
+}
+
+html[data-mode="light"] body::before,
+html[data-mode="crimson"] body::before {
+    background:
+        linear-gradient(125deg, 
+            transparent 0%, 
+            rgba(255, 255, 255, 0.02) 28%, 
+            rgba(255, 180, 195, 0.07) 48%, 
+            rgba(255, 255, 255, 0.02) 62%, 
+            transparent 100%
+        ),
+        radial-gradient(ellipse 95% 55% at 50% 0%, rgba(225, 29, 72, 0.15) 0%, transparent 70%),
+        radial-gradient(circle 750px at 15% 85%, rgba(107, 30, 35, 0.40) 0%, transparent 80%);
+}
+
+
 /* Offset anchor scrolling so fixed navbar doesn't cover headings */
 section[id] {
     scroll-margin-top: 5rem;
@@ -481,8 +522,11 @@ section[id] {
     height: 100vh;
     z-index: 0;
     pointer-events: none;
-    background-color: #121214;
-    background: radial-gradient(circle 900px at 8% 92%, rgba(138, 141, 145, 0.18) 0%, rgba(76, 78, 81, 0.25) 45%, #0A0806 75%);
+    background-color: var(--bg-main, #1E2023);
+    background:
+        radial-gradient(ellipse 90% 55% at 50% -10%, rgba(255, 255, 255, 0.04) 0%, transparent 65%),
+        radial-gradient(circle 800px at 85% 15%, rgba(138, 141, 145, 0.08) 0%, transparent 65%),
+        radial-gradient(circle 950px at 8% 92%, rgba(76, 78, 81, 0.22) 0%, rgba(30, 32, 35, 0.85) 50%, var(--bg-main, #1E2023) 85%);
 }
 
 /* Minimal Premium Animated Custom Cursor (Desktop Only) */
@@ -703,11 +747,10 @@ section[id] {
     height: 22.5rem;
     border-radius: 18px;
     padding: 1.5px;
-    background: linear-gradient(135deg, rgba(250, 250, 250, 0.25) 0%, rgba(168, 85, 247, 0.5) 35%, rgba(99, 102, 241, 0.5) 70%, rgba(250, 250, 250, 0.1) 100%);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.35) 0%, rgba(var(--accent-rgb), 0.5) 35%, rgba(76, 78, 81, 0.6) 70%, rgba(255, 255, 255, 0.15) 100%);
     box-shadow:
-        0 0 35px rgba(168, 85, 247, 0.35),
-        0 0 55px rgba(99, 102, 241, 0.22),
-        inset 0 0 18px rgba(250, 250, 250, 0.12),
+        0 0 35px var(--accent-glow),
+        inset 0 0 18px rgba(255, 255, 255, 0.15),
         0 25px 60px -10px rgba(0, 0, 0, 0.85);
     transition: transform 0.25s ease-out, box-shadow 0.35s ease;
     overflow: hidden;
@@ -798,7 +841,7 @@ section[id] {
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.75rem;
     color: #e2e8f0;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6), 0 0 14px rgba(0, 242, 254, 0.25);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6), 0 0 14px rgba(var(--accent-rgb), 0.25);
 }
 
 .live-dot {
@@ -820,29 +863,58 @@ section[id] {
 /* ========================================================================== */
 .glossy-card {
     position: relative;
-    background: linear-gradient(135deg, rgba(28, 28, 36, 0.95) 0%, rgba(23, 23, 28, 0.88) 50%, rgba(18, 18, 20, 0.95) 100%);
-    backdrop-filter: blur(16px) saturate(180%);
-    -webkit-backdrop-filter: blur(16px) saturate(180%);
-    border-top: 1px solid rgba(255, 255, 255, 0.2);
-    border-left: 1px solid rgba(255, 255, 255, 0.15);
+    /* Soft translucent liquid glass gradient that lets background gently refract */
+    background: linear-gradient(145deg, 
+        rgba(39, 41, 45, 0.70) 0%, 
+        rgba(30, 32, 35, 0.58) 50%, 
+        rgba(24, 25, 28, 0.76) 100%
+    );
+    /* Soft Luxurious Blur with high saturation */
+    backdrop-filter: blur(24px) saturate(200%) contrast(105%);
+    -webkit-backdrop-filter: blur(24px) saturate(200%) contrast(105%);
+    /* Precision Specular Edges */
+    border-top: 1px solid rgba(255, 255, 255, 0.25);
+    border-left: 1px solid rgba(255, 255, 255, 0.14);
     border-right: 1px solid rgba(255, 255, 255, 0.06);
     border-bottom: 1px solid rgba(255, 255, 255, 0.04);
     box-shadow: 
-        inset 0 1px 1px rgba(255, 255, 255, 0.12),
-        inset 0 -1px 1px rgba(0, 0, 0, 0.45),
-        0 4px 8px rgba(0, 0, 0, 0.55),
-        0 12px 30px rgba(0, 0, 0, 0.65),
-        0 30px 60px rgba(0, 0, 0, 0.50),
-        0 0 0 1px rgba(76, 78, 81, 0.20);
+        /* Specular inner bevel light catches */
+        inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.22),
+        inset 0 -1px 2px 0 rgba(0, 0, 0, 0.55),
+        /* Outer multi-layer depth shadow */
+        0 4px 12px rgba(0, 0, 0, 0.45),
+        0 16px 36px -4px rgba(0, 0, 0, 0.65),
+        0 36px 70px -10px rgba(0, 0, 0, 0.55),
+        0 0 0 1px rgba(255, 255, 255, 0.06);
     border-radius: 20px;
     overflow: hidden;
     transition: 
-        transform 0.25s ease-out,
+        transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
         border-color 0.35s ease,
         box-shadow 0.35s ease,
         background 0.35s ease;
     will-change: transform, box-shadow;
     transform-style: preserve-3d;
+}
+
+html[data-mode="light"] .glossy-card,
+html[data-mode="crimson"] .glossy-card {
+    background: linear-gradient(145deg, 
+        rgba(56, 20, 24, 0.72) 0%, 
+        rgba(44, 15, 18, 0.60) 50%, 
+        rgba(35, 12, 15, 0.78) 100%
+    ) !important;
+    border-top-color: rgba(255, 255, 255, 0.28) !important;
+    border-left-color: rgba(225, 29, 72, 0.35) !important;
+    border-right-color: rgba(107, 30, 35, 0.35) !important;
+    border-bottom-color: rgba(107, 30, 35, 0.25) !important;
+    box-shadow:
+        inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.22),
+        inset 0 -1px 2px 0 rgba(0, 0, 0, 0.60),
+        0 4px 12px rgba(0, 0, 0, 0.50),
+        0 16px 36px -4px rgba(0, 0, 0, 0.70),
+        0 36px 70px -10px rgba(0, 0, 0, 0.60),
+        0 0 0 1px rgba(225, 29, 72, 0.20) !important;
 }
 
 /* Dynamic Cursor-Tracking Glare Highlight */
@@ -854,7 +926,7 @@ section[id] {
     background: radial-gradient(
         420px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
         rgba(255, 255, 255, 0.12) 0%,
-        rgba(0, 242, 254, 0.06) 30%,
+        rgba(var(--accent-rgb), 0.10) 30%,
         transparent 65%
     );
     opacity: 0;
@@ -903,7 +975,7 @@ section[id] {
 
 /* Hero Frosted Glass Container behind text */
 .hero-glass-box {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.09) 0%, rgba(255, 255, 255, 0.02) 50%, rgba(8, 8, 16, 0.6) 100%);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.09) 0%, rgba(255, 255, 255, 0.02) 50%, rgba(30, 32, 35, 0.65) 100%);
     backdrop-filter: blur(20px) saturate(180%);
     -webkit-backdrop-filter: blur(20px) saturate(180%);
     border-top: 1px solid rgba(255, 255, 255, 0.22);
@@ -913,13 +985,15 @@ section[id] {
     box-shadow: 
         inset 0 1px 2px rgba(255, 255, 255, 0.28),
         0 25px 60px -15px rgba(0, 0, 0, 0.9),
-        0 0 35px rgba(107, 0, 255, 0.12);
+        0 0 35px var(--accent-glow);
     border-radius: 28px;
 }
 
 /* Glass Pills (Social Buttons & Micro Badges) */
 .glass-pill {
-    background: rgba(22, 17, 8, 0.88);
+    background: rgba(39, 41, 45, 0.72);
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border: 1px solid var(--border-color);
@@ -1130,7 +1204,9 @@ background: var(--accent-hover);
     gap: 0.6rem;
     padding: 0.55rem 1.15rem;
     border-radius: 9999px;
-    background: rgba(22, 17, 8, 0.78);
+    background: rgba(39, 41, 45, 0.72);
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
     border: 1px solid var(--border-color);
     font-family: \'JetBrains Mono\', monospace;
     font-size: 0.75rem;
@@ -1168,9 +1244,9 @@ background: var(--accent-hover);
 
 .tool-chip:hover {
     color: #ffffff;
-    background: rgba(107, 0, 255, 0.18);
-    border-color: rgba(0, 242, 254, 0.45);
-    box-shadow: 0 0 15px rgba(0, 242, 254, 0.25);
+    background: rgba(var(--accent-rgb), 0.18);
+    border-color: rgba(var(--accent-rgb), 0.45);
+    box-shadow: 0 0 15px rgba(var(--accent-rgb), 0.25);
     transform: translateY(-2px);
 }
 
@@ -1190,8 +1266,8 @@ background: var(--accent-hover);
 
 .tag:hover {
     color: #00F2FE;
-    border-color: rgba(0, 242, 254, 0.35);
-    background: rgba(0, 242, 254, 0.08);
+    border-color: rgba(var(--accent-rgb), 0.35);
+    background: rgba(var(--accent-rgb), 0.08);
 }
 
 /* Filter Buttons */
@@ -1209,23 +1285,23 @@ background: var(--accent-hover);
 
 .filter-btn:hover {
     color: #ffffff;
-    border-color: rgba(0, 242, 254, 0.35);
-    background: rgba(0, 242, 254, 0.08);
+    border-color: rgba(var(--accent-rgb), 0.35);
+    background: rgba(var(--accent-rgb), 0.08);
 }
 
 .filter-btn.active {
-    background: linear-gradient(135deg, rgba(0, 242, 254, 0.25), rgba(107, 0, 255, 0.28));
-    border-color: rgba(0, 242, 254, 0.65);
+    background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.25), rgba(var(--accent-rgb), 0.28));
+    border-color: rgba(var(--accent-rgb), 0.65);
     color: #ffffff;
-    box-shadow: 0 0 18px rgba(0, 242, 254, 0.3);
+    box-shadow: 0 0 18px rgba(var(--accent-rgb), 0.3);
 }
 
 /* Active Nav Link */
 .nav-link.active-nav {
     color: #ffffff !important;
-    background: rgba(107, 0, 255, 0.2);
-    border-color: rgba(0, 242, 254, 0.4);
-    box-shadow: 0 0 12px rgba(0, 242, 254, 0.2);
+    background: rgba(var(--accent-rgb), 0.2);
+    border-color: rgba(var(--accent-rgb), 0.4);
+    box-shadow: 0 0 12px rgba(var(--accent-rgb), 0.2);
 }
 
 /* ========================================================================== */
@@ -2091,3 +2167,90 @@ html[data-mode="crimson"] .contrib-rect[data-level="4"] {
     filter: drop-shadow(0 0 6px rgba(225, 29, 72, 0.6)) !important;
 }
 
+
+
+/* ========================================================================== */
+/* POINTER HOVER TEXT BLOCK ELEVATION & GLOW SYSTEM                           */
+/* When pointer hovers any text block, it elevates with luxurious glow        */
+/* ========================================================================== */
+.text-block-lift,
+.text-block-glow,
+.hero-glass-box,
+.about-text-content p,
+.bio-stat-box,
+.tool-chip,
+.marquee-pill,
+.skill-card-body,
+.project-summary-box,
+.edu-details-box,
+.contact-info-card {
+    position: relative;
+    transition: 
+        transform 0.32s cubic-bezier(0.16, 1, 0.3, 1),
+        box-shadow 0.32s cubic-bezier(0.16, 1, 0.3, 1),
+        border-color 0.32s cubic-bezier(0.16, 1, 0.3, 1),
+        background-color 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.text-block-lift:hover,
+.text-block-glow:hover,
+.hero-glass-box:hover,
+.about-text-content p:hover,
+.bio-stat-box:hover,
+.tool-chip:hover,
+.marquee-pill:hover,
+.skill-card-body:hover,
+.project-summary-box:hover,
+.edu-details-box:hover,
+.contact-info-card:hover {
+    transform: translateY(-4px) scale(1.012) !important;
+    z-index: 25 !important;
+    box-shadow: 
+        0 14px 35px -8px rgba(0, 0, 0, 0.65), 
+        0 0 24px var(--accent-glow) !important;
+    border-color: var(--accent) !important;
+}
+
+/* Standalone Headings & Text Links Glow on Hover */
+.heading-glow-hover,
+.text-glow-hover {
+    display: inline-block;
+    transition: 
+        transform 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+        text-shadow 0.28s ease,
+        color 0.28s ease;
+}
+
+.heading-glow-hover:hover,
+.text-glow-hover:hover {
+    transform: translateY(-2px) scale(1.015);
+    color: var(--text-primary) !important;
+    text-shadow: 0 0 16px rgba(255, 255, 255, 0.5), 0 0 28px var(--accent-glow) !important;
+}
+
+/* All readable section paragraphs, bullet items, and text blocks elevate and glow on hover */
+section p,
+.glossy-card p,
+.about-text-content,
+.timeline-content,
+.project-card p,
+.feature-bullet,
+.stat-item,
+.text-hover-active {
+    transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+                color 0.28s ease,
+                text-shadow 0.28s ease;
+}
+
+section p:hover,
+.glossy-card p:hover,
+.about-text-content:hover,
+.timeline-content:hover,
+.project-card p:hover,
+.feature-bullet:hover,
+.stat-item:hover,
+.text-hover-active {
+    transform: translateY(-2px) scale(1.008);
+    color: var(--text-primary) !important;
+    text-shadow: 0 0 12px rgba(255, 255, 255, 0.35), 0 0 24px var(--accent-glow) !important;
+}
