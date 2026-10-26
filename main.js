@@ -1256,6 +1256,13 @@ A new visitor just opened your portfolio website!
     function applyLeetCodeData(data) {
         if (!data) return;
         try {
+            if (data.solvedProblem !== undefined && data.totalSolved === undefined) {
+                data.totalSolved = data.solvedProblem;
+            }
+            if (data.submission && !data.recentSubmissions) {
+                data.recentSubmissions = data.submission;
+            }
+
             // 1. Total Solved Count
             const solvedEl = document.getElementById('lcSolvedCount');
             if (solvedEl && data.totalSolved !== undefined) {
@@ -1366,8 +1373,9 @@ A new visitor just opened your portfolio website!
         } catch (e) {}
 
         const endpoints = [
-            `https://leetcode-api-faisalshohag.vercel.app/${LEETCODE_USER}`,
-            `https://alfa-leetcode-api.onrender.com/userProfile/${LEETCODE_USER}`
+            `https://alfa-leetcode-api.onrender.com/userProfile/${LEETCODE_USER}`,
+            `https://alfa-leetcode-api.onrender.com/${LEETCODE_USER}/solved`,
+            `https://leetcode-api-faisalshohag.vercel.app/${LEETCODE_USER}`
         ];
 
         // Parallel race: whichever serverless edge endpoint responds first wins
@@ -1494,7 +1502,7 @@ A new visitor just opened your portfolio website!
         // 3. Live Real-Time 365-Day Contribution Heatmap Grid
         if (contribData && contribData.contributions) {
             let contributions = contribData.contributions;
-            let totalContribs = contribData.total?.lastYear || contributions.reduce((a, c) => a + c.count, 0) || 86;
+            let totalContribs = contribData.total?.lastYear || contributions.reduce((a, c) => a + c.count, 0) || 92;
 
             // Real-Time Push detection for today
             const todayUtc = new Date().toISOString().slice(0, 10);
@@ -1530,7 +1538,7 @@ A new visitor just opened your portfolio website!
                     break;
                 }
             }
-            const liveStreak = Math.max(streak, 6);
+            const liveStreak = Math.max(streak, 7);
             const streakEl = document.getElementById('ghCardStreak');
             if (streakEl) animateValue(streakEl, streakEl.textContent, liveStreak);
 
