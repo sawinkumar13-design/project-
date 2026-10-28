@@ -668,7 +668,7 @@ function startApp() {
     // =========================================================================
     // 3. 3D FLOATING CORNER PROPS ENGINE (FOR ALL SLIDES EXCEPT FIRST TWO)
     // =========================================================================
-    const propSectionIds = ['education', 'skills', 'projects', 'achievements', 'contact'];
+    const propSectionIds = ['education', 'skills', 'projects', 'achievements', 'certificates', 'contact'];
     const sectionPropsMap = [];
 
     propSectionIds.forEach(id => {
@@ -1628,6 +1628,79 @@ A new visitor just opened your portfolio website!
     document.addEventListener('visibilitychange', () => {
         if (!document.hidden) {
             syncAllLiveProfiles();
+        }
+    });
+
+
+    // =========================================================================
+    // CERTIFICATE INSPECTION MODAL (FULL-SCREEN LIGHTBOX CONTROLLER)
+    // =========================================================================
+    function openCertModal(imgSrc, title, pdfSrc) {
+        const modal = document.getElementById('certModal');
+        const modalImg = document.getElementById('certModalImg');
+        const modalTitle = document.getElementById('certModalTitle');
+        const modalDownload = document.getElementById('certModalDownload');
+        if (!modal) return;
+
+        if (modalImg && imgSrc) {
+            modalImg.src = imgSrc;
+        }
+        if (modalTitle && title) {
+            modalTitle.textContent = title;
+        }
+        if (modalDownload && pdfSrc) {
+            modalDownload.href = pdfSrc;
+        }
+
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+        
+        // Force reflow for silky smooth CSS opacity transition
+        void modal.offsetWidth;
+        modal.classList.remove('opacity-0');
+        modal.classList.add('opacity-100');
+
+        const innerCard = modal.querySelector('div.relative');
+        if (innerCard) {
+            innerCard.classList.remove('scale-95');
+            innerCard.classList.add('scale-100');
+        }
+
+        document.body.style.overflow = 'hidden';
+
+        if (window.lucide && typeof window.lucide.createIcons === 'function') {
+            window.lucide.createIcons();
+        }
+    }
+
+    function closeCertModal(e) {
+        const modal = document.getElementById('certModal');
+        if (!modal || modal.classList.contains('hidden')) return;
+
+        modal.classList.remove('opacity-100');
+        modal.classList.add('opacity-0');
+
+        const innerCard = modal.querySelector('div.relative');
+        if (innerCard) {
+            innerCard.classList.remove('scale-100');
+            innerCard.classList.add('scale-95');
+        }
+
+        setTimeout(() => {
+            modal.classList.remove('flex');
+            modal.classList.add('hidden');
+            document.body.style.overflow = '';
+        }, 250);
+    }
+
+    // Expose functions globally for inline onclick handlers
+    window.openCertModal = openCertModal;
+    window.closeCertModal = closeCertModal;
+
+    // Listen for Escape key to dismiss modal
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            closeCertModal();
         }
     });
 
