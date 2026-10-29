@@ -1278,7 +1278,7 @@ A new visitor just opened your portfolio website!
             if (hardEl && data.hardSolved !== undefined) animateValue(hardEl, hardEl.textContent, data.hardSolved);
 
             // 3. Proportion Bars
-            const total = (data.totalSolved && data.totalSolved > 0) ? data.totalSolved : 90;
+            const total = (data.totalSolved && data.totalSolved > 0) ? data.totalSolved : 94;
             const barEasy = document.getElementById('lcBarEasy');
             const barMed = document.getElementById('lcBarMed');
             const barHard = document.getElementById('lcBarHard');
@@ -1301,7 +1301,7 @@ A new visitor just opened your portfolio website!
                 if (data.matchedUserStats && data.matchedUserStats.acSubmissionNum && data.matchedUserStats.totalSubmissionNum) {
                     const acTotal = data.matchedUserStats.acSubmissionNum[0]?.submissions || 119;
                     const subTotal = data.matchedUserStats.totalSubmissionNum[0]?.submissions || 143;
-                    const rate = subTotal > 0 ? ((acTotal / subTotal) * 100).toFixed(1) : '83.2';
+                    const rate = subTotal > 0 ? ((acTotal / subTotal) * 100).toFixed(1) : '80.3';
                     accRateEl.textContent = `${rate}%`;
                 }
             }
@@ -1338,7 +1338,7 @@ A new visitor just opened your portfolio website!
                         break;
                     }
                 }
-                animateValue(streakEl, streakEl.textContent, Math.max(streak, 4));
+                animateValue(streakEl, streakEl.textContent, Math.max(streak, 9));
             }
 
             // 7. Live Latest Solved Question
@@ -1368,7 +1368,7 @@ A new visitor just opened your portfolio website!
     async function fetchLiveLeetCode() {
         // Hydrate from localStorage first (0ms latency)
         try {
-            const cached = localStorage.getItem('sawin_portfolio_leetcode_cache');
+            const cached = localStorage.getItem('sawin_portfolio_leetcode_cache_v3');
             if (cached) applyLeetCodeData(JSON.parse(cached));
         } catch (e) {}
 
@@ -1391,7 +1391,7 @@ A new visitor just opened your portfolio website!
 
         if (data) {
             try {
-                localStorage.setItem('sawin_portfolio_leetcode_cache', JSON.stringify(data));
+                localStorage.setItem('sawin_portfolio_leetcode_cache_v3', JSON.stringify(data));
             } catch (e) {}
             applyLeetCodeData(data);
         }
@@ -1440,7 +1440,7 @@ A new visitor just opened your portfolio website!
     async function fetchLiveGitHub() {
         // Hydrate from localStorage first
         try {
-            const cached = localStorage.getItem('sawin_portfolio_github_cache');
+            const cached = localStorage.getItem('sawin_portfolio_github_cache_v3');
             if (cached) applyGitHubCached(JSON.parse(cached));
         } catch (e) {}
 
@@ -1501,8 +1501,15 @@ A new visitor just opened your portfolio website!
 
         // 3. Live Real-Time 365-Day Contribution Heatmap Grid
         if (contribData && contribData.contributions) {
-            let contributions = contribData.contributions;
-            let totalContribs = contribData.total?.lastYear || contributions.reduce((a, c) => a + c.count, 0) || 92;
+            // Sort contributions strictly chronologically so today is guaranteed to be at the end
+            let rawList = contribData.contributions.slice().sort((a, b) => a.date.localeCompare(b.date));
+            const todayUtc = new Date().toISOString().slice(0, 10);
+            const upToToday = rawList.filter(c => c.date <= todayUtc);
+            let contributions = upToToday.length >= 365 ? upToToday.slice(-369) : rawList;
+
+            let totalContribs = contribData.total?.lastYear || 
+                                (contribData.total?.['2026'] ? (contribData.total['2026'] + (contribData.total['2025'] || 0)) : 0) || 
+                                contributions.reduce((a, c) => a + c.count, 0) || 104;
 
             // Real-Time Push detection for today
             const todayUtc = new Date().toISOString().slice(0, 10);
@@ -1538,7 +1545,7 @@ A new visitor just opened your portfolio website!
                     break;
                 }
             }
-            const liveStreak = Math.max(streak, 7);
+            const liveStreak = Math.max(streak, 9);
             const streakEl = document.getElementById('ghCardStreak');
             if (streakEl) animateValue(streakEl, streakEl.textContent, liveStreak);
 
@@ -1550,7 +1557,7 @@ A new visitor just opened your portfolio website!
             cacheObj.contributions = contributions;
 
             try {
-                localStorage.setItem('sawin_portfolio_github_cache', JSON.stringify(cacheObj));
+                localStorage.setItem('sawin_portfolio_github_cache_v3', JSON.stringify(cacheObj));
             } catch (e) {}
         }
     }
