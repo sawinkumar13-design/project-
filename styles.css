@@ -488,17 +488,18 @@ body::before {
 }
 
 html[data-mode="light"] body::before,
-html[data-mode="crimson"] body::before {
+html[data-mode="crimson"] body::before,
+html[data-mode="emerald"] body::before {
     background:
         linear-gradient(125deg, 
             transparent 0%, 
             rgba(255, 255, 255, 0.02) 28%, 
-            rgba(255, 180, 195, 0.07) 48%, 
+            rgba(167, 243, 208, 0.08) 48%, 
             rgba(255, 255, 255, 0.02) 62%, 
             transparent 100%
         ),
-        radial-gradient(ellipse 95% 55% at 50% 0%, rgba(225, 29, 72, 0.15) 0%, transparent 70%),
-        radial-gradient(circle 750px at 15% 85%, rgba(107, 30, 35, 0.40) 0%, transparent 80%);
+        radial-gradient(ellipse 95% 55% at 50% 0%, rgba(40, 98, 58, 0.28) 0%, transparent 70%),
+        radial-gradient(circle 750px at 15% 85%, rgba(40, 98, 58, 0.45) 0%, transparent 80%);
 }
 
 
@@ -896,23 +897,22 @@ section[id] {
 }
 
 html[data-mode="light"] .glossy-card,
-html[data-mode="crimson"] .glossy-card {
+html[data-mode="crimson"] .glossy-card,
+html[data-mode="emerald"] .glossy-card {
     background: linear-gradient(145deg, 
-        rgba(56, 20, 24, 0.72) 0%, 
-        rgba(44, 15, 18, 0.60) 50%, 
-        rgba(35, 12, 15, 0.78) 100%
+        rgba(24, 54, 66, 0.75) 0%, 
+        rgba(19, 43, 52, 0.65) 50%, 
+        rgba(15, 32, 39, 0.82) 100%
     ) !important;
-    border-top-color: rgba(255, 255, 255, 0.28) !important;
-    border-left-color: rgba(225, 29, 72, 0.35) !important;
-    border-right-color: rgba(107, 30, 35, 0.35) !important;
-    border-bottom-color: rgba(107, 30, 35, 0.25) !important;
-    box-shadow:
-        inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.22),
-        inset 0 -1px 2px 0 rgba(0, 0, 0, 0.60),
-        0 4px 12px rgba(0, 0, 0, 0.50),
-        0 16px 36px -4px rgba(0, 0, 0, 0.70),
-        0 36px 70px -10px rgba(0, 0, 0, 0.60),
-        0 0 0 1px rgba(225, 29, 72, 0.20) !important;
+    border-top-color: rgba(255, 255, 255, 0.22) !important;
+    border-left-color: rgba(40, 98, 58, 0.75) !important;
+    border-right-color: rgba(40, 98, 58, 0.50) !important;
+    border-bottom-color: rgba(15, 32, 39, 0.90) !important;
+    box-shadow: 
+        inset 0 1px 1px rgba(255, 255, 255, 0.22),
+        inset 0 -1px 2px rgba(0, 0, 0, 0.60),
+        0 15px 35px -5px rgba(0, 0, 0, 0.80),
+        0 0 20px rgba(40, 98, 58, 0.40) !important;
 }
 
 /* Dynamic Cursor-Tracking Glare Highlight */
@@ -1743,70 +1743,80 @@ html, body, #navbar, #navbar *, .glossy-card, .glass-pill, section, footer, div,
 
 
 /* ========================================================================== */
-/* CRIMSON VELVET PALETTE (Reference: #2C0F12 & #6B1E23)                     */
-/* Luxury Dark Burgundy Velvet Mode with High-Contrast Rose-Ivory Text        */
+/* EMERALD DEPTH PALETTE (Reference: #0F2027 & #28623A)                       */
+/* Luxury Dark Emerald & Midnight Teal Mode with Radiant Mint Highlights       */
 /* ========================================================================== */
-html[data-mode="light"], html[data-mode="crimson"] {
-    --bg-main: #2C0F12;
-    --bg-secondary: #381418;
-    --bg-card: #331216;
-    --bg-card-hover: #42171C;
-    --text-primary: #FFF0F2;
-    --text-secondary: #E5B8BE;
-    --text-muted: #B88B92;
-    --border-color: #5C1D23;
-    --neutral-support: #8C3A43;
+html[data-mode="light"], 
+html[data-mode="crimson"],
+html[data-mode="emerald"] {
+    --bg-main: #0F2027;
+    --bg-secondary: #132B34;
+    --bg-card: #15323C;
+    --bg-card-hover: #1A3E4B;
+    --text-primary: #F0FDF4;
+    --text-secondary: #D1FAE5;
+    --text-muted: #86EFAC;
+    --border-color: #28623A;
+    --neutral-support: #1E4A2C;
 
-    --accent: #E11D48;
-    --accent-rgb: 225, 29, 72;
-    --accent-glow: rgba(225, 29, 72, 0.45);
-    --accent-hover: #F43F5E;
-    --secondary-crimson: #6B1E23;
-    --secondary-crimson-rgb: 107, 30, 35;
+    --accent: #28623A;
+    --accent-rgb: 40, 98, 58;
+    --accent-glow: rgba(40, 98, 58, 0.55);
+    --accent-hover: #34D399;
+    --secondary-emerald: #10B981;
+    --secondary-emerald-rgb: 16, 185, 129;
 }
 
 html[data-mode="light"] body,
-html[data-mode="crimson"] body {
-    background-color: #2C0F12 !important;
+html[data-mode="crimson"] body,
+html[data-mode="emerald"] body {
+    background-color: #0F2027 !important;
     background:
-        radial-gradient(ellipse 85% 65% at 5% 95%, rgba(107, 30, 35, 0.85) 0%, rgba(44, 15, 18, 0.50) 45%, #2C0F12 85%) fixed,
-        radial-gradient(ellipse 60% 45% at 30% 60%, rgba(168, 44, 53, 0.35) 0%, transparent 70%) fixed,
-        #2C0F12 !important;
-    color: #FFF0F2 !important;
+        radial-gradient(ellipse 85% 65% at 5% 95%, rgba(40, 98, 58, 0.85) 0%, rgba(15, 32, 39, 0.55) 45%, #0F2027 85%) fixed,
+        radial-gradient(ellipse 65% 50% at 85% 25%, rgba(40, 98, 58, 0.45) 0%, transparent 70%) fixed,
+        radial-gradient(circle 950px at 50% 50%, rgba(19, 43, 52, 0.50) 0%, #0F2027 100%) fixed,
+        #0F2027 !important;
+    color: #F0FDF4 !important;
 }
 
-/* Navbar in Crimson Velvet */
+/* Navbar in Emerald Depth */
 html[data-mode="light"] #navbar,
-html[data-mode="crimson"] #navbar {
-    background: rgba(44, 15, 18, 0.82) !important;
+html[data-mode="crimson"] #navbar,
+html[data-mode="emerald"] #navbar {
+    background: rgba(15, 32, 39, 0.85) !important;
     backdrop-filter: blur(24px) saturate(190%) !important;
     -webkit-backdrop-filter: blur(24px) saturate(190%) !important;
-    border-bottom: 1px solid rgba(107, 30, 35, 0.65) !important;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.50), 0 8px 24px rgba(0,0,0,0.45), 0 0 0 1px rgba(76,78,81,0.20), inset 0 1px 0 rgba(255,255,255,0.06);
+    border-bottom: 1px solid rgba(40, 98, 58, 0.65) !important;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.50), 0 8px 24px rgba(0,0,0,0.45), 0 0 0 1px rgba(40,98,58,0.25), inset 0 1px 0 rgba(255,255,255,0.08);
 }
 
 html[data-mode="light"] #navbar .nav-link,
-html[data-mode="crimson"] #navbar .nav-link {
-    color: #E5B8BE !important;
+html[data-mode="crimson"] #navbar .nav-link,
+html[data-mode="emerald"] #navbar .nav-link {
+    color: #D1FAE5 !important;
 }
 html[data-mode="light"] #navbar .nav-link:hover,
-html[data-mode="crimson"] #navbar .nav-link:hover {
-    color: #FFF0F2 !important;
-    background: rgba(107, 30, 35, 0.35) !important;
+html[data-mode="crimson"] #navbar .nav-link:hover,
+html[data-mode="emerald"] #navbar .nav-link:hover {
+    color: #FFFFFF !important;
+    background: rgba(40, 98, 58, 0.38) !important;
 }
 
 html[data-mode="light"] #mobileMenu,
-html[data-mode="crimson"] #mobileMenu {
-    background-color: rgba(44, 15, 18, 0.98) !important;
-    border-color: #5C1D23 !important;
+html[data-mode="crimson"] #mobileMenu,
+html[data-mode="emerald"] #mobileMenu {
+    background-color: rgba(15, 32, 39, 0.98) !important;
+    border-color: #28623A !important;
 }
 
-/* Background replacements in Crimson Velvet */
+/* Background replacements in Emerald Depth */
 html[data-mode="light"] .bg-\[\#121214\],
 html[data-mode="light"] .bg-\[\#0A0806\],
 html[data-mode="crimson"] .bg-\[\#121214\],
-html[data-mode="crimson"] .bg-\[\#0A0806\] {
-    background-color: #2C0F12 !important;
+html[data-mode="crimson"] .bg-\[\#0A0806\],
+html[data-mode="emerald"] .bg-\[\#121214\],
+html[data-mode="emerald"] .bg-\[\#0A0806\] {
+    background-color: #0F2027 !important;
 }
 
 html[data-mode="light"] .bg-\[\#17171C\],
@@ -1814,8 +1824,11 @@ html[data-mode="light"] .bg-\[\#17171C\]\/90,
 html[data-mode="light"] .bg-\[\#17171C\]\/95,
 html[data-mode="crimson"] .bg-\[\#17171C\],
 html[data-mode="crimson"] .bg-\[\#17171C\]\/90,
-html[data-mode="crimson"] .bg-\[\#17171C\]\/95 {
-    background-color: #381418 !important;
+html[data-mode="crimson"] .bg-\[\#17171C\]\/95,
+html[data-mode="emerald"] .bg-\[\#17171C\],
+html[data-mode="emerald"] .bg-\[\#17171C\]\/90,
+html[data-mode="emerald"] .bg-\[\#17171C\]\/95 {
+    background-color: #132B34 !important;
 }
 
 html[data-mode="light"] .bg-\[\#1C1C24\],
@@ -1823,14 +1836,18 @@ html[data-mode="light"] .bg-\[\#1C1C24\]\/80,
 html[data-mode="light"] .bg-\[\#1C1C24\]\/90,
 html[data-mode="crimson"] .bg-\[\#1C1C24\],
 html[data-mode="crimson"] .bg-\[\#1C1C24\]\/80,
-html[data-mode="crimson"] .bg-\[\#1C1C24\]\/90 {
-    background-color: #331216 !important;
-    box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(107, 30, 35, 0.45) !important;
+html[data-mode="crimson"] .bg-\[\#1C1C24\]\/90,
+html[data-mode="emerald"] .bg-\[\#1C1C24\],
+html[data-mode="emerald"] .bg-\[\#1C1C24\]\/80,
+html[data-mode="emerald"] .bg-\[\#1C1C24\]\/90 {
+    background-color: #15323C !important;
+    box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(40, 98, 58, 0.45) !important;
 }
 
 html[data-mode="light"] .bg-\[\#23232E\],
-html[data-mode="crimson"] .bg-\[\#23232E\] {
-    background-color: #42171C !important;
+html[data-mode="crimson"] .bg-\[\#23232E\],
+html[data-mode="emerald"] .bg-\[\#23232E\] {
+    background-color: #1A3E4B !important;
 }
 
 html[data-mode="light"] .bg-slate-900,
@@ -1838,11 +1855,14 @@ html[data-mode="light"] .bg-slate-900\/80,
 html[data-mode="light"] .bg-slate-900\/90,
 html[data-mode="crimson"] .bg-slate-900,
 html[data-mode="crimson"] .bg-slate-900\/80,
-html[data-mode="crimson"] .bg-slate-900\/90 {
-    background-color: #381418 !important;
+html[data-mode="crimson"] .bg-slate-900\/90,
+html[data-mode="emerald"] .bg-slate-900,
+html[data-mode="emerald"] .bg-slate-900\/80,
+html[data-mode="emerald"] .bg-slate-900\/90 {
+    background-color: #132B34 !important;
 }
 
-/* Border replacements in Crimson Velvet */
+/* Border replacements in Emerald Depth */
 html[data-mode="light"] .border-\[\#2E2A40\],
 html[data-mode="light"] .border-\[\#2E2A40\]\/50,
 html[data-mode="light"] .border-\[\#2E2A40\]\/60,
@@ -1852,18 +1872,26 @@ html[data-mode="crimson"] .border-\[\#2E2A40\],
 html[data-mode="crimson"] .border-\[\#2E2A40\]\/50,
 html[data-mode="crimson"] .border-\[\#2E2A40\]\/60,
 html[data-mode="crimson"] .border-white\/10,
-html[data-mode="crimson"] .border-slate-700\/60 {
-    border-color: rgba(107, 30, 35, 0.6) !important;
+html[data-mode="crimson"] .border-slate-700\/60,
+html[data-mode="emerald"] .border-\[\#2E2A40\],
+html[data-mode="emerald"] .border-\[\#2E2A40\]\/50,
+html[data-mode="emerald"] .border-\[\#2E2A40\]\/60,
+html[data-mode="emerald"] .border-white\/10,
+html[data-mode="emerald"] .border-slate-700\/60 {
+    border-color: rgba(40, 98, 58, 0.60) !important;
 }
 
-/* Text replacements in Crimson Velvet */
+/* High-Contrast Readability Overrides in Emerald Depth */
 html[data-mode="light"] .text-\[\#FAFAFA\],
 html[data-mode="light"] .text-\[\#FAFAF0\],
 html[data-mode="light"] .text-white,
 html[data-mode="crimson"] .text-\[\#FAFAFA\],
 html[data-mode="crimson"] .text-\[\#FAFAF0\],
-html[data-mode="crimson"] .text-white {
-    color: #FFF0F2 !important;
+html[data-mode="crimson"] .text-white,
+html[data-mode="emerald"] .text-\[\#FAFAFA\],
+html[data-mode="emerald"] .text-\[\#FAFAF0\],
+html[data-mode="emerald"] .text-white {
+    color: #F0FDF4 !important;
 }
 
 html[data-mode="light"] .text-\[\#D4D4D8\],
@@ -1871,51 +1899,62 @@ html[data-mode="light"] .text-slate-200,
 html[data-mode="light"] .text-slate-300,
 html[data-mode="crimson"] .text-\[\#D4D4D8\],
 html[data-mode="crimson"] .text-slate-200,
-html[data-mode="crimson"] .text-slate-300 {
-    color: #E5B8BE !important;
+html[data-mode="crimson"] .text-slate-300,
+html[data-mode="emerald"] .text-\[\#D4D4D8\],
+html[data-mode="emerald"] .text-slate-200,
+html[data-mode="emerald"] .text-slate-300 {
+    color: #D1FAE5 !important;
 }
 
 html[data-mode="light"] .text-\[\#A1A1AA\],
 html[data-mode="light"] .text-slate-400,
 html[data-mode="crimson"] .text-\[\#A1A1AA\],
-html[data-mode="crimson"] .text-slate-400 {
-    color: #B88B92 !important;
+html[data-mode="crimson"] .text-slate-400,
+html[data-mode="emerald"] .text-\[\#A1A1AA\],
+html[data-mode="emerald"] .text-slate-400 {
+    color: #86EFAC !important;
 }
 
-/* Cards & Pills in Crimson Velvet */
+/* Cards & Pills in Emerald Depth */
 html[data-mode="light"] .glossy-card,
-html[data-mode="crimson"] .glossy-card {
-    background: rgba(51, 18, 22, 0.90) !important;
-    border-color: rgba(107, 30, 35, 0.65) !important;
-    box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.5) !important;
+html[data-mode="crimson"] .glossy-card,
+html[data-mode="emerald"] .glossy-card {
+    background: rgba(19, 43, 52, 0.90) !important;
+    border-color: rgba(40, 98, 58, 0.65) !important;
+    box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.6) !important;
 }
 html[data-mode="light"] .glossy-card:hover,
-html[data-mode="crimson"] .glossy-card:hover {
-    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.8), 0 0 25px rgba(225, 29, 72, 0.35) !important;
-    border-color: #E11D48 !important;
+html[data-mode="crimson"] .glossy-card:hover,
+html[data-mode="emerald"] .glossy-card:hover {
+    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.85), 0 0 25px rgba(40, 98, 58, 0.50) !important;
+    border-color: #28623A !important;
 }
 html[data-mode="light"] .glass-pill,
-html[data-mode="crimson"] .glass-pill {
-    background: rgba(56, 20, 24, 0.92) !important;
-    border-color: rgba(107, 30, 35, 0.65) !important;
-    color: #E5B8BE !important;
+html[data-mode="crimson"] .glass-pill,
+html[data-mode="emerald"] .glass-pill {
+    background: rgba(19, 43, 52, 0.92) !important;
+    border-color: rgba(40, 98, 58, 0.65) !important;
+    color: #D1FAE5 !important;
 }
 html[data-mode="light"] .theme-mode-btn,
 html[data-mode="light"] .audio-toggle-btn,
 html[data-mode="crimson"] .theme-mode-btn,
-html[data-mode="crimson"] .audio-toggle-btn {
-    background: rgba(56, 20, 24, 0.85) !important;
-    border-color: rgba(107, 30, 35, 0.65) !important;
-    color: #E5B8BE !important;
+html[data-mode="crimson"] .audio-toggle-btn,
+html[data-mode="emerald"] .theme-mode-btn,
+html[data-mode="emerald"] .audio-toggle-btn {
+    background: rgba(19, 43, 52, 0.85) !important;
+    border-color: rgba(40, 98, 58, 0.65) !important;
+    color: #D1FAE5 !important;
 }
 html[data-mode="light"] .nav-resume-btn,
-html[data-mode="crimson"] .nav-resume-btn {
-    background: rgba(56, 20, 24, 0.85) !important;
-    border-color: rgba(107, 30, 35, 0.65) !important;
-    color: #FFF0F2 !important;
+html[data-mode="crimson"] .nav-resume-btn,
+html[data-mode="emerald"] .nav-resume-btn {
+    background: rgba(19, 43, 52, 0.85) !important;
+    border-color: rgba(40, 98, 58, 0.65) !important;
+    color: #F0FDF4 !important;
 }
 
-/* Headings in Crimson Velvet: Ivory-Rose into Crimson Red */
+/* Headings in Emerald Depth: Mint-White into Rich Emerald */
 html[data-mode="light"] h1, 
 html[data-mode="light"] h2, 
 html[data-mode="light"] h3, 
@@ -1925,8 +1964,13 @@ html[data-mode="crimson"] h1,
 html[data-mode="crimson"] h2, 
 html[data-mode="crimson"] h3, 
 html[data-mode="crimson"] .heading-gradient, 
-html[data-mode="crimson"] .text-cosmic-glow {
-    background: linear-gradient(135deg, #FFF0F2 20%, #F472B6 50%, #E11D48 80%, #6B1E23 100%) !important;
+html[data-mode="crimson"] .text-cosmic-glow,
+html[data-mode="emerald"] h1, 
+html[data-mode="emerald"] h2, 
+html[data-mode="emerald"] h3, 
+html[data-mode="emerald"] .heading-gradient, 
+html[data-mode="emerald"] .text-cosmic-glow {
+    background: linear-gradient(135deg, #F0FDF4 15%, #6EE7B7 45%, #28623A 80%, #0F2027 100%) !important;
     -webkit-background-clip: text !important;
     background-clip: text !important;
     -webkit-text-fill-color: transparent !important;
@@ -1934,8 +1978,9 @@ html[data-mode="crimson"] .text-cosmic-glow {
 }
 
 html[data-mode="light"] #introMainTitle,
-html[data-mode="crimson"] #introMainTitle {
-    background: linear-gradient(135deg, #FFF0F2 25%, #F472B6 55%, #E11D48 80%, #6B1E23 100%) !important;
+html[data-mode="crimson"] #introMainTitle,
+html[data-mode="emerald"] #introMainTitle {
+    background: linear-gradient(135deg, #F0FDF4 20%, #6EE7B7 50%, #28623A 80%, #0F2027 100%) !important;
     -webkit-background-clip: text !important;
     background-clip: text !important;
     -webkit-text-fill-color: transparent !important;
@@ -1943,49 +1988,54 @@ html[data-mode="crimson"] #introMainTitle {
 }
 
 html[data-mode="light"] .scroll-fill-title,
-html[data-mode="crimson"] .scroll-fill-title {
+html[data-mode="crimson"] .scroll-fill-title,
+html[data-mode="emerald"] .scroll-fill-title {
     color: transparent !important;
-    -webkit-text-stroke: 1.5px rgba(255, 240, 242, 0.25) !important;
-    background: linear-gradient(135deg, #FFF0F2 20%, #F472B6 55%, #E11D48 80%, #6B1E23 100%) !important;
+    -webkit-text-stroke: 1.5px rgba(240, 253, 244, 0.25) !important;
+    background: linear-gradient(135deg, #F0FDF4 15%, #6EE7B7 45%, #28623A 80%, #0F2027 100%) !important;
     -webkit-background-clip: text !important;
     background-clip: text !important;
 }
 
 html[data-mode="light"] footer,
-html[data-mode="crimson"] footer {
-    background-color: #240D10 !important;
-    border-color: rgba(107, 30, 35, 0.6) !important;
+html[data-mode="crimson"] footer,
+html[data-mode="emerald"] footer {
+    background-color: #0B181E !important;
+    border-color: rgba(40, 98, 58, 0.60) !important;
 }
 
 html[data-mode="light"] .intro-spotlight,
-html[data-mode="crimson"] .intro-spotlight {
-    background: radial-gradient(ellipse 75% 65% at 5% 95%, rgba(107, 30, 35, 0.35) 0%, rgba(44, 15, 18, 0.98) 80%) !important;
+html[data-mode="crimson"] .intro-spotlight,
+html[data-mode="emerald"] .intro-spotlight {
+    background: radial-gradient(ellipse 75% 65% at 5% 95%, rgba(40, 98, 58, 0.35) 0%, rgba(15, 32, 39, 0.98) 80%) !important;
 }
 
 html[data-mode="light"] .cinematic-intro-overlay,
-html[data-mode="crimson"] .cinematic-intro-overlay {
-    background: rgba(44, 15, 18, 0.95) !important;
+html[data-mode="crimson"] .cinematic-intro-overlay,
+html[data-mode="emerald"] .cinematic-intro-overlay {
+    background: rgba(15, 32, 39, 0.96) !important;
 }
 
 html[data-mode="light"] #enterPortfolioBtn,
-html[data-mode="crimson"] #enterPortfolioBtn {
-    background: rgba(107, 30, 35, 0.45) !important;
-    border-color: rgba(225, 29, 72, 0.55) !important;
-    color: #FFF0F2 !important;
-    box-shadow: 0 8px 32px -8px rgba(107, 30, 35, 0.6) !important;
+html[data-mode="crimson"] #enterPortfolioBtn,
+html[data-mode="emerald"] #enterPortfolioBtn {
+    background: rgba(40, 98, 58, 0.45) !important;
+    border-color: rgba(52, 211, 153, 0.55) !important;
+    color: #F0FDF4 !important;
+    box-shadow: 0 8px 32px -8px rgba(40, 98, 58, 0.65) !important;
 }
 
 html[data-mode="light"] .cosmic-btn-primary,
-html[data-mode="crimson"] .cosmic-btn-primary {
-    background: linear-gradient(135deg, #E11D48 0%, #6B1E23 100%) !important;
-    box-shadow: 0 0 25px rgba(225, 29, 72, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.4) !important;
+html[data-mode="crimson"] .cosmic-btn-primary,
+html[data-mode="emerald"] .cosmic-btn-primary {
+    background: linear-gradient(135deg, #28623A 0%, #0F2027 100%) !important;
+    box-shadow: 0 0 25px rgba(40, 98, 58, 0.55), inset 0 1px 1px rgba(255, 255, 255, 0.4) !important;
     color: #FFFFFF !important;
 }
 
-
 /* ========================================================================== */
 /* SUPER-COOL PROFILE PICTURE ANIMATED GLOW BACKGROUND                        */
-/* Multi-layered shifting Aurora waves with warm amber, crimson & gold        */
+/* Multi-layered shifting Aurora waves with warm amber, emerald & deep teal   */
 /* ========================================================================== */
 .aurora-trail-left {
     position: absolute;
@@ -2005,7 +2055,7 @@ html[data-mode="crimson"] .cosmic-btn-primary {
     filter: blur(50px);
     opacity: 0.85;
     will-change: transform, filter;
-    transform: translate3d(0, 0, 0);
+    mix-blend-mode: screen;
 }
 
 .aurora-wave-1 {
@@ -2014,13 +2064,13 @@ html[data-mode="crimson"] .cosmic-btn-primary {
 }
 
 .aurora-wave-2 {
-    background: radial-gradient(ellipse 70% 60% at 65% 55%, rgba(107, 30, 35, 0.90) 0%, rgba(225, 29, 72, 0.60) 50%, transparent 80%);
+    background: radial-gradient(ellipse 70% 60% at 65% 55%, rgba(40, 98, 58, 0.90) 0%, rgba(16, 185, 129, 0.60) 50%, transparent 80%);
     animation: auroraWaveMove2 13s ease-in-out infinite alternate;
     opacity: 0.75;
 }
 
 .aurora-wave-3 {
-    background: radial-gradient(ellipse 65% 55% at 45% 30%, rgba(245, 158, 11, 0.70) 0%, rgba(107, 30, 35, 0.40) 55%, transparent 75%);
+    background: radial-gradient(ellipse 65% 55% at 45% 30%, rgba(52, 211, 153, 0.70) 0%, rgba(40, 98, 58, 0.40) 55%, transparent 75%);
     animation: auroraWaveMove3 11s ease-in-out infinite alternate;
     opacity: 0.70;
 }
@@ -2070,18 +2120,21 @@ html[data-mode="crimson"] .cosmic-btn-primary {
     }
 }
 
-/* In Crimson Velvet Mode, aurora waves shift to rich burgundy crimson glow */
+/* In Emerald Depth Mode, aurora waves shift to rich deep emerald & teal glow */
 html[data-mode="light"] .aurora-wave-1,
-html[data-mode="crimson"] .aurora-wave-1 {
-    background: radial-gradient(ellipse 75% 65% at 30% 40%, rgba(107, 30, 35, 0.95) 0%, rgba(225, 29, 72, 0.75) 45%, transparent 75%) !important;
+html[data-mode="crimson"] .aurora-wave-1,
+html[data-mode="emerald"] .aurora-wave-1 {
+    background: radial-gradient(ellipse 75% 65% at 30% 40%, rgba(40, 98, 58, 0.95) 0%, rgba(16, 185, 129, 0.75) 45%, transparent 75%) !important;
 }
 html[data-mode="light"] .aurora-wave-2,
-html[data-mode="crimson"] .aurora-wave-2 {
-    background: radial-gradient(ellipse 70% 60% at 65% 55%, rgba(168, 44, 53, 0.90) 0%, rgba(107, 30, 35, 0.65) 50%, transparent 80%) !important;
+html[data-mode="crimson"] .aurora-wave-2,
+html[data-mode="emerald"] .aurora-wave-2 {
+    background: radial-gradient(ellipse 70% 60% at 65% 55%, rgba(24, 68, 42, 0.90) 0%, rgba(40, 98, 58, 0.65) 50%, transparent 80%) !important;
 }
 html[data-mode="light"] .aurora-wave-3,
-html[data-mode="crimson"] .aurora-wave-3 {
-    background: radial-gradient(ellipse 65% 55% at 45% 30%, rgba(244, 63, 94, 0.85) 0%, rgba(107, 30, 35, 0.55) 55%, transparent 75%) !important;
+html[data-mode="crimson"] .aurora-wave-3,
+html[data-mode="emerald"] .aurora-wave-3 {
+    background: radial-gradient(ellipse 65% 55% at 45% 30%, rgba(52, 211, 153, 0.85) 0%, rgba(40, 98, 58, 0.55) 55%, transparent 75%) !important;
 }
 
 /* Photo card frame with specular glowing rim */
@@ -2090,7 +2143,7 @@ html[data-mode="crimson"] .aurora-wave-3 {
     box-shadow: 
         0 25px 60px -15px rgba(0, 0, 0, 0.9),
         0 0 35px rgba(138, 141, 145, 0.35),
-        0 0 70px rgba(107, 30, 35, 0.30) !important;
+        0 0 70px rgba(40, 98, 58, 0.30) !important;
     position: relative;
     z-index: 5;
     transition: transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease !important;
@@ -2098,22 +2151,22 @@ html[data-mode="crimson"] .aurora-wave-3 {
 
 .photo-rectangular-card:hover {
     transform: translateY(-4px) scale(1.015) !important;
-    border-color: rgba(245, 158, 11, 0.7) !important;
+    border-color: rgba(52, 211, 153, 0.75) !important;
     box-shadow: 
         0 30px 70px -15px rgba(0, 0, 0, 0.95),
         0 0 50px rgba(138, 141, 145, 0.55),
-        0 0 90px rgba(225, 29, 72, 0.45) !important;
+        0 0 90px rgba(40, 98, 58, 0.55) !important;
 }
 
 html[data-mode="light"] .photo-rectangular-card,
-html[data-mode="crimson"] .photo-rectangular-card {
-    border-color: rgba(225, 29, 72, 0.65) !important;
+html[data-mode="crimson"] .photo-rectangular-card,
+html[data-mode="emerald"] .photo-rectangular-card {
+    border-color: rgba(40, 98, 58, 0.75) !important;
     box-shadow: 
         0 25px 60px -15px rgba(0, 0, 0, 0.9),
-        0 0 45px rgba(225, 29, 72, 0.45),
-        0 0 85px rgba(107, 30, 35, 0.55) !important;
+        0 0 45px rgba(40, 98, 58, 0.50),
+        0 0 85px rgba(15, 32, 39, 0.65) !important;
 }
-
 
 /* ========================================================================== */
 /* SUPER-SMOOTH COOL GITHUB CONTRIBUTION GRID                                 */
@@ -2163,52 +2216,62 @@ html[data-mode="crimson"] .photo-rectangular-card {
     filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.85)) !important;
 }
 
-/* Contribution Levels in Crimson Velvet Bright Mode */
+/* Contribution Levels in Emerald Depth Mode */
 html[data-mode="light"] .contrib-rect[data-level="0"],
 html[data-mode="light"] .contrib-rect.contrib-lvl-0,
 html[data-mode="crimson"] .contrib-rect[data-level="0"],
-html[data-mode="crimson"] .contrib-rect.contrib-lvl-0 {
-    fill: #220B10 !important;
-    stroke: rgba(255, 255, 255, 0.06) !important;
+html[data-mode="crimson"] .contrib-rect.contrib-lvl-0,
+html[data-mode="emerald"] .contrib-rect[data-level="0"],
+html[data-mode="emerald"] .contrib-rect.contrib-lvl-0 {
+    fill: #0B181E !important;
+    stroke: rgba(255, 255, 255, 0.05) !important;
 }
 html[data-mode="light"] .contrib-rect[data-level="1"],
 html[data-mode="light"] .contrib-rect.contrib-lvl-1,
 html[data-mode="crimson"] .contrib-rect[data-level="1"],
-html[data-mode="crimson"] .contrib-rect.contrib-lvl-1 {
-    fill: #5C161D !important;
+html[data-mode="crimson"] .contrib-rect.contrib-lvl-1,
+html[data-mode="emerald"] .contrib-rect[data-level="1"],
+html[data-mode="emerald"] .contrib-rect.contrib-lvl-1 {
+    fill: #154024 !important;
     stroke: rgba(255, 255, 255, 0.06) !important;
 }
 html[data-mode="light"] .contrib-rect[data-level="2"],
 html[data-mode="light"] .contrib-rect.contrib-lvl-2,
 html[data-mode="crimson"] .contrib-rect[data-level="2"],
-html[data-mode="crimson"] .contrib-rect.contrib-lvl-2 {
-    fill: #93132B !important;
+html[data-mode="crimson"] .contrib-rect.contrib-lvl-2,
+html[data-mode="emerald"] .contrib-rect[data-level="2"],
+html[data-mode="emerald"] .contrib-rect.contrib-lvl-2 {
+    fill: #28623A !important;
     stroke: rgba(255, 255, 255, 0.08) !important;
 }
 html[data-mode="light"] .contrib-rect[data-level="3"],
 html[data-mode="light"] .contrib-rect.contrib-lvl-3,
 html[data-mode="crimson"] .contrib-rect[data-level="3"],
-html[data-mode="crimson"] .contrib-rect.contrib-lvl-3 {
-    fill: #D91B42 !important;
+html[data-mode="crimson"] .contrib-rect.contrib-lvl-3,
+html[data-mode="emerald"] .contrib-rect[data-level="3"],
+html[data-mode="emerald"] .contrib-rect.contrib-lvl-3 {
+    fill: #10B981 !important;
     stroke: rgba(255, 255, 255, 0.12) !important;
 }
 html[data-mode="light"] .contrib-rect[data-level="4"],
 html[data-mode="light"] .contrib-rect.contrib-lvl-4,
 html[data-mode="crimson"] .contrib-rect[data-level="4"],
-html[data-mode="crimson"] .contrib-rect.contrib-lvl-4 {
-    fill: #FF4D6D !important;
-    stroke: rgba(255, 77, 109, 0.35) !important;
-    filter: drop-shadow(0 0 7px rgba(255, 77, 109, 0.85)) !important;
+html[data-mode="crimson"] .contrib-rect.contrib-lvl-4,
+html[data-mode="emerald"] .contrib-rect[data-level="4"],
+html[data-mode="emerald"] .contrib-rect.contrib-lvl-4 {
+    fill: #34D399 !important;
+    stroke: rgba(52, 211, 153, 0.45) !important;
+    filter: drop-shadow(0 0 7px rgba(52, 211, 153, 0.85)) !important;
 }
 html[data-mode="light"] .contrib-rect:hover,
-html[data-mode="crimson"] .contrib-rect:hover {
-    stroke: #FFCCD5 !important;
-    filter: drop-shadow(0 0 9px rgba(255, 77, 109, 0.95)) !important;
+html[data-mode="crimson"] .contrib-rect:hover,
+html[data-mode="emerald"] .contrib-rect:hover {
+    stroke: #D1FAE5 !important;
+    filter: drop-shadow(0 0 9px rgba(52, 211, 153, 0.95)) !important;
 }
 
 
 
-/* ========================================================================== */
 /* POINTER HOVER TEXT BLOCK ELEVATION & GLOW SYSTEM                           */
 /* When pointer hovers any text block, it elevates with luxurious glow        */
 /* ========================================================================== */
