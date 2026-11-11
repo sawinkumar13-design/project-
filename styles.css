@@ -2596,3 +2596,24 @@ section p:hover,
     stroke-width: 1.5px !important;
     filter: drop-shadow(0 0 6px var(--accent-glow));
 }
+
+/* ==========================================================================
+   CERTIFICATES CAROUSEL TRANSITIONS & CONTROLS
+   ========================================================================== */
+.cert-card-wrap {
+    transition: opacity 0.28s cubic-bezier(0.16, 1, 0.3, 1), transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.cert-fade-out {
+    opacity: 0 !important;
+    transform: translateY(6px) scale(0.995);
+    pointer-events: none;
+}
+.cert-nav-btn {
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.cert-nav-btn:hover {
+    transform: scale(1.08);
+}
+.cert-nav-btn:active {
+    transform: scale(0.95);
+}

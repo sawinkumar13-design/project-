@@ -1278,7 +1278,7 @@ A new visitor just opened your portfolio website!
             if (hardEl && data.hardSolved !== undefined) animateValue(hardEl, hardEl.textContent, data.hardSolved);
 
             // 3. Proportion Bars
-            const total = (data.totalSolved && data.totalSolved > 0) ? data.totalSolved : 102;
+            const total = (data.totalSolved && data.totalSolved > 0) ? data.totalSolved : 107;
             const barEasy = document.getElementById('lcBarEasy');
             const barMed = document.getElementById('lcBarMed');
             const barHard = document.getElementById('lcBarHard');
@@ -1368,7 +1368,7 @@ A new visitor just opened your portfolio website!
     async function fetchLiveLeetCode() {
         // Hydrate from localStorage first (0ms latency)
         try {
-            const cached = localStorage.getItem('sawin_portfolio_leetcode_cache_v5');
+            const cached = localStorage.getItem('sawin_portfolio_leetcode_cache_v6');
             if (cached) applyLeetCodeData(JSON.parse(cached));
         } catch (e) {}
 
@@ -1391,7 +1391,7 @@ A new visitor just opened your portfolio website!
 
         if (data) {
             try {
-                localStorage.setItem('sawin_portfolio_leetcode_cache_v5', JSON.stringify(data));
+                localStorage.setItem('sawin_portfolio_leetcode_cache_v6', JSON.stringify(data));
             } catch (e) {}
             applyLeetCodeData(data);
         }
@@ -1440,7 +1440,7 @@ A new visitor just opened your portfolio website!
     async function fetchLiveGitHub() {
         // Hydrate from localStorage first
         try {
-            const cached = localStorage.getItem('sawin_portfolio_github_cache_v5');
+            const cached = localStorage.getItem('sawin_portfolio_github_cache_v6');
             if (cached) applyGitHubCached(JSON.parse(cached));
         } catch (e) {}
 
@@ -1511,8 +1511,7 @@ A new visitor just opened your portfolio website!
                                 (contribData.total?.['2026'] ? (contribData.total['2026'] + (contribData.total['2025'] || 0)) : 0) || 
                                 contributions.reduce((a, c) => a + c.count, 0) || 134;
 
-            // Real-Time Push detection for today
-            const todayUtc = new Date().toISOString().slice(0, 10);
+            // Real-Time Push detection for today (re-using todayUtc)
             let todayPushes = 0;
             if (eventsData && Array.isArray(eventsData)) {
                 todayPushes = eventsData.filter(ev => ev.type === 'PushEvent' && ev.created_at && ev.created_at.startsWith(todayUtc)).length;
@@ -1557,7 +1556,7 @@ A new visitor just opened your portfolio website!
             cacheObj.contributions = contributions;
 
             try {
-                localStorage.setItem('sawin_portfolio_github_cache_v5', JSON.stringify(cacheObj));
+                localStorage.setItem('sawin_portfolio_github_cache_v6', JSON.stringify(cacheObj));
             } catch (e) {}
         }
     }
@@ -1640,25 +1639,249 @@ A new visitor just opened your portfolio website!
 
 
     // =========================================================================
+    // CERTIFICATES DATA & INTERACTIVE CAROUSEL CONTROLLER
+    // =========================================================================
+    const certificatesData = [
+        {
+            id: 'agentic-ai-glau-ieee',
+            counter: 'CERTIFICATE 1 OF 2',
+            title: 'Hands-on Workshop on <span class="text-accent-dynamic">“Agentic AI”</span>',
+            modalTitle: 'Hands-on Workshop on “Agentic AI” — IEEE Student Branch, GLA University',
+            typeLabel: 'Certificate of Participation',
+            issuer: 'IEEE Student Branch, GLA University • Verified Credential',
+            category: 'AI & Autonomous Systems',
+            date: 'October 2026',
+            badgeLeft: {
+                text: 'OFFICIALLY VERIFIED',
+                icon: 'shield-check',
+                classes: 'border-amber-500/40 text-amber-300'
+            },
+            badgeRight: {
+                text: 'October 2026',
+                icon: 'calendar'
+            },
+            badgesRow: [
+                { text: 'IEEE Student Branch', icon: 'cpu', classes: 'bg-blue-500/10 border-blue-500/30 text-blue-400' },
+                { text: 'GLA University (NAAC A+)', icon: 'graduation-cap', classes: 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400' },
+                { text: 'IEEE UP Section (India)', icon: null, classes: 'bg-amber-500/10 border-amber-500/30 text-amber-300' }
+            ],
+            description: 'Actively participated in the intensive hands-on technical workshop organized by the <strong>IEEE Student Branch, GLA University</strong>, gaining real-world architectural insights and practical hands-on experience in <strong>AI Agents</strong> and <strong>Agentforce</strong>.',
+            instructors: `
+                <div class="flex items-start gap-3">
+                    <div class="w-8 h-8 rounded-full bg-blue-500/15 border border-blue-500/30 flex items-center justify-center shrink-0 mt-0.5">
+                        <i data-lucide="user-check" class="w-4 h-4 text-blue-400"></i>
+                    </div>
+                    <div>
+                        <span class="text-[10px] font-mono text-slate-400 uppercase tracking-wider block">Conducted By</span>
+                        <span class="text-xs sm:text-sm font-bold text-white">Mr. Shubham Shakti</span>
+                        <span class="text-[11px] text-[#A1A1AA] block">Industry Expert &bull; AI Agents &amp; Agentforce</span>
+                    </div>
+                </div>
+                <div class="pt-2 border-t border-white/[0.06] flex items-start gap-3">
+                    <div class="w-8 h-8 rounded-full bg-amber-500/15 border border-amber-500/30 flex items-center justify-center shrink-0 mt-0.5">
+                        <i data-lucide="shield-check" class="w-4 h-4 text-amber-400"></i>
+                    </div>
+                    <div>
+                        <span class="text-[10px] font-mono text-slate-400 uppercase tracking-wider block">Official Endorsements</span>
+                        <span class="text-xs font-semibold text-slate-200 block">Dr. Dilip Kumar Sharma <span class="text-[10px] text-slate-400 font-normal">(Professor &amp; Dean, International Relations)</span></span>
+                        <span class="text-xs font-semibold text-slate-200 block mt-0.5">Dr. Munmi Gogoi <span class="text-[10px] text-slate-400 font-normal">(Assistant Professor, GLA University)</span></span>
+                    </div>
+                </div>
+            `,
+            skills: ['AI Agents', 'Agentforce', 'Autonomous Workflows', 'Tool Calling & Reasoning', 'IEEE GLAU'],
+            quote: '“Every innovation begins with curiosity — thank you for taking the first step toward a smarter future.”',
+            imgThumb: 'assets/certificates/agentic-ai-glau-ieee-thumb.webp',
+            imgHighRes: 'assets/certificates/agentic-ai-glau-ieee.webp',
+            pdfUrl: 'assets/certificates/agentic-ai-glau-ieee.pdf',
+            pdfDownloadName: 'Sawin-Kumar-Agentic-AI-Certificate.pdf'
+        },
+        {
+            id: 'nptel-ethics-iitkgp',
+            counter: 'CERTIFICATE 2 OF 2',
+            title: 'Ethics in Engineering <span class="text-accent-dynamic">Practice</span>',
+            modalTitle: 'Ethics in Engineering Practice — NPTEL Elite Certification (IIT Kharagpur)',
+            typeLabel: 'NPTEL Elite Online Certification (78%)',
+            issuer: 'IIT Kharagpur & NPTEL (MoE, Govt. of India) • Roll No: NPTEL26MG158S450302096',
+            category: 'Engineering Ethics & Professional Standards',
+            date: 'Aug–Oct 2026',
+            badgeLeft: {
+                text: 'ELITE CERTIFICATION',
+                icon: 'award',
+                classes: 'border-red-500/40 text-rose-300'
+            },
+            badgeRight: {
+                text: 'Aug–Oct 2026',
+                icon: 'calendar'
+            },
+            badgesRow: [
+                { text: 'IIT Kharagpur', icon: 'award', classes: 'bg-red-500/10 border-red-500/30 text-rose-400' },
+                { text: 'NPTEL MoE Elite (78%)', icon: 'shield-check', classes: 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400' },
+                { text: '7,715 Candidates', icon: 'users', classes: 'bg-blue-500/10 border-blue-500/30 text-blue-300' },
+                { text: '3 Credits Recommended', icon: 'check-circle-2', classes: 'bg-amber-500/10 border-amber-500/30 text-amber-300' }
+            ],
+            description: 'Successfully completed the rigorous 8-week NPTEL Online Certification funded by the <strong>Ministry of Education (MoE, Govt. of India)</strong> and organized by <strong>Indian Institute of Technology Kharagpur (IIT Kharagpur)</strong>, achieving the prestigious <strong>ELITE</strong> honor with a consolidated score of <strong>78%</strong>.',
+            instructors: `
+                <div class="flex items-start gap-3">
+                    <div class="w-8 h-8 rounded-full bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center shrink-0 mt-0.5">
+                        <i data-lucide="award" class="w-4 h-4 text-emerald-400"></i>
+                    </div>
+                    <div>
+                        <span class="text-[10px] font-mono text-slate-400 uppercase tracking-wider block">Score Breakdown &bull; Elite Distinction</span>
+                        <span class="text-xs sm:text-sm font-bold text-white">Consolidated Score: 78%</span>
+                        <span class="text-[11px] text-emerald-300 block font-mono">Assignments: 25/25 (100%) &bull; Proctored Exam: 52.5/75</span>
+                    </div>
+                </div>
+                <div class="pt-2 border-t border-white/[0.06] flex items-start gap-3">
+                    <div class="w-8 h-8 rounded-full bg-blue-500/15 border border-blue-500/30 flex items-center justify-center shrink-0 mt-0.5">
+                        <i data-lucide="shield-check" class="w-4 h-4 text-blue-400"></i>
+                    </div>
+                    <div>
+                        <span class="text-[10px] font-mono text-slate-400 uppercase tracking-wider block">Coordinated By &amp; Credential ID</span>
+                        <span class="text-xs font-semibold text-slate-200 block">Prof. Haimanti Banerji <span class="text-[10px] text-slate-400 font-normal">(Coordinator, NPTEL &bull; IIT Kharagpur)</span></span>
+                        <span class="text-[10px] font-mono text-[#A1A1AA] block mt-0.5">Roll No: NPTEL26MG158S450302096 &bull; Swayam &amp; Skill India</span>
+                    </div>
+                </div>
+            `,
+            skills: ['Engineering Ethics', 'Professional Integrity', 'Risk & Safety Management', 'Intellectual Property', 'Environmental Ethics', 'IIT Kharagpur'],
+            quote: '“Funded by the MoE, Govt. of India — Demonstrating uncompromising adherence to engineering ethics, governance, and societal responsibility.”',
+            imgThumb: 'assets/certificates/nptel-ethics-iitkgp-thumb.webp',
+            imgHighRes: 'assets/certificates/nptel-ethics-iitkgp.webp',
+            pdfUrl: 'assets/certificates/nptel-ethics-iitkgp.pdf',
+            pdfDownloadName: 'Sawin-Kumar-NPTEL-Ethics-IITKgp-Certificate.pdf'
+        }
+    ];
+
+    let currentCertIndex = 0;
+    let modalActiveIndex = 0;
+
+    function renderCertificate(index, animate = true) {
+        if (index < 0) index = certificatesData.length - 1;
+        if (index >= certificatesData.length) index = 0;
+        currentCertIndex = index;
+        const cert = certificatesData[index];
+        const showcaseCard = document.getElementById('certShowcaseCard');
+
+        const applyData = () => {
+            const counterEl = document.getElementById('certCounter');
+            if (counterEl) counterEl.textContent = cert.counter;
+
+            const dots = document.querySelectorAll('.cert-dot-btn');
+            dots.forEach((dot, dIdx) => {
+                if (dIdx === index) {
+                    dot.className = 'cert-dot-btn w-7 sm:w-8 h-2 rounded-full bg-[var(--accent)] transition-all cursor-pointer';
+                } else {
+                    dot.className = 'cert-dot-btn w-2 sm:w-2.5 h-2 rounded-full bg-white/20 hover:bg-white/40 transition-all cursor-pointer';
+                }
+            });
+
+            const imgEl = document.getElementById('certMainImg');
+            const visualWrap = document.getElementById('certVisualWrap');
+            if (imgEl) {
+                imgEl.src = cert.imgThumb;
+                imgEl.srcset = `${cert.imgHighRes} 2000w, ${cert.imgThumb} 1000w`;
+                imgEl.alt = cert.modalTitle;
+            }
+            if (visualWrap) {
+                visualWrap.onclick = () => openCertModal(cert.imgHighRes, cert.modalTitle, cert.pdfUrl, cert.pdfDownloadName, index);
+            }
+
+            const badgeLeft = document.getElementById('certBadgeLeft');
+            if (badgeLeft) {
+                badgeLeft.innerHTML = `<i data-lucide="${cert.badgeLeft.icon}" class="w-3.5 h-3.5 ${cert.badgeLeft.icon === 'award' ? 'text-amber-400' : 'text-emerald-400'}"></i><span>${cert.badgeLeft.text}</span>`;
+                badgeLeft.className = `absolute top-3 left-3 flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#17171C]/90 backdrop-blur-md border ${cert.badgeLeft.classes} text-[10px] font-mono font-bold tracking-wider uppercase shadow-lg`;
+            }
+
+            const badgeRight = document.getElementById('certBadgeRight');
+            if (badgeRight) {
+                badgeRight.innerHTML = `<i data-lucide="${cert.badgeRight.icon}" class="w-3 h-3 text-[var(--accent)]"></i><span>${cert.badgeRight.text}</span>`;
+            }
+
+            const bottomCat = document.getElementById('certBottomCategory');
+            if (bottomCat) {
+                bottomCat.innerHTML = `<i data-lucide="award" class="w-4 h-4 text-amber-400"></i><span>${cert.typeLabel}</span>`;
+            }
+
+            const badgesRow = document.getElementById('certBadgesRow');
+            if (badgesRow) {
+                badgesRow.innerHTML = cert.badgesRow.map(b => `
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg border text-[11px] font-mono font-semibold ${b.classes}">
+                        ${b.icon ? `<i data-lucide="${b.icon}" class="w-3.5 h-3.5"></i>` : ''}
+                        <span>${b.text}</span>
+                    </span>
+                `).join('');
+            }
+
+            const titleEl = document.getElementById('certTitle');
+            if (titleEl) titleEl.innerHTML = cert.title;
+
+            const descEl = document.getElementById('certDesc');
+            if (descEl) descEl.innerHTML = cert.description;
+
+            const instEl = document.getElementById('certInstructorsBox');
+            if (instEl) instEl.innerHTML = cert.instructors;
+
+            const skillsEl = document.getElementById('certSkillsBox');
+            if (skillsEl) {
+                skillsEl.innerHTML = cert.skills.map(s => `
+                    <span class="text-block-lift px-2.5 py-1 rounded-md bg-[#1E2023] border border-[#3A3D41] text-xs font-mono text-slate-200">${s}</span>
+                `).join('');
+            }
+
+            const quoteEl = document.getElementById('certQuote');
+            if (quoteEl) quoteEl.textContent = cert.quote;
+
+            const viewBtn = document.getElementById('certViewHighResBtn');
+            if (viewBtn) {
+                viewBtn.onclick = () => openCertModal(cert.imgHighRes, cert.modalTitle, cert.pdfUrl, cert.pdfDownloadName, index);
+            }
+
+            const dlLink = document.getElementById('certDownloadPdfLink');
+            if (dlLink) {
+                dlLink.href = cert.pdfUrl;
+                dlLink.download = cert.pdfDownloadName;
+            }
+
+            if (window.lucide && typeof window.lucide.createIcons === 'function') {
+                window.lucide.createIcons();
+            }
+        };
+
+        if (animate && showcaseCard) {
+            showcaseCard.classList.add('cert-fade-out');
+            setTimeout(() => {
+                applyData();
+                showcaseCard.classList.remove('cert-fade-out');
+            }, 180);
+        } else {
+            applyData();
+        }
+    }
+
+    function nextCertificate() {
+        renderCertificate(currentCertIndex + 1);
+    }
+
+    function prevCertificate() {
+        renderCertificate(currentCertIndex - 1);
+    }
+
+    function setCertificate(idx) {
+        if (idx !== currentCertIndex) renderCertificate(idx);
+    }
+
+    // =========================================================================
     // CERTIFICATE INSPECTION MODAL (FULL-SCREEN LIGHTBOX CONTROLLER)
     // =========================================================================
-    function openCertModal(imgSrc, title, pdfSrc) {
+    function openCertModal(imgSrc, title, pdfSrc, downloadName, certIdx) {
+        if (typeof certIdx === 'number') {
+            modalActiveIndex = certIdx;
+        } else {
+            modalActiveIndex = currentCertIndex;
+        }
+        updateModalContent(modalActiveIndex);
+
         const modal = document.getElementById('certModal');
-        const modalImg = document.getElementById('certModalImg');
-        const modalTitle = document.getElementById('certModalTitle');
-        const modalDownload = document.getElementById('certModalDownload');
         if (!modal) return;
-
-        if (modalImg && imgSrc) {
-            modalImg.src = imgSrc;
-        }
-        if (modalTitle && title) {
-            modalTitle.textContent = title;
-        }
-        if (modalDownload && pdfSrc) {
-            modalDownload.href = pdfSrc;
-        }
-
         modal.classList.remove('hidden');
         modal.classList.add('flex');
         
@@ -1678,6 +1901,39 @@ A new visitor just opened your portfolio website!
         if (window.lucide && typeof window.lucide.createIcons === 'function') {
             window.lucide.createIcons();
         }
+    }
+
+    function updateModalContent(idx) {
+        if (idx < 0) idx = certificatesData.length - 1;
+        if (idx >= certificatesData.length) idx = 0;
+        modalActiveIndex = idx;
+        const cert = certificatesData[idx];
+
+        const modalImg = document.getElementById('certModalImg');
+        const modalTitle = document.getElementById('certModalTitle');
+        const modalDownload = document.getElementById('certModalDownload');
+        const modalCounter = document.getElementById('certModalCounter');
+        const modalFooterText = document.getElementById('certModalFooterText');
+
+        if (modalImg) modalImg.src = cert.imgHighRes;
+        if (modalTitle) modalTitle.textContent = cert.modalTitle;
+        if (modalDownload) {
+            modalDownload.href = cert.pdfUrl;
+            modalDownload.download = cert.pdfDownloadName;
+        }
+        if (modalCounter) modalCounter.textContent = `${idx + 1} / ${certificatesData.length}`;
+        if (modalFooterText) modalFooterText.textContent = cert.issuer;
+
+        // Also sync page card state without triggering duplicate animation
+        renderCertificate(idx, false);
+    }
+
+    function nextCertModal() {
+        updateModalContent(modalActiveIndex + 1);
+    }
+
+    function prevCertModal() {
+        updateModalContent(modalActiveIndex - 1);
     }
 
     function closeCertModal(e) {
@@ -1703,11 +1959,24 @@ A new visitor just opened your portfolio website!
     // Expose functions globally for inline onclick handlers
     window.openCertModal = openCertModal;
     window.closeCertModal = closeCertModal;
+    window.nextCertificate = nextCertificate;
+    window.prevCertificate = prevCertificate;
+    window.setCertificate = setCertificate;
+    window.nextCertModal = nextCertModal;
+    window.prevCertModal = prevCertModal;
 
-    // Listen for Escape key to dismiss modal
+    // Listen for Keyboard Navigation (Esc, Left Arrow, Right Arrow)
     document.addEventListener('keydown', (e) => {
+        const modal = document.getElementById('certModal');
+        const isModalOpen = modal && !modal.classList.contains('hidden');
         if (e.key === 'Escape') {
             closeCertModal();
+        } else if (e.key === 'ArrowRight') {
+            if (isModalOpen) nextCertModal();
+            else nextCertificate();
+        } else if (e.key === 'ArrowLeft') {
+            if (isModalOpen) prevCertModal();
+            else prevCertificate();
         }
     });
 
