@@ -1853,6 +1853,7 @@ A new visitor just opened your portfolio website!
                 showcaseCard.classList.remove('cert-fade-out');
             }, 180);
         } else {
+            if (showcaseCard) showcaseCard.classList.remove('cert-fade-out');
             applyData();
         }
     }
@@ -1964,6 +1965,9 @@ A new visitor just opened your portfolio website!
     window.setCertificate = setCertificate;
     window.nextCertModal = nextCertModal;
     window.prevCertModal = prevCertModal;
+
+    // Initialize carousel on page load - binds onclick handlers
+    renderCertificate(0, false);
 
     // Listen for Keyboard Navigation (Esc, Left Arrow, Right Arrow)
     document.addEventListener('keydown', (e) => {
