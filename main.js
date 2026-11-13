@@ -226,7 +226,7 @@ function startApp() {
         pointerSmokeCanvas = document.createElement('canvas');
         pointerSmokeCanvas.id = 'pointerSmokeCanvas';
         pointerSmokeCanvas.style.cssText = 'position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:9998;';
-        document.body.appendChild(pointerSmokeCanvas);
+        if (document.body) { document.body.appendChild(pointerSmokeCanvas); }
     }
     const pCtx = pointerSmokeCanvas ? pointerSmokeCanvas.getContext('2d') : null;
 
@@ -777,7 +777,7 @@ function startApp() {
         const tiltStyles = ['deep-float', 'holographic-glare', 'subtle-precision', 'magnetic-lift', 'inverted-depth'];
 
         const tiltCards = document.querySelectorAll(
-            '.photo-rectangular-card, .hero-glass-box, .sticky-project-card, .project-card, section#about > div > div > .lg\:col-span-7, section#education .glossy-card, section#skills > div > div > .glossy-card'
+            '.photo-rectangular-card, .hero-glass-box, .sticky-project-card, .project-card, section#about .glossy-card, section#education .glossy-card, section#skills .glossy-card'
         );
 
         tiltCards.forEach((card, index) => {
@@ -1082,7 +1082,7 @@ function startApp() {
     // =========================================================================
     // 11. NAVBAR SCROLL SPY & BLUR ENHANCEMENT
     // =========================================================================
-    const navbar = document.getElementById('navbar');
+    navbar = document.getElementById('navbar');
     const sections = document.querySelectorAll('section[id]');
     const navLinks = document.querySelectorAll('.nav-link');
 
@@ -1833,6 +1833,11 @@ A new visitor just opened your portfolio website!
             const viewBtn = document.getElementById('certViewHighResBtn');
             if (viewBtn) {
                 viewBtn.onclick = () => openCertModal(cert.imgHighRes, cert.modalTitle, cert.pdfUrl, cert.pdfDownloadName, index);
+            }
+
+            const expandBtn = document.getElementById('certExpandBtn');
+            if (expandBtn) {
+                expandBtn.onclick = () => openCertModal(cert.imgHighRes, cert.modalTitle, cert.pdfUrl, cert.pdfDownloadName, index);
             }
 
             const dlLink = document.getElementById('certDownloadPdfLink');

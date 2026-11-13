@@ -85,7 +85,7 @@
     </script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <link rel="stylesheet" href="styles.css?v=121">
+    <link rel="stylesheet" href="styles.css?v=122">
     <!-- Inline Immediate Mode Controller (Available from frame 1 before external JS) -->
     <script>
         (function() {
@@ -2307,7 +2307,7 @@
                         <div data-tilt-style="magnetic-lift" class="glossy-card p-4 sm:p-6 rounded-3xl h-full flex flex-col justify-between group relative overflow-hidden border border-white/10 hover:border-[var(--accent)] transition-all shadow-2xl">
                             
                             <!-- Certificate Visual Frame with Click to Enlarge -->
-                            <div id="certVisualWrap" class="relative rounded-2xl overflow-hidden bg-[#0A0806] border border-amber-500/30 group-hover:border-amber-400/60 transition-all shadow-inner cursor-pointer max-h-[460px] flex items-center justify-center" onclick="openCertModal('assets/certificates/agentic-ai-glau-ieee.webp', 'Hands-on Workshop on Agentic AI — IEEE Student Branch, GLA University', 'assets/certificates/agentic-ai-glau-ieee.pdf', 'Sawin-Kumar-Agentic-AI-Certificate.pdf', 0)">
+                            <div id="certVisualWrap" class="relative rounded-2xl overflow-hidden bg-[#0A0806] border border-amber-500/30 group-hover:border-amber-400/60 transition-all shadow-inner cursor-pointer max-h-[460px] flex items-center justify-center" onclick="openCertModal()">
                                 
                                 <img id="certMainImg" src="assets/certificates/agentic-ai-glau-ieee-thumb.webp"
                                      srcset="assets/certificates/agentic-ai-glau-ieee.webp 2000w, assets/certificates/agentic-ai-glau-ieee-thumb.webp 1000w"
@@ -2351,7 +2351,7 @@
                                     <i data-lucide="award" class="w-4 h-4 text-amber-400"></i>
                                     <span>Certificate of Participation</span>
                                 </span>
-                                <span class="flex items-center gap-1 text-[var(--accent)] hover:underline cursor-pointer" onclick="openCertModal('assets/certificates/agentic-ai-glau-ieee.webp', 'Hands-on Workshop on Agentic AI — IEEE Student Branch, GLA University', 'assets/certificates/agentic-ai-glau-ieee.pdf', 'Sawin-Kumar-Agentic-AI-Certificate.pdf', 0)">
+                                <span id="certExpandBtn" class="flex items-center gap-1 text-[var(--accent)] hover:underline cursor-pointer" onclick="openCertModal()">
                                     <span>Expand</span>
                                     <i data-lucide="external-link" class="w-3 h-3"></i>
                                 </span>
@@ -2433,7 +2433,7 @@
 
                             <!-- Action Buttons CTA -->
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
-                                <button id="certViewHighResBtn" onclick="openCertModal('assets/certificates/agentic-ai-glau-ieee.webp', 'Hands-on Workshop on Agentic AI — IEEE Student Branch, GLA University', 'assets/certificates/agentic-ai-glau-ieee.pdf', 'Sawin-Kumar-Agentic-AI-Certificate.pdf', 0)"
+                                <button id="certViewHighResBtn" onclick="openCertModal()"
                                         class="py-3 px-4 rounded-xl bg-white/[0.08] hover:bg-white/[0.14] border border-white/15 text-white flex items-center justify-center gap-2 font-medium text-xs sm:text-sm transition-all hover:scale-[1.02] active:scale-[0.98] shadow-lg group">
                                     <i data-lucide="eye" class="w-4 h-4 text-accent-dynamic group-hover:scale-110 transition-transform"></i>
                                     <span>View High-Res</span>
@@ -2799,7 +2799,7 @@
     </div>
 
     <!-- Scripts with Cache-Buster v=120 -->
-    <script src="main.js?v=121"></script>
+    <script src="main.js?v=122"></script>
     <script>if (window.lucide && typeof window.lucide.createIcons === 'function') { lucide.createIcons(); }</script>
 
 </body>
