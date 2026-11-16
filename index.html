@@ -88,19 +88,18 @@
     </script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <link rel="stylesheet" href="styles.css?v=130">
+    <link rel="stylesheet" href="styles.css?v=135">
     <!-- Inline Immediate Mode Controller (Available from frame 1 before external JS) -->
     <script>
         (function() {
             var savedMode = 'dark';
             try {
                 savedMode = localStorage.getItem('sawin-portfolio-display-mode') || 'dark';
-                if (savedMode === 'emerald') { savedMode = 'dark'; try { localStorage.setItem('sawin-portfolio-display-mode', 'dark'); } catch(e) {} }
+                
             } catch(e) {}
             document.documentElement.setAttribute('data-mode', savedMode);
 
             window.setDisplayMode = function(mode) {
-                if (mode === 'emerald') mode = 'dark';
                 document.documentElement.setAttribute('data-mode', mode);
                 try {
                     localStorage.setItem('sawin-portfolio-display-mode', mode);
@@ -110,10 +109,10 @@
                 var moonIcons = document.querySelectorAll('.mode-icon-moon');
                 var mobileLabel = document.getElementById('mobileModeLabel');
 
-                if (mode === 'light' || mode === 'crimson') {
+                if (mode === 'light' || mode === 'emerald') {
                     sunIcons.forEach(function(i) { i.classList.add('hidden'); });
                     moonIcons.forEach(function(i) { i.classList.remove('hidden'); });
-                    if (mobileLabel) mobileLabel.textContent = 'Amber Dark';
+                    if (mobileLabel) mobileLabel.textContent = 'Royal Charcoal';
                     if (typeof window.lerpSmokeLightMode === 'function') {
                         window.lerpSmokeLightMode(1.0);
                     }
@@ -123,7 +122,7 @@
                 } else {
                     sunIcons.forEach(function(i) { i.classList.remove('hidden'); });
                     moonIcons.forEach(function(i) { i.classList.add('hidden'); });
-                    if (mobileLabel) mobileLabel.textContent = 'Crimson Velvet';
+                    if (mobileLabel) mobileLabel.textContent = 'Emerald Depth';
                     if (typeof window.lerpSmokeLightMode === 'function') {
                         window.lerpSmokeLightMode(0.0);
                     }
@@ -307,7 +306,7 @@
                 </button>
 
                 <!-- 2. Dark Mode / Bright Mode Toggle Button -->
-                <button id="themeModeToggleBtn" onclick="window.toggleDisplayMode ? window.toggleDisplayMode() : null" class="theme-mode-btn w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/[0.04] border border-white/10 flex items-center justify-center text-slate-300 hover:text-white transition-all hover:scale-105 active:scale-95 focus:outline-none" title="Toggle Crimson Velvet / Amber Mode" aria-label="Toggle Crimson Velvet / Amber Mode">
+                <button id="themeModeToggleBtn" onclick="window.toggleDisplayMode ? window.toggleDisplayMode() : null" class="theme-mode-btn w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/[0.04] border border-white/10 flex items-center justify-center text-slate-300 hover:text-white transition-all hover:scale-105 active:scale-95 focus:outline-none" title="Toggle Emerald Depth / Royal Charcoal Mode" aria-label="Toggle Emerald Depth / Royal Charcoal Mode">
                     <i data-lucide="sun" class="w-4 h-4 text-slate-200 mode-icon-sun"></i>
                     <i data-lucide="moon" class="w-4 h-4 text-accent-dynamic mode-icon-moon hidden"></i>
                 </button>
@@ -348,7 +347,7 @@
                 <button onclick="window.toggleDisplayMode ? window.toggleDisplayMode() : null" class="px-3 py-1.5 rounded-full border border-white/10 bg-white/[0.05] flex items-center gap-2 text-xs font-medium text-slate-200">
                     <i data-lucide="sun" class="w-3.5 h-3.5 text-slate-200 mode-icon-sun"></i>
                     <i data-lucide="moon" class="w-3.5 h-3.5 text-accent-dynamic mode-icon-moon hidden"></i>
-                    <span id="mobileModeLabel">Crimson Velvet</span>
+                    <span id="mobileModeLabel">Emerald Depth</span>
                 </button>
             </div>
 
@@ -2303,7 +2302,7 @@
                             <i data-lucide="chevron-left" class="w-4 h-4 group-hover:-translate-x-0.5 transition-transform"></i>
                             <span class="hidden sm:inline">Prev</span>
                         </button>
-                        <button onclick="nextCertificate()" id="certNextBtn" class="px-4 py-1.5 rounded-xl bg-gradient-to-r from-rose-600/80 to-red-600/80 hover:from-rose-600 hover:to-red-500 border border-rose-400/40 text-white flex items-center gap-1.5 text-xs font-semibold transition-all hover:scale-105 active:scale-95 shadow-lg shadow-rose-900/30 group cursor-pointer" title="Next Certificate (Right Arrow)">
+                        <button onclick="nextCertificate()" id="certNextBtn" class="px-4 py-1.5 rounded-xl bg-gradient-to-r from-emerald-600/80 to-teal-600/80 hover:from-emerald-600 hover:to-teal-600 border border-emerald-400/40 text-white flex items-center gap-1.5 text-xs font-semibold transition-all hover:scale-105 active:scale-95 shadow-lg shadow-emerald-500/20 group cursor-pointer" title="Next Certificate (Right Arrow)">
                             <span>Next Certificate</span>
                             <i data-lucide="chevron-right" class="w-4 h-4 group-hover:translate-x-0.5 transition-transform"></i>
                         </button>
@@ -2450,7 +2449,7 @@
                                     <span>View High-Res</span>
                                 </button>
                                 <a id="certDownloadPdfLink" href="assets/certificates/agentic-ai-glau-ieee.pdf" download="Sawin-Kumar-Agentic-AI-Certificate.pdf" target="_blank" rel="noopener noreferrer"
-                                   class="py-3 px-4 rounded-xl bg-gradient-to-r from-rose-600/80 to-red-700/80 hover:from-rose-600 hover:to-red-600 border border-rose-400/40 text-white flex items-center justify-center gap-2 font-medium text-xs sm:text-sm transition-all hover:scale-[1.02] active:scale-[0.98] shadow-lg shadow-rose-950/40 group cursor-pointer">
+                                   class="py-3 px-4 rounded-xl bg-gradient-to-r from-emerald-600/80 to-teal-600/80 hover:from-emerald-600 hover:to-teal-600 border border-emerald-400/40 text-white flex items-center justify-center gap-2 font-medium text-xs sm:text-sm transition-all hover:scale-[1.02] active:scale-[0.98] shadow-lg shadow-emerald-500/20 group cursor-pointer">
                                     <i data-lucide="download" class="w-4 h-4 group-hover:-translate-y-0.5 transition-transform"></i>
                                     <span>Download PDF</span>
                                 </a>
@@ -2648,7 +2647,7 @@
             if (idx !== window.currentCertIndex) renderCert(idx, true);
         };
 
-        function updateModal(idx) {
+        function updateModal(idx, animateSwitch) {
             if (idx < 0) idx = certData.length - 1;
             if (idx >= certData.length) idx = 0;
             window.modalActiveIndex = idx;
@@ -2660,7 +2659,6 @@
             var modalCounter = document.getElementById('certModalCounter');
             var modalFooterText = document.getElementById('certModalFooterText');
 
-            if (modalImg) modalImg.src = cert.imgHighRes;
             if (modalTitle) modalTitle.textContent = cert.modalTitle;
             if (modalDownload) {
                 modalDownload.href = cert.pdfUrl;
@@ -2669,6 +2667,21 @@
             if (modalCounter) modalCounter.textContent = (idx + 1) + ' / ' + certData.length;
             if (modalFooterText) modalFooterText.textContent = cert.issuer;
 
+            if (modalImg) {
+                if (animateSwitch) {
+                    modalImg.classList.add('cert-modal-switching');
+                    setTimeout(function() {
+                        modalImg.src = cert.imgHighRes;
+                        modalImg.classList.remove('cert-modal-switching', 'cert-modal-img-animate');
+                        void modalImg.offsetWidth;
+                        modalImg.classList.add('cert-modal-img-animate');
+                    }, 160);
+                } else {
+                    modalImg.src = cert.imgHighRes;
+                    modalImg.classList.add('cert-modal-img-animate');
+                }
+            }
+
             renderCert(idx, false);
         }
 
@@ -2676,21 +2689,30 @@
 
         window.openCertModal = function(imgSrc, title, pdfSrc, dlName, certIdx) {
             var idx = (typeof certIdx === 'number') ? certIdx : window.currentCertIndex;
-            updateModal(idx);
+            updateModal(idx, false);
 
             var modal = document.getElementById('certModal');
             if (!modal) return;
             modal.classList.remove('hidden');
-            modal.classList.add('flex');
+            modal.classList.add('flex', 'cert-modal-open');
             void modal.offsetWidth;
             modal.classList.remove('opacity-0');
             modal.classList.add('opacity-100');
 
             var innerCard = modal.querySelector('div.relative');
             if (innerCard) {
-                innerCard.classList.remove('scale-95');
-                innerCard.classList.add('scale-100');
+                innerCard.classList.remove('scale-95', 'cert-modal-card-open');
+                void innerCard.offsetWidth;
+                innerCard.classList.add('scale-100', 'cert-modal-card-open');
             }
+
+            var modalImg = document.getElementById('certModalImg');
+            if (modalImg) {
+                modalImg.classList.remove('cert-modal-img-animate', 'cert-modal-switching');
+                void modalImg.offsetWidth;
+                modalImg.classList.add('cert-modal-img-animate');
+            }
+
             document.body.style.overflow = 'hidden';
 
             if (window.lucide && typeof window.lucide.createIcons === 'function') {
@@ -3103,7 +3125,7 @@
     </div>
 
     <!-- Scripts with Cache-Buster v=120 -->
-    <script src="main.js?v=130"></script>
+    <script src="main.js?v=135"></script>
     <script>if (window.lucide && typeof window.lucide.createIcons === 'function') { lucide.createIcons(); }</script>
 
 </body>

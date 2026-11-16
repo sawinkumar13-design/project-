@@ -74,17 +74,17 @@ function startApp() {
         const moonIcons = document.querySelectorAll('.mode-icon-moon');
         const mobileLabel = document.getElementById('mobileModeLabel');
 
-        if (mode === 'light' || mode === 'crimson') {
+        if (mode === 'light' || mode === 'emerald') {
             sunIcons.forEach(i => i.classList.add('hidden'));
             moonIcons.forEach(i => i.classList.remove('hidden'));
-            if (mobileLabel) mobileLabel.textContent = 'Amber Dark';
+            if (mobileLabel) mobileLabel.textContent = 'Royal Charcoal';
             if (typeof window.setSmokeLightMode === 'function') {
                 window.setSmokeLightMode(1.0);
             }
         } else {
             sunIcons.forEach(i => i.classList.remove('hidden'));
             moonIcons.forEach(i => i.classList.add('hidden'));
-            if (mobileLabel) mobileLabel.textContent = 'Crimson Velvet';
+            if (mobileLabel) mobileLabel.textContent = 'Emerald Depth';
             if (typeof window.setSmokeLightMode === 'function') {
                 window.setSmokeLightMode(0.0);
             }
@@ -503,13 +503,13 @@ function startApp() {
                     float rawDensity = fbm(p + 2.6 * r);
                     float smoke = smoothstep(0.18, 0.82, rawDensity) * emitterMask;
 
-                    // === WARM AMBER -> CRIMSON VELVET CINEMATIC PALETTE ===
-                    // Base: Royal Charcoal #1E2023 -> Crimson Velvet #2C0F12
-                    vec3 cBaseBlack    = mix(vec3(0.118, 0.125, 0.137), vec3(0.173, 0.059, 0.071), uLightMode); // #1E2023 -> #2C0F12
-                    vec3 cCharcoal     = mix(vec3(0.118, 0.122, 0.133), vec3(0.220, 0.078, 0.094), uLightMode); // #1E1F22 -> #381418
-                    vec3 cGraphite     = mix(vec3(0.153, 0.161, 0.176), vec3(0.263, 0.094, 0.114), uLightMode); // #27292D -> #43181D
-                    vec3 cAmberVapor   = mix(vec3(0.282, 0.290, 0.318), vec3(0.420, 0.118, 0.137), uLightMode); // Silver Charcoal vapor -> Crimson Velvet
-                    vec3 cAmberRim     = mix(vec3(0.541, 0.549, 0.573), vec3(0.882, 0.114, 0.282), uLightMode); // #8A8C92 Silver Rim -> #E11D48 Ruby Rim
+                    // === WARM AMBER -> EMERALD DEPTH CINEMATIC PALETTE ===
+                    // Base: Royal Charcoal #1E2023 -> Emerald Depth #0F2027
+                    vec3 cBaseBlack    = mix(vec3(0.118, 0.125, 0.137), vec3(0.059, 0.125, 0.153), uLightMode); // #1E2023 -> #0F2027
+                    vec3 cCharcoal     = mix(vec3(0.118, 0.122, 0.133), vec3(0.075, 0.169, 0.204), uLightMode); // #1E1F22 -> #132B34
+                    vec3 cGraphite     = mix(vec3(0.153, 0.161, 0.176), vec3(0.094, 0.212, 0.259), uLightMode); // #27292D -> #183642
+                    vec3 cAmberVapor   = mix(vec3(0.282, 0.290, 0.318), vec3(0.157, 0.384, 0.227), uLightMode); // Silver Charcoal vapor -> #28623A Emerald Vapor
+                    vec3 cAmberRim     = mix(vec3(0.541, 0.549, 0.573), vec3(0.204, 0.827, 0.553), uLightMode); // #8A8C92 Silver Rim -> #34D399 Mint Rim
 
                     // Directional rim light from bottom-left amber emitter
                     vec2 lightDir = normalize(urPoint - normUv);
@@ -536,7 +536,7 @@ function startApp() {
                     col += cAmberRim * (rimLight * smoke * 0.55);
 
                     // Apply the signature warm amber radial glow (bottom-left dominant)
-                    vec3 amberHue = mix(vec3(0.420, 0.440, 0.470), vec3(0.650, 0.118, 0.137), uLightMode); // Amber -> #6B1E23 Crimson // #CA6210 -> #FEA00A
+                    vec3 amberHue = mix(vec3(0.420, 0.440, 0.470), vec3(0.157, 0.384, 0.227), uLightMode); // Amber -> #28623A Emerald Depth Ambient
                     col += amberHue * (amberGlow * 0.65 + midGlow * 0.35);
                     col += uAccentColor * (rimLight * smoke * 0.22 + amberGlow * 0.12);
 
@@ -601,10 +601,10 @@ function startApp() {
                     currentLightVal += lightDiff * 0.035;
                     smokeUniforms.uLightMode.value = currentLightVal;
                     if (smokeUniforms.uAccentColor) {
-                        // Lerp between Amber #D97706 (rgb: 217,119,6) and Crimson #E11D48 (rgb: 225,29,72)
-                        const r = THREE.MathUtils.lerp(0.851, 0.882, currentLightVal);
-                        const g = THREE.MathUtils.lerp(0.467, 0.114, currentLightVal);
-                        const b = THREE.MathUtils.lerp(0.024, 0.282, currentLightVal);
+                        // Lerp between Amber #D97706 (rgb: 217,119,6) and Emerald #28623A (rgb: 40,98,58)
+                        const r = THREE.MathUtils.lerp(0.851, 0.157, currentLightVal);
+                        const g = THREE.MathUtils.lerp(0.467, 0.384, currentLightVal);
+                        const b = THREE.MathUtils.lerp(0.024, 0.227, currentLightVal);
                         smokeUniforms.uAccentColor.value.setRGB(r, g, b);
                     }
                 }
@@ -1888,22 +1888,30 @@ A new visitor just opened your portfolio website!
         } else {
             modalActiveIndex = currentCertIndex;
         }
-        updateModalContent(modalActiveIndex);
+        updateModalContent(modalActiveIndex, false);
 
         const modal = document.getElementById('certModal');
         if (!modal) return;
         modal.classList.remove('hidden');
-        modal.classList.add('flex');
+        modal.classList.add('flex', 'cert-modal-open');
         
-        // Force reflow for silky smooth CSS opacity transition
+        // Force reflow for silky smooth CSS opacity and pop transition
         void modal.offsetWidth;
         modal.classList.remove('opacity-0');
         modal.classList.add('opacity-100');
 
         const innerCard = modal.querySelector('div.relative');
         if (innerCard) {
-            innerCard.classList.remove('scale-95');
-            innerCard.classList.add('scale-100');
+            innerCard.classList.remove('scale-95', 'cert-modal-card-open');
+            void innerCard.offsetWidth;
+            innerCard.classList.add('scale-100', 'cert-modal-card-open');
+        }
+
+        const modalImg = document.getElementById('certModalImg');
+        if (modalImg) {
+            modalImg.classList.remove('cert-modal-img-animate', 'cert-modal-switching');
+            void modalImg.offsetWidth;
+            modalImg.classList.add('cert-modal-img-animate');
         }
 
         document.body.style.overflow = 'hidden';
@@ -1913,7 +1921,7 @@ A new visitor just opened your portfolio website!
         }
     }
 
-    function updateModalContent(idx) {
+    function updateModalContent(idx, animateSwitch = true) {
         if (idx < 0) idx = certificatesData.length - 1;
         if (idx >= certificatesData.length) idx = 0;
         modalActiveIndex = idx;
@@ -1925,7 +1933,6 @@ A new visitor just opened your portfolio website!
         const modalCounter = document.getElementById('certModalCounter');
         const modalFooterText = document.getElementById('certModalFooterText');
 
-        if (modalImg) modalImg.src = cert.imgHighRes;
         if (modalTitle) modalTitle.textContent = cert.modalTitle;
         if (modalDownload) {
             modalDownload.href = cert.pdfUrl;
@@ -1933,6 +1940,21 @@ A new visitor just opened your portfolio website!
         }
         if (modalCounter) modalCounter.textContent = `${idx + 1} / ${certificatesData.length}`;
         if (modalFooterText) modalFooterText.textContent = cert.issuer;
+
+        if (modalImg) {
+            if (animateSwitch) {
+                modalImg.classList.add('cert-modal-switching');
+                setTimeout(() => {
+                    modalImg.src = cert.imgHighRes;
+                    modalImg.classList.remove('cert-modal-switching', 'cert-modal-img-animate');
+                    void modalImg.offsetWidth;
+                    modalImg.classList.add('cert-modal-img-animate');
+                }, 160);
+            } else {
+                modalImg.src = cert.imgHighRes;
+                modalImg.classList.add('cert-modal-img-animate');
+            }
+        }
 
         // Also sync page card state without triggering duplicate animation
         renderCertificate(idx, false);
