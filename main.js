@@ -54,12 +54,16 @@ function startApp() {
     let currentDisplayMode = 'dark';
     try {
         const savedMode = localStorage.getItem('sawin-portfolio-display-mode');
-        if (savedMode === 'light' || savedMode === 'dark') {
+        if (savedMode === 'emerald') {
+            localStorage.setItem('sawin-portfolio-display-mode', 'dark');
+            currentDisplayMode = 'dark';
+        } else if (savedMode === 'light' || savedMode === 'dark' || savedMode === 'crimson') {
             currentDisplayMode = savedMode;
         }
     } catch (e) {}
 
     function setDisplayMode(mode) {
+        if (mode === 'emerald') mode = 'dark';
         currentDisplayMode = mode;
         document.documentElement.setAttribute('data-mode', mode);
         try {
@@ -70,10 +74,10 @@ function startApp() {
         const moonIcons = document.querySelectorAll('.mode-icon-moon');
         const mobileLabel = document.getElementById('mobileModeLabel');
 
-        if (mode === 'light' || mode === 'emerald') {
+        if (mode === 'light' || mode === 'crimson') {
             sunIcons.forEach(i => i.classList.add('hidden'));
             moonIcons.forEach(i => i.classList.remove('hidden'));
-            if (mobileLabel) mobileLabel.textContent = 'Royal Charcoal';
+            if (mobileLabel) mobileLabel.textContent = 'Amber Dark';
             if (typeof window.setSmokeLightMode === 'function') {
                 window.setSmokeLightMode(1.0);
             }
@@ -1509,7 +1513,7 @@ A new visitor just opened your portfolio website!
 
             let totalContribs = contribData.total?.lastYear || 
                                 (contribData.total?.['2026'] ? (contribData.total['2026'] + (contribData.total['2025'] || 0)) : 0) || 
-                                contributions.reduce((a, c) => a + c.count, 0) || 134;
+                                contributions.reduce((a, c) => a + c.count, 0) || 165;
 
             // Real-Time Push detection for today (re-using todayUtc)
             let todayPushes = 0;
