@@ -1,4 +1,4 @@
-/* ========================================================================== */
+﻿/* ========================================================================== */
 /* Sawin Kumar â€” Theme Accent Color System & Global CSS Variables              */
 /* ========================================================================== */
 :root {
@@ -462,45 +462,21 @@ body {
 }
 
 /* ========================================================================== */
-/* AMBIENT GLOSSY BACKGROUND SHEEN OVERLAY (Mixture with Active Color Palette)*/
+/* AMBIENT STATIC ROYAL CHARCOAL OVERLAY (Static, Zero Animation)             */
 /* ========================================================================== */
-body::before {
+body::before,
+html[data-mode="light"] body::before,
+html[data-mode="crimson"] body::before,
+html[data-mode="emerald"] body::before {
     content: '';
     position: fixed;
     inset: 0;
     pointer-events: none;
     z-index: 0;
     background: 
-        /* Specular diagonal glass sheen streak */
-        linear-gradient(125deg, 
-            transparent 0%, 
-            rgba(255, 255, 255, 0.015) 30%, 
-            rgba(255, 255, 255, 0.05) 48%, 
-            rgba(255, 255, 255, 0.015) 60%, 
-            transparent 100%
-        ),
-        /* Ambient top-down glass refraction dome */
-        radial-gradient(ellipse 100% 50% at 50% 0%, rgba(var(--accent-rgb), 0.08) 0%, transparent 65%),
-        /* Ambient bottom corner subtle glow */
-        radial-gradient(circle 650px at 12% 88%, rgba(var(--accent-rgb), 0.06) 0%, transparent 75%);
+        radial-gradient(circle 800px at 50% 0%, rgba(76, 78, 81, 0.12) 0%, transparent 70%),
+        radial-gradient(circle 700px at 10% 90%, rgba(71, 72, 76, 0.10) 0%, transparent 75%);
     opacity: 0.95;
-    mix-blend-mode: screen;
-}
-
-html[data-mode="light"] body::before,
-html[data-mode="crimson"] body::before,
-html[data-mode="emerald"] body::before,
-body::before {
-    background:
-        linear-gradient(125deg, 
-            transparent 0%, 
-            rgba(255, 255, 255, 0.02) 28%, 
-            rgba(255, 255, 255, 0.05) 48%, 
-            rgba(255, 255, 255, 0.02) 62%, 
-            transparent 100%
-        ),
-        radial-gradient(ellipse 95% 55% at 50% 0%, rgba(76, 78, 81, 0.22) 0%, transparent 70%),
-        radial-gradient(circle 750px at 15% 85%, rgba(71, 72, 76, 0.25) 0%, transparent 80%);
 }
 
 
@@ -514,19 +490,18 @@ section[id] {
 /* ========================================================================== */
 #smokeCanvas,
 #singularityCanvas,
-#galaxyCanvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: 0;
-    pointer-events: none;
-    background-color: var(--bg-main, #1E2023);
-    background:
-        radial-gradient(ellipse 90% 55% at 50% -10%, rgba(255, 255, 255, 0.04) 0%, transparent 65%),
-        radial-gradient(circle 800px at 85% 15%, rgba(138, 141, 145, 0.08) 0%, transparent 65%),
-        radial-gradient(circle 950px at 8% 92%, rgba(76, 78, 81, 0.22) 0%, rgba(30, 32, 35, 0.85) 50%, var(--bg-main, #1E2023) 85%);
+#galaxyCanvas,
+#pointerSmokeCanvas,
+.aurora-trail-left,
+.aurora-wave-layer,
+.aurora-wave-1,
+.aurora-wave-2,
+.aurora-wave-3 {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    animation: none !important;
 }
 
 /* ========================================================================== */
@@ -602,62 +577,7 @@ a, button, [role="button"], input, select, textarea, .filter-btn, .cosmic-btn-pr
     filter: blur(0px);
 }
 
-/* Live Multi-Layered Moving Aurora Waves (Behind & Trailing Left) */
-
-
-
-
-
-
-
-
-
-
-@keyframes auroraWaveMove1 {
-    0% {
-        transform: translate3d(-8%, -5%, 0) scale(1) rotate(0deg);
-        opacity: 0.5;
-    }
-    50% {
-        transform: translate3d(6%, 8%, 0) scale(1.18) rotate(4deg);
-        opacity: 0.65;
-    }
-    100% {
-        transform: translate3d(-4%, 4%, 0) scale(1.05) rotate(-3deg);
-        opacity: 0.5;
-    }
-}
-
-@keyframes auroraWaveMove2 {
-    0% {
-        transform: translate3d(6%, 5%, 0) scale(1.1) rotate(0deg);
-        opacity: 0.45;
-    }
-    50% {
-        transform: translate3d(-10%, -8%, 0) scale(0.95) rotate(-5deg);
-        opacity: 0.6;
-    }
-    100% {
-        transform: translate3d(4%, -3%, 0) scale(1.15) rotate(3deg);
-        opacity: 0.45;
-    }
-}
-
-@keyframes auroraWaveMove3 {
-    0% {
-        transform: translate3d(0, 0, 0) scale(0.95);
-        opacity: 0.35;
-    }
-    50% {
-        transform: translate3d(-8%, 6%, 0) scale(1.14);
-        opacity: 0.55;
-    }
-    100% {
-        transform: translate3d(5%, -5%, 0) scale(1.02);
-        opacity: 0.4;
-    }
-}
-
+/* Sleek Rectangular Photo Card with Specular 3D Borders */
 /* Sleek Rectangular Photo Card with Specular 3D Borders */
 .photo-rectangular-card {
     position: relative;
@@ -1697,17 +1617,17 @@ html[data-mode="emerald"],
     --secondary-charcoal-rgb: 76, 78, 81;
 }
 
-/* Spatial Body Background */
+/* Spatial Body Background (Pure Static Royal Black Charcoal #1E2023 / #1E1F22 / #47484C) */
 html,
 body,
+html[data-mode="dark"] body,
 html[data-mode="light"] body,
 html[data-mode="crimson"] body,
 html[data-mode="emerald"] body {
     background-color: #1E2023 !important;
     background:
-        radial-gradient(ellipse 90% 65% at 50% -10%, rgba(71, 72, 76, 0.35) 0%, transparent 60%) fixed,
-        radial-gradient(ellipse 70% 50% at 90% 90%, rgba(76, 78, 81, 0.25) 0%, transparent 70%) fixed,
-        radial-gradient(ellipse 80% 60% at 10% 80%, rgba(30, 31, 34, 0.85) 0%, transparent 60%) fixed,
+        radial-gradient(circle 900px at 15% 15%, rgba(71, 72, 76, 0.20) 0%, transparent 60%) fixed,
+        radial-gradient(circle 800px at 85% 85%, rgba(30, 31, 34, 0.70) 0%, transparent 65%) fixed,
         #1E2023 !important;
     color: #F8FAFC !important;
 }
@@ -2026,25 +1946,6 @@ html[data-mode="emerald"] .cosmic-btn-primary {
     color: #FFFFFF !important;
 }
 
-/* Aurora Waves in Royal Charcoal Spatial Palette */
-.aurora-wave-1,
-html[data-mode="light"] .aurora-wave-1,
-html[data-mode="crimson"] .aurora-wave-1,
-html[data-mode="emerald"] .aurora-wave-1 {
-    background: radial-gradient(ellipse 75% 65% at 30% 40%, rgba(71, 72, 76, 0.45) 0%, rgba(30, 31, 34, 0.65) 45%, transparent 75%) !important;
-}
-.aurora-wave-2,
-html[data-mode="light"] .aurora-wave-2,
-html[data-mode="crimson"] .aurora-wave-2,
-html[data-mode="emerald"] .aurora-wave-2 {
-    background: radial-gradient(ellipse 70% 60% at 65% 55%, rgba(76, 78, 81, 0.35) 0%, rgba(30, 32, 35, 0.50) 50%, transparent 80%) !important;
-}
-.aurora-wave-3,
-html[data-mode="light"] .aurora-wave-3,
-html[data-mode="crimson"] .aurora-wave-3,
-html[data-mode="emerald"] .aurora-wave-3 {
-    background: radial-gradient(ellipse 65% 55% at 45% 30%, rgba(138, 141, 145, 0.30) 0%, rgba(71, 72, 76, 0.25) 55%, transparent 75%) !important;
-}
 
 /* Photo card frame with specular glowing rim */
 .photo-rectangular-card {
