@@ -84,7 +84,7 @@ function startApp() {
         } else {
             sunIcons.forEach(i => i.classList.remove('hidden'));
             moonIcons.forEach(i => i.classList.add('hidden'));
-            if (mobileLabel) mobileLabel.textContent = 'Emerald Depth';
+            if (mobileLabel) mobileLabel.textContent = 'Royal Charcoal';
             if (typeof window.setSmokeLightMode === 'function') {
                 window.setSmokeLightMode(0.0);
             }
@@ -214,143 +214,20 @@ function startApp() {
     let prevMouseX = window.innerWidth * 0.5;
     let prevMouseY = window.innerHeight * 0.5;
 
-    const cursorContainer = document.getElementById('smokeCursor') || document.getElementById('singularityCursor');
-    const cursorDot = cursorContainer ? cursorContainer.querySelector('.cursor-dot') : null;
-    const cursorRing = cursorContainer ? cursorContainer.querySelector('.cursor-ring') : null;
-    const cursorAura = cursorContainer ? cursorContainer.querySelector('.cursor-aura') : null;
+    // Native OS Cursor (Zero DOM cursor follower lag / zero canvas particles)
+    // Lightweight mouse coordinate tracking for WebGL background smoke fluid swirl
+    window.addEventListener('mousemove', (e) => {
+        const vx = e.clientX - targetMouseX;
+        const vy = e.clientY - targetMouseY;
 
-    let ringX = window.innerWidth * 0.5;
-    let ringY = window.innerHeight * 0.5;
-    let auraX = window.innerWidth * 0.5;
-    let auraY = window.innerHeight * 0.5;
+        mouseVelX = vx * 0.4 + mouseVelX * 0.6;
+        mouseVelY = vy * 0.4 + mouseVelY * 0.6;
 
-    // Lightweight 2D canvas overlay for pointer smoke wisps (0 DOM allocations)
-    let pointerSmokeCanvas = document.getElementById('pointerSmokeCanvas');
-    if (!pointerSmokeCanvas) {
-        pointerSmokeCanvas = document.createElement('canvas');
-        pointerSmokeCanvas.id = 'pointerSmokeCanvas';
-        pointerSmokeCanvas.style.cssText = 'position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:9998;';
-        if (document.body) { document.body.appendChild(pointerSmokeCanvas); }
-    }
-    const pCtx = pointerSmokeCanvas ? pointerSmokeCanvas.getContext('2d') : null;
-
-    function resizePointerCanvas() {
-        if (!pointerSmokeCanvas) return;
-        pointerSmokeCanvas.width = window.innerWidth;
-        pointerSmokeCanvas.height = window.innerHeight;
-    }
-    resizePointerCanvas();
-    window.addEventListener('resize', resizePointerCanvas, { passive: true });
-
-    const pointerParticles = [];
-    const MAX_POINTER_PARTICLES = 30;
-
-    function emitPointerSmoke(px, py, vx, vy, isIdle = false) {
-        if (!pCtx) return;
-        if (pointerParticles.length >= MAX_POINTER_PARTICLES) {
-            pointerParticles.shift();
-        }
-        pointerParticles.push({
-            x: px,
-            y: py,
-            vx: (vx || 0) * 0.12 + (Math.random() - 0.5) * 0.8,
-            vy: (vy || 0) * 0.12 - (Math.random() * 0.7 + 0.6), // natural buoyancy drift upward
-            r: isIdle ? 16 : 22,
-            maxLife: isIdle ? 36 : 48,
-            life: 0,
-            growth: isIdle ? 0.42 : 0.68,
-            alpha: isIdle ? 0.22 : 0.38
-        });
-    }
-
-    function renderPointerSmoke() {
-        if (!pCtx) return;
-        pCtx.clearRect(0, 0, pointerSmokeCanvas.width, pointerSmokeCanvas.height);
-        for (let i = pointerParticles.length - 1; i >= 0; i--) {
-            const p = pointerParticles[i];
-            p.life++;
-            if (p.life >= p.maxLife) {
-                pointerParticles.splice(i, 1);
-                continue;
-            }
-            p.x += p.vx;
-            p.y += p.vy;
-            p.vx *= 0.96;
-            p.vy *= 0.96;
-            p.r += p.growth;
-
-            const progress = p.life / p.maxLife;
-            const currentAlpha = (1 - progress) * p.alpha;
-
-            const grad = pCtx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r);
-            grad.addColorStop(0, `rgba(215, 226, 245, ${currentAlpha.toFixed(3)})`);
-            grad.addColorStop(0.38, `rgba(148, 163, 184, ${(currentAlpha * 0.55).toFixed(3)})`);
-            grad.addColorStop(0.75, `rgba(50, 60, 80, ${(currentAlpha * 0.18).toFixed(3)})`);
-            grad.addColorStop(1, 'rgba(10, 10, 15, 0)');
-
-            pCtx.fillStyle = grad;
-            pCtx.beginPath();
-            pCtx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-            pCtx.fill();
-        }
-    }
-
-    if (!isTouchDevice && cursorContainer) {
-        window.addEventListener('mousemove', (e) => {
-            const vx = e.clientX - targetMouseX;
-            const vy = e.clientY - targetMouseY;
-            const moveDist = Math.hypot(vx, vy);
-
-            mouseVelX = vx * 0.4 + mouseVelX * 0.6;
-            mouseVelY = vy * 0.4 + mouseVelY * 0.6;
-
-            targetMouseX = e.clientX;
-            targetMouseY = e.clientY;
-            normMouseX = e.clientX / window.innerWidth;
-            normMouseY = e.clientY / window.innerHeight;
-
-            if (!isMouseOnScreen) {
-                isMouseOnScreen = true;
-                cursorContainer.style.opacity = '1';
-            }
-
-            if (cursorDot) {
-                cursorDot.style.transform = `translate3d(${targetMouseX}px, ${targetMouseY}px, 0) translate3d(-50%, -50%, 0)`;
-            }
-
-            const now = performance.now();
-            lastMoveTime = now;
-
-            // Emit smooth vapor particles on movement (rate-limited, 0 DOM overhead)
-            if (moveDist > 3 && (now - lastMoteTime > 30)) {
-                lastMoteTime = now;
-                emitPointerSmoke(targetMouseX, targetMouseY, vx, vy);
-                if (moveDist > 20) {
-                    emitPointerSmoke((targetMouseX + prevMouseX) * 0.5, (targetMouseY + prevMouseY) * 0.5, vx, vy);
-                }
-            }
-            prevMouseX = targetMouseX;
-            prevMouseY = targetMouseY;
-        }, { passive: true });
-
-        // Gentle idle breath when mouse rests
-        setInterval(() => {
-            if (isMouseOnScreen && (performance.now() - lastMoveTime > 450)) {
-                emitPointerSmoke(targetMouseX, targetMouseY, 0, 0, true);
-            }
-        }, 700);
-
-        document.addEventListener('mouseleave', () => {
-            isMouseOnScreen = false;
-            cursorContainer.style.opacity = '0';
-        });
-
-        const interactiveElements = document.querySelectorAll('a, button, input, textarea, .glossy-card, .tool-chip, .filter-btn, .cosmic-btn-primary, [role="button"]');
-        interactiveElements.forEach(el => {
-            el.addEventListener('mouseenter', () => cursorContainer.classList.add('hovering'));
-            el.addEventListener('mouseleave', () => cursorContainer.classList.remove('hovering'));
-        });
-    }
+        targetMouseX = e.clientX;
+        targetMouseY = e.clientY;
+        normMouseX = e.clientX / window.innerWidth;
+        normMouseY = e.clientY / window.innerHeight;
+    }, { passive: true });
 
 
     // =========================================================================
@@ -503,13 +380,13 @@ function startApp() {
                     float rawDensity = fbm(p + 2.6 * r);
                     float smoke = smoothstep(0.18, 0.82, rawDensity) * emitterMask;
 
-                    // === WARM AMBER -> EMERALD DEPTH CINEMATIC PALETTE ===
-                    // Base: Royal Charcoal #1E2023 -> Emerald Depth #0F2027
-                    vec3 cBaseBlack    = mix(vec3(0.118, 0.125, 0.137), vec3(0.059, 0.125, 0.153), uLightMode); // #1E2023 -> #0F2027
-                    vec3 cCharcoal     = mix(vec3(0.118, 0.122, 0.133), vec3(0.075, 0.169, 0.204), uLightMode); // #1E1F22 -> #132B34
-                    vec3 cGraphite     = mix(vec3(0.153, 0.161, 0.176), vec3(0.094, 0.212, 0.259), uLightMode); // #27292D -> #183642
-                    vec3 cAmberVapor   = mix(vec3(0.282, 0.290, 0.318), vec3(0.157, 0.384, 0.227), uLightMode); // Silver Charcoal vapor -> #28623A Emerald Vapor
-                    vec3 cAmberRim     = mix(vec3(0.541, 0.549, 0.573), vec3(0.204, 0.827, 0.553), uLightMode); // #8A8C92 Silver Rim -> #34D399 Mint Rim
+                    // === ROYAL CHARCOAL SPATIAL VOLUMETRIC PALETTE ===
+                    // Exact Palette: #1E2023 (Dark base), #1E1F22 (Charcoal), #47484C (Mid surface), #4C4E51 (Slate vapor), #8A8D91 (Silver rim)
+                    vec3 cBaseBlack    = vec3(0.118, 0.125, 0.137); // #1E2023 Primary Royal Dark
+                    vec3 cCharcoal     = vec3(0.118, 0.122, 0.133); // #1E1F22 Deep Charcoal
+                    vec3 cGraphite     = vec3(0.278, 0.282, 0.298); // #47484C Mid Charcoal
+                    vec3 cAmberVapor   = vec3(0.298, 0.306, 0.318); // #4C4E51 Slate Charcoal vapor
+                    vec3 cAmberRim     = vec3(0.541, 0.549, 0.573); // #8A8D91 Silver Specular Rim
 
                     // Directional rim light from bottom-left amber emitter
                     vec2 lightDir = normalize(urPoint - normUv);
@@ -536,7 +413,7 @@ function startApp() {
                     col += cAmberRim * (rimLight * smoke * 0.55);
 
                     // Apply the signature warm amber radial glow (bottom-left dominant)
-                    vec3 amberHue = mix(vec3(0.420, 0.440, 0.470), vec3(0.157, 0.384, 0.227), uLightMode); // Amber -> #28623A Emerald Depth Ambient
+                    vec3 amberHue = vec3(0.278, 0.282, 0.298); // #47484C Subtle Charcoal Ambient
                     col += amberHue * (amberGlow * 0.65 + midGlow * 0.35);
                     col += uAccentColor * (rimLight * smoke * 0.22 + amberGlow * 0.12);
 
@@ -601,11 +478,8 @@ function startApp() {
                     currentLightVal += lightDiff * 0.035;
                     smokeUniforms.uLightMode.value = currentLightVal;
                     if (smokeUniforms.uAccentColor) {
-                        // Lerp between Amber #D97706 (rgb: 217,119,6) and Emerald #28623A (rgb: 40,98,58)
-                        const r = THREE.MathUtils.lerp(0.851, 0.157, currentLightVal);
-                        const g = THREE.MathUtils.lerp(0.467, 0.384, currentLightVal);
-                        const b = THREE.MathUtils.lerp(0.024, 0.227, currentLightVal);
-                        smokeUniforms.uAccentColor.value.setRGB(r, g, b);
+                        // Royal Charcoal / Silver Specular Accent (#8A8D91)
+                        smokeUniforms.uAccentColor.value.setRGB(0.541, 0.549, 0.573);
                     }
                 }
 
@@ -620,19 +494,7 @@ function startApp() {
                 mouseVelX *= 0.9;
                 mouseVelY *= 0.9;
 
-                // Cursor outer ring & aura lagged follower
-                if (!isTouchDevice && cursorRing && cursorAura) {
-                    ringX += (targetMouseX - ringX) * 0.16;
-                    ringY += (targetMouseY - ringY) * 0.16;
-                    cursorRing.style.transform = `translate3d(${ringX.toFixed(1)}px, ${ringY.toFixed(1)}px, 0) translate3d(-50%, -50%, 0)`;
-
-                    auraX += (targetMouseX - auraX) * 0.09;
-                    auraY += (targetMouseY - auraY) * 0.09;
-                    cursorAura.style.transform = `translate3d(${auraX.toFixed(1)}px, ${auraY.toFixed(1)}px, 0) translate3d(-50%, -50%, 0)`;
-                }
-
-                // Render pointer vapor particles
-                renderPointerSmoke();
+                // Pointer smoke animation removed - standard native cursor
 
                 // Subtle dynamic sway on the live smoke vapor trail behind hero portrait
                 const auroraTrailEl = document.querySelector('.aurora-trail-left');
@@ -1972,12 +1834,12 @@ A new visitor just opened your portfolio website!
         const modal = document.getElementById('certModal');
         if (!modal || modal.classList.contains('hidden')) return;
 
-        modal.classList.remove('opacity-100');
+        modal.classList.remove('opacity-100', 'cert-modal-open');
         modal.classList.add('opacity-0');
 
         const innerCard = modal.querySelector('div.relative');
         if (innerCard) {
-            innerCard.classList.remove('scale-100');
+            innerCard.classList.remove('scale-100', 'cert-modal-card-open');
             innerCard.classList.add('scale-95');
         }
 

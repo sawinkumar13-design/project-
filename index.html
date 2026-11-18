@@ -88,14 +88,17 @@
     </script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <link rel="stylesheet" href="styles.css?v=135">
+    <link rel="stylesheet" href="styles.css?v=145">
     <!-- Inline Immediate Mode Controller (Available from frame 1 before external JS) -->
     <script>
         (function() {
             var savedMode = 'dark';
             try {
                 savedMode = localStorage.getItem('sawin-portfolio-display-mode') || 'dark';
-                
+                if (savedMode === 'emerald' || savedMode === 'crimson') {
+                    savedMode = 'dark';
+                    try { localStorage.setItem('sawin-portfolio-display-mode', 'dark'); } catch(e) {}
+                }
             } catch(e) {}
             document.documentElement.setAttribute('data-mode', savedMode);
 
@@ -122,7 +125,7 @@
                 } else {
                     sunIcons.forEach(function(i) { i.classList.remove('hidden'); });
                     moonIcons.forEach(function(i) { i.classList.add('hidden'); });
-                    if (mobileLabel) mobileLabel.textContent = 'Emerald Depth';
+                    if (mobileLabel) mobileLabel.textContent = 'Royal Charcoal';
                     if (typeof window.lerpSmokeLightMode === 'function') {
                         window.lerpSmokeLightMode(0.0);
                     }
@@ -259,12 +262,7 @@
     <!-- Full-Screen Photorealistic Volumetric Smoke WebGL Canvas -->
     <canvas id="smokeCanvas"></canvas>
 
-    <!-- Minimal Premium Custom Animated Cursor (Desktop) -->
-    <div id="smokeCursor" class="custom-cursor" aria-hidden="true">
-        <div class="cursor-aura"></div>
-        <div class="cursor-ring"></div>
-        <div class="cursor-dot"></div>
-    </div>
+
 
     <!-- ======================================================== -->
     <!-- NAVIGATION BAR (GLOSSY GLASS WITH ACCURATE SOCIAL LINKS) -->
@@ -306,7 +304,7 @@
                 </button>
 
                 <!-- 2. Dark Mode / Bright Mode Toggle Button -->
-                <button id="themeModeToggleBtn" onclick="window.toggleDisplayMode ? window.toggleDisplayMode() : null" class="theme-mode-btn w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/[0.04] border border-white/10 flex items-center justify-center text-slate-300 hover:text-white transition-all hover:scale-105 active:scale-95 focus:outline-none" title="Toggle Emerald Depth / Royal Charcoal Mode" aria-label="Toggle Emerald Depth / Royal Charcoal Mode">
+                <button id="themeModeToggleBtn" onclick="window.toggleDisplayMode ? window.toggleDisplayMode() : null" class="theme-mode-btn w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/[0.04] border border-white/10 flex items-center justify-center text-slate-300 hover:text-white transition-all hover:scale-105 active:scale-95 focus:outline-none" title="Toggle Royal Charcoal Mode" aria-label="Toggle Royal Charcoal Mode">
                     <i data-lucide="sun" class="w-4 h-4 text-slate-200 mode-icon-sun"></i>
                     <i data-lucide="moon" class="w-4 h-4 text-accent-dynamic mode-icon-moon hidden"></i>
                 </button>
@@ -347,7 +345,7 @@
                 <button onclick="window.toggleDisplayMode ? window.toggleDisplayMode() : null" class="px-3 py-1.5 rounded-full border border-white/10 bg-white/[0.05] flex items-center gap-2 text-xs font-medium text-slate-200">
                     <i data-lucide="sun" class="w-3.5 h-3.5 text-slate-200 mode-icon-sun"></i>
                     <i data-lucide="moon" class="w-3.5 h-3.5 text-accent-dynamic mode-icon-moon hidden"></i>
-                    <span id="mobileModeLabel">Emerald Depth</span>
+                    <span id="mobileModeLabel">Royal Charcoal</span>
                 </button>
             </div>
 
@@ -2302,7 +2300,7 @@
                             <i data-lucide="chevron-left" class="w-4 h-4 group-hover:-translate-x-0.5 transition-transform"></i>
                             <span class="hidden sm:inline">Prev</span>
                         </button>
-                        <button onclick="nextCertificate()" id="certNextBtn" class="px-4 py-1.5 rounded-xl bg-gradient-to-r from-emerald-600/80 to-teal-600/80 hover:from-emerald-600 hover:to-teal-600 border border-emerald-400/40 text-white flex items-center gap-1.5 text-xs font-semibold transition-all hover:scale-105 active:scale-95 shadow-lg shadow-emerald-500/20 group cursor-pointer" title="Next Certificate (Right Arrow)">
+                        <button onclick="nextCertificate()" id="certNextBtn" class="px-4 py-1.5 rounded-xl bg-gradient-to-r from-[#47484C] to-[#3A3D41] hover:from-[#4C4E51] hover:to-[#47484C] border border-white/20 text-white flex items-center gap-1.5 text-xs font-semibold transition-all hover:scale-105 active:scale-95 shadow-lg shadow-black/40 group cursor-pointer" title="Next Certificate (Right Arrow)">
                             <span>Next Certificate</span>
                             <i data-lucide="chevron-right" class="w-4 h-4 group-hover:translate-x-0.5 transition-transform"></i>
                         </button>
@@ -2449,7 +2447,7 @@
                                     <span>View High-Res</span>
                                 </button>
                                 <a id="certDownloadPdfLink" href="assets/certificates/agentic-ai-glau-ieee.pdf" download="Sawin-Kumar-Agentic-AI-Certificate.pdf" target="_blank" rel="noopener noreferrer"
-                                   class="py-3 px-4 rounded-xl bg-gradient-to-r from-emerald-600/80 to-teal-600/80 hover:from-emerald-600 hover:to-teal-600 border border-emerald-400/40 text-white flex items-center justify-center gap-2 font-medium text-xs sm:text-sm transition-all hover:scale-[1.02] active:scale-[0.98] shadow-lg shadow-emerald-500/20 group cursor-pointer">
+                                   class="py-3 px-4 rounded-xl bg-gradient-to-r from-[#47484C] to-[#3A3D41] hover:from-[#4C4E51] hover:to-[#47484C] border border-white/20 text-white flex items-center justify-center gap-2 font-medium text-xs sm:text-sm transition-all hover:scale-[1.02] active:scale-[0.98] shadow-lg shadow-black/50 group cursor-pointer">
                                     <i data-lucide="download" class="w-4 h-4 group-hover:-translate-y-0.5 transition-transform"></i>
                                     <span>Download PDF</span>
                                 </a>
@@ -2727,12 +2725,12 @@
             var modal = document.getElementById('certModal');
             if (!modal || modal.classList.contains('hidden')) return;
 
-            modal.classList.remove('opacity-100');
+            modal.classList.remove('opacity-100', 'cert-modal-open');
             modal.classList.add('opacity-0');
 
             var innerCard = modal.querySelector('div.relative');
             if (innerCard) {
-                innerCard.classList.remove('scale-100');
+                innerCard.classList.remove('scale-100', 'cert-modal-card-open');
                 innerCard.classList.add('scale-95');
             }
 
@@ -3125,7 +3123,7 @@
     </div>
 
     <!-- Scripts with Cache-Buster v=120 -->
-    <script src="main.js?v=135"></script>
+    <script src="main.js?v=145"></script>
     <script>if (window.lucide && typeof window.lucide.createIcons === 'function') { lucide.createIcons(); }</script>
 
 </body>
