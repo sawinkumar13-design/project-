@@ -2441,3 +2441,558 @@ section p:hover,
     filter: blur(8px) !important;
     transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
+
+
+/* ==========================================================================
+   REFINED SPATIAL UI v2 — Royal Charcoal Liquid Glass System
+   Principles: Layered depth · Specular light physics · Gaussian blur tiers
+   ========================================================================== */
+
+/* ── 0. CSS DESIGN TOKENS ─────────────────────────────────────────────────── */
+:root {
+    /* Blur tiers */
+    --blur-xs:   blur(6px)  saturate(160%);
+    --blur-sm:   blur(14px) saturate(175%);
+    --blur-md:   blur(26px) saturate(190%) contrast(102%);
+    --blur-lg:   blur(40px) saturate(200%) contrast(104%);
+    --blur-xl:   blur(60px) saturate(220%) contrast(106%);
+
+    /* Glass surface alphas */
+    --glass-fill-low:    rgba(39, 41, 45, 0.42);
+    --glass-fill-mid:    rgba(39, 41, 45, 0.58);
+    --glass-fill-high:   rgba(39, 41, 45, 0.72);
+    --glass-fill-solid:  rgba(30, 32, 35, 0.92);
+
+    /* Specular rim light */
+    --rim-top:    rgba(255, 255, 255, 0.28);
+    --rim-side:   rgba(255, 255, 255, 0.10);
+    --rim-bottom: rgba(0,   0,   0,   0.70);
+
+    /* Elevation shadows */
+    --shadow-z1: 0 1px 3px rgba(0,0,0,0.40),  0 4px 12px rgba(0,0,0,0.30);
+    --shadow-z2: 0 4px 16px rgba(0,0,0,0.50),  0 16px 40px -8px rgba(0,0,0,0.60);
+    --shadow-z3: 0 8px 32px rgba(0,0,0,0.60),  0 28px 60px -10px rgba(0,0,0,0.70), 0 60px 100px -20px rgba(0,0,0,0.50);
+    --shadow-z4: 0 16px 48px rgba(0,0,0,0.70), 0 40px 80px -12px rgba(0,0,0,0.80), 0 80px 120px -24px rgba(0,0,0,0.60);
+
+    /* Inner bevel */
+    --bevel-inset: inset 0 1px 1px rgba(255,255,255,0.22), inset 0 -1px 2px rgba(0,0,0,0.60);
+}
+
+/* ── 1. SCROLLBAR — refined charcoal ─────────────────────────────────────── */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: #141516; }
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #4C4E51 0%, #2A2C2F 100%);
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.06);
+}
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #8A8D91 0%, #4C4E51 100%);
+}
+
+/* ── 2. NAVBAR — floating pill with deep blur & specular top rim ─────────── */
+#navbar,
+html[data-mode="light"] #navbar,
+html[data-mode="crimson"] #navbar,
+html[data-mode="emerald"] #navbar {
+    background: linear-gradient(
+        180deg,
+        rgba(50, 52, 56, 0.72) 0%,
+        rgba(30, 32, 35, 0.84) 100%
+    ) !important;
+    backdrop-filter: blur(40px) saturate(200%) contrast(104%) !important;
+    -webkit-backdrop-filter: blur(40px) saturate(200%) contrast(104%) !important;
+    border-bottom: 1px solid rgba(76, 78, 81, 0.40) !important;
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.20),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.30),
+        0 2px 8px rgba(0, 0, 0, 0.35),
+        0 8px 24px -4px rgba(0, 0, 0, 0.55),
+        0 20px 48px -12px rgba(0, 0, 0, 0.45) !important;
+}
+
+#navbar .nav-link,
+html[data-mode="light"] #navbar .nav-link,
+html[data-mode="crimson"] #navbar .nav-link,
+html[data-mode="emerald"] #navbar .nav-link {
+    color: rgba(203, 213, 225, 0.85) !important;
+    border-radius: 10px;
+    transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    letter-spacing: 0.01em;
+}
+
+#navbar .nav-link:hover,
+html[data-mode="light"] #navbar .nav-link:hover,
+html[data-mode="crimson"] #navbar .nav-link:hover,
+html[data-mode="emerald"] #navbar .nav-link:hover {
+    color: #FFFFFF !important;
+    background: linear-gradient(145deg, rgba(76, 78, 81, 0.60), rgba(39, 41, 45, 0.50)) !important;
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.18),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.30),
+        0 2px 8px rgba(0, 0, 0, 0.35) !important;
+}
+
+/* ── 3. GLOSSY CARDS — multi-layer glass with accurate specular physics ───── */
+.glossy-card,
+html[data-mode="light"] .glossy-card,
+html[data-mode="crimson"] .glossy-card,
+html[data-mode="emerald"] .glossy-card {
+    background: linear-gradient(
+        152deg,
+        rgba(60, 62, 67, 0.50) 0%,
+        rgba(39, 41, 45, 0.42) 40%,
+        rgba(24, 25, 28, 0.60) 100%
+    ) !important;
+    backdrop-filter: blur(32px) saturate(195%) contrast(103%) !important;
+    -webkit-backdrop-filter: blur(32px) saturate(195%) contrast(103%) !important;
+
+    /* Specular edge rims — top brightest, right/bottom fade to dark */
+    border-top:    1px solid rgba(255, 255, 255, 0.28) !important;
+    border-left:   1px solid rgba(255, 255, 255, 0.12) !important;
+    border-right:  1px solid rgba(255, 255, 255, 0.05) !important;
+    border-bottom: 1px solid rgba(0,   0,   0,   0.55) !important;
+
+    box-shadow:
+        /* top bevel catch */
+        inset 0  1px 1px rgba(255, 255, 255, 0.24),
+        /* bottom subsurface shadow */
+        inset 0 -1px 2px rgba(0, 0, 0, 0.60),
+        /* z-stack depth */
+        var(--shadow-z2),
+        /* ambient outline */
+        0 0 0 1px rgba(255, 255, 255, 0.05) !important;
+
+    border-radius: 22px !important;
+    transition:
+        transform 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+        box-shadow 0.35s ease,
+        border-color 0.35s ease !important;
+}
+
+.glossy-card:hover,
+html[data-mode="light"] .glossy-card:hover,
+html[data-mode="crimson"] .glossy-card:hover,
+html[data-mode="emerald"] .glossy-card:hover {
+    background: linear-gradient(
+        152deg,
+        rgba(76, 78, 81, 0.58) 0%,
+        rgba(50, 52, 56, 0.48) 40%,
+        rgba(30, 32, 35, 0.68) 100%
+    ) !important;
+    border-top-color: rgba(255, 255, 255, 0.40) !important;
+    border-left-color: rgba(255, 255, 255, 0.18) !important;
+    box-shadow:
+        inset 0  1px 1px rgba(255, 255, 255, 0.30),
+        inset 0 -1px 2px rgba(0, 0, 0, 0.55),
+        var(--shadow-z3),
+        0 0 0 1px rgba(255, 255, 255, 0.08),
+        0 0 28px rgba(138, 141, 145, 0.18) !important;
+    transform: translateY(-3px) scale(1.005) !important;
+}
+
+/* Cursor-tracking inner glow highlight */
+.glossy-card::before {
+    background: radial-gradient(
+        500px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+        rgba(255, 255, 255, 0.10) 0%,
+        rgba(138, 141, 145, 0.07) 35%,
+        transparent 70%
+    ) !important;
+    transition: opacity 0.4s ease !important;
+}
+
+/* Gloss sweep shimmer on hover */
+.glossy-card::after {
+    background: linear-gradient(
+        105deg,
+        transparent 20%,
+        rgba(255, 255, 255, 0.02) 38%,
+        rgba(255, 255, 255, 0.14) 50%,
+        rgba(255, 255, 255, 0.02) 62%,
+        transparent 80%
+    ) !important;
+    transition: left 1.1s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s ease !important;
+}
+
+/* ── 4. GLASS PILLS (social links, skill chips, badges) ──────────────────── */
+.glass-pill,
+html[data-mode="light"] .glass-pill,
+html[data-mode="crimson"] .glass-pill,
+html[data-mode="emerald"] .glass-pill {
+    background: linear-gradient(
+        145deg,
+        rgba(60, 62, 67, 0.55) 0%,
+        rgba(39, 41, 45, 0.45) 100%
+    ) !important;
+    backdrop-filter: blur(20px) saturate(185%) !important;
+    -webkit-backdrop-filter: blur(20px) saturate(185%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.10) !important;
+    border-top-color: rgba(255, 255, 255, 0.22) !important;
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.16),
+        0 2px 8px rgba(0, 0, 0, 0.35),
+        0 8px 24px -6px rgba(0, 0, 0, 0.45) !important;
+    transition: all 0.24s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.glass-pill:hover,
+html[data-mode="light"] .glass-pill:hover,
+html[data-mode="crimson"] .glass-pill:hover,
+html[data-mode="emerald"] .glass-pill:hover {
+    background: linear-gradient(
+        145deg,
+        rgba(76, 78, 81, 0.65) 0%,
+        rgba(50, 52, 56, 0.55) 100%
+    ) !important;
+    border-color: rgba(255, 255, 255, 0.22) !important;
+    border-top-color: rgba(255, 255, 255, 0.40) !important;
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.28),
+        0 4px 16px rgba(0, 0, 0, 0.45),
+        0 12px 32px -8px rgba(0, 0, 0, 0.55),
+        0 0 20px rgba(138, 141, 145, 0.20) !important;
+    transform: translateY(-2px) !important;
+    color: #FFFFFF !important;
+}
+
+/* ── 5. FILTER BUTTONS (Projects / Certificates) ─────────────────────────── */
+.filter-btn {
+    background: linear-gradient(145deg, rgba(50, 52, 56, 0.55), rgba(30, 32, 35, 0.70)) !important;
+    backdrop-filter: blur(16px) saturate(175%) !important;
+    -webkit-backdrop-filter: blur(16px) saturate(175%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-top-color: rgba(255, 255, 255, 0.18) !important;
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.12),
+        var(--shadow-z1) !important;
+    color: rgba(203, 213, 225, 0.80) !important;
+    border-radius: 12px !important;
+    transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.filter-btn:hover {
+    background: linear-gradient(145deg, rgba(76, 78, 81, 0.65), rgba(50, 52, 56, 0.60)) !important;
+    border-top-color: rgba(255, 255, 255, 0.32) !important;
+    color: #FFFFFF !important;
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.22),
+        var(--shadow-z2) !important;
+    transform: translateY(-1px) !important;
+}
+
+.filter-btn.active {
+    background: linear-gradient(145deg, rgba(138, 141, 145, 0.40), rgba(76, 78, 81, 0.60)) !important;
+    border-color: rgba(255, 255, 255, 0.28) !important;
+    border-top-color: rgba(255, 255, 255, 0.50) !important;
+    color: #FFFFFF !important;
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.35),
+        inset 0 0 12px rgba(138, 141, 145, 0.20),
+        var(--shadow-z2),
+        0 0 20px rgba(138, 141, 145, 0.25) !important;
+}
+
+/* ── 6. CTA BUTTONS ──────────────────────────────────────────────────────── */
+.cosmic-btn-primary,
+html[data-mode="light"] .cosmic-btn-primary,
+html[data-mode="crimson"] .cosmic-btn-primary,
+html[data-mode="emerald"] .cosmic-btn-primary {
+    background: linear-gradient(
+        135deg,
+        #5A5C60 0%,
+        #3A3C40 50%,
+        #2A2C30 100%
+    ) !important;
+    border: 1px solid rgba(255, 255, 255, 0.14) !important;
+    border-top-color: rgba(255, 255, 255, 0.32) !important;
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.28),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.40),
+        var(--shadow-z2),
+        0 0 20px rgba(90, 92, 96, 0.35) !important;
+    color: #FFFFFF !important;
+    letter-spacing: 0.01em !important;
+    transition:
+        transform 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+        box-shadow 0.28s ease,
+        filter 0.22s ease !important;
+}
+
+.cosmic-btn-primary:hover,
+html[data-mode="light"] .cosmic-btn-primary:hover,
+html[data-mode="crimson"] .cosmic-btn-primary:hover,
+html[data-mode="emerald"] .cosmic-btn-primary:hover {
+    background: linear-gradient(
+        135deg,
+        #72757A 0%,
+        #4C4E52 50%,
+        #38393D 100%
+    ) !important;
+    border-top-color: rgba(255, 255, 255, 0.50) !important;
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.40),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.35),
+        var(--shadow-z3),
+        0 0 32px rgba(114, 117, 122, 0.45) !important;
+    transform: translateY(-2px) scale(1.02) !important;
+    filter: brightness(1.08) !important;
+}
+
+/* ── 7. HERO GLASS BOX ───────────────────────────────────────────────────── */
+.hero-glass-box,
+html[data-mode="light"] .hero-glass-box,
+html[data-mode="crimson"] .hero-glass-box,
+html[data-mode="emerald"] .hero-glass-box {
+    background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.07) 0%,
+        rgba(76, 78, 81,  0.14) 50%,
+        rgba(30, 32, 35,  0.72) 100%
+    ) !important;
+    backdrop-filter: blur(28px) saturate(190%) contrast(102%) !important;
+    -webkit-backdrop-filter: blur(28px) saturate(190%) contrast(102%) !important;
+    border-top:    1px solid rgba(255, 255, 255, 0.26) !important;
+    border-left:   1px solid rgba(255, 255, 255, 0.14) !important;
+    border-right:  1px solid rgba(255, 255, 255, 0.05) !important;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.60) !important;
+    box-shadow:
+        inset 0 1px 2px rgba(255, 255, 255, 0.24),
+        var(--shadow-z3) !important;
+    border-radius: 28px !important;
+}
+
+/* ── 8. MOBILE MENU ──────────────────────────────────────────────────────── */
+#mobileMenu,
+html[data-mode="light"] #mobileMenu,
+html[data-mode="crimson"] #mobileMenu,
+html[data-mode="emerald"] #mobileMenu {
+    background: linear-gradient(
+        180deg,
+        rgba(39, 41, 45, 0.94) 0%,
+        rgba(24, 25, 28, 0.97) 100%
+    ) !important;
+    backdrop-filter: blur(40px) saturate(200%) !important;
+    -webkit-backdrop-filter: blur(40px) saturate(200%) !important;
+    border: 1px solid rgba(76, 78, 81, 0.50) !important;
+    border-top-color: rgba(255, 255, 255, 0.18) !important;
+    box-shadow: var(--shadow-z4) !important;
+}
+
+/* ── 9. CERTIFICATE MODAL ────────────────────────────────────────────────── */
+#certModal .bg-\\[\\#1A1B1F\\],
+#certModal [class*="bg-"],
+#certModal > div > div {
+    background: linear-gradient(
+        145deg,
+        rgba(44, 46, 50, 0.90) 0%,
+        rgba(30, 32, 35, 0.95) 100%
+    ) !important;
+    backdrop-filter: blur(48px) saturate(200%) contrast(104%) !important;
+    -webkit-backdrop-filter: blur(48px) saturate(200%) contrast(104%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.10) !important;
+    border-top-color: rgba(255, 255, 255, 0.24) !important;
+    box-shadow:
+        inset 0 1px 2px rgba(255, 255, 255, 0.18),
+        var(--shadow-z4) !important;
+}
+
+/* Modal backdrop — frosted overlay */
+#certModal {
+    backdrop-filter: blur(16px) brightness(0.55) !important;
+    -webkit-backdrop-filter: blur(16px) brightness(0.55) !important;
+    background: rgba(10, 11, 13, 0.70) !important;
+}
+
+/* ── 10. TOOL CHIPS & MARQUEE PILLS ──────────────────────────────────────── */
+.tool-chip,
+.marquee-pill {
+    background: linear-gradient(145deg, rgba(50, 52, 56, 0.60), rgba(30, 32, 35, 0.72)) !important;
+    backdrop-filter: blur(14px) saturate(170%) !important;
+    -webkit-backdrop-filter: blur(14px) saturate(170%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-top-color: rgba(255, 255, 255, 0.18) !important;
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.12),
+        var(--shadow-z1) !important;
+    transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.tool-chip:hover,
+.marquee-pill:hover {
+    background: linear-gradient(145deg, rgba(76, 78, 81, 0.68), rgba(50, 52, 56, 0.60)) !important;
+    border-top-color: rgba(255, 255, 255, 0.32) !important;
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.22),
+        var(--shadow-z2),
+        0 0 16px rgba(138, 141, 145, 0.18) !important;
+    transform: translateY(-1px) !important;
+}
+
+/* ── 11. SECTION BACKGROUND DEPTH TINTING ────────────────────────────────── */
+/* Each section gets a slightly different elevation feel */
+#about,
+#education,
+#skills,
+#projects,
+#achievements,
+#certificates,
+#contact {
+    position: relative;
+}
+
+#about::before,
+#education::before,
+#skills::before,
+#projects::before,
+#achievements::before,
+#certificates::before,
+#contact::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    border-radius: 0;
+    background:
+        radial-gradient(ellipse 60% 40% at 50% 0%, rgba(76, 78, 81, 0.07) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 30% at 50% 100%, rgba(30, 32, 35, 0.12) 0%, transparent 70%);
+}
+
+/* ── 12. PHOTO CARD — specular border upgrade ─────────────────────────────── */
+.photo-rectangular-card,
+html[data-mode="light"] .photo-rectangular-card,
+html[data-mode="crimson"] .photo-rectangular-card,
+html[data-mode="emerald"] .photo-rectangular-card {
+    background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.32) 0%,
+        rgba(138, 141, 145, 0.50) 35%,
+        rgba(76, 78, 81,   0.60) 70%,
+        rgba(255, 255, 255, 0.12) 100%
+    ) !important;
+    border: none !important;
+    padding: 1.5px !important;
+    box-shadow:
+        inset 0 1px 2px rgba(255, 255, 255, 0.35),
+        var(--shadow-z3),
+        0 0 40px rgba(76, 78, 81, 0.30) !important;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease !important;
+}
+
+.photo-rectangular-card:hover,
+html[data-mode="light"] .photo-rectangular-card:hover,
+html[data-mode="crimson"] .photo-rectangular-card:hover,
+html[data-mode="emerald"] .photo-rectangular-card:hover {
+    background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.55) 0%,
+        rgba(200, 202, 206, 0.65) 35%,
+        rgba(100, 102, 106, 0.70) 70%,
+        rgba(255, 255, 255, 0.25) 100%
+    ) !important;
+    transform: translateY(-5px) scale(1.018) !important;
+    box-shadow:
+        inset 0 1px 2px rgba(255, 255, 255, 0.50),
+        var(--shadow-z4),
+        0 0 55px rgba(138, 141, 145, 0.40) !important;
+}
+
+/* ── 13. ABOUT HIGHLIGHT CARDS ───────────────────────────────────────────── */
+.about-highlight-card {
+    background: linear-gradient(145deg, rgba(50, 52, 56, 0.55), rgba(30, 32, 35, 0.70)) !important;
+    backdrop-filter: blur(22px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(22px) saturate(180%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-top-color: rgba(255, 255, 255, 0.22) !important;
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.16),
+        var(--shadow-z2) !important;
+    border-radius: 20px !important;
+    transition: all 0.26s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.about-highlight-card:hover {
+    background: linear-gradient(145deg, rgba(66, 68, 73, 0.65), rgba(39, 41, 45, 0.75)) !important;
+    border-top-color: rgba(255, 255, 255, 0.36) !important;
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.28),
+        var(--shadow-z3),
+        0 0 24px rgba(138, 141, 145, 0.20) !important;
+    transform: translateY(-3px) !important;
+}
+
+.about-highlight-card .card-icon-wrap {
+    background: linear-gradient(145deg, rgba(76, 78, 81, 0.60), rgba(39, 41, 45, 0.70)) !important;
+    border: 1px solid rgba(255, 255, 255, 0.14) !important;
+    border-top-color: rgba(255, 255, 255, 0.28) !important;
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.20),
+        0 4px 12px rgba(0, 0, 0, 0.45) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+}
+
+/* ── 14. INPUT FIELDS (contact form) ─────────────────────────────────────── */
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+textarea,
+select {
+    background: linear-gradient(145deg, rgba(39, 41, 45, 0.65), rgba(24, 25, 28, 0.80)) !important;
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-top-color: rgba(255, 255, 255, 0.04) !important;
+    border-bottom-color: rgba(255, 255, 255, 0.14) !important;
+    box-shadow:
+        inset 0 2px 4px rgba(0, 0, 0, 0.40),
+        inset 0 1px 0 rgba(0, 0, 0, 0.30) !important;
+    color: #E8E8E8 !important;
+    border-radius: 14px !important;
+    transition: border-color 0.22s ease, box-shadow 0.22s ease !important;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="tel"]:focus,
+textarea:focus,
+select:focus {
+    border-color: rgba(138, 141, 145, 0.60) !important;
+    border-top-color: rgba(138, 141, 145, 0.30) !important;
+    box-shadow:
+        inset 0 2px 4px rgba(0, 0, 0, 0.35),
+        0 0 0 3px rgba(76, 78, 81, 0.28),
+        0 0 20px rgba(76, 78, 81, 0.20) !important;
+    outline: none !important;
+}
+
+/* ── 15. MICRO SPATIAL DEPTH — section dividers ──────────────────────────── */
+hr, .divider {
+    border: none !important;
+    height: 1px !important;
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(76, 78, 81, 0.60) 20%,
+        rgba(138, 141, 145, 0.35) 50%,
+        rgba(76, 78, 81, 0.60) 80%,
+        transparent 100%
+    ) !important;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.04) !important;
+}
+
+/* ── 16. FOCUS RING (accessibility) ─────────────────────────────────────── */
+:focus-visible {
+    outline: 2px solid rgba(138, 141, 145, 0.70) !important;
+    outline-offset: 3px !important;
+    box-shadow: 0 0 0 4px rgba(76, 78, 81, 0.25) !important;
+}
+
+/* ── 17. SELECTION HIGHLIGHT ─────────────────────────────────────────────── */
+::selection {
+    background: rgba(76, 78, 81, 0.55);
+    color: #FFFFFF;
+}
+
+/* end Refined Spatial UI v2 */
