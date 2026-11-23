@@ -1156,151 +1156,22 @@ body.portfolio-entered section .reveal {
     width: 100%;
 }
 
+/* Floating corner props completely removed */
 .skill-prop,
-.section-prop {
-    position: absolute;
-    width: 90px;
-    height: 90px;
-    pointer-events: none;
-    z-index: 20;
-    opacity: 0;
-    will-change: transform, opacity;
-    transition: 
-        opacity 0.95s cubic-bezier(0.34, 1.56, 0.64, 1),
-        transform 0.95s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-/* Initial Off-Axis Positions (Hidden with spring-back trajectory) */
-.skill-prop-tl,
-.prop-tl {
-    top: -2.75rem;
-    left: -2.75rem;
-    transform: translate3d(-45px, -45px, 0) scale(0.25) rotate(-25deg);
-    transition-delay: 0.1s;
-}
-
-.skill-prop-tr,
-.prop-tr {
-    top: -2.25rem;
-    right: -2.75rem;
-    transform: translate3d(45px, -45px, 0) scale(0.25) rotate(25deg);
-    transition-delay: 0.2s;
-}
-
-.skill-prop-bl,
-.prop-bl {
-    bottom: -2.75rem;
-    left: -2.75rem;
-    transform: translate3d(-45px, 45px, 0) scale(0.25) rotate(20deg);
-    transition-delay: 0.3s;
-}
-
-.skill-prop-br,
-.prop-br {
-    bottom: -2.25rem;
-    right: -2.75rem;
-    transform: translate3d(45px, 45px, 0) scale(0.25) rotate(-20deg);
-    transition-delay: 0.4s;
-}
-
-/* Active State (Pop-In Bouncy 3D Entrance) */
-.skill-prop.active,
-.section-prop.active {
-    opacity: 1;
-    transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
-}
-
-/* Parallax & 3D Mouse Tilt Wrapper (Decoupled Layer 2) */
+.section-prop,
+.prop-inner,
+.prop-parallax,
 .skill-prop-parallax,
-.prop-parallax {
-    width: 100%;
-    height: 100%;
-    transform-style: preserve-3d;
-    will-change: transform;
-    transition: transform 0.15s ease-out;
-}
-
-/* Inner Levitation Container (Perpetual Zero-Gravity Bobbing Layer 3) */
 .skill-prop-inner,
-.prop-inner {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    will-change: transform;
-    filter: drop-shadow(0 14px 28px rgba(0, 0, 0, 0.8));
-    transition: filter 0.3s ease;
-}
-
-.skill-prop-svg,
-.prop-svg {
-    width: 100%;
-    height: 100%;
-    display: block;
-    overflow: visible;
-}
-
-/* Continuous Levitation & Soft Rotation Animations */
-.float-bob-1 {
-    animation: floatBob1 7.4s ease-in-out infinite alternate;
-}
-.float-bob-2 {
-    animation: floatBob2 9.2s ease-in-out infinite alternate;
-}
-.float-bob-3 {
-    animation: floatBob3 6.8s ease-in-out infinite alternate;
-}
+.float-bob-1,
+.float-bob-2,
+.float-bob-3,
 .float-bob-4 {
-    animation: floatBob4 8.6s ease-in-out infinite alternate;
-}
-
-@keyframes floatBob1 {
-    0% { transform: translate3d(0, 0, 0) rotate(0deg); }
-    50% { transform: translate3d(6px, -15px, 0) rotate(8deg) scale(1.04); }
-    100% { transform: translate3d(-6px, 10px, 0) rotate(-6deg) scale(0.98); }
-}
-
-@keyframes floatBob2 {
-    0% { transform: translate3d(0, 0, 0) rotate(0deg); }
-    50% { transform: translate3d(-8px, 16px, 0) rotate(-10deg) scale(0.96); }
-    100% { transform: translate3d(6px, -12px, 0) rotate(7deg) scale(1.03); }
-}
-
-@keyframes floatBob3 {
-    0% { transform: translate3d(0, 0, 0) rotate(0deg); }
-    50% { transform: translate3d(8px, -14px, 0) rotate(-8deg) scale(1.05); }
-    100% { transform: translate3d(-6px, 12px, 0) rotate(6deg) scale(0.97); }
-}
-
-@keyframes floatBob4 {
-    0% { transform: translate3d(0, 0, 0) rotate(0deg); }
-    50% { transform: translate3d(-6px, 15px, 0) rotate(9deg) scale(1.03); }
-    100% { transform: translate3d(7px, -9px, 0) rotate(-7deg) scale(0.98); }
-}
-
-/* Tablet & Mobile Scale adjustments */
-@media (max-width: 1280px) {
-    .skill-prop-tl, .prop-tl { top: -2rem; left: -1rem; }
-    .skill-prop-tr, .prop-tr { top: -1.5rem; right: -1rem; }
-    .skill-prop-bl, .prop-bl { bottom: -2rem; left: -1rem; }
-    .skill-prop-br, .prop-br { bottom: -1.5rem; right: -1rem; }
-}
-
-@media (max-width: 1024px) {
-    .skill-prop, .section-prop { width: 70px; height: 70px; }
-    .skill-prop-tl, .prop-tl { top: -1.5rem; left: 0.25rem; }
-    .skill-prop-tr, .prop-tr { top: -1rem; right: 0.25rem; }
-    .skill-prop-bl, .prop-bl { bottom: -1.5rem; left: 0.25rem; }
-    .skill-prop-br, .prop-br { bottom: -1rem; right: 0.25rem; }
-}
-
-@media (max-width: 640px) {
-    .skill-prop, .section-prop { width: 50px; height: 50px; opacity: 0.85; }
-    .skill-prop-tl, .prop-tl { top: -1rem; left: 0.25rem; }
-    .skill-prop-tr, .prop-tr { top: -0.5rem; right: 0.25rem; }
-    .skill-prop-bl, .prop-bl { bottom: -1rem; left: 0.25rem; }
-    .skill-prop-br, .prop-br { bottom: -0.5rem; right: 0.25rem; }
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    animation: none !important;
 }
 
 /* ========================================================================== */
@@ -2996,3 +2867,324 @@ hr, .divider {
 }
 
 /* end Refined Spatial UI v2 */
+
+
+/* ==========================================================================
+   3D DEPTH SYSTEM — Subtle Aesthetic Spatial Depth (no gimmicks)
+   Principles: perspective containers · ambient float · press feedback ·
+                3D entrance · layered depth stack · light-physics shadows
+   ========================================================================== */
+
+/* ── 0. PERSPECTIVE ROOT ─────────────────────────────────────────────────── */
+/* Each section gets its own perspective so children can breathe in 3D space */
+#hero,
+#about,
+#education,
+#skills,
+#projects,
+#achievements,
+#certificates,
+#contact,
+footer {
+    perspective: 1200px;
+    perspective-origin: 50% 40%;
+}
+
+/* ── 1. AMBIENT FLOAT — hero photo levitates gently ─────────────────────── */
+@keyframes spatialFloat {
+    0%   { transform: translateY(0px)    translateZ(0px)  rotateX(0deg); }
+    30%  { transform: translateY(-8px)   translateZ(6px)  rotateX(0.6deg); }
+    60%  { transform: translateY(-4px)   translateZ(10px) rotateX(-0.4deg); }
+    100% { transform: translateY(-10px)  translateZ(4px)  rotateX(0.8deg); }
+}
+
+@keyframes spatialFloatSlow {
+    0%   { transform: translateY(0px)   translateZ(0px); }
+    40%  { transform: translateY(-6px)  translateZ(8px); }
+    100% { transform: translateY(-10px) translateZ(5px); }
+}
+
+@keyframes glassFloat {
+    0%   { transform: perspective(1400px) translateY(0px)   rotateX(0deg)    rotateY(0deg); }
+    25%  { transform: perspective(1400px) translateY(-5px)  rotateX(0.5deg)  rotateY(0.3deg); }
+    50%  { transform: perspective(1400px) translateY(-9px)  rotateX(-0.3deg) rotateY(-0.5deg); }
+    75%  { transform: perspective(1400px) translateY(-6px)  rotateX(0.6deg)  rotateY(0.4deg); }
+    100% { transform: perspective(1400px) translateY(-10px) rotateX(-0.5deg) rotateY(0.2deg); }
+}
+
+/* Apply ambient float to photo card */
+.photo-rectangular-card {
+    animation: spatialFloat 7s ease-in-out infinite alternate !important;
+    will-change: transform !important;
+    transform-style: preserve-3d !important;
+}
+
+/* Hero glass box — very gentle drift */
+.hero-glass-box {
+    animation: spatialFloatSlow 9s ease-in-out infinite alternate !important;
+    will-change: transform !important;
+}
+
+/* ── 2. 3D ENTRANCE REVEAL — cards slide in from depth ───────────────────── */
+@keyframes depthReveal {
+    0% {
+        opacity: 0;
+        transform: perspective(1000px) translateZ(-60px) translateY(28px) rotateX(5deg);
+        filter: blur(4px);
+    }
+    60% {
+        opacity: 1;
+        filter: blur(0px);
+    }
+    100% {
+        opacity: 1;
+        transform: perspective(1000px) translateZ(0px) translateY(0px) rotateX(0deg);
+        filter: blur(0px);
+    }
+}
+
+@keyframes depthRevealLeft {
+    0% {
+        opacity: 0;
+        transform: perspective(900px) translateZ(-40px) translateX(-24px) rotateY(6deg);
+        filter: blur(3px);
+    }
+    100% {
+        opacity: 1;
+        transform: perspective(900px) translateZ(0px) translateX(0px) rotateY(0deg);
+        filter: blur(0px);
+    }
+}
+
+@keyframes depthRevealRight {
+    0% {
+        opacity: 0;
+        transform: perspective(900px) translateZ(-40px) translateX(24px) rotateY(-6deg);
+        filter: blur(3px);
+    }
+    100% {
+        opacity: 1;
+        transform: perspective(900px) translateZ(0px) translateX(0px) rotateY(0deg);
+        filter: blur(0px);
+    }
+}
+
+/* Apply depth entrance to glossy cards when they become visible */
+body.portfolio-entered .glossy-card,
+.glossy-card.reveal.active,
+.glossy-card {
+    animation: depthReveal 0.75s cubic-bezier(0.16, 1, 0.3, 1) both !important;
+}
+
+/* Stagger entrance per card index */
+body.portfolio-entered section .glossy-card:nth-child(1) { animation-delay: 0.05s !important; }
+body.portfolio-entered section .glossy-card:nth-child(2) { animation-delay: 0.12s !important; }
+body.portfolio-entered section .glossy-card:nth-child(3) { animation-delay: 0.19s !important; }
+body.portfolio-entered section .glossy-card:nth-child(4) { animation-delay: 0.26s !important; }
+body.portfolio-entered section .glossy-card:nth-child(5) { animation-delay: 0.33s !important; }
+body.portfolio-entered section .glossy-card:nth-child(6) { animation-delay: 0.40s !important; }
+
+/* ── 3. BUTTON 3D PRESS FEEDBACK ─────────────────────────────────────────── */
+.cosmic-btn-primary:active,
+html[data-mode="light"] .cosmic-btn-primary:active,
+html[data-mode="crimson"] .cosmic-btn-primary:active,
+html[data-mode="emerald"] .cosmic-btn-primary:active {
+    transform: perspective(600px) translateY(1px) translateZ(-4px) scale(0.978) !important;
+    box-shadow:
+        inset 0 2px 4px rgba(0, 0, 0, 0.55),
+        inset 0 1px 0 rgba(0, 0, 0, 0.30),
+        0 1px 4px rgba(0, 0, 0, 0.45) !important;
+    filter: brightness(0.92) !important;
+    transition: all 0.08s ease !important;
+}
+
+.filter-btn:active {
+    transform: perspective(600px) translateY(1px) translateZ(-3px) scale(0.972) !important;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.50) !important;
+    transition: all 0.08s ease !important;
+}
+
+.glass-pill:active {
+    transform: perspective(600px) translateY(1px) translateZ(-2px) scale(0.968) !important;
+    box-shadow: inset 0 2px 3px rgba(0, 0, 0, 0.45) !important;
+    transition: all 0.08s ease !important;
+}
+
+/* ── 4. DEPTH-LAYERED SHADOW STACK ─────────────────────────────────────────
+   Creates the illusion of physical elevation above the page surface.
+   Each layer = a physical shadow plane at a different Z-height.           */
+.glossy-card {
+    --el-z: 1;  /* elevation multiplier, overridden per section */
+    filter: drop-shadow(0 calc(var(--el-z) * 2px) calc(var(--el-z) * 6px) rgba(0,0,0,0.30))
+            drop-shadow(0 calc(var(--el-z) * 6px) calc(var(--el-z) * 18px) rgba(0,0,0,0.22)) !important;
+}
+
+.glossy-card:hover {
+    --el-z: 2.4;
+    transform: perspective(1000px) translateY(-5px) translateZ(8px) !important;
+}
+
+/* ── 5. NAVBAR 3D FLOAT ───────────────────────────────────────────────────── */
+#navbar,
+html[data-mode="light"] #navbar,
+html[data-mode="crimson"] #navbar,
+html[data-mode="emerald"] #navbar {
+    transform: perspective(1200px) translateZ(2px) !important;
+    transform-style: flat !important;
+}
+
+/* ── 6. SECTION HEADER 3D TEXT DEPTH ────────────────────────────────────── */
+/* Subtle layered text-shadow creates the illusion the heading floats */
+.scroll-fill-title.scroll-fill-active {
+    text-shadow:
+        0 1px 0   rgba(255,255,255,0.08),
+        0 2px 0   rgba(0,0,0,0.30),
+        0 4px 2px rgba(0,0,0,0.25),
+        0 8px 6px rgba(0,0,0,0.18),
+        0 0 40px  var(--accent-glow) !important;
+    transform: perspective(800px) translateZ(2px);
+}
+
+/* ── 7. GLASS PILL 3D DEPTH MICRO-LIFT ──────────────────────────────────── */
+.glass-pill,
+html[data-mode="light"] .glass-pill,
+html[data-mode="crimson"] .glass-pill,
+html[data-mode="emerald"] .glass-pill {
+    transform-style: preserve-3d;
+}
+
+.glass-pill:hover,
+html[data-mode="light"] .glass-pill:hover,
+html[data-mode="crimson"] .glass-pill:hover,
+html[data-mode="emerald"] .glass-pill:hover {
+    transform: perspective(600px) translateY(-3px) translateZ(6px) !important;
+}
+
+/* ── 8. MARQUEE / TOOL CHIPS — depth skew on hover ─────────────────────── */
+.tool-chip:hover,
+.marquee-pill:hover {
+    transform: perspective(500px) translateY(-2px) translateZ(4px) rotateX(1.5deg) !important;
+}
+
+/* ── 9. FILTER BUTTONS 3D lift ───────────────────────────────────────────── */
+.filter-btn:hover {
+    transform: perspective(600px) translateY(-2px) translateZ(5px) !important;
+}
+
+.filter-btn.active {
+    transform: perspective(600px) translateY(-1px) translateZ(3px) !important;
+}
+
+/* ── 10. ABOUT HIGHLIGHT CARDS ───────────────────────────────────────────── */
+.about-highlight-card {
+    transform-style: preserve-3d;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease !important;
+}
+
+.about-highlight-card:hover {
+    transform: perspective(800px) translateY(-4px) translateZ(10px) !important;
+}
+
+/* ── 11. CERT MODAL 3D DEPTH ─────────────────────────────────────────────── */
+/* Already has certModalPop with rotateX — enhance it slightly */
+@keyframes certModalPop {
+    0% {
+        opacity: 0;
+        transform: perspective(1200px) scale(0.80) translateY(36px) translateZ(-60px) rotateX(8deg);
+        filter: blur(12px);
+    }
+    65% {
+        opacity: 1;
+        filter: blur(0px);
+        transform: perspective(1200px) scale(1.028) translateY(-6px) translateZ(8px) rotateX(-1.5deg);
+    }
+    80% {
+        transform: perspective(1200px) scale(1.010) translateY(-2px) translateZ(4px) rotateX(-0.5deg);
+    }
+    100% {
+        opacity: 1;
+        transform: perspective(1200px) scale(1) translateY(0) translateZ(0) rotateX(0deg);
+        filter: blur(0px);
+    }
+}
+
+/* ── 12. 3D SCROLL-REVEAL BASE STATE ─────────────────────────────────────── */
+/* Cards not yet visible sit slightly receded in Z space */
+.reveal:not(.active):not(body.portfolio-entered .reveal) {
+    opacity: 0 !important;
+    transform: perspective(1000px) translateY(20px) translateZ(-30px) rotateX(3deg) !important;
+    filter: blur(2px) !important;
+}
+
+/* ── 13. TILT ELIGIBLE CARDS — ensure GPU layers ─────────────────────────── */
+.glossy-card,
+.about-highlight-card,
+.photo-rectangular-card,
+.hero-glass-box {
+    will-change: transform !important;
+    backface-visibility: hidden !important;
+    -webkit-backface-visibility: hidden !important;
+}
+
+/* ── 14. FOOTER 3D RECESSED ───────────────────────────────────────────────── */
+footer {
+    transform: perspective(1600px) translateZ(-2px) !important;
+    transform-style: flat !important;
+}
+
+/* ── 15. MOBILE: disable heavy 3D for perf ──────────────────────────────── */
+@media (max-width: 768px) {
+    .photo-rectangular-card {
+        animation: spatialFloat 9s ease-in-out infinite alternate !important;
+    }
+    .glossy-card {
+        filter: none !important;
+        animation: none !important;
+        transform: none !important;
+    }
+    .glossy-card:hover {
+        transform: translateY(-3px) !important;
+    }
+    #hero, #about, #education, #skills, #projects,
+    #achievements, #certificates, #contact, footer {
+        perspective: none !important;
+    }
+}
+
+/* end 3D Depth System */
+
+/* ── LAYERED 3D DEPTH ON CARD INTERNALS (VisionOS Spatial Design) ────────── */
+.glossy-card {
+    transform-style: preserve-3d !important;
+}
+.glossy-card .card-icon-wrap,
+.about-highlight-card .card-icon-wrap {
+    transform: translateZ(14px) !important;
+    transform-style: preserve-3d !important;
+    transition: transform 0.3s ease !important;
+}
+.glossy-card:hover .card-icon-wrap,
+.about-highlight-card:hover .card-icon-wrap {
+    transform: translateZ(20px) scale(1.04) !important;
+}
+.glossy-card h3,
+.glossy-card h4,
+.about-highlight-card h3 {
+    transform: translateZ(8px) !important;
+    transform-style: preserve-3d !important;
+}
+.glossy-card .tool-chip,
+.glossy-card .badge-3d,
+.glossy-card span.font-mono {
+    transform: translateZ(6px) !important;
+}
+
+/* Floating Photo Card — Gentle Subtle Breathing Levitation */
+.photo-rectangular-card {
+    transform-style: preserve-3d !important;
+}
+.photo-rectangular-card img {
+    transform: translateZ(6px) !important;
+}
+
+/* end Layered 3D Depth */

@@ -239,126 +239,66 @@ function startApp() {
     let updateAllSectionProps = () => {};
 
     // =========================================================================
-    // 3. 3D FLOATING CORNER PROPS ENGINE (FOR ALL SLIDES EXCEPT FIRST TWO)
+    // 3. FLOATING PROPS ENGINE DISABLED (Clean Minimalist Spatial UI)
     // =========================================================================
-    const propSectionIds = ['education', 'skills', 'projects', 'achievements', 'certificates', 'contact'];
-    const sectionPropsMap = [];
-
-    propSectionIds.forEach(id => {
-        const sectionEl = document.getElementById(id);
-        if (!sectionEl) return;
-        const props = sectionEl.querySelectorAll('.skill-prop, .section-prop');
-        if (props.length === 0) return;
-
-        const state = {
-            section: sectionEl,
-            props: props,
-            targetNormX: 0,
-            targetNormY: 0,
-            normX: 0,
-            normY: 0
-        };
-
-        // Pop-In Trigger via IntersectionObserver with bouncy entrance
-        if ('IntersectionObserver' in window) {
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        props.forEach(prop => prop.classList.add('active'));
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, { threshold: 0.08 });
-            observer.observe(sectionEl);
-        } else {
-            props.forEach(prop => prop.classList.add('active'));
-        }
-
-        // Mouse-Move listener over Section for 3D tilt
-        if (!isTouchDevice) {
-            sectionEl.addEventListener('mousemove', (e) => {
-                const rect = sectionEl.getBoundingClientRect();
-                const centerX = rect.left + rect.width / 2;
-                const centerY = rect.top + rect.height / 2;
-                state.targetNormX = (e.clientX - centerX) / (rect.width / 2);
-                state.targetNormY = (e.clientY - centerY) / (rect.height / 2);
-            }, { passive: true });
-
-            sectionEl.addEventListener('mouseleave', () => {
-                state.targetNormX = 0;
-                state.targetNormY = 0;
-            });
-        }
-
-        sectionPropsMap.push(state);
-    });
-
-    updateAllSectionProps = function() {
-        if (sectionPropsMap.length === 0) return;
-
-        sectionPropsMap.forEach(item => {
-            const rect = item.section.getBoundingClientRect();
-            const inView = rect.top < window.innerHeight + 120 && rect.bottom > -120;
-            if (!inView) return;
-
-            // Smooth lerp mouse coordinates
-            item.normX += (item.targetNormX - item.normX) * 0.08;
-            item.normY += (item.targetNormY - item.normY) * 0.08;
-
-            // Compute vertical scroll parallax factor relative to viewport center
-            const centerOffset = (rect.top + rect.height / 2 - window.innerHeight / 2) / (window.innerHeight / 2);
-
-            item.props.forEach(prop => {
-                if (!prop.classList.contains('active')) return;
-                const parallaxLayer = prop.querySelector('.skill-prop-parallax, .prop-parallax');
-                if (!parallaxLayer) return;
-
-                const speed = parseFloat(parallaxLayer.getAttribute('data-speed') || '0.25');
-                const depth = parseFloat(parallaxLayer.getAttribute('data-depth') || '1.0');
-
-                // Parallax shifts vertically opposite to scroll
-                const scrollYOffset = centerOffset * -42 * speed;
-
-                // Pointer shifts and 3D tilts opposite to cursor
-                const mouseXOffset = item.normX * -24 * depth;
-                const mouseYOffset = item.normY * -18 * depth;
-                const rotX = item.normY * 12 * depth;
-                const rotY = item.normX * -12 * depth;
-
-                parallaxLayer.style.transform = `translate3d(${mouseXOffset.toFixed(1)}px, ${(scrollYOffset + mouseYOffset).toFixed(1)}px, 0) perspective(700px) rotateX(${rotX.toFixed(1)}deg) rotateY(${rotY.toFixed(1)}deg)`;
-            });
-        });
-    };
-
-    // Dedicated animation loop for 3D props (guarantees continuous levitation regardless of WebGL state)
-    function propsAnimateLoop() {
-        updateAllSectionProps();
-        requestAnimationFrame(propsAnimateLoop);
-    }
-    requestAnimationFrame(propsAnimateLoop);
-
+    updateAllSectionProps = function() {};
 
     // =========================================================================
-    // 4. MULTI-STYLE 3D TILT ENGINE (5 DISTINCT PHYSICAL PERSONALITIES)
-    // Style 1: 'deep-float'      -> Deep springy tilt (±9.5°) with translateZ lift
-    // Style 2: 'holographic-glare' -> Diagonal tilt (±6.5°) with rotateZ roll & glare
-    // Style 3: 'subtle-precision'  -> Silky gentle horizon tilt (±3.6°)
-    // Style 4: 'magnetic-lift'     -> 3D cursor tracking pull + elevation (±5.0°)
-    // Style 5: 'inverted-depth'    -> Tactile push-in contour sensation (-6px Z)
+    // 4. SUBTLE AESTHETIC 3D TILT & SPECULAR GLARE ENGINE
+    // - Smooth perspective (1000px)
+    // - Tactile subtle tilt (±3.8° max) with 60/120fps spring lerp interpolation
+    // - Layered spatial elevation (translateZ 10px, translateY -3px)
+    // - Dynamic specular reflection tracking cursor (--mouse-x, --mouse-y)
+    // - Damped natural return on mouseleave
     // =========================================================================
     if (!isTouchDevice) {
-        const tiltStyles = ['deep-float', 'holographic-glare', 'subtle-precision', 'magnetic-lift', 'inverted-depth'];
-
         const tiltCards = document.querySelectorAll(
-            '.photo-rectangular-card, .hero-glass-box, .sticky-project-card, .project-card, section#about .glossy-card, section#education .glossy-card, section#skills .glossy-card'
+            [
+                '.glossy-card',
+                '.photo-rectangular-card',
+                '.hero-glass-box',
+                '.about-highlight-card',
+                '.sticky-project-card',
+                '.project-card',
+                '.cert-thumbnail-card',
+                '.achievement-card',
+                '.edu-card'
+            ].join(', ')
         );
 
-        tiltCards.forEach((card, index) => {
-            const assignedStyle = card.getAttribute('data-tilt-style') || tiltStyles[index % tiltStyles.length];
-            card.setAttribute('data-tilt-style', assignedStyle);
+        tiltCards.forEach((card) => {
+            let rafId = null;
+            let currentTiltX = 0;
+            let currentTiltY = 0;
+            let targetTiltX = 0;
+            let targetTiltY = 0;
+            let isHovered = false;
+
+            function updateTilt() {
+                if (!isHovered) return;
+                // Silky smooth lerp towards target tilt
+                currentTiltX += (targetTiltX - currentTiltX) * 0.18;
+                currentTiltY += (targetTiltY - currentTiltY) * 0.18;
+
+                card.style.setProperty(
+                    'transform',
+                    `perspective(1000px) rotateX(${currentTiltX.toFixed(2)}deg) rotateY(${currentTiltY.toFixed(2)}deg) translateZ(10px) translateY(-3px) scale3d(1.012, 1.012, 1.012)`,
+                    'important'
+                );
+
+                if (Math.abs(targetTiltX - currentTiltX) > 0.02 || Math.abs(targetTiltY - currentTiltY) > 0.02) {
+                    rafId = requestAnimationFrame(updateTilt);
+                } else {
+                    rafId = null;
+                }
+            }
+
+            card.addEventListener('mouseenter', () => {
+                isHovered = true;
+                card.style.transition = 'box-shadow 0.3s ease, border-color 0.3s ease';
+            });
 
             card.addEventListener('mousemove', (e) => {
-                card.style.transition = 'transform 0.08s ease-out, box-shadow 0.25s ease';
                 const rect = card.getBoundingClientRect();
                 const x = e.clientX - rect.left;
                 const y = e.clientY - rect.top;
@@ -366,54 +306,47 @@ function startApp() {
                 const percentX = Math.round((x / rect.width) * 100);
                 const percentY = Math.round((y / rect.height) * 100);
 
-                // Set CSS variables for cursor tracking glare
+                // Update specular glare coordinates
                 card.style.setProperty('--mouse-x', `${percentX}%`);
                 card.style.setProperty('--mouse-y', `${percentY}%`);
 
                 const centerX = rect.width / 2;
                 const centerY = rect.height / 2;
-                const normX = (x - centerX) / (centerX || 1);
-                const normY = (y - centerY) / (centerY || 1);
+                const normX = (x - centerX) / (centerX || 1); // -1 to +1
+                const normY = (y - centerY) / (centerY || 1); // -1 to +1
 
-                // Apply unique mathematical 3D transformations per assigned physical style
-                if (assignedStyle === 'deep-float') {
-                    const tiltX = normY * -9.5;
-                    const tiltY = normX * 9.5;
-                    card.style.transform = `perspective(750px) rotateX(${tiltX.toFixed(2)}deg) rotateY(${tiltY.toFixed(2)}deg) translateZ(16px) scale3d(1.025, 1.025, 1.025)`;
-                } else if (assignedStyle === 'holographic-glare') {
-                    const tiltX = normY * -6.5;
-                    const tiltY = normX * 6.5;
-                    const rotZ = normX * 1.8;
-                    card.style.transform = `perspective(1000px) rotateX(${tiltX.toFixed(2)}deg) rotateY(${tiltY.toFixed(2)}deg) rotateZ(${rotZ.toFixed(2)}deg) scale3d(1.02, 1.02, 1.02)`;
-                } else if (assignedStyle === 'subtle-precision') {
-                    const tiltX = normY * -3.6;
-                    const tiltY = normX * 3.6;
-                    card.style.transform = `perspective(1400px) rotateX(${tiltX.toFixed(2)}deg) rotateY(${tiltY.toFixed(2)}deg) scale3d(1.012, 1.012, 1.012)`;
-                } else if (assignedStyle === 'magnetic-lift') {
-                    const tiltX = normY * -5.0;
-                    const tiltY = normX * 5.0;
-                    const shiftX = (x - centerX) * 0.06;
-                    const shiftY = (y - centerY) * 0.06;
-                    card.style.transform = `translate3d(${shiftX.toFixed(1)}px, ${shiftY.toFixed(1)}px, 12px) perspective(900px) rotateX(${tiltX.toFixed(2)}deg) rotateY(${tiltY.toFixed(2)}deg) scale3d(1.018, 1.018, 1.018)`;
-                } else if (assignedStyle === 'inverted-depth') {
-                    const tiltX = normY * 4.5;
-                    const tiltY = normX * -4.5;
-                    card.style.transform = `perspective(850px) rotateX(${tiltX.toFixed(2)}deg) rotateY(${tiltY.toFixed(2)}deg) translateZ(-6px) scale3d(0.992, 0.992, 0.992)`;
+                // Subtle, aesthetic tilt angle: max 3.8 degrees
+                targetTiltX = normY * -3.8;
+                targetTiltY = normX * 3.8;
+
+                if (!rafId) {
+                    rafId = requestAnimationFrame(updateTilt);
                 }
-            });
+            }, { passive: true });
 
             card.addEventListener('mouseleave', () => {
-                card.style.transition = 'transform 0.55s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease';
-                card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) translate3d(0, 0, 0) scale3d(1, 1, 1)';
-                card.style.setProperty('--mouse-x', `50%`);
-                card.style.setProperty('--mouse-y', `50%`);
+                isHovered = false;
+                if (rafId) {
+                    cancelAnimationFrame(rafId);
+                    rafId = null;
+                }
+                currentTiltX = 0;
+                currentTiltY = 0;
+                targetTiltX = 0;
+                targetTiltY = 0;
+
+                card.style.transition = 'transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease, border-color 0.35s ease';
+                card.style.setProperty(
+                    'transform',
+                    'perspective(1000px) rotateX(0deg) rotateY(0deg) translate3d(0, 0, 0) scale3d(1, 1, 1)',
+                    'important'
+                );
+                card.style.setProperty('--mouse-x', '50%');
+                card.style.setProperty('--mouse-y', '50%');
             });
         });
     }
 
-
-    // =========================================================================
-    
     // =========================================================================
     // 4b. INTERACTIVE POINTER HOVER ELEVATION & GLOW FOR TEXT BLOCKS
     // =========================================================================
@@ -429,8 +362,7 @@ function startApp() {
         });
     });
 
-
-    // 5. MAGNETIC PRIMARY CTA BUTTON
+        // 5. MAGNETIC PRIMARY CTA BUTTON
     // =========================================================================
     if (!isTouchDevice) {
         const magneticBtns = document.querySelectorAll('.magnetic-btn');
