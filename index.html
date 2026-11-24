@@ -87,7 +87,7 @@
         }
     </script>
     <script src="https://unpkg.com/lucide@latest"></script>
-    <link rel="stylesheet" href="styles.css?v=154">
+    <link rel="stylesheet" href="styles.css?v=155">
     <!-- Inline Immediate Mode Controller (Available from frame 1 before external JS) -->
     <script>
         (function() {
@@ -714,15 +714,26 @@
         <section id="skills" class="py-28 relative border-t border-[#2E2A40]">
             <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 skills-stage-wrap">
                 
-                <!-- ======================================================== -->
-                
-
                 <!-- Standardized Center Header with Scroll-Fill Animation -->
-                <div class="text-center mb-16 reveal">
+                <div class="text-center mb-14 reveal">
                     <span class="text-[11px] font-mono text-[#00F2FE] tracking-widest uppercase font-semibold">Technical Arsenal</span>
                     <h2 class="text-3xl sm:text-5xl font-black mt-2 tracking-tight scroll-fill-title">SKILLS &amp; TECHNOLOGIES</h2>
-                    <p class="text-slate-400 text-xs sm:text-sm mt-2 max-w-lg mx-auto">Categorized by domain proficiency — verified through projects and algorithmic problem solving.</p>
-                    <div class="w-16 h-1 bg-gradient-to-r from-[#00F2FE] via-[#6B00FF] to-[#00FF87] mx-auto mt-4 rounded-full"></div>
+                    <p class="text-slate-400 text-xs sm:text-sm mt-2 max-w-lg mx-auto">Three credible proficiency tiers verified through projects, problem solving, and university coursework.</p>
+                    
+                    <!-- 3-Tier Credibility Legend -->
+                    <div class="flex flex-wrap items-center justify-center gap-2 sm:gap-4 mt-4 text-[10px] sm:text-[11px] font-mono">
+                        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-emerald-300">
+                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Working Knowledge / Intermediate
+                        </span>
+                        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/25 text-cyan-300">
+                            <span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span> Developing / In Progress
+                        </span>
+                        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/25 text-amber-300">
+                            <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span> Learning / Foundational
+                        </span>
+                    </div>
+
+                    <div class="w-16 h-1 bg-gradient-to-r from-[#00F2FE] via-[#6B00FF] to-[#00FF87] mx-auto mt-5 rounded-full"></div>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -736,7 +747,7 @@
                                 </div>
                                 <div>
                                     <h3 class="font-bold text-white text-base">Core Languages</h3>
-                                    <span class="text-[10px] text-slate-300 font-mono uppercase tracking-wider">Foundation</span>
+                                    <span class="text-[10px] text-slate-300 font-mono uppercase tracking-wider">Foundation &amp; Logic</span>
                                 </div>
                             </div>
 
@@ -750,7 +761,9 @@
                                             <span class="text-[11px] text-slate-400">Data analysis, logic, scripts</span>
                                         </div>
                                     </div>
-                                    <span class="micro-skill-tag text-[10px] font-mono px-2 py-0.5 rounded bg-[rgba(var(--accent-rgb),0.12)] border border-[rgba(var(--accent-rgb),0.25)] text-slate-300">Core</span>
+                                    <span class="text-[10px] font-mono px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-emerald-300 inline-flex items-center gap-1.5 shrink-0">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Basic–Intermediate
+                                    </span>
                                 </div>
 
                                 <!-- Java -->
@@ -762,7 +775,9 @@
                                             <span class="text-[11px] text-slate-400">Classes, Collections, Scanner</span>
                                         </div>
                                     </div>
-                                    <span class="micro-skill-tag text-[10px] font-mono px-2 py-0.5 rounded bg-[rgba(var(--accent-rgb),0.12)] border border-[rgba(var(--accent-rgb),0.25)] text-slate-300">Core</span>
+                                    <span class="text-[10px] font-mono px-2.5 py-1 rounded-full bg-amber-500/10 border border-amber-500/25 text-amber-300 inline-flex items-center gap-1.5 shrink-0">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span> Learning / Developing
+                                    </span>
                                 </div>
 
                                 <!-- DSA -->
@@ -770,11 +785,13 @@
                                     <div class="flex items-center gap-2.5">
                                         <i data-lucide="binary" class="w-5 h-5 text-slate-300"></i>
                                         <div>
-                                            <span class="text-sm font-semibold text-white block">Data Structures</span>
+                                            <span class="text-sm font-semibold text-white block">Data Structures (DSA)</span>
                                             <span class="text-[11px] text-slate-400">Arrays, Strings, Two Pointers</span>
                                         </div>
                                     </div>
-                                    <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-950/70 border border-amber-800/40 text-slate-200">Applied</span>
+                                    <span class="text-[10px] font-mono px-2.5 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/25 text-cyan-300 inline-flex items-center gap-1.5 shrink-0">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span> Developing
+                                    </span>
                                 </div>
                             </div>
                         </div>
@@ -796,23 +813,11 @@
                                 </div>
                                 <div>
                                     <h3 class="font-bold text-white text-base">Data Science Stack</h3>
-                                    <span class="text-[10px] text-slate-300 font-mono uppercase tracking-wider">Analytics</span>
+                                    <span class="text-[10px] text-slate-300 font-mono uppercase tracking-wider">Analytics &amp; Wrangling</span>
                                 </div>
                             </div>
 
                             <div class="space-y-3">
-                                <!-- Pandas -->
-                                <div class="skill-row-item p-3.5 rounded-xl bg-black/40 border border-[#2E2A40] flex items-center justify-between">
-                                    <div class="flex items-center gap-2.5">
-                                        <i data-lucide="table" class="w-5 h-5 text-accent-dynamic"></i>
-                                        <div>
-                                            <span class="text-sm font-semibold text-white block">Pandas</span>
-                                            <span class="text-[11px] text-slate-400">DataFrames, GroupBy, Imputation</span>
-                                        </div>
-                                    </div>
-                                    <span class="micro-skill-tag text-[10px] font-mono px-2 py-0.5 rounded bg-[rgba(var(--accent-rgb),0.12)] border border-[rgba(var(--accent-rgb),0.25)] text-slate-300">Proficient</span>
-                                </div>
-
                                 <!-- NumPy -->
                                 <div class="skill-row-item p-3.5 rounded-xl bg-black/40 border border-[#2E2A40] flex items-center justify-between">
                                     <div class="flex items-center gap-2.5">
@@ -822,7 +827,23 @@
                                             <span class="text-[11px] text-slate-400">N-d arrays, vectorization</span>
                                         </div>
                                     </div>
-                                    <span class="micro-skill-tag text-[10px] font-mono px-2 py-0.5 rounded bg-[rgba(var(--accent-rgb),0.12)] border border-[rgba(var(--accent-rgb),0.25)] text-slate-300">Proficient</span>
+                                    <span class="text-[10px] font-mono px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-emerald-300 inline-flex items-center gap-1.5 shrink-0">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Intermediate fundamentals
+                                    </span>
+                                </div>
+
+                                <!-- Pandas -->
+                                <div class="skill-row-item p-3.5 rounded-xl bg-black/40 border border-[#2E2A40] flex items-center justify-between">
+                                    <div class="flex items-center gap-2.5">
+                                        <i data-lucide="table" class="w-5 h-5 text-accent-dynamic"></i>
+                                        <div>
+                                            <span class="text-sm font-semibold text-white block">Pandas</span>
+                                            <span class="text-[11px] text-slate-400">DataFrames, GroupBy, Imputation</span>
+                                        </div>
+                                    </div>
+                                    <span class="text-[10px] font-mono px-2.5 py-1 rounded-full bg-amber-500/10 border border-amber-500/25 text-amber-300 inline-flex items-center gap-1.5 shrink-0">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span> Beginner–Developing
+                                    </span>
                                 </div>
 
                                 <!-- Matplotlib -->
@@ -834,7 +855,9 @@
                                             <span class="text-[11px] text-slate-400">Plots, histograms, subplots</span>
                                         </div>
                                     </div>
-                                    <span class="micro-skill-tag text-[10px] font-mono px-2 py-0.5 rounded bg-[rgba(var(--accent-rgb),0.12)] border border-[rgba(var(--accent-rgb),0.25)] text-slate-300">Proficient</span>
+                                    <span class="text-[10px] font-mono px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-emerald-300 inline-flex items-center gap-1.5 shrink-0">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Working Knowledge
+                                    </span>
                                 </div>
                             </div>
                         </div>
@@ -856,7 +879,7 @@
                                 </div>
                                 <div>
                                     <h3 class="font-bold text-white text-base">Developer Tools</h3>
-                                    <span class="text-[10px] text-slate-200 font-mono uppercase tracking-wider">Workflow</span>
+                                    <span class="text-[10px] text-slate-200 font-mono uppercase tracking-wider">Workflow &amp; Environments</span>
                                 </div>
                             </div>
 
@@ -870,7 +893,9 @@
                                             <span class="text-[11px] text-slate-400">Version control, remotes</span>
                                         </div>
                                     </div>
-                                    <span class="micro-skill-tag text-[10px] font-mono px-2 py-0.5 rounded bg-[rgba(var(--accent-rgb),0.12)] border border-[rgba(var(--accent-rgb),0.25)] text-slate-300">Workflow</span>
+                                    <span class="text-[10px] font-mono px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-emerald-300 inline-flex items-center gap-1.5 shrink-0">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Working Knowledge
+                                    </span>
                                 </div>
 
                                 <!-- VS Code & IntelliJ -->
@@ -882,7 +907,9 @@
                                             <span class="text-[11px] text-slate-400">Debugging, linting, builds</span>
                                         </div>
                                     </div>
-                                    <span class="micro-skill-tag text-[10px] font-mono px-2 py-0.5 rounded bg-[rgba(var(--accent-rgb),0.12)] border border-[rgba(var(--accent-rgb),0.25)] text-slate-300">IDE</span>
+                                    <span class="text-[10px] font-mono px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-emerald-300 inline-flex items-center gap-1.5 shrink-0">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Working Knowledge
+                                    </span>
                                 </div>
 
                                 <!-- Jupyter -->
@@ -894,7 +921,9 @@
                                             <span class="text-[11px] text-slate-400">Interactive EDA &amp; testing</span>
                                         </div>
                                     </div>
-                                    <span class="micro-skill-tag text-[10px] font-mono px-2 py-0.5 rounded bg-[rgba(var(--accent-rgb),0.12)] border border-[rgba(var(--accent-rgb),0.25)] text-slate-300">Analytics</span>
+                                    <span class="text-[10px] font-mono px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-emerald-300 inline-flex items-center gap-1.5 shrink-0">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Working Knowledge
+                                    </span>
                                 </div>
                             </div>
                         </div>
@@ -2358,7 +2387,7 @@
     </div>
 
     <!-- Scripts with Cache-Buster v=120 -->
-    <script src="main.js?v=154"></script>
+    <script src="main.js?v=155"></script>
     <script>if (window.lucide && typeof window.lucide.createIcons === 'function') { lucide.createIcons(); }</script>
 
 </body>
