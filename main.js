@@ -585,40 +585,72 @@ function startApp() {
 
 
     // =========================================================================
-    // 11. NAVBAR SCROLL SPY & BLUR ENHANCEMENT
+    // 11. NAVBAR SCROLL SPY & SMOOTH SCROLL SYSTEM
     // =========================================================================
-    // navbar is already declared at line 23
     const sections = document.querySelectorAll('section[id]');
-    const navLinks = document.querySelectorAll('.nav-link');
+    const navLinks = document.querySelectorAll('#navbar .nav-link');
+    let isScrollTicking = false;
 
-    window.addEventListener('scroll', () => {
+    function updateNavScrollSpy() {
         if (!navbar) return;
-        if (window.scrollY > 40) {
-            navbar.style.borderBottomColor = 'rgba(99, 120, 138, 0.2)';
-            navbar.style.backgroundColor = 'rgba(5, 6, 9, 0.88)';
-            navbar.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.8), 0 0 20px rgba(48, 32, 63, 0.2)';
-        } else {
-            navbar.style.borderBottomColor = 'rgba(255, 255, 255, 0.08)';
-            navbar.style.backgroundColor = 'rgba(5, 6, 9, 0.6)';
-            navbar.style.boxShadow = 'none';
+        const scrollY = window.scrollY;
+
+        // Subtle shadow tightening when scrolled
+        const capsule = document.getElementById('navbarCapsule');
+        if (capsule) {
+            if (scrollY > 50) {
+                capsule.style.borderColor = 'rgba(255, 255, 255, 0.18)';
+                capsule.style.backgroundColor = 'rgba(22, 23, 25, 0.92)';
+            } else {
+                capsule.style.borderColor = 'rgba(255, 255, 255, 0.12)';
+                capsule.style.backgroundColor = 'rgba(22, 23, 25, 0.80)';
+            }
         }
 
-        let currentId = '';
+        // Section active detection
+        let currentSection = '';
         sections.forEach(sec => {
-            const top = sec.offsetTop - 140;
-            if (window.scrollY >= top && window.scrollY < top + sec.offsetHeight) {
-                currentId = sec.getAttribute('id');
+            const top = sec.offsetTop - 180;
+            const height = sec.offsetHeight;
+            if (scrollY >= top && scrollY < top + height) {
+                currentSection = sec.getAttribute('id');
             }
         });
 
+        // Map section ids to nav items (e.g. projects -> work)
+        const sectionToNav = {
+            'projects': '#projects',
+            'about': '#about',
+            'education': '#about',
+            'skills': '#skills',
+            'achievements': '#projects',
+            'certificates': '#projects',
+            'contact': '#contact'
+        };
+
+        const targetHref = sectionToNav[currentSection] || (currentSection ? `#${currentSection}` : '');
+
         navLinks.forEach(link => {
-            if (link.getAttribute('href') === `#${currentId}`) {
+            if (targetHref && link.getAttribute('href') === targetHref) {
                 link.classList.add('active-nav');
             } else {
                 link.classList.remove('active-nav');
             }
         });
+    }
+
+    window.addEventListener('scroll', () => {
+        if (!isScrollTicking) {
+            window.requestAnimationFrame(() => {
+                updateNavScrollSpy();
+                isScrollTicking = false;
+            });
+            isScrollTicking = true;
+        }
     }, { passive: true });
+
+    // Initial check on load
+    updateNavScrollSpy();
 
     // =========================================================================
     // 12. SILENT VISITOR NOTIFICATION ENGINE (ZERO UI / LAYOUT IMPACT)
